@@ -19,13 +19,13 @@
       {
         "id": "AC-fix-differential-on-the-5",
         "group": "fix/exact-change",
-        "text": "THE FIX, PER-UUID (5 units, all in room 3231db71): DELETE 3f80f8c8 (junk about:blank#blocked, zero-dangling + pre-image); RESTORE the 4 into room 3231db71 fileUnits (invisible->visible): 96f54cc2 (clean email), + 3 BORDERLINE default-restore-flagged-for-Tron (adf1a8c0/dc48165b bare watch?v=, cf45d317 message-id). Differential asserts EXACTLY these 5 change (1 removed + 4 appear in room 3231db71), the 25 render byte-identical, NO 6th unit touched. 0-delta on a real restore OR any change to the 25 OR a 6th => RED.",
+        "text": "THE FIX, PER-UUID (5 units, room 3231db71): DELETE 3f80f8c8 (junk about:blank, zero-dangling + pre-image); RESTORE ALL 4 into room 3231db71 fileUnits (invisible->visible): 96f54cc2 + adf1a8c0 + cf45d317 + dc48165b (PO ruled restore-all-4 — his saved content, he disposes via REMOVE/DELETE). Differential asserts EXACTLY these 5 change (1 removed + 4 appear), the 25 render byte-identical, NO 6th unit touched. 0-delta on a restore OR restored junk OR a changed-25 OR a 6th => RED.",
         "gateRef": {
           "kind": "test",
           "ref": "test per-uuid differential (the 5)",
           "assertion": "exactly: 3f80f8c8 removed (0-dangling) + 4 restore appear in room 3231db71 fileUnits; the 25 byte-identical; a 0-delta on a restore, a restored junk, a changed-25, or a 6th unit => RED"
         },
-        "stubMustFail": "seed: the junk restored / a real restore left invisible / one of the 25 changed / a 6th unit touched -> RED"
+        "stubMustFail": "seed: the junk restored / any of the 4 left invisible / one of the 25 changed / a 6th unit touched -> RED"
       },
       {
         "id": "AC-junk-is-delete-not-restore",
@@ -79,26 +79,27 @@
         {
           "uuid": "96f54cc2-5897-475d-912e-5ff01078e44a",
           "name": "jonah.jala@indigitous.org Indigitous Hack26",
-          "shape": "CLEAN WebItem (email) — restore"
+          "shape": "CLEAN WebItem (email) — RESTORE (PO ruling: restore all 4)"
         },
         {
           "uuid": "adf1a8c0-87c7-4264-be4f-1fbf99de5ba2",
           "name": "watch?v=D6XhtIfNiyo",
-          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — default restore, Tron keep-vs-drop"
+          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — RESTORE (PO ruling: restore all 4)"
         },
         {
           "uuid": "cf45d317-93db-434c-8a97-12b8b2865c8e",
           "name": "message:%3C...@geopod-ismtpd-49",
-          "shape": "BORDERLINE (email message-id scheme, possibly malformed) — default restore, Tron keep-vs-drop"
+          "shape": "BORDERLINE (email message-id scheme, possibly malformed) — RESTORE (PO ruling: restore all 4)"
         },
         {
           "uuid": "dc48165b-d944-42f2-917f-c78b79056699",
           "name": "watch?v=On8AxkeHYNE",
-          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — default restore, Tron keep-vs-drop"
+          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — RESTORE (PO ruling: restore all 4)"
         }
       ],
-      "malformedFlaggedForTron": "3 of the 4 restore (adf1a8c0, cf45d317, dc48165b) are possibly-malformed partial refs (2 bare watch?v= + 1 email message-id). DEFAULT = restore (real saved content; invisible IS the bug). Keep-vs-drop is the OWNER call = routed to Tron VIA THE PO (his data; not asking him to validate/test - a keep-vs-drop decision on saved content). Only 96f54cc2 (email) is a clean WebItem."
-    }
+      "poRuling": "RESTORE ALL 4 (PO 2026-09-06). Reasoning: (1) his SAVED content — invisible is the bug; discarding 3 on his behalf = us discarding HIS data (a bigger act than a malformed row). (2) restoring gives him AGENCY — he disposes what he does not want himself via the REMOVE/DELETE he just ordered; beats a 3am judgement call on content I cannot evaluate. (3) data-hygiene on items he saved = req lane, NOT a model/shape question for Tron; waking him for 3 rows = the invented-gate failure. Junk 3f80f8c8 still DELETED; differential stays exactly-5 (1 delete + 4 restore)."
+    },
+    "malformationLead": "★ ROUTED TO ARCHITECT (PO): the 3 malformed shapes (adf1a8c0/dc48165b bare watch?v= YouTube fragments + cf45d317 email message-id scheme) look like OUR PARSER produced them from his drops, not deliberate saves. MEASURE: does dropping a YouTube URL TODAY still produce a bare fragment instead of a proper WebItem? YES = a LIVE parsing defect on a very common action = OUTRANKS these 3 rows (its own bug). NO = legacy artifacts of an already-fixed bug -> restore + note, he can delete at will. The lead may be worth more than the 3 rows."
   },
   "ownerIor": null
 }
