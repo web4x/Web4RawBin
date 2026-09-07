@@ -19,13 +19,13 @@
       {
         "id": "AC-fix-differential-on-the-5",
         "group": "fix/exact-change",
-        "text": "THE FIX, PER-UUID (5 units, room 3231db71): DELETE 3f80f8c8 (junk about:blank, zero-dangling + pre-image); RESTORE ALL 4 into room 3231db71 fileUnits (invisible->visible): 96f54cc2 + adf1a8c0 + cf45d317 + dc48165b (PO ruled restore-all-4 — his saved content, he disposes via REMOVE/DELETE). Differential asserts EXACTLY these 5 change (1 removed + 4 appear), the 25 render byte-identical, NO 6th unit touched. 0-delta on a restore OR restored junk OR a changed-25 OR a 6th => RED. ★ RE-DERIVE: the 4 restored WebItems have valid urls but BAD names (watch?v=X etc.) from the live naming bug (206a28bc) — the fix RE-DERIVES their names via the class (deriveName(url)), not just restores them with the bad name; a restore that keeps the bad name => RED.",
+        "text": "THE FIX, PER-UUID (5 units, room 3231db71): DELETE 3f80f8c8 (junk about:blank, zero-dangling + pre-image); RESTORE ALL 4 into room 3231db71 fileUnits (invisible->visible): 96f54cc2 + adf1a8c0 + cf45d317 + dc48165b (PO ruled restore-all-4 — his saved content, he disposes via REMOVE/DELETE). Differential asserts EXACTLY these 5 change (1 removed + 4 appear), the 25 render byte-identical, NO 6th unit touched. 0-delta on a restore OR restored junk OR a changed-25 OR a 6th => RED. ★ RE-DERIVE of the 4 bad names is PO-GATED (Bug 206a28bc AC5): conflicts the standing no-auto-rename ruling (he has RENAME). HELD conditional pending PO fork: IF lifted -> re-derive; ELSE restore existing names + user renames via R40.104. The RESTORE (invisible->visible) stands regardless.",
         "gateRef": {
           "kind": "test",
           "ref": "test per-uuid differential (the 5)",
           "assertion": "exactly: 3f80f8c8 removed (0-dangling) + 4 restore appear in room 3231db71 fileUnits; the 25 byte-identical; a 0-delta on a restore, a restored junk, a changed-25, or a 6th unit => RED"
         },
-        "stubMustFail": "seed: the junk restored / any of the 4 left invisible / one of the 25 changed / a 6th unit touched -> RED; a restore that keeps the bad watch?v= name (not re-derived) -> RED"
+        "stubMustFail": "seed: the junk restored / any of the 4 left invisible / one of the 25 changed / a 6th unit touched -> RED"
       },
       {
         "id": "AC-junk-is-delete-not-restore",
