@@ -70,3 +70,15 @@ Retiring parentFolder as the containment source is structurally the SAME operati
 4. **Pre-image commit the migration (PO condition 4):** commit the 30 units + their folders as data BEFORE the backfill mutation (git = rollback), same discipline as delete's pre-image and model-store-before-delete.
 
 This becomes **INC-4a (the parentFolder repoint)**, gated on the differential, sequenced BEFORE the general link/unlink edge ops build on `children[]` as the sole containment truth. federation-transfer.ts + WebItem.ts are the 2 code sites to update to the edge form.
+
+## ★★ RENDER MEASUREMENT (PO condition, ahead of INC-4a): the 30 are a LIVE DEFECT, not a transparency question
+Measured "do these 30 render for Tron today?" — parentFolder is a DEAD field, honored by NO render (server reads = federation-transfer ref-rewrite + WebItem-set only; client reads of parentFolder = 0; folders nest by children[], the 30 are in 0 children[] edges). Split against the 95 Room units' files[]:
+- **25 of 30 = MISPLACED** — in a room files[] → render at the room ROOT (flat), NOT inside their parentFolder folder.
+- **5 of 30 = INVISIBLE** — in NO room files[] and no children[] edge → render NOWHERE (saved, gone from the app).
+
+**This is a LIVE, pre-existing, user-visible DEFECT** (30 WebItems saved into folders that no folder lists) — belongs in the DnD backlog as a real bug ("working robustness"), NOT a migration side-effect.
+
+**Consequence for INC-4a — TWO differentials, two meanings (both stated to Tron):**
+- **The 30 WebItems:** the children[] backfill is the FIX. Its differential will NOT be zero — 25 move root→folder, 5 invisible→visible. That is a BEHAVIOUR CHANGE → ANNOUNCE to Tron (a fix riding a migration is still an unannounced change). The differential DOCUMENTS the intended fix for approval; it is NOT a transparency proof.
+- **The other 6893 units (already edge-based):** the differential proves **0 delta** = true transparency of the parentFolder retire.
+Treat the 30-WebItem fix as its OWN announced backlog item that INC-4a delivers, distinct from the generic parentFolder-retire transparency proof.
