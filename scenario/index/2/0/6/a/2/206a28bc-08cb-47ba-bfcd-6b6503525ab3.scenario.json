@@ -50,15 +50,15 @@
         "stubMustFail": "seed mint of a hostless/domain-less url -> a raw broken WebItem stored => RED"
       },
       {
-        "id": "AC5-legacy-4-renamed-PO-GATED",
-        "group": "cleanup/PO-GATED-fork",
-        "text": "[PO-GATED FORK - HELD, do NOT lock]: re-deriving the 4 restore-WebItem names CONFLICTS the PO standing ruling \"do NOT auto-rename his existing units - he has RENAME himself\". CONDITIONAL: IF the PO lifts the ban for these 4 bug-corrupted units -> re-derive (deriveName(url)); ELSE restore with existing names + the user renames via R40.104. Architect position sent to PO; AC not locked until PO rules.",
+        "id": "AC5-legacy-3-rederive-1-protect",
+        "group": "cleanup/PO-ruled",
+        "text": "PO RULED (un-gated): RE-DERIVE 3, PROTECT 1. RE-DERIVE names (ANNOUNCED) for the 3 BUG-generated fragments -> the class deriveName(url): adf1a8c0 (watch?v=D6XhtIfNiyo), cf45d317 (message:%3C...), dc48165b (watch?v=On8AxkeHYNE). PROTECT (do NOT rename) 96f54cc2 \"jonah.jala@indigitous.org Indigitous Hack26\" - that name came from a REAL email-subject displayName (human-supplied via the correct path) = USER INTENT, the no-auto-rename ban protects it (renaming it = us \"improving\" a human-chosen name). ANNOUNCED not silent: the 3 re-derives are surfaced on the row + to Tron (he learns 3 came back with corrected names + why; can re-rename if he disagrees).",
         "gateRef": {
           "kind": "test",
-          "ref": "(pending PO ruling)",
-          "assertion": "IF PO-lift: the 4 are re-derived; ELSE the 4 keep their names + are user-renamable. Locked only after the PO fork ruling."
+          "ref": "per-uuid AC5 differential (3 rename + 1 protect)",
+          "assertion": "exactly the 3 bug-fragments (adf1a8c0/cf45d317/dc48165b) get class-derived names; 96f54cc2 name UNCHANGED; all 4 restored to room 3231db71 fileUnits; 3f80f8c8 junk deleted. A bug-fragment not re-derived, OR 96f54cc2 renamed, OR a 4th unit renamed => RED"
         },
-        "stubMustFail": "(held - stub set when the PO ruling locks the branch)"
+        "stubMustFail": "seed: 96f54cc2 (human name) re-derived/renamed -> RED; a bug-fragment (adf1a8c0/cf45d317/dc48165b) kept with its watch?v= name -> RED; a re-derive applied silently (not announced) -> RED"
       },
       {
         "id": "AC6-ios-share-honest-unverified",
@@ -85,7 +85,7 @@
     "createdBy": "robbin-req",
     "createdAt": "2026-09-06",
     "authorizedBy": "robbin-po (GO — worth minting regardless of naming-contradiction resolution; fix at the mint)",
-    "ac5PoFork": "AC5 (re-derive the 4 legacy names) is PO-GATED: conflicts the standing ruling do-NOT-auto-rename-his-existing-units (he has RENAME). HELD conditional; architect routed position to PO; lock only after the PO fork ruling."
+    "ac5Ruling": "PO ruled (via architect): RE-DERIVE 3 bug-fragments (adf1a8c0/cf45d317/dc48165b, announced) + PROTECT 96f54cc2 (human email-subject name, no-auto-rename). The ban distinguishes USER INTENT (human-supplied name, protected) from BUG-GENERATED garbage (pseudo-fallback fragment, re-derive). Architect scope said 4 = their error (96f54cc2 was the only clean one); PO caught it -> 3 not 4."
   },
   "ownerIor": null
 }
