@@ -38,3 +38,24 @@ Any room re-persisted while a member's profile is missing (or the room is recons
 
 ## Do NOT
 Commit any of the 9 room paths (3231db71 cc3294d0 a16262b8 2b1921a9 3ec1bf6e 6c04f959 8be52aa9 b3efa337 edd7fa61) — any commit touching them ships the blank + timestamp rewrite. Path-limited commits (this note) are immune; verify `git show --stat`.
+
+## ★ FULL BLAST RADIUS (measured HEAD vs staged, all 9 — READ ONLY)
+**Headline: ZERO members silently dropped. createdAt rewritten on ALL 9. 4 member-name blanks. All 9 fully recoverable from HEAD (clean).**
+
+| room | name | real? | members | createdAt | name blanks |
+|---|---|---|---|---|---|
+| 2b1921a9 | Christine Dawood's Room | REAL | 7→7 (0 dropped) | REWRITTEN | none |
+| 3231db71 | Marcel dnd test room | test-named, real members | 6→6 | REWRITTEN | Marcel Donges (c09087ec)→"" |
+| 3ec1bf6e | GRG TREFF | REAL | 5→5 | REWRITTEN | none |
+| 6c04f959 | 🤍 Heartspaces ❤️ (MM double-state) | REAL | 7→7 | REWRITTEN | none |
+| 8be52aa9 | Marcel Donges's Room | REAL (11 ppl: Sebastian Roscher, Werner Hölzl, Lindar Winnie Otieno…) | 11→11 | REWRITTEN | none |
+| a16262b8 | System Evidence — T37.21 | TEST | 3→3 | REWRITTEN | SystemTester (ce981242)→"" |
+| b3efa337 | Semvec Hackathon | REAL | 5→5 | REWRITTEN | none |
+| cc3294d0 | Amos Donges's Room | REAL | 3→3 | REWRITTEN | Amos Donges (8d9be587)→"" |
+| edd7fa61 | Marcel Owner Test Room | test-named, real owner | 2→2 | REWRITTEN | Marcel Donges (c09087ec)→"" |
+
+- **≈6 REAL rooms + 3 test-named** (but 3231db71/edd7fa61 hold real members). Only a16262b8 is purely a test/evidence room.
+- **createdAt REWRITTEN on 9/9** — every room lost its true creation time (+ joinedAt churns per the persist code, a lesser loss).
+- **4 name-blanks across 4 rooms, 3 distinct people:** Marcel Donges (c09087ec, in 3231db71 + edd7fa61), Amos Donges (cc3294d0), SystemTester (a16262b8). The rest of each room's members keep their names.
+- **★★ ZERO members DROPPED** — member counts identical HEAD→staged in all 9. The feared silent people-loss did NOT occur. This also refines the mechanism: the incident fired the PERSIST-side name-blank + createdAt-reset, NOT the load-side profile-less DROP (that drop remains a LATENT risk needing guard #1/#5, but it did not trigger here).
+- **Recovery: 100% from HEAD** — HEAD carries correct names + createdAt for all 9; the corruption is only staged/working. PO preserve-then-restore (checkout from HEAD) fully recovers. Note HEAD already carries pre-existing blank OWNER names (own condition, not this incident).
