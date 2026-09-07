@@ -41,7 +41,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 bc0302dd** Task 37.39: Image is a natural CLASS — dropping an i — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 32 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 33 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
@@ -57,6 +57,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 fdee4809** Task 37.22: IOR carries a clear origin (class+host+p — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 241a2be3** Task 40.12: File detail view renders a working type- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 46964040** Task 40.18: Pin auto-progress on QA-Review — pin adv — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S40 49822597** Task 40.85: Plain file upload via the drop area SUCC — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 50f51ac1** Task 40.17: Live-pin no-refresh — pin-designate upda — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 51bd0541** Task 40.88: Standing rulings are FAILABLE INVARIANTS — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 6e3cc1b2** Task 40.11: deploymentRefs are scenario-first units  — _device @390 — headless evidence ok; needs your tap/pixel verify_

@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 257** — Done **98** · QA-Review **59** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 95** (257 = 98+59+3+95)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 91**
+- **TOTAL S30++ tasks: 257** — Done **98** · QA-Review **60** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 94** (257 = 98+60+3+94)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 90**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 54 | 1 | 21 | 0 | 32 |
-| S40 | 83 | 0 | 21 | 0 | 60 |
+| S40 | 83 | 0 | 22 | 0 | 59 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 19 · build 59
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 19 · build 59
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -78,7 +78,6 @@
 | S40 | 38609d01 | Planned | marker | Task 40.50: Sprints render descending (latest on top) in |
 | S40 | 45ae067e | Planned | build | Task 40.72: Dangling tree links expand to EMPTY @390 — a use |
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
-| S40 | 49822597 | In Progress | RIPE | Task 40.85: Plain file upload via the drop area SUCCEEDS (0. |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
 | S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
 | S40 | 5899aeb2 | Planned | RIPE | Task 40.16: Folders as real scenario units — type-driven |
