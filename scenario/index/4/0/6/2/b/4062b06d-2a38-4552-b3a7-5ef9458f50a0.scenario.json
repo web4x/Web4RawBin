@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4062b06d-2a38-4552-b3a7-5ef9458f50a0",
+    "name": "folder.dropPlacesLinkRemoveDelete",
+    "description": "Every folder is a drop target via the one contract; a drop of any oop object places a LINK to the one stored unit (never a copy); REMOVE unlinks here (unit+other links survive); DELETE (red, confirm) removes the unit from the index + all links (zero dangling). Registered per class (no central switch).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+    "unitLinks": [],
+    "note": "class/method=null - architect wires on build-go (per-class drop/link/remove/delete registration over R37.20) + resolves LINK-vs-MOVE composition."
+  },
+  "ownerIor": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208"
+}

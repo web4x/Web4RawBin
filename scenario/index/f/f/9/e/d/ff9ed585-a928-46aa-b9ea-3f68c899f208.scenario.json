@@ -1,0 +1,117 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ff9ed585-a928-46aa-b9ea-3f68c899f208",
+    "altId": "R40.106",
+    "name": "One DnD: every folder is a drop target, a drop places a LINK to the one stored unit; REMOVE unlinks, DELETE (red) removes the unit + all links",
+    "description": "Tron design statement 2026-09-06 (verbatim): 'one DND for all folders as dropTargets everywhere. dropping something in either places a link to the centralized storage scenario unit always... no matter if file, image, task, modelElement or whatever oop object. we also need a remove button on every file in the action bar and a delete button that is red and really removes from the index and removes all links... (dangerous)'. THE MODEL: (1) EVERY FOLDER EVERYWHERE is a drop target via ONE contract, no per-surface variants (room files / model tree / diagrams / traceability). (2) A DROP places a LINK to the ONE centralized storage unit — ALWAYS, never a copy — for ANY OOP object (file/image/task/modelElement/requirement/whatever). One unit, many links = identity by reference (same law as the one-store root R40.81). (3) REMOVE (on every file in the action bar) unlinks THIS link only; the unit + its other links survive. (4) DELETE (RED, DANGEROUS) really removes the unit FROM THE INDEX and removes ALL its links everywhere.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:4062b06d-2a38-4552-b3a7-5ef9458f50a0"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "tronQuote": "> Tron 2026-09-06: 'one DND for all folders as dropTargets everywhere. dropping something in either places a link to the centralized storage scenario unit always... no matter if file, image, task, modelElement or whatever oop object. we also need a remove button on every file in the action bar and a delete button that is red and really removes from the index and removes all links... (dangerous)'.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-06",
+      "note": "Design statement, not a suggestion. Drop=link (identity by reference, R40.81 law); remove=unlink-this; delete=remove-unit-and-all-links (dangerous)."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "TIER-A (object-action lane; the drop/link/remove/delete model over R37.20 + R40.86).",
+    "extendsRequirement": "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
+    "designQuestionToArchitect": "How LINK (this req) relates to the MOVE/re-parent shipped tonight (R40.86 folder re-parent): they MAY compose as move = link-here + unlink-there. PO routed this to the ARCHITECT to resolve (ours, not Tron's to adjudicate). Do NOT resolve at req level; the architect rules the composition.",
+    "crossRef": [
+      "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
+      "ior:instance:a7bd184b-af45-47c1-a8f7-2488bde5f71d",
+      "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+      "ior:instance:069b1f8d-ec87-475c-8dee-a15cd0dcfd40",
+      "ior:instance:fc201015-2fd8-4a05-b9b1-32e0355a130d",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Drop model over the ONE contract (R37.20 = buffer carries the unit; this = a drop places a LINK to it). Folders-as-targets = R40.86. Identity-by-reference (one unit, many links) = the same law as the one-store root R40.81. REMOVE/DELETE join the action family with R40.104 (rename) + R40.105 (naming). ARCHITECT resolves LINK-vs-MOVE composition (designQuestionToArchitect).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-drop-any-kind-creates-a-link-not-copy",
+        "group": "drop/link",
+        "text": "A drop of EVERY object kind (file, image, task, modelElement, requirement, ANY oop object) onto ANY folder creates a LINK to the one centralized storage unit — never a COPY. ASSERT by counting: one stored unit, N links, NOT N copies (unit count in the index is UNCHANGED by a drop).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test drop count-units-before-after",
+          "assertion": "after dropping any object kind on a folder: +1 link, +0 stored units; a drop that increases the stored-unit count (a copy) => RED"
+        },
+        "stubMustFail": "seed a drop that creates a COPY (stored-unit count increases) -> RED"
+      },
+      {
+        "id": "AC-same-unit-two-folders-one-unit",
+        "group": "identity/by-reference",
+        "text": "The SAME unit linked in two folders is ONE unit: uuid identical, content stored ONCE (identity by reference, same law as R40.81 one-store). Two links resolve to the same uuid + the same stored bytes.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test link-in-two-folders",
+          "assertion": "the same unit in 2 folders = 1 stored unit, same uuid; a 2nd stored copy for the 2nd link => RED"
+        },
+        "stubMustFail": "seed the same unit linked in 2 folders stored as 2 units -> RED"
+      },
+      {
+        "id": "AC-remove-unlinks-here-unit-survives",
+        "group": "remove/action-bar",
+        "text": "REMOVE (on every file in the action bar) unlinks HERE only: this link is removed, the unit and its OTHER links survive and still resolve elsewhere.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test remove-then-resolve-elsewhere",
+          "assertion": "after REMOVE in folder A, the link is gone from A but the unit still resolves via its link in folder B; REMOVE deleting the unit or breaking another link => RED"
+        },
+        "stubMustFail": "seed a REMOVE that deletes the unit (or breaks another link) -> RED"
+      },
+      {
+        "id": "AC-delete-removes-unit-and-all-links-zero-dangling",
+        "group": "delete/dangerous",
+        "text": "DELETE (RED, dangerous) really removes the unit FROM THE INDEX and removes ALL its links everywhere. ASSERT: after DELETE, ZERO dangling refs — no orphan link anywhere points at the dead uuid.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test delete + dangling-ref scan",
+          "assertion": "after DELETE: the unit is gone from the index AND every link to it is removed; any surviving ref pointing at the deleted uuid => RED"
+        },
+        "stubMustFail": "seed a DELETE that leaves a dangling link pointing at the removed uuid -> RED"
+      },
+      {
+        "id": "AC-delete-red-explicit-confirm",
+        "group": "delete/safety",
+        "text": "DELETE is visually RED and requires an EXPLICIT confirm (it is destructive on the owner's real data). REMOVE (unlink) is NOT red and needs no confirm.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test @390 delete visual + confirm",
+          "assertion": "the DELETE action renders RED + gates on an explicit confirm; a delete that fires without red styling or without confirm => RED"
+        },
+        "stubMustFail": "seed a DELETE that executes without the red styling or without a confirm -> RED"
+      },
+      {
+        "id": "AC-every-folder-everywhere-one-contract",
+        "group": "fleet/one-contract",
+        "text": "EVERY folder EVERYWHERE is a drop target via the ONE shared drop contract (R37.20) — NO per-surface variants: room files, /model tree, diagrams, traceability all use the same contract for drop/link/remove/delete.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "lint fleet-wide drop-target (ties R37.20 AC-shared-contract)",
+          "assertion": "every folder surface routes drop/link/remove/delete through the one contract; a folder surface with its own drop/link/remove/delete variant => RED"
+        },
+        "stubMustFail": "seed a folder surface with its own drop-target variant (not the shared contract) -> RED"
+      },
+      {
+        "id": "AC-registered-per-class-zero-central-switch",
+        "group": "dry/open-closed",
+        "text": "Drop-as-link + remove + delete are registered PER CLASS, so a NEW object kind gains ALL of it with ZERO central-switch edits — both open-set and closed-set lints stay 0 (no if/switch enumerating object kinds for drop/link/remove/delete).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "lint no-central-switch (drop/link/remove/delete)",
+          "assertion": "adding an object kind requires no central-switch edit; a switch/if-chain enumerating kinds for drop/link/remove/delete => RED"
+        },
+        "stubMustFail": "seed a central switch enumerating object kinds for drop/remove/delete -> RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
