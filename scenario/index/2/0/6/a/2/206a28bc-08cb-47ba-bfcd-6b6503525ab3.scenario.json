@@ -1,0 +1,79 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "206a28bc-08cb-47ba-bfcd-6b6503525ab3",
+    "name": "WebItem mint bypasses the class — drop-dispatcher pseudo-fallback (url.split.pop) names a valid URL badly + skips url-validation; the class must own name + validation at mint",
+    "description": "LIVE (architect full-path execution + expert reproduce, decisive measurement): drop-dispatcher.ts:133 sets name = displayName || url.split(SLASH).pop() || link, so a valid YouTube URL with no human displayName is named \"watch?v=X\"; deriveName (WebItem.ts:46) returns the fallback VERBATIM = the class name derivation never runs. A VALID url gets a BAD name = a live violation of R40.105 (class owns its name). Plus (PO robustness): the mint does not validate/normalize the url, so a domain-less/invalid input mints a broken hostless WebItem. FIX (expert-proposed, architect-backed): drop the url.split.pop pseudo-fallback so the WebItem CLASS derives its own name when no human displayName, AND validate/normalize the url at mint. Fix WHERE THE OBJECT IS MADE = closes the class regardless of source (the shape Tron keeps demanding). The 4 restore WebItems on Bug 88df8e4e are re-derived by this fix.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-class-derives-name-not-pseudo-fallback",
+        "group": "naming/live-R40.105",
+        "text": "The WebItem NAME is derived by the CLASS (deriveName(url)), NOT by the drop-dispatcher url.split(SLASH).pop() pseudo-fallback. EXECUTED PROOF: deriveName(youtubeURL, \"watch?v=X\")=\"watch?v=X\" (bug) vs deriveName(youtubeURL, undefined)=\"Youtube Watch\" (correct). FIX: drop the url.split.pop pseudo-fallback so the class derives its own name when no human displayName. LIVE violation of R40.105 (class owns its name).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test drop YouTube URL names it",
+          "assertion": "a valid YouTube (or any) URL dropped with no displayName is named by the class (proper name), NOT its raw tail fragment; a valid url named by its url.split.pop fragment => RED"
+        },
+        "stubMustFail": "seed a valid YouTube URL drop naming it 'watch?v=X' (pseudo-fallback) -> RED"
+      },
+      {
+        "id": "AC-validate-normalize-url-at-mint",
+        "group": "validation/robustness",
+        "text": "The WebItem mint VALIDATES + NORMALIZES the url: a domain-less/invalid input is REJECTED or RECONSTRUCTED (proper url with host), NEVER persisted as a broken, hostless, unopenable WebItem. (PO robustness — closes the class regardless of input.)",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test mint url-validate",
+          "assertion": "a domain-less/invalid input at mint is rejected or normalized to a valid url; a broken hostless WebItem persisted => RED"
+        },
+        "stubMustFail": "seed a domain-less input at mint -> a hostless/unopenable WebItem persisted => RED"
+      },
+      {
+        "id": "AC-fix-at-mint-source-agnostic",
+        "group": "mint/one-choke",
+        "text": "The fix is at the WebItem MINT (the one choke where the object is made), so it closes the class REGARDLESS of source (drag, share-sheet, paste). A source path that mints a WebItem bypassing the class name+validation => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "lint mint-is-the-one-choke",
+          "assertion": "every WebItem is minted through the class name+validation; a source path bypassing it => RED"
+        },
+        "stubMustFail": "seed a source path minting a WebItem without the class name+validation -> RED"
+      },
+      {
+        "id": "AC-legacy-instances-renamed",
+        "group": "cleanup/ties-88df8e4e",
+        "text": "The existing bad-named WebItems (the 4 restore on Bug 88df8e4e — valid urls, bad names) are RE-DERIVED by the fix (deriveName(url)), not left with the pseudo-fallback name. A restore/cleanup that keeps the bad name => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test re-derive existing",
+          "assertion": "the 4 restore WebItems on 88df8e4e get class-derived names after the fix; a kept bad name => RED"
+        },
+        "stubMustFail": "seed the 4 restored with their bad watch?v= names retained -> RED"
+      },
+      {
+        "id": "AC-ios-share-honest-unverified",
+        "group": "harness/unverified",
+        "text": "[HONEST-UNVERIFIED, HARNESS gap — NOT a Tron-test]: the iOS YouTube share-sheet payload shape is UNTESTED (needs a captured iOS-share payload). The mint-level fix is source-AGNOSTIC so it closes this BY CONSTRUCTION pending the captured-payload confirm. certScope: closed-by-construction; iOS-share-payload-capture PENDING (fix-the-harness proposal, do NOT ask Tron to validate).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test captured-iOS-share payload (harness)",
+          "assertion": "a captured iOS-share domain-less/fragment payload minted through the fixed mint yields a proper WebItem (name+url); pending payload capture => UNVERIFIED, not GREEN"
+        },
+        "stubMustFail": "once captured: an iOS-share payload minting a bad WebItem through the fixed path -> RED"
+      }
+    ],
+    "coveredBy": "expert fix (drop pseudo-fallback + validate/normalize at mint); planner boards the task.",
+    "crossRef": [
+      "ior:instance:88df8e4e-d6fa-4819-9edd-09e6b0529745",
+      "ior:instance:fc201015-2fd8-4a05-b9b1-32e0355a130d",
+      "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "The LIVE naming defect behind Bug 88df8e4e's malformed names (now malformationLead=LIVE). Surface of R40.105 (class owns its name — the pseudo-fallback bypasses the class). Unifies the PO's validate/normalize robustness (invalid url) + the architect's naming bug (valid url, bad name) into ONE mint-choke fix.",
+    "measurementProvenance": "Architect EXECUTED the full path (deriveName WITH the caller fallback arg) + expert reproduced live; reversed the earlier false-legacy (which executed deriveName without the fallback = wrong path). Measurement settled LIVE, not seniority.",
+    "status": "Open",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-09-06",
+    "authorizedBy": "robbin-po (GO — worth minting regardless of naming-contradiction resolution; fix at the mint)"
+  },
+  "ownerIor": null
+}
