@@ -128,10 +128,61 @@ export interface RoomJsonData {
   sshPublicKey: string;
   chatHistory: { senderId: string; senderName: string; text: string; timestamp: number }[];
   files?: string[];
+  members?: { ior: string; name: string; role?: string; status?: string; joinedAt?: number }[];
+  lastMessageIor?: string | null;
+  firstMessageIor?: string | null;
+  messageCount?: number;
 }
 
 // [impl:uuid:028eb22f-41bf-4d3b-a35e-88cd5b28e13c] Room.persistAsSymlink R19.22.A
+// R40.107 ROOM-PERSIST CORRUPTION GUARDS (architect 58175f768). writeRoomJson is the ONE chokepoint every room
+// save flows through, so the identity-preserving invariants live here, once, for all callers. The incident:
+// Room.persist() serializes `name: m.name` (blanks a good stored name when the in-memory member is profile-less)
+// and `joinedAt: Date.now()` + a reconstructed createdAt (churns/rewrites creation facts). These guards make that
+// class of loss impossible by construction: #1 read-before-write preserves a non-empty stored name; #2 keeps
+// createdAt + each member's original joinedAt immutable across re-saves; #5 REFUSES (throws) any write that would
+// still blank a name or move createdAt — the persist-invariant BITE (a destructive identity write cannot land).
+// [impl:uuid:PENDING-req-mint] roomPersistIdentity.preserve — R40.107 guards #1 (non-destructive name) + #2 (immutable timestamps).
+// Read-before-write reconciliation: never downgrade a stored non-empty member name to "", and carry createdAt +
+// each member's original joinedAt forward unchanged. Mutates `data` in place. Pure (no fs) → directly unit-testable.
+export function preserveRoomIdentity(stored: RoomJsonData | null, data: RoomJsonData): void {
+  if (!stored) return; // first-ever persist: createdAt/joinedAt/names are genuine originals — nothing to preserve
+  if (typeof stored.createdAt === 'number' && stored.createdAt > 0) data.createdAt = stored.createdAt; // #2 createdAt = creation fact
+  const storedByIor = new Map<string, NonNullable<RoomJsonData['members']>[number]>();
+  for (const s of stored.members || []) storedByIor.set(String(s.ior), s);
+  for (const m of data.members || []) {
+    const s = storedByIor.get(String(m.ior));
+    if (!s) continue; // a genuinely new member — its name + first joinedAt stand as given
+    if ((!m.name || !String(m.name).trim()) && s.name && String(s.name).trim()) m.name = s.name; // #1 never blank a stored name
+    if (typeof s.joinedAt === 'number' && s.joinedAt > 0) m.joinedAt = s.joinedAt;                // #2 joinedAt = original join fact
+  }
+}
+
+// [impl:uuid:PENDING-req-mint] roomPersistInvariant.assert — R40.107 guard #5 (persist-invariant BITE / class-killer).
+// The last line of defence: REFUSE (throw) any room write that would still destroy identity — a stored non-empty
+// member name going empty, or createdAt moving on an existing unit — EVEN IF #1/#2 regressed. A destructive
+// identity write cannot land. Pure (no fs) → the drift-injection BITE test calls it directly. Add to ci:gates.
+export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: RoomJsonData, roomId: string): void {
+  if (!stored) return;
+  const storedByIor = new Map<string, NonNullable<RoomJsonData['members']>[number]>();
+  for (const s of stored.members || []) storedByIor.set(String(s.ior), s);
+  for (const m of data.members || []) {
+    const s = storedByIor.get(String(m.ior));
+    if (s && s.name && String(s.name).trim() && (!m.name || !String(m.name).trim())) {
+      const msg = `[writeRoomJson GUARD#5] REFUSED room ${roomId}: member ${m.ior} name would blank "${s.name}"→"" (persist-invariant)`;
+      console.error(msg); throw new Error(msg);
+    }
+  }
+  if (typeof stored.createdAt === 'number' && stored.createdAt > 0 && typeof data.createdAt === 'number' && data.createdAt !== stored.createdAt) {
+    const msg = `[writeRoomJson GUARD#5] REFUSED room ${roomId}: createdAt would move ${stored.createdAt}→${data.createdAt} (immutable)`;
+    console.error(msg); throw new Error(msg);
+  }
+}
+
 export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonData): void {
+  const stored = readRoomJson(userToken, roomId);   // R40.107: read-before-write for the identity guards
+  preserveRoomIdentity(stored, data);               // #1/#2 — preserve non-empty name + createdAt/joinedAt
+  assertRoomPersistInvariant(stored, data, roomId); // #5  — refuse any residual destructive identity write (BITE)
   const roomDir = getRoomDir(userToken, roomId, { mint: true });   // WRITE
   mkdirSafe(roomDir);
   const roomJsonPath = path.join(roomDir, 'room.json');
