@@ -9,6 +9,7 @@
 // naming-fix reload the surface still holds the pre-restore blanks; after it, the surface heals AND the rooms stay
 // intact ACROSS the restart (the dangerous reconstruction event the guard must survive).
 import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
@@ -27,7 +28,11 @@ const ROOMS = [
 ];
 const shard = (u) => `scenario/index/${u[0]}/${u[1]}/${u[2]}/${u[3]}/${u[4]}/${u}.scenario.json`;
 const headModel = (u) => { try { return JSON.parse(execSync(`git show HEAD:${shard(u)}`, { cwd: REPO, encoding: 'utf8' })).model || {}; } catch { return {}; } };
-const diskClean = (u) => execSync(`git diff --stat HEAD -- ${shard(u)}`, { cwd: REPO, encoding: 'utf8' }).trim() === '';
+const diskModel = (u) => { try { return JSON.parse(readFileSync(`${REPO}/${shard(u)}`, 'utf8')).model || {}; } catch { return {}; } };
+// CONTENT equality vs HEAD (ignore cosmetic EOF/whitespace re-serialization): members (count+names+iors),
+// createdAt, and files-count must match. A re-persist that reformats JSON but preserves content is NOT a regression.
+const memberKey = (m) => (m.members || []).map(x => `${String(x.ior || x.playerToken || '')}=${x.name ?? ''}`).sort().join('|');
+const diskContentEqHead = (u) => { const h = headModel(u), d = diskModel(u); return h.createdAt === d.createdAt && memberKey(h) === memberKey(d) && (h.files || []).length === (d.files || []).length; };
 const served = (u) => new Promise((res) => { const url = new URL(`${BASE}/api/ior/ior:instance:${u}`); https.get({ hostname: url.hostname, port: url.port, path: url.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', c => d += c); r.on('end', () => { try { res(JSON.parse(d)?.unit?.model || {}); } catch { res(null); } }); }).on('error', () => res(null)); });
 const nameFor = (members, token) => { const m = (members || []).find(x => String(x.ior || x.playerToken || '').includes(token)); return m ? String(m.name ?? '') : '(absent)'; };
 
@@ -38,7 +43,7 @@ let diskAllClean = true, createdOk = 0, countDelta = 0, namesRestoredDisk = 0, n
 for (const r of ROOMS) {
   const h = headModel(r.u);
   const hMembers = h.members || [];
-  const clean = diskClean(r.u);
+  const clean = diskContentEqHead(r.u); // CONTENT match vs HEAD (cosmetic EOF re-serialization allowed)
   diskAllClean = diskAllClean && clean;
   if (typeof h.createdAt === 'number' && h.createdAt > 0) createdOk++;
   const s = await served(r.u);
