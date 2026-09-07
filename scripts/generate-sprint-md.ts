@@ -376,6 +376,81 @@ function reportCheck(r: CheckResult): void {
   for (const f of r.mismatched) console.log(`    mismatched: ${f}`);
 }
 
+// [DRIFT-COMPLETENESS — PO 2026-09-07] Account for EVERY generated artifact across ALL sprints, not a subset. The old
+// per-metric checked only S19-37 sprints and reported SPRINTS-passed (~38 artifacts of ~728) — a metric blind to ~95%
+// of its domain reads GREEN forever (a gate that cannot fail, at board scale). This classifies EVERY artifact into exactly
+// one category and reports coverage as N-drift / M-accounted (M = every artifact = never a shrinking denominator).
+// ★ MISSING is its OWN declared category (an expected generated file absent from disk) — never silently dropped.
+// ★ Reuses buildSprintOutput + driftScope + GENERATED_HEADER_PREFIX (the SAME predicates as checkSprint — DRY, no 2nd path).
+// FAILABLE: delete an expected artifact -> MISSING (RED + named); corrupt one -> mismatched (RED + named). Proven by --complete-bite.
+export interface CompleteResult { accounted: number; drift: number; clean: number; handauthored: number; missing: string[]; mismatched: string[]; orphan: string[]; }
+export function checkAllGenerated(units: Map<string, ScenarioUnit>): CompleteResult {
+  const sprintUuids = [...units.entries()].filter(([, u]) => u.ior === 'ior:class:Sprint').map(([uuid]) => uuid).sort();
+  let clean = 0, handauthored = 0;
+  const missing: string[] = [], mismatched: string[] = [], orphan: string[] = [];
+  for (const uuid of sprintUuids) {
+    const out = buildSprintOutput(uuid, units);
+    if (!out) continue;
+    const sprintDir = path.join(SPRINTS_DIR, out.sprintSlug);
+    const onDiskGenerated = new Set<string>();
+    if (fs.existsSync(sprintDir)) {
+      for (const f of fs.readdirSync(sprintDir)) {
+        if (!f.endsWith('.md')) continue;
+        try { if (fs.readFileSync(path.join(sprintDir, f), 'utf-8').startsWith(GENERATED_HEADER_PREFIX)) onDiskGenerated.add(f); } catch { /* skip */ }
+      }
+    }
+    for (const name of [...out.files.keys()].sort()) {
+      const fp = path.join(sprintDir, name);
+      const scope = driftScope(fs.existsSync(fp), onDiskGenerated.has(name));
+      if (scope === 'missing') { missing.push(`${out.sprintSlug}/${name}`); continue; }
+      if (scope === 'skip-handauthored') { handauthored++; onDiskGenerated.delete(name); continue; }
+      const onDisk = normalize(fs.readFileSync(fp, 'utf-8'));
+      if (onDisk !== out.files.get(name)!) mismatched.push(`${out.sprintSlug}/${name}`); else clean++;
+      onDiskGenerated.delete(name);
+    }
+    for (const name of [...onDiskGenerated].sort()) orphan.push(`${out.sprintSlug}/${name}`); // on-disk generated, no longer produced
+  }
+  const drift = missing.length + mismatched.length + orphan.length;
+  const accounted = clean + handauthored + drift;
+  return { accounted, drift, clean, handauthored, missing, mismatched, orphan };
+}
+function reportComplete(c: CompleteResult): void {
+  console.log('\n=== Generated-Artifact Drift COMPLETENESS (every artifact accounted — PO 2026-09-07) ===');
+  console.log(`  COVERAGE: ${c.drift} drift over ${c.accounted}/${c.accounted} accounted  ${c.drift === 0 ? 'GREEN' : 'RED'}`);
+  console.log(`  categories: clean=${c.clean} · MISSING=${c.missing.length} · mismatched=${c.mismatched.length} · orphan=${c.orphan.length} · hand-authored-skipped(listed)=${c.handauthored}`);
+  for (const f of c.missing) console.log(`    MISSING:    ${f}`);
+  for (const f of c.mismatched) console.log(`    mismatched: ${f}`);
+  for (const f of c.orphan) console.log(`    orphan:     ${f}`);
+}
+// FAILABLE proof: delete ONE real generated artifact -> it MUST classify MISSING + be NAMED + raise drift; restore byte-exact.
+function runCompleteBite(): void {
+  const units = allUnits();
+  const base = checkAllGenerated(units);
+  // find a real, present, generated artifact to seed the violation
+  let victim = ''; let content = '';
+  for (const uuid of [...units.entries()].filter(([, u]) => u.ior === 'ior:class:Sprint').map(([u]) => u)) {
+    const out = buildSprintOutput(uuid, units); if (!out) continue;
+    for (const name of out.files.keys()) {
+      const fp = path.join(SPRINTS_DIR, out.sprintSlug, name);
+      if (fs.existsSync(fp) && fs.readFileSync(fp, 'utf-8').startsWith(GENERATED_HEADER_PREFIX)) { victim = fp; content = fs.readFileSync(fp, 'utf-8'); break; }
+    }
+    if (victim) break;
+  }
+  if (!victim) { console.log('✗ complete-bite: no generated artifact found to seed'); process.exit(1); }
+  const rel = path.relative(SPRINTS_DIR, victim);
+  let caught = false;
+  try {
+    fs.rmSync(victim); // seed a REAL violation (deleted artifact)
+    const after = checkAllGenerated(units);
+    caught = after.missing.some(m => m === rel) && after.drift === base.drift + 1;
+    console.log(`  seeded DELETE of ${rel}: MISSING-named=${after.missing.includes(rel)}, drift ${base.drift}->${after.drift}`);
+  } finally { fs.writeFileSync(victim, content); } // restore byte-exact
+  const restored = fs.readFileSync(victim, 'utf-8') === content;
+  console.log(`  restored byte-exact: ${restored}`);
+  console.log(`✓ complete-bite: ${caught && restored ? 'PASS (a deleted artifact -> MISSING + named + RED; completeness detects absence)' : 'FAIL'}`);
+  process.exit(caught && restored ? 0 : 1);
+}
+
 // [META-BITE — PO condition 2, 2026-08-12] Prove the driftScope exclusion did NOT blind the check: a GENERATED
 // (headered) requirements.md with planted drift MUST still be COMPARED (-> RED); ONLY a hand-authored (headerless)
 // file is skipped; an ABSENT expected file is flagged missing. A check that cannot fail certifies nothing. Run:
@@ -459,6 +534,12 @@ const filtered = args.filter(a => a !== '--check' && a !== '--prune' && a !== '-
 const cmd = filtered[0];
 
 if (isBite) { runCheckScopeBite(); process.exit(0); } // meta-bite: prove the driftScope exclusion did not blind the check
+if (args.includes('--complete-bite')) { runCompleteBite(); } // failable: a deleted artifact -> MISSING + named + RED
+if (args.includes('--check-complete')) { // completeness: every generated artifact accounted, coverage as a fraction
+  const c = checkAllGenerated(allUnits());
+  reportComplete(c);
+  process.exit(c.drift > 0 ? 1 : 0);
+}
 
 if (cmd === '--list') {
   const units = allUnits();
