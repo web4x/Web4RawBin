@@ -6,6 +6,7 @@
     "slug": "task-t21-1",
     "description": "Dropping a .vcf onto a profile parses it (parseVCard+applyVCard: photo->avatar, fn->name, tel/url) and POSTs /api/vcard to store the raw .vcf as encrypted contact.vcf in the same user dir as the avatar (encryptFile, rekey-retry on failure). vCard fields feed the Phone/Email/Address/Company minting flows.",
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — vCard drop -> Contact class gated (tester r4081t3720-remaining-inputs, 5/5 types incl .vcf, on served v0.8.211). ⚠ minor: the testing checkbox reads unchecked (stale, predates the 211 gate) + the '.vcf stored beside avatar' aspect rides T-vcard-enrich-store 708ec0a5; nothing material waiting on us for the drop->Contact claim. (audit-candidate for a fresh checkbox reconcile.)",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:efd1acb6-d9de-476b-b30f-50d7969b37fe"

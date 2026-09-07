@@ -11,6 +11,7 @@
     "acceptanceCriteria": "Mirrors R40.85 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.\n- [ ] AC-upload-succeeds-drop-area: a file dropped on the drop area UPLOADS (recognition -> stored) for ALL types; the 0.8.175 face (png recognized then Upload FAILED) is gone.\n- [ ] AC-regression-root-identified: the regression is traced to the specific DEPLOY change that broke the upload path (recognition works; POST/store died) and the fix RESTORES it — US breaking something, our regression.\n- [ ] AC-scope-all-uploads-not-folder: scope = ALL drop-area uploads, NOT a folder-specific case; distinct from R40.86 (folders-as-drop-targets). Do not conflate.\n- [ ] AC-verify-member-session: WE verify @390 member-session (drop a png -> uploads + lands); Tron ACCEPTS — he hit this as a CUSTOMER (our regression = our verification failure), NOT a check we hand him.\n- [ ] AC-stub-must-fail: seed recognized-then-POST/store-dies => RED; a suite green on recognition-without-store is inadmissible.",
     "subtasks": "None (atomic task).",
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — upload+render FRESH-GREEN on v0.8.211 (upload-core recognition->stored + 5/5 type render-visible, 0.8.175 die-face gone); machine-verified + gated, nothing waiting on us. (Real-iOS device rendering = a SEPARATE device-gate, not this row's claim.)",
     "coveredRequirements": [
       "ior:instance:deeeec90-568c-4019-8163-0c2dfd460741"
     ],
