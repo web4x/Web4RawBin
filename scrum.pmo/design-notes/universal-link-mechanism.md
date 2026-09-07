@@ -71,14 +71,15 @@ Retiring parentFolder as the containment source is structurally the SAME operati
 
 This becomes **INC-4a (the parentFolder repoint)**, gated on the differential, sequenced BEFORE the general link/unlink edge ops build on `children[]` as the sole containment truth. federation-transfer.ts + WebItem.ts are the 2 code sites to update to the edge form.
 
-## ★★ RENDER MEASUREMENT (PO condition, ahead of INC-4a): the 30 are a LIVE DEFECT, not a transparency question
-Measured "do these 30 render for Tron today?" — parentFolder is a DEAD field, honored by NO render (server reads = federation-transfer ref-rewrite + WebItem-set only; client reads of parentFolder = 0; folders nest by children[], the 30 are in 0 children[] edges). Split against the 95 Room units' files[]:
-- **25 of 30 = MISPLACED** — in a room files[] → render at the room ROOT (flat), NOT inside their parentFolder folder.
-- **5 of 30 = INVISIBLE** — in NO room files[] and no children[] edge → render NOWHERE (saved, gone from the app).
+## ★★ RENDER MEASUREMENT (PO condition, ahead of INC-4a) — CORRECTED
+★ CORRECTION of a first-pass over-claim: I initially wrote "25 misplaced + 5 invisible" assuming parentFolder points at a sub-FOLDER. Precise re-measure: **ALL 30 parentFolder targets are ROOMS, never Folders** — parentFolder on a WebItem is a ROOM-membership marker, not a folder pointer. Corrected classification (enumeration: `webitem-containment-defect-30.json`):
+- **25 of 30 — REDUNDANT-but-CORRECT (0-delta):** parentFolder == the WebItem's OWN room, AND the WebItem IS in that room's `files[]` → renders at room root = its intended place. NOT a defect. Retiring parentFolder for these changes NOTHING (fileUnits is the real membership; parentFolder is redundant-consistent).
+- **5 of 30 — INVISIBLE (the REAL defect):** parentFolder = room `3231db71`, but the WebItem is NOT in that room's `files[]` → renders NOWHERE. They belong to a room (per parentFolder) but were never added to its fileUnits. **1 of the 5 = `about:blank#blocked` junk** (should never have been minted, v0.7.0) → DELETE-candidate, not restore. The 5: `3f80f8c8`(junk) `96f54cc2` `adf1a8c0` `cf45d317` `dc48165b`.
 
-**This is a LIVE, pre-existing, user-visible DEFECT** (30 WebItems saved into folders that no folder lists) — belongs in the DnD backlog as a real bug ("working robustness"), NOT a migration side-effect.
+**So the LIVE DEFECT is 5 WebItems, not 30.** parentFolder is a dead-for-render field (0 render reads); for 25 it's harmlessly redundant, for 5 it's the only (unhonored) record of room membership.
 
-**Consequence for INC-4a — TWO differentials, two meanings (both stated to Tron):**
-- **The 30 WebItems:** the children[] backfill is the FIX. Its differential will NOT be zero — 25 move root→folder, 5 invisible→visible. That is a BEHAVIOUR CHANGE → ANNOUNCE to Tron (a fix riding a migration is still an unannounced change). The differential DOCUMENTS the intended fix for approval; it is NOT a transparency proof.
-- **The other 6893 units (already edge-based):** the differential proves **0 delta** = true transparency of the parentFolder retire.
-Treat the 30-WebItem fix as its OWN announced backlog item that INC-4a delivers, distinct from the generic parentFolder-retire transparency proof.
+**Consequence for INC-4a — TWO differentials (corrected):**
+- **Differential (a) TRANSPARENCY 0-delta:** the ~6893 edge-based units + the 25 redundant-parentFolder WebItems — retire changes nothing (proves true transparency).
+- **Differential (b) FIX, announced:** the 5 invisible WebItems — 4 restored to room `3231db71`'s fileUnits (invisible→visible), 1 junk deleted. NOT 0-delta; DOCUMENTS the intended change for Tron's approval. Treat as its own announced working-robustness backlog item that INC-4a delivers.
+
+★ The retire is also SIMPLER than first framed: parentFolder here is room-membership (redundant with fileUnits), not a folder `children[]` edge — so "backfill children[] edges" was wrong; the only reconciliation needed is adding the 5 orphans to room `3231db71`'s fileUnits.

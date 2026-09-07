@@ -1,0 +1,205 @@
+{
+  "note": "parentFolder on these 30 WebItems = a ROOM ref (never a Folder). CORRECTED classification.",
+  "redundant_correct_0delta": {
+    "count": 25,
+    "desc": "parentFolder==own room + in room files[] -> render at root CORRECT; retire=0-delta transparency",
+    "items": [
+      {
+        "uuid": "0117726e-2d06-45bb-8df8-99c10c0d63e7",
+        "name": "t3720-webitem",
+        "parentFolderRoom": "fc50ff85-b22d-4481-9cbb-2ea82fd450be",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "03a1a587-7fb4-41d4-912d-5847647e2106",
+        "name": "t3720-webitem",
+        "parentFolderRoom": "ef5f89ff-e0aa-4c4f-ba51-d551b2ca3cb7",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "222b84b6-b806-4412-b477-5e0a2db90e1f",
+        "name": "Services | Cerulean Circle",
+        "parentFolderRoom": "8be52aa9-7db8-4e3a-8356-eed920dd1f1a",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "23a3f882-c2fe-487a-9424-941d803ec53f",
+        "name": "Posteingang für Cerulean Circle GmbH [SKW-DMS.FID1",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "305e2e89-5b62-478e-9e99-c201aa9e785b",
+        "name": "Using Semvec as an in-process library — no server ",
+        "parentFolderRoom": "b3efa337-5b32-4776-a1e2-967890fa2f84",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "3aca9d59-7f87-4ba3-8567-97b1cfa2ae75",
+        "name": "app#file.show?uuid=d4869809-d65a-46b1-a1e3-46333a2",
+        "parentFolderRoom": "6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "41b3fb3d-bbee-4da2-bca5-1a434f0e0e4d",
+        "name": "fiverr.com: I will mvp business model design and m",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "5316df18-5d24-4325-b467-a759ae69ca9f",
+        "name": "Parisii™ QFS™ — Four Paths Suite",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "555a835d-fa21-4eea-84f9-2c55f7855cf6",
+        "name": "t3720-webitem",
+        "parentFolderRoom": "1bb8d569-6ef0-4348-8d36-414b97ab35be",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "64271a15-01ad-4160-b640-b7984a1eaeef",
+        "name": "Why am I here",
+        "parentFolderRoom": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "799a0e7b-8eb6-473b-90bb-d88f57f95197",
+        "name": "app#file.show?uuid=5cd55ac0-08af-42ab-87fb-6192979",
+        "parentFolderRoom": "6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "90322673-f687-46b5-85d0-9ffca09f671c",
+        "name": "Agenten at Scale: Wie KI Unternehmen wirklich verä",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "94e8474e-2460-4156-8d0f-e166582d6037",
+        "name": "app#file.show?uuid=af65e267-6a54-49ad-a619-3d7fc15",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "9abc3646-749b-42ba-850d-8e442c85be95",
+        "name": "Pathway of Light",
+        "parentFolderRoom": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "a80ac51e-637e-4967-a556-e48f1181c04c",
+        "name": "Cuadds",
+        "parentFolderRoom": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "c8ca83bb-84bd-4223-a15a-3421da0ac86f",
+        "name": "aim2balance.ai | Bergwaldprojekt e.V.",
+        "parentFolderRoom": "3ec1bf6e-a14b-45fa-86a3-2c27182659be",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d",
+        "name": "Cerulean Circle Gmbh: Haben Sie schon genug Bewerb",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "de5bc35b-14e3-4576-9298-a14aea3d8b38",
+        "name": "t3720-webitem",
+        "parentFolderRoom": "a9b956ce-f39a-42b0-b5b3-3365a2422c8a",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "df918676-4979-44c9-8555-844df3db1c5b",
+        "name": "Claude",
+        "parentFolderRoom": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "dfa9263a-7460-447a-9bad-8bbb0d37ef0d",
+        "name": "Youtu 8fn9N_JI7l8",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "e4043596-7e55-4d3d-b0d2-e4607a9e768a",
+        "name": "watch?is=ndGNB86TKxEQxQX9&v=8fn9N_JI7l8&feature=yo",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "e9ca214b-f07f-4a87-a531-ae637f8909f4",
+        "name": "Nextcloud",
+        "parentFolderRoom": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "ee8ba451-9340-43ef-8f89-28e880fff506",
+        "name": "Agenten at Scale: Wie KI Unternehmen wirklich verä",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "f08ec274-8665-4bd6-a3bb-e60c9870cd36",
+        "name": "Maps 8CwQRZVJXvxB6iXV6",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      },
+      {
+        "uuid": "f54293d2-8034-483a-9884-8ad5abc91d88",
+        "name": "app#file.show?uuid=5cd55ac0-08af-42ab-87fb-6192979",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": true
+      }
+    ]
+  },
+  "invisible_the_real_defect": {
+    "count": 5,
+    "desc": "parentFolder=a room but NOT in that room files[] -> render nowhere; FIX=add to that room fileUnits (announced); junk=true -> delete not restore",
+    "items": [
+      {
+        "uuid": "3f80f8c8-cc42-453e-b621-102966fb7bb8",
+        "name": "about:blank#blocked",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": false,
+        "belongsToRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "junk": true
+      },
+      {
+        "uuid": "96f54cc2-5897-475d-912e-5ff01078e44a",
+        "name": "jonah.jala@indigitous.org Indigitous Hack26",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": false,
+        "belongsToRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "junk": false
+      },
+      {
+        "uuid": "adf1a8c0-87c7-4264-be4f-1fbf99de5ba2",
+        "name": "watch?v=D6XhtIfNiyo",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": false,
+        "belongsToRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "junk": false
+      },
+      {
+        "uuid": "cf45d317-93db-434c-8a97-12b8b2865c8e",
+        "name": "message:%3Ch2T09I_ZS7qHdRBkD5gOuQ@geopod-ismtpd-49",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": false,
+        "belongsToRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "junk": false
+      },
+      {
+        "uuid": "dc48165b-d944-42f2-917f-c78b79056699",
+        "name": "watch?v=On8AxkeHYNE",
+        "parentFolderRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "inThatRoomFiles": false,
+        "belongsToRoom": "3231db71-d834-435a-a7f9-a801680ccd62",
+        "junk": false
+      }
+    ]
+  }
+}
