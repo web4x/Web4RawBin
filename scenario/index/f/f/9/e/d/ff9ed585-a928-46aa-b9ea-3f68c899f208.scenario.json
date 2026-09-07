@@ -132,6 +132,17 @@
           "assertion": "move performs no containment mutation outside link/unlink; a bespoke reparent body mutating containment directly => RED"
         },
         "stubMustFail": "seed a reparent/move that mutates containment directly (not via link+unlink) -> RED"
+      },
+      {
+        "id": "AC-containment-migration-transparent-differential",
+        "group": "migration/safe-transition",
+        "text": "SAFE TRANSITION (not just the end state): moving containment from parentFolder (singular) to the edge set must be proven TRANSPARENT by a BEFORE/AFTER DIFFERENTIAL — the room files tree, the /model tree, and every folder surface render IDENTICALLY before and after the repoint (same shape as the PAIR-2 byte-identity gate that caught project:model). parentFolder is NOT removed until edge-based reads are proven equivalent, and the edge data is COMMITTED to git BEFORE the field is retired. Rationale: containment is FAR more visible than a model tree — if edges and parentFolder disagree for one unit, Tron sees a file in the wrong folder or missing. An end-state AC (AC-containment-is-edges-not-parentfolder) passes the moment the code is edge-based even if the migration silently moved/lost his files; this AC gates the TRANSITION so \"renders from edges now\" cannot be true while \"his files are where he put them\" is quietly false.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "containment-repoint before/after differential (PAIR-2 shape)",
+          "assertion": "room-files-tree + /model-tree + folder-surfaces render BYTE-IDENTICAL before vs after the parentFolder->edges repoint; ANY diff (a file in a different folder / missing) => RED; parentFolder retired before edge-reads-proven => RED; edge data not committed to git before the field is retired => RED"
+        },
+        "stubMustFail": "seed a containment migration that moves or loses one file (the before/after differential shows a diff) -> RED; seed parentFolder retired before the differential passes -> RED"
       }
     ],
     "architectRuling": "Architect 39bc3a10f (design-notes/universal-link-mechanism.md): LINK is the PRIMITIVE (drop=add-edge); MOVE is DERIVED = unlink(source)+link(target); containment = many-to-many edge set; parentFolder singular retired; R40.86 reparent body retired -> re-expressed as composition (extends R40.106)."
