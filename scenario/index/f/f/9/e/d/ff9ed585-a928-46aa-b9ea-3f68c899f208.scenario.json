@@ -37,22 +37,22 @@
       {
         "id": "AC-drop-any-kind-creates-a-link-not-copy",
         "group": "drop/link",
-        "text": "A drop of EVERY object kind (file, image, task, modelElement, requirement, ANY oop object) onto ANY folder creates a LINK to the one centralized storage unit — never a COPY. ASSERT by counting: one stored unit, N links, NOT N copies (unit count in the index is UNCHANGED by a drop).",
+        "text": "LINK is the PRIMITIVE (=drop, Tron 'places a link ALWAYS'): a drop ADDS ONE EDGE (a container children[] ref) — never a copy, and it NEVER mutates the unit body. A unit in N containers = N edges. ASSERT: after 2 drops of the same unit into 2 folders, the same uuid appears in both + the unit body is BYTE-IDENTICAL (0 new stored units).",
         "gateRef": {
           "kind": "test",
-          "ref": "test drop count-units-before-after",
-          "assertion": "after dropping any object kind on a folder: +1 link, +0 stored units; a drop that increases the stored-unit count (a copy) => RED"
+          "ref": "link-primitive edge-count",
+          "assertion": "a drop adds exactly one children[] edge, +0 stored units, unit body byte-unchanged; a drop that copies the unit or mutates its body => RED"
         },
-        "stubMustFail": "seed a drop that creates a COPY (stored-unit count increases) -> RED"
+        "stubMustFail": "seed a drop that copies the unit (or mutates its body) instead of adding an edge -> RED"
       },
       {
         "id": "AC-same-unit-two-folders-one-unit",
         "group": "identity/by-reference",
-        "text": "The SAME unit linked in two folders is ONE unit: uuid identical, content stored ONCE (identity by reference, same law as R40.81 one-store). Two links resolve to the same uuid + the same stored bytes.",
+        "text": "The SAME unit linked in N folders is ONE unit, N EDGES: uuid identical, content stored ONCE, unit body byte-identical across all containers (containment is a many-to-many edge set, identity by reference = R40.81 law).",
         "gateRef": {
           "kind": "test",
           "ref": "test link-in-two-folders",
-          "assertion": "the same unit in 2 folders = 1 stored unit, same uuid; a 2nd stored copy for the 2nd link => RED"
+          "assertion": "same unit in N containers = 1 stored unit + N edges, body byte-identical; a 2nd stored copy for the 2nd edge => RED"
         },
         "stubMustFail": "seed the same unit linked in 2 folders stored as 2 units -> RED"
       },
@@ -70,13 +70,13 @@
       {
         "id": "AC-delete-removes-unit-and-all-links-zero-dangling",
         "group": "delete/dangerous",
-        "text": "DELETE (RED, dangerous) really removes the unit FROM THE INDEX and removes ALL its links everywhere. ASSERT: after DELETE, ZERO dangling refs — no orphan link anywhere points at the dead uuid.",
+        "text": "DELETE (RED, dangerous) destroys the unit from the index AND scan-unlinks ALL its edges everywhere. ASSERT via the graph-integrity walker: ZERO dangling refs after (no edge/ref anywhere points at the dead uuid). RECOVERABLE: the pre-image is committed to git before the destroy (his data is never unrecoverably lost).",
         "gateRef": {
           "kind": "test",
-          "ref": "test delete + dangling-ref scan",
-          "assertion": "after DELETE: the unit is gone from the index AND every link to it is removed; any surviving ref pointing at the deleted uuid => RED"
+          "ref": "delete + graph-integrity 0-dangling + git pre-image",
+          "assertion": "after DELETE: unit gone + every edge removed (graph-integrity walker: 0 dangling) AND a git pre-image commit exists; a surviving ref at the dead uuid OR no pre-image => RED"
         },
-        "stubMustFail": "seed a DELETE that leaves a dangling link pointing at the removed uuid -> RED"
+        "stubMustFail": "seed a DELETE that leaves a dangling edge OR does not commit a pre-image -> RED"
       },
       {
         "id": "AC-delete-red-explicit-confirm",
@@ -110,8 +110,31 @@
           "assertion": "adding an object kind requires no central-switch edit; a switch/if-chain enumerating kinds for drop/link/remove/delete => RED"
         },
         "stubMustFail": "seed a central switch enumerating object kinds for drop/remove/delete -> RED"
+      },
+      {
+        "id": "AC-containment-is-edges-not-parentfolder",
+        "group": "containment/edges",
+        "text": "Containment is the many-to-many EDGE set (container children[] refs) — the SINGLE truth. parentFolder (singular) is RETIRED as a containment source; containment DERIVES from edges, never from a singular parentFolder field.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "lint containment-from-edges",
+          "assertion": "containment/membership reads resolve from the children[] edge set; a read of parentFolder (singular) as the containment source => RED"
+        },
+        "stubMustFail": "seed a containment read from parentFolder (singular) instead of the edge set -> RED"
+      },
+      {
+        "id": "AC-move-is-derived-link-plus-unlink",
+        "group": "move/derived",
+        "text": "MOVE (re-parent, R40.86) is DERIVED = unlink(source) + link(target); it performs NO containment mutation of its own. The R40.86 bespoke reparent body is RETIRED and re-expressed as this composition. ASSERT: 0 parentFolder/containment mutations outside link/unlink; reparentUnitsIntoContainer's body is deleted/reduced to link+unlink.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "lint move=composition",
+          "assertion": "move performs no containment mutation outside link/unlink; a bespoke reparent body mutating containment directly => RED"
+        },
+        "stubMustFail": "seed a reparent/move that mutates containment directly (not via link+unlink) -> RED"
       }
-    ]
+    ],
+    "architectRuling": "Architect 39bc3a10f (design-notes/universal-link-mechanism.md): LINK is the PRIMITIVE (drop=add-edge); MOVE is DERIVED = unlink(source)+link(target); containment = many-to-many edge set; parentFolder singular retired; R40.86 reparent body retired -> re-expressed as composition (extends R40.106)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
