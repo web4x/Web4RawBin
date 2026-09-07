@@ -55,3 +55,18 @@ Tron: "removes all links (dangerous)." Delete destroys the unit AND every refere
 - **INC-7 (delete):** the RED confirm-gated `delete` Command — commit-pre-image → remove unit → scan-unlink-all → publish. Gate on the 0-dangling scan.
 
 **No invented mechanism:** Command + the R33.9/R40.105 registry + `children[]` edges that already exist + `resolveDropPayload` (the ONE drop contract) + the existing dangling-ref scanner as the delete gate + git as rollback (Tron's ruling).
+
+## ★ CONTAINMENT-RELIANCE MEASUREMENT + parentFolder-RETIRE = a DATA-SEMANTICS REPOINT (PO condition, R40.81 lesson)
+Retiring parentFolder as the containment source is structurally the SAME operation as the R40.81 store repoint (which LOOKED transparent and was not — project:model appeared, only a differential caught it). MEASURED first (PO condition 1):
+- **parentFolder is used by ONLY 30 units, ALL `ior:class:WebItem`** (of 6923 total). It is NOT the system-wide containment source — containment for everything else is ALREADY `children[]` edges + room fileUnits.
+- **Folders resolve contents via `children[]`** (down) and carry `parent` as their up-pointer (FolderService `FolderUnit.parent`/`children[]`) — `parentFolder` is a SEPARATE, WebItem-only field, NOT the folder tree's pointer.
+- **Only 2 code readers touch parentFolder:** `federation-transfer.ts` (ref-rewrite pass) and `WebItem.ts` (where it's set) — NEITHER is the tree/room contents render.
+- **★ THE RISK:** all 30 are parentFolder-ONLY — **0 of 30 appear in any `children[]` edge.** So their containment edge does NOT exist yet; dropping parentFolder without backfill = those 30 lose their parent. AND their CURRENT render is unknown-until-differential — since folder `children[]` omits them, they may be a LATENT MIS-RENDER today (parent set, folder doesn't list them). Do NOT assume; the differential decides.
+
+**So the repoint is SMALL + BOUNDED (30 WebItems + 2 code sites), not system-wide — but it gets the FULL R40.81 treatment because containment is user-visible:**
+1. **Backfill before retire:** create the `children[]` edge for each of the 30 (WebItem → its parentFolder-target's children[]) as the migration; only THEN retire the field.
+2. **Transparency DIFFERENTIAL (PO condition 2, PAIR-2 shape):** the tree/room/model surfaces render IDENTICALLY before vs after, with the 30 WebItems' location asserted specifically. ★ IF the differential shows a WebItem absent-before / present-after, that is a BEHAVIOR CHANGE (a latent-mis-render fix riding the migration) — SURFACE it to Tron, do not ship it silently as "transparent."
+3. **Dual-read transition (PO condition 3):** the containment reader resolves from `children[]` edges; keep parentFolder readable during transition (read both), retire the field ONLY after edge-reads are proven byte-identical. No destructive field removal first.
+4. **Pre-image commit the migration (PO condition 4):** commit the 30 units + their folders as data BEFORE the backfill mutation (git = rollback), same discipline as delete's pre-image and model-store-before-delete.
+
+This becomes **INC-4a (the parentFolder repoint)**, gated on the differential, sequenced BEFORE the general link/unlink edge ops build on `children[]` as the sole containment truth. federation-transfer.ts + WebItem.ts are the 2 code sites to update to the edge form.
