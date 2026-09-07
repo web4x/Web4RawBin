@@ -19,13 +19,13 @@
       {
         "id": "AC-fix-differential-on-the-5",
         "group": "fix/exact-change",
-        "text": "THE FIX on the 5 (NOT 25+5): add the 4 real ones to room 3231db71 fileUnits (4 invisible->visible IN that room); DELETE the 1 junk (about:blank#blocked). PER-UUID differential: exactly those 5 change (4 appear in room 3231db71, 1 removed); 0-delta on any real one => RED (not fixed); the 25 must show 0-delta (they were never a defect); any change beyond the 5 => RED.",
+        "text": "THE FIX, PER-UUID (5 units, all in room 3231db71): DELETE 3f80f8c8 (junk about:blank#blocked, zero-dangling + pre-image); RESTORE the 4 into room 3231db71 fileUnits (invisible->visible): 96f54cc2 (clean email), + 3 BORDERLINE default-restore-flagged-for-Tron (adf1a8c0/dc48165b bare watch?v=, cf45d317 message-id). Differential asserts EXACTLY these 5 change (1 removed + 4 appear in room 3231db71), the 25 render byte-identical, NO 6th unit touched. 0-delta on a real restore OR any change to the 25 OR a 6th => RED.",
         "gateRef": {
           "kind": "test",
           "ref": "test per-uuid differential (the 5)",
-          "assertion": "the 4 appear in room 3231db71 + the 1 junk removed; the 25 render byte-identical; 0-delta on a real invisible OR any change to the 25 or a 6th unit => RED"
+          "assertion": "exactly: 3f80f8c8 removed (0-dangling) + 4 restore appear in room 3231db71 fileUnits; the 25 byte-identical; a 0-delta on a restore, a restored junk, a changed-25, or a 6th unit => RED"
         },
-        "stubMustFail": "seed a fix that leaves a real invisible unrendered, OR changes one of the 25, OR touches a 6th -> RED"
+        "stubMustFail": "seed: the junk restored / a real restore left invisible / one of the 25 changed / a 6th unit touched -> RED"
       },
       {
         "id": "AC-junk-is-delete-not-restore",
@@ -64,7 +64,41 @@
     "status": "Open",
     "createdBy": "robbin-req",
     "createdAt": "2026-09-06",
-    "authorizedBy": "robbin-po (GO — announced working-robustness bug)"
+    "authorizedBy": "robbin-po (GO — announced working-robustness bug)",
+    "fixUnits": {
+      "room": "3231db71-d834-435a-a7f9-a801680ccd62",
+      "source": "architect enumeration webitem-containment-defect-30.json (a95dc6ca9)",
+      "delete": [
+        {
+          "uuid": "3f80f8c8-cc42-453e-b621-102966fb7bb8",
+          "name": "about:blank#blocked",
+          "reason": "junk (v0.7.0 never-mint-about:blank) — DELETE not restore"
+        }
+      ],
+      "restore": [
+        {
+          "uuid": "96f54cc2-5897-475d-912e-5ff01078e44a",
+          "name": "jonah.jala@indigitous.org Indigitous Hack26",
+          "shape": "CLEAN WebItem (email) — restore"
+        },
+        {
+          "uuid": "adf1a8c0-87c7-4264-be4f-1fbf99de5ba2",
+          "name": "watch?v=D6XhtIfNiyo",
+          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — default restore, Tron keep-vs-drop"
+        },
+        {
+          "uuid": "cf45d317-93db-434c-8a97-12b8b2865c8e",
+          "name": "message:%3C...@geopod-ismtpd-49",
+          "shape": "BORDERLINE (email message-id scheme, possibly malformed) — default restore, Tron keep-vs-drop"
+        },
+        {
+          "uuid": "dc48165b-d944-42f2-917f-c78b79056699",
+          "name": "watch?v=On8AxkeHYNE",
+          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — default restore, Tron keep-vs-drop"
+        }
+      ],
+      "malformedFlaggedForTron": "3 of the 4 restore (adf1a8c0, cf45d317, dc48165b) are possibly-malformed partial refs (2 bare watch?v= + 1 email message-id). DEFAULT = restore (real saved content; invisible IS the bug). Keep-vs-drop is the OWNER call = routed to Tron VIA THE PO (his data; not asking him to validate/test - a keep-vs-drop decision on saved content). Only 96f54cc2 (email) is a clean WebItem."
+    }
   },
   "ownerIor": null
 }
