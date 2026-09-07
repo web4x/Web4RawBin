@@ -80,19 +80,6 @@ Tron explicitly assigned the design to the architect.
 - Tree-item per-type icon + NAME + links (extends T143)
 - Standard update documents the full-chain rendering model
 
-## Acceptance Criteria
-
-- [ ] AC1 (Design — architect-led) — Architect-finalized design documented in `scrum.pmo/standards/traceability-standard.md`: per-type DetailView coverage matrix; tree-item rendering per type; data fields surfaced per view; scope decision on R17.24 source-location IORs
-- [ ] AC2 (DetailViews — Class/Method/Test/Implementation) — Web Components exist per type (architect-finalized list); registered in VerbRegistry per T111 pattern; render data from `model.links.*` / `model.chain.*`
-- [ ] AC3 (Tree-item rendering) — Tree-items show NAME + speaky description (per T146) + per-type icon + clickable chain edges (per T143); all 7 chain types render consistently
-- [ ] AC4 (Full chain walk — FORWARD-ONLY per Tron 2026-06-01) — From any Requirement, the user can walk **forward-only** `Requirement → Task → (Subtask ∪ UseCase) → Class → Method` inside the browser; every forward hop clickable; **NO back-refs rendered** (task does NOT trace back to requirement; UC does NOT trace back to requirement). Multiple requirements may list the same task. Test/Implementation surfacing: architect decides direction (T140 source-location IORs may carry impl/test info forward from method, not back).
-- [ ] AC5 (Source-location IORs) — R17.24 source-location IORs surfaced where applicable (architect decides scope — may be follow-on)
-- [ ] AC6 (Spot-check ≥5 chains) — Tester walks 5+ chains from different Requirement roots; each fully renders
-- [ ] AC7 (Regression) — No regression on T110 / T111 / T143 / T149 / T151-T155
-- [ ] AC8 — `npm run build` succeeds; all existing tests pass
-- [ ] AC9 — **Rule-pair (a)+(b)+(c) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped AND **STATIC_SHELL entry added** for any new typed-DetailView bundle paths in the SAME commit-set as the impl. T158 ships new bundles → (c) STATIC_SHELL required
-- [ ] AC10 — All 4 roles committed work in this file (req confirm + architect design + expert impl + tester verify)
-
 ## Dependencies
 
 - **Requires:** **T159 (forward-only chain refactor — HARD BLOCKER per Tron 2026-06-01)**, T110 (drawer), T111 (DetailView pattern), T126 (templates), T143 (tree), T149 (universal symlinks), T151 (JSON arrays), T152/T153 (UC data — back-refs to be removed by T159), T154/T155 (Requirement forward `tasks[]` retained; T155 back-ref input refactored by T159), T140 (source-location IORs — may be in-scope)

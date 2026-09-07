@@ -34,11 +34,11 @@ A user @390 sees the method's full signature (visibility name(params):returnType
 
 ## Acceptance Criteria
 
-- [ ] @390 SIGNATURE LINE: a live method detail SHOWS the full signature — visibility {public|private|protected} name(parameters):returnType. Screenshot present, matching an enriched method.
-- [ ] @390 DOCS: the detail renders the method docs (oosh-style) below the signature. Screenshot: docs body present, not empty.
-- [ ] SIGNATURE-DATA-EXISTS-FIRST (distinct-kind): the signature DATA exists before render — parsed from the source declaration OR an enriched Method-unit field (visibility/parameters/returnType). Today 0/657 carry it; render cannot succeed without this. NOT satisfiable by the sourceFile-derive (which only surfaces the file link).
-- [ ] NOT-SMUGGLED (provenance): tracked as its OWN item, NOT closed by the v0.8.151 source-link ship — a board reading v0.8.151 as satisfying signature-render is WRONG.
-- [ ] STUB-MUST-FAIL: a method with signature data present but the detail rendering no signature line => RED; renders the line => GREEN.
+- [ ] **(user-visible@390)** On 390px, a live method detail SHOWS the full signature line: visibility {public|private|protected} name(parameters):returnType. Screenshot: the signature line is present, matching an enriched method.
+- [ ] **(user-visible@390)** The detail renders the method docs (oosh-style) below the signature. Screenshot: docs body present, not empty.
+- [ ] **(distinct-kind)** The signature DATA exists before render: either parsed from the source declaration or an enriched Method-unit field (visibility/parameters/returnType). Today 0/657 carry it — the render cannot succeed without this step. NOT satisfiable by the sourceFile-derive (which only surfaces the file link).
+- [ ] **(provenance)** This is tracked as its own item, NOT closed by the v0.8.151 source-link ship. A board reading v0.8.151 as satisfying the signature render is WRONG.
+- [ ] **(gate)** STUB-MUST-FAIL: a method with signature data present but the detail rendering no signature line => RED; renders the line => GREEN.
 
 ## Subtasks
 

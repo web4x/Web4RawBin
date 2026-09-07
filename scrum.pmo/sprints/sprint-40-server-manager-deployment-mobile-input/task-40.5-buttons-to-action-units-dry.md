@@ -34,11 +34,12 @@ R40.5 (Tron QA v0.8.70, SCOPE-CORRECTED ac147a82d: 'the editor actions can stay 
 
 ## Acceptance Criteria
 
-- [ ] [AUTOMATABLE, source] A GREP-DRIVEN INVENTORY of the ADDITIONAL action buttons across ALL in-room detail views + feature/detail views is produced at build; the EDITOR CHROME (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) is EXPLICITLY EXCLUDED and that exclusion is RECORDED (not silently dropped).
-- [ ] [AUTOMATABLE, source] Each IN-SCOPE (detail/feature-view additional) button becomes an action UNIT rendered by the shared universalActionBar (R35.1 mechanism 54acc696/ffd44b17), NOT bespoke per-view markup.
-- [ ] [AUTOMATABLE] Per-surface actionSets declared as DATA (config units), not hardcoded.
-- [ ] [AUTOMATABLE, source, stub-must-fail] The invariant: NO logical action is implemented more than once across the detail/feature views (DE-DUPLICATION, not uniformity). A grep-zero-bespoke lint SCOPED to the detail/feature-view surfaces ONLY — it must NOT fire on the editor chrome, and it must FAIL if a NEW bespoke detail-view button appears (plant one -> RED).
-- [ ] [DEVICE/VISUAL @390 - Tron] The migrated detail/feature-view bars render @390 unchanged-or-better (pixel; Tron final visual, esp. any owner-gated surface a non-owner cannot load).
+- [ ] **(automatable)** [AUTOMATABLE, source] A GREP-DRIVEN INVENTORY of the ADDITIONAL action buttons across ALL in-room detail views + feature/detail views is produced at build; the EDITOR CHROME (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) is EXPLICITLY EXCLUDED and that exclusion is RECORDED (not silently dropped).
+- [ ] **(automatable)** [AUTOMATABLE, source] Each IN-SCOPE (detail/feature-view additional) button becomes an action UNIT rendered by the shared universalActionBar (R35.1 mechanism 54acc696/ffd44b17), NOT bespoke per-view markup.
+- [ ] **(automatable)** [AUTOMATABLE] Per-surface actionSets declared as DATA (config units), not hardcoded.
+- [ ] **(automatable)** [AUTOMATABLE, source, stub-must-fail] The invariant: NO logical action is implemented more than once across the detail/feature views (DE-DUPLICATION, not uniformity). A grep-zero-bespoke lint SCOPED to the detail/feature-view surfaces ONLY — it must NOT fire on the editor chrome, and it must FAIL if a NEW bespoke detail-view button appears (plant one -> RED).
+- [ ] **(device)** [DEVICE/VISUAL @390 - Tron] The migrated detail/feature-view bars render @390 unchanged-or-better (pixel; Tron final visual, esp. any owner-gated surface a non-owner cannot load).
+- [ ] **(T37.21-part3-user-visible@390)** T37.21 part 3 (Tron): the detail BODY must NOT repeat the Scenario/Edit LINKS — the action bar's [◆ Scenario][✎ Edit] buttons are the SINGLE source (this dedup invariant). Tron: 'we already have std action bar buttons for scenario and edit so we see redundant links in the details.' @390 screenshot-checkable: the detail body shows NO 📄 Scenario / ✎ Edit links above the content; the action-bar buttons REMAIN untouched (do NOT touch the bar — R34.7/R33.6.5, Tron-verified v0.8.153). stub-must-fail: the detail body still renders the Scenario/Edit links => RED (logical action implemented twice = this req's dedup violation).
 
 ## Subtasks
 

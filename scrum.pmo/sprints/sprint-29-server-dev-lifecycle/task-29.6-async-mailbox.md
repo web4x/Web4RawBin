@@ -38,11 +38,11 @@ S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, n
 
 ## Acceptance Criteria
 
-- [ ] (mailbox) Sending a message = write + commit the AgentMessage unit ONLY; NO keystroke injection into the recipient's pane or input buffer.
-- [ ] (mailbox) The recipient PULLS its inbox at a TURN BOUNDARY (reads unread AgentMessage units addressed to it), not mid-turn.
-- [ ] (mailbox) The sender never interrupts the recipient's running turn; delivery is decoupled from the recipient's execution state (structural fix for keystroke-into-busy-pane = the sent-!=-delivered problem).
-- [ ] (mailbox) Messages persist (committed) until pulled + read; no message is lost to a busy input buffer or an un-submitted Enter.
-- [ ] (verify) Verified: a message sent while the recipient is mid-turn is NOT injected; it is committed and read on the recipient's next turn-boundary pull, intact.
+- [ ] **(mailbox)** Sending a message = write + commit the AgentMessage unit ONLY; NO keystroke injection into the recipient's pane or input buffer.
+- [ ] **(mailbox)** The recipient PULLS its inbox at a TURN BOUNDARY (reads unread AgentMessage units addressed to it), not mid-turn.
+- [ ] **(mailbox)** The sender never interrupts the recipient's running turn; delivery is decoupled from the recipient's execution state (structural fix for keystroke-into-busy-pane = the sent-!=-delivered problem).
+- [ ] **(mailbox)** Messages persist (committed) until pulled + read; no message is lost to a busy input buffer or an un-submitted Enter.
+- [ ] **(verify)** Verified: a message sent while the recipient is mid-turn is NOT injected; it is committed and read on the recipient's next turn-boundary pull, intact.
 
 ## Implementation
 

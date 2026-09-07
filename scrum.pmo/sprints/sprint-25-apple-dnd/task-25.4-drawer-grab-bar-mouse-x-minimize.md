@@ -41,8 +41,8 @@ Tron (drawer): the grab-bar must work the same with mouse as touch, and the X bu
 
 ## Acceptance Criteria
 
-- [ ] (grab-bar) The drawer grab-bar responds to mousedown/mousemove/mouseup for resize/dismiss — mirroring touch (currently touch-only; rb-detail-drawer.ts lines 38-40)
-- [ ] (x-minimize) The X button collapses the drawer to a MINIMIZED (peek) state — NOT a full close/hide — on both touch AND mouse click (today X calls close() which hides entirely; needs a minimize()/peek state)
+- [ ] **(grab-bar)** The drawer grab-bar responds to mousedown/mousemove/mouseup for resize/dismiss - mirroring touch (currently touch-only; rb-detail-drawer.ts lines 38-40).
+- [ ] **(x-minimize)** The X button collapses the drawer to a MINIMIZED (peek) state - NOT a full close/hide - on both touch AND mouse click (today X calls close() which hides entirely; needs a minimize()/peek state).
 
 ## Implementation
 

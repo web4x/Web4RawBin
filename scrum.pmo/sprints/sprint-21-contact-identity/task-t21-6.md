@@ -33,7 +33,22 @@ PhoneIndex.mintAndLink: mint ior:class:Phone unit { e164:+CountryDigits, ownerIo
 
 ## Acceptance Criteria
 
-See requirement unit 3bd63ae7-96e9-453a-a19f-fc7e1e00ab1f (architect-refined AC + gateable test scenarios).
+- [ ] **(unit-shape)** A phone is minted as an ior:class:Phone unit with model { uuid, e164, ownerIor } AND a top-level ownerIor; both ownerIor === ior:instance:<profileUuid>.
+- [ ] **(unit-shape)** model.e164 stores the NORMALIZED canonical key (normalizePhone output), never the raw input string.
+- [ ] **(unit-shape)** The caller supplies the v4 uuid (PhoneIndex is runtime-crypto-free); the server passes crypto.randomUUID().
+- [ ] **(format)** normalizePhone(raw) strips ALL non-digit characters and returns +<digits> (e.g. '+49 1525 384-4085' -> '+4915253844085').
+- [ ] **(format)** Input with no digits returns '' (empty), which is rejected downstream.
+- [ ] **(format)** isValidPhoneKey enforces /^\+\d{6,15}$/ — a leading + then 6..15 digits; an invalid key causes mintAndLink to return null and mint NOTHING.
+- [ ] **(format)** The standardized +CountryDigits format is enforced AT creation: mintAndLink normalizes and validates before any unit is written.
+- [ ] **(profile-link)** On success the Phone IOR ior:instance:<phoneUuid> is appended to Profile.model.phones[].
+- [ ] **(profile-link)** A profile may carry MULTIPLE distinct phones — different normalized keys produce multiple Phone units and multiple phones[] entries.
+- [ ] **(idempotent)** IDEMPOTENT: minting a phone whose normalized key already exists in phones[] adds NO duplicate unit and NO duplicate phones[] entry.
+- [ ] **(idempotent)** Idempotency is keyed on the NORMALIZED value — raw variants like '+49 1525 3844085' and '+4915253844085' collapse to the same single entry.
+- [ ] **(mintAndLink)** mintAndLink(profileUuid, rawPhone, phoneUuid) returns the normalized key on success, null on an invalid key OR a missing profile.
+- [ ] **(mintAndLink)** If the profile does not exist, mintAndLink returns null and mints no unit.
+- [ ] **(alt-index)** On success an alt/phone/<key>.scenario.json symlink is registered pointing to the PROFILE's canonical file, declared on the Profile's unitLinks[] (self-syncs on write, self-removes on profile remove).
+- [ ] **(alt-index)** resolveToProfile(rawPhone) normalizes, follows the symlink, and returns the profile uuid — i.e. the phone is an alternate UUID for the profile (feeds R21.3/R21.4).
+- [ ] **(seed)** Tron's phone +4915253844085 exists as the first Phone unit on his WODA.prod profile (real seed data from the start).
 
 ## Dependencies
 

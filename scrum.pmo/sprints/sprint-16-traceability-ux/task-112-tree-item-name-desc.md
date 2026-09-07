@@ -47,13 +47,6 @@ if it does not have a short one create a short name from the requirement text. t
 shall have below the name a word wrapping smaller text paragraph with the current
 requirement text."
 
-## Acceptance Criteria
-
-- [ ] AC1 — Tree-item shows a speaky `name` when one exists
-- [ ] AC2 — When absent, a short name is generated from the requirement text
-- [ ] AC3 — A smaller-text description paragraph renders below the name and word-wraps (no overflow/clipping)
-- [ ] `npm run build` succeeds; version + sw.js bumped; no regression
-
 ## Dependencies
 
 - **Requires:** None (tree-item redesign foundation for Phase 2)

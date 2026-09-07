@@ -61,17 +61,6 @@ requirement (R17.13).
 - 0-issue across all migrated sprints
 - Web4Articles compliance: every task has Status + Traceability + Acceptance Criteria + QA Audit sections (template adoption verified in the generated views)
 
-## Acceptance Criteria
-
-- [ ] AC1 — `npm run trace:check` clean (or documented allowlist) on the migrated graph
-- [ ] AC2 — 5+ end-to-end chain walks pass (T129.2 sample report committed in this file)
-- [ ] AC3 — `sprint audit` returns 0-issue across all migrated sprints (T129.3)
-- [ ] AC4 — Every method in src/ either (a) has `[impl:uuid:]` linking to a Task whose `chain` resolves up to a requirement, or (b) is in a documented "framework/utility" waiver list with rationale
-- [ ] AC5 — `scenarios/sprints.md/` generated tree mirrors `scenarios/sprints.json/` symlink tree
-- [ ] AC6 — Sprint-17 own units (this task, T124-T128, T128.1-T128.4, etc.) are themselves migrated/generated — eats own dog food
-- [ ] AC7 — `npm run build` succeeds; full suite passes
-- [ ] AC8 — Final report committed in this file's QA Audit section, ready for Tron QA review
-
 ## Dependencies
 
 - **Requires:** T128 (migration; can run in parallel with T128.4 for partial verification)

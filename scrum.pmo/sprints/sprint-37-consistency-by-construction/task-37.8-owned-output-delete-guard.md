@@ -34,12 +34,12 @@ R37.8 (incident-driven, 2026-08-09). Every write/delete by the board generators 
 
 ## Acceptance Criteria
 
-- [x] (shared-chokepoint) Both generators (generate-sprint-md guardedWrite + sprint-overview guardedWriteRegion) route ALL writes/deletes through the ONE shared owned-output-guard helper — no direct fs.write/unlink bypasses it.
-- [x] (never-clobber-unmarked) An UNMARKED (hand-authored) file is NEVER overwritten: guardedWrite refuses to write over a path that is not an owned/generated name or lacks the generated header.
-- [x] (never-delete-unmarked) An UNMARKED file is NEVER deleted: guardedDelete removes a path ONLY when it carries the generated header — hand-authored knowledge docs cannot be regen-collateral.
-- [x] (fail-closed) On unknown/ambiguous ownership OR a path-traversal attempt, the guard REFUSES (does not write/delete) rather than proceeding.
-- [x] (region-preserve) guardedWriteRegion rewrites ONLY the generated region (between markers) of sprints.overview.md and preserves the hand-authored narrative outside it.
-- [x] (verify) Verified by tester BITEs B1 behavioural / B2a static chokepoint / B2b negative-bite / B3 fail-closed going GREEN with the guard present (correctly RED against its absence).
+- [ ] **(shared-chokepoint)** Both generators (generate-sprint-md guardedWrite + sprint-overview guardedWriteRegion) route ALL writes/deletes through the ONE shared owned-output-guard helper — no direct fs.write/unlink bypasses it.
+- [ ] **(never-clobber-unmarked)** An UNMARKED (hand-authored) file is NEVER overwritten: guardedWrite refuses to write over a path that is not an owned/generated name or lacks the generated header.
+- [ ] **(never-delete-unmarked)** An UNMARKED file is NEVER deleted: guardedDelete removes a path ONLY when it carries the generated header — hand-authored knowledge docs cannot be regen-collateral.
+- [ ] **(fail-closed)** Fail-closed: on unknown/ambiguous ownership OR a path-traversal attempt, the guard REFUSES the operation (does not write/delete) rather than proceeding.
+- [ ] **(region-preserve)** guardedWriteRegion rewrites ONLY the generated region (between markers) of sprints.overview.md and preserves the hand-authored narrative outside it.
+- [ ] **(verify)** Verified by the tester BITEs (B1 behavioural / B2a static chokepoint / B2b negative-bite / B3 fail-closed) going GREEN once the guard is present (they were correctly RED when written against its absence).
 
 ## Subtasks
 

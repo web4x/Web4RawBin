@@ -27,13 +27,6 @@
 
 Align the integration tests with the current behaviour and interfaces.
 
-## Acceptance Criteria
-
-- [x] All server.test.ts tests pass without running server
-- [x] All client.test.ts tests pass without running server
-- [x] Combined with existing tests: 150+ total unit tests passing
-- [x] No test takes more than 5 seconds
-
 ## QA Audit & User Feedback
 
 ## Subtasks

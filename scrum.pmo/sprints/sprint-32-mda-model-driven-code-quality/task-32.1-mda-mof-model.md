@@ -34,13 +34,13 @@ designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.m
 
 ## Acceptance Criteria
 
-- [ ] The model is ONE unit type ior:class:ModelElement with {uuid, metaLevel M3|M2|M1, kind, name, instanceOf[] (reverse instances), members[] (reverse memberOf), relatesTo[] (reverse relatedFrom), diagramViews[] (reverse viewsUnit)} - reuses TraceModel refs + bidirectional links (no schema fork).
-- [ ] GATE 1 UUID-unique: no uuid appears twice on disk (TraceGraph dup-UUID-reject) - one identity per element.
-- [ ] GATE 2 level-integrity: every instanceOf points EXACTLY one meta-level up (M1->M2, M2->M3); M3 is reflexive (Class instanceOf Class); NO level skip and NO downward instanceOf.
-- [ ] GATE 3 instanceOf non-empty: every M2 and M1 unit has >=1 instanceOf; M3 units self-type (Class instanceOf Class, Relationship instanceOf Class).
-- [ ] GATE 4 serialization-embeds-UUID: every .puml / .ts emission of element X carries X.uuid, so a round-trip RE-BINDS to the same unit and NEVER re-mints (the no-duplication law).
-- [ ] GATE 5 same-UUID-cross-representation: an element present in >=2 representations (model / diagram / puml / ts) shows the SAME uuid in each; multi-facet instanceOf (e.g. instanceOf=[UmlClass, ts-class-code]) is one identity.
-- [ ] ACs FINALIZED to architect design eb64a6523 (PO-accepted). On this mint, architect wires the M3/M2 seed units + the identity-validator design for the expert build; chain mints onto the built validator + seed.
+- [ ] **(invariant)** The model is ONE unit type ior:class:ModelElement with {uuid, metaLevel M3|M2|M1, kind, name, instanceOf[] (reverse instances), members[] (reverse memberOf), relatesTo[] (reverse relatedFrom), diagramViews[] (reverse viewsUnit)} - reuses TraceModel refs + bidirectional links (no schema fork).
+- [ ] **(invariant)** GATE 1 UUID-unique: no uuid appears twice on disk (TraceGraph dup-UUID-reject) - one identity per element.
+- [ ] **(invariant)** GATE 2 level-integrity: every instanceOf points EXACTLY one meta-level up (M1->M2, M2->M3); M3 is reflexive (Class instanceOf Class); NO level skip and NO downward instanceOf.
+- [ ] **(invariant)** GATE 3 instanceOf non-empty: every M2 and M1 unit has >=1 instanceOf; M3 units self-type (Class instanceOf Class, Relationship instanceOf Class).
+- [ ] **(invariant)** GATE 4 serialization-embeds-UUID: every .puml / .ts emission of element X carries X.uuid, so a round-trip RE-BINDS to the same unit and NEVER re-mints (the no-duplication law).
+- [ ] **(invariant)** GATE 5 same-UUID-cross-representation: an element present in >=2 representations (model / diagram / puml / ts) shows the SAME uuid in each; multi-facet instanceOf (e.g. instanceOf=[UmlClass, ts-class-code]) is one identity.
+- [ ] **(meta)** ACs FINALIZED to architect design eb64a6523 (PO-accepted). On this mint, architect wires the M3/M2 seed units + the identity-validator design for the expert build; chain mints onto the built validator + seed.
 
 ## Subtasks
 

@@ -92,45 +92,6 @@ information loss**, verified by per-task before/after item counts.
 - T126 ViewGenerator regenerates the MD chain from JSON arrays going forward
   (closes the loop with #19 — JSON is canonical, MD is a view)
 
-## Acceptance Criteria
-
-- [ ] AC1 (Schema) — Scenario JSON `model` extended with chain arrays
-  (architect-named, e.g. `model.links.up[]`, `model.links.down[]`,
-  `model.links.follows[]`, `model.chain.requirement`, `model.chain.useCases[]`,
-  `model.chain.puml[]`, `model.chain.methods[]`, `model.changes[]`); spec in
-  `scrum.pmo/standards/traceability-standard.md`
-- [ ] AC2 (Migration) — Migration script reads each task file's `## Traceability`
-  block, parses each bullet into a typed link `{type, ref, label}` (or
-  architect-finalized shape), writes to the JSON scenario unit's arrays
-- [ ] AC3 (Idempotence) — Running the migration twice yields the same JSON
-  state; counts unchanged on the second run
-- [ ] AC4 (Dry-run) — `--dry-run` mode reports per-task before/after counts
-  without writing
-- [ ] AC5 (Per-task count audit) — For EVERY task file in S10–S17, the count
-  of MD chain bullets (before) equals the count of JSON array entries (after);
-  per-task table emitted as evidence; any mismatch is a hard FAIL
-- [ ] AC6 (Per-shape coverage) — Every chain-shape currently in MD has a
-  JSON array equivalent (no shape silently dropped); req's per-shape mapping
-  (refinement output) is the authoritative checklist
-- [ ] AC7 (Spot-check round-trip) — Architect/tester selects ≥5 tasks across
-  classes (Task / Requirement / UseCase / Class / Method / Test) and verifies
-  the JSON arrays carry the same refs, labels, and types as the MD source
-- [ ] AC8 (T126 regenerates) — After migration, T126 ViewGenerator can
-  regenerate the `.md` chain from JSON arrays; regenerated MD matches the
-  original (modulo whitespace / canonical ordering) for the spot-check sample
-- [ ] AC9 (`trace-cli` clean) — Chain audit reports 0 broken links across the
-  migrated graph; orphan/missing-target counts ≤ pre-migration baseline
-- [ ] AC10 (Regression) — No regression on T131 (Task symlinks), T141
-  (chain-link rendering), T144/T147 (🔗 click-through), T149 (universal
-  resolution), T146 (NAME on 🔗)
-- [ ] AC11 — `npm run build` succeeds; all existing tests pass
-- [ ] AC12 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version"
-  bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as
-  the user-facing impl (T126 regeneration will reach Tron's device).
-  (c) STATIC_SHELL: likely exempt (no new route — architect to confirm)
-- [ ] AC13 — All 4 roles committed work in this file (req+architect JOINT
-  refinement + expert impl + tester verify)
-
 ## Dependencies
 
 - **Requires:** T125 (scenario JSON model foundation), T134 (TraceLink class — architect decides if arrays inline objects or TraceLink-unit references), T126 (ViewGenerator — regenerates MD from arrays), T149 (universal symlinks — refs in arrays resolve via the symlink tree)

@@ -39,12 +39,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit).
 
 ## Acceptance Criteria
 
-- [x] (atomic) The deploy commits the version-bump + built dist BEFORE (or atomically with) serving the new bundle
-- [x] (invariant) served == committed == HEAD at all times: the version served equals the committed dist equals HEAD package.json
-- [x] (guard) A guard FAILS the deploy/startup if the running prod version != HEAD package.json version
-- [x] (invariant) The phantom-version window (served != committed, ungateable) is eliminated
-- [x] (by-construction) Atomicity is structural (commit-then-serve ordering + the guard), not a manual step
-- [x] (verify) A deploy leaves served==committed==HEAD; the guard trips on a deliberate version mismatch (INVARIANT/CI closure, not functional test)
+- [ ] **(atomic)** The deploy commits the version-bump + built dist BEFORE (or atomically with) serving the new bundle - it never serves an uncommitted build.
+- [ ] **(invariant)** served == committed == HEAD at all times: the version the server serves equals the committed dist equals HEAD package.json version. No phantom window (served != committed).
+- [ ] **(guard)** A guard FAILS the deploy/startup if the running prod version != HEAD package.json version - a serve-before-commit is caught, not silent.
+- [ ] **(invariant)** The phantom-version window (served != committed, ungateable) is eliminated: every served bundle is reproducible from a commit.
+- [ ] **(by-construction)** Atomicity is structural (commit-then-serve ordering + the guard), not a manual step - a new deploy path cannot skip it.
+- [ ] **(verify)** A deploy leaves served==committed==HEAD; the guard trips on a deliberate version mismatch (gate the guard). Companion to R30.14 (client side).
 
 ## Implementation
 

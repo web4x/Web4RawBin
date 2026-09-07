@@ -37,15 +37,6 @@ Define TypeScript classes `Requirement`, `Test`, and `Implementation` (plus `Tas
 This typed object graph is the authoritative source from which the traceability matrix
 is built and against which consistency is validated.
 
-## Acceptance Criteria
-
-- [ ] AC1: `Requirement`, `Test`, `Implementation`, `Task`, `UseCase`, `Class`, `Method` TS classes exist, each exposing a stable `uuid` field per the traceability standard
-- [ ] AC2: Each class carries the typed links needed to form the req→uc→puml→method→test chain (no untyped `any` references between objects)
-- [ ] AC3: Objects construct a navigable typed object graph (a Requirement can resolve its Tasks/Tests/Implementations and vice-versa)
-- [ ] AC4: UUIDs are v4-format and validated on construction; duplicate UUIDs are rejected
-- [ ] AC5: Unit tests cover construction, UUID validation, and graph traversal for each class
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** None

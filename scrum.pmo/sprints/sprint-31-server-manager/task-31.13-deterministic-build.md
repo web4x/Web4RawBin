@@ -30,10 +30,10 @@ The esbuild build MUST be DETERMINISTIC: identical source produces IDENTICAL dis
 
 ## Acceptance Criteria
 
-- [x] The esbuild build is content-DETERMINISTIC: rebuilding from IDENTICAL source produces IDENTICAL dist bundle content-hashes (app-<hash>.js, chunk names) - no timestamp / random salt / nondeterministic ordering in the hash input. Same source bytes in -> same hash out, every time.
-- [x] A restart / redeploy with UNCHANGED source produces ZERO dist tree changes (no new app-<hash>.js, no build-manifest diff) - so there is NO spurious churn-commit per restart; served==committed==tree-clean holds without a hand-commit to absorb hash churn.
-- [x] This makes the R31.7 tree-clean invariant INV-V3 (Build.versionGuardTreeClean, start.mjs:84) hold on EVERY deploy WITHOUT a spurious dist-hash churn fighting it. R31.7 = single-source VERSION; R31.13 = reproducible BUILD; together = a clean-deploy invariant (served==committed==tree-clean by construction).
-- [x] Gate: build twice from byte-identical source -> the two dist outputs are BYTE-IDENTICAL (same bundle content-hashes AND identical build-manifest). A `git status` after a rebuild-on-unchanged-source shows a CLEAN dist tree (no modified/new dist files). Tester rebuild-twice determinism check.
+- [ ] **(functional)** The esbuild build is content-DETERMINISTIC: rebuilding from IDENTICAL source produces IDENTICAL dist bundle content-hashes (app-<hash>.js, chunk names) - no timestamp / random salt / nondeterministic ordering in the hash input. Same source bytes in -> same hash out, every time.
+- [ ] **(functional)** A restart / redeploy with UNCHANGED source produces ZERO dist tree changes (no new app-<hash>.js, no build-manifest diff) - so there is NO spurious churn-commit per restart; served==committed==tree-clean holds without a hand-commit to absorb hash churn.
+- [ ] **(invariant)** This makes the R31.7 tree-clean invariant INV-V3 (Build.versionGuardTreeClean, start.mjs:84) hold on EVERY deploy WITHOUT a spurious dist-hash churn fighting it. R31.7 = single-source VERSION; R31.13 = reproducible BUILD; together = a clean-deploy invariant (served==committed==tree-clean by construction).
+- [ ] **(gate)** Gate: build twice from byte-identical source -> the two dist outputs are BYTE-IDENTICAL (same bundle content-hashes AND identical build-manifest). A `git status` after a rebuild-on-unchanged-source shows a CLEAN dist tree (no modified/new dist files). Tester rebuild-twice determinism check.
 
 ## Subtasks
 

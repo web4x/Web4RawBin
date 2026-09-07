@@ -34,10 +34,10 @@ R-C (residual). The R33.9 remove-from-diagram verb (model.ts:75, removeFromDiagr
 
 ## Acceptance Criteria
 
-- [x] (functional) When a diagram is being viewed AND an element is selected from THAT diagram, rb-active-diagram{uuid} fires so membership verbs (incl remove-from-diagram) appear in the bar.
-- [x] (functional) The EXISTING R33.9 remove-from-diagram verb removes the element FROM the diagram - no new verb fabricated.
-- [x] (functional) Rides R33.9 actionsForContext + removeFromDiagram (ride-existing; NO new Method/Impl - the chain reuses the built R33.9 nodes).
-- [x] (gate) GATE @390 real-WebKit: select an element that IS in the open diagram -> remove-from-diagram shows + works.
+- [ ] **(functional)** When a diagram is being viewed AND an element is selected from THAT diagram, rb-active-diagram{uuid} fires so membership verbs (incl remove-from-diagram) appear in the bar.
+- [ ] **(functional)** The EXISTING R33.9 remove-from-diagram verb removes the element FROM the diagram — no new verb fabricated.
+- [ ] **(functional)** Rides R33.9 actionsForContext + removeFromDiagram (ride-existing; NO new Method/Impl — the chain reuses the built R33.9 nodes).
+- [ ] **(gate)** GATE @390 real-WebKit: select an element that IS in the open diagram → remove-from-diagram shows + works.
 
 ## Subtasks
 

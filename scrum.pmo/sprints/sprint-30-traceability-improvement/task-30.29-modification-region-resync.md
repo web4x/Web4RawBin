@@ -38,12 +38,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit).
 
 ## Acceptance Criteria
 
-- [x] (drift-onset) private.resolve.target() stays aligned AND private.otmux.target.isPane() (the first drift point)
-- [x] (cumulative) otmux (~50 modification regions): 0px cumulative LEFT drift (was 368px)
-- [x] (anchor-resync) At EVERY stable/blank anchor (buffer='o') all 3 panes land the next full line on the SAME row
-- [x] (base-slice) The vendor diff3.ts StableRegion exposes oStart+oLength; the one-sided base slice advances the base counter
-- [x] (regression) Insertions (oLength=0) stay one-sided - R30.27 origin-exact behavior preserved
-- [x] (verify) RESULT byte-identical; assertion-grade getTopForLineNumber equal across all 3 panes per corresponding line
+- [ ] **(drift-onset)** private.resolve.target() stays aligned AND private.otmux.target.isPane() (the first drift point) + every method after it re-align - corresponding lines share one visual row across all 3 panes. private.complete.sessions(): LEFT line 72 and CENTER line 73 land on the SAME row.
+- [ ] **(cumulative)** otmux (~50 modification regions): 0px cumulative LEFT drift (was 368px).
+- [ ] **(anchor-resync)** At EVERY stable/blank anchor (buffer='o') all 3 panes land the next full line on the SAME row (laggards padded to maxRow); at EVERY modification region the non-changed pane advances by its real M=oLength base lines. Drift is bounded to within one block and snaps to 0 at each anchor.
+- [ ] **(base-slice)** The vendor diff3.ts StableRegion exposes oStart+oLength (from the in-scope Hunk); the one-sided branch shows baseLines.slice(oStart, oStart+oLength) on the non-changed side (drop []) and advances la/lb by oLength - infra under the same Impl a0b30550, no new units.
+- [ ] **(regression)** Insertions (oLength=0) stay one-sided - R30.27 origin-exact behavior preserved (regression guard). Connector curves span the aligned modification region across gap rows (both bands draw when a=N>0 and b=M>0).
+- [ ] **(verify)** RESULT byte-identical; assertion-grade getTopForLineNumber equal across all 3 panes per corresponding line INCLUDING modification regions. DET-3x + Tron on the otmux repro. Client fix -> version-bump.
 
 ## Implementation
 

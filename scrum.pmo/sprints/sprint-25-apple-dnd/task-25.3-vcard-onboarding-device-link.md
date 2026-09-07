@@ -40,13 +40,13 @@ Tron: "the moment I dragged the vCard and it filled out the profile it should sw
 
 ## Acceptance Criteria
 
-- [ ] (check-on-fill) When a vCard fills the onboarding profile, the filled phone AND email are checked against the alt-UUID index (resolveKeyToProfile) BEFORE minting any profile
-- [ ] (known->switch) If a key is FOUND, the dialog switches from "Authorize This Device" to "User already exists. Unlock device with your secret code"
-- [ ] (no new uuid) No new user UUID / profile is created while a known key awaits the secret code
-- [ ] (correct code->link) On the correct secret code, the device is linked to the EXISTING profile (device-link, R21.4) - no new UUID
-- [ ] (wrong code) A wrong secret code is rejected explicitly; still no new profile
-- [ ] (replaces manual) This replaces today's behaviour (mint new profile -> manual Link Account)
-- [ ] (unknown->authorize) If neither key is known, onboarding proceeds normally with "Authorize This Device" (new profile)
+- [ ] **(check-on-fill)** When a vCard fills the onboarding profile, the filled phone AND email are checked against the alt-UUID index (resolveKeyToProfile) BEFORE minting any profile.
+- [ ] **(dialog)** If a key is FOUND, the dialog switches from 'Authorize This Device' to 'User already exists. Unlock device with your secret code'.
+- [ ] **(no-mint)** No new user UUID / profile is created while a known key awaits the secret code.
+- [ ] **(device-link)** On the correct secret code, the device is linked to the EXISTING profile (device-link, R21.4) - no new UUID.
+- [ ] **(device-link)** A wrong secret code is rejected explicitly; still no new profile.
+- [ ] **(replaces)** This replaces today's behaviour (mint new profile then manual Link Account).
+- [ ] **(fallthrough)** If neither key is known, onboarding proceeds normally with 'Authorize This Device' (new profile).
 
 ## Implementation
 

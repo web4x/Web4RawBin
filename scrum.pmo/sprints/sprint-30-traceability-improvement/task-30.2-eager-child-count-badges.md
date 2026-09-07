@@ -38,11 +38,11 @@ S30 Traceability Improvement — keep the traceability tree scaling + navigable.
 
 ## Acceptance Criteria
 
-- [x] (badge) Every tree node child-count BADGE shows the correct count from when its PARENT loads (eager) - NOT 0-until-expand.
-- [x] (badge) The count comes from the PARENT /children response metadata (childCount per child), not a per-node prefetch.
-- [x] (loading) Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand.
-- [x] (bug) THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand.
-- [x] (loading) Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern).
+- [ ] **(badge)** Every tree node child-count BADGE shows the correct count from when its PARENT loads (eager) - NOT 0-until-expand.
+- [ ] **(badge)** The count comes from the PARENT /children response metadata (childCount per child), not a per-node prefetch.
+- [ ] **(loading)** Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand.
+- [ ] **(bug)** THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand.
+- [ ] **(loading)** Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern).
 
 ## Implementation
 

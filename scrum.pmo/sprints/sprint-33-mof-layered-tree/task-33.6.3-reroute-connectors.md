@@ -34,9 +34,9 @@ Tron item-3 (interaction polish). After a diagram element is moved, the relation
 
 ## Acceptance Criteria
 
-- [x] After a box is moved, every connector line to/from it is recomputed and redrawn so its endpoints attach to the box's NEW position; NO connector line remains anchored at the old position (no stale/orphaned lines).
-- [x] Reroute occurs at least on move-commit (drop). Whether connectors also track live during the drag is architect-scoped (AC updated on design); the committed-position reroute is the minimum acceptance.
-- [x] GATE @390 (screenshot/pixel + planted bite): move a CONNECTED box -> its edges redraw to the new position (pixel: no line segment left at the old anchor); planted-defect: lines stay at old position after move = RED.
+- [ ] **(functional)** After a box is moved, every connector line to/from it is recomputed and redrawn so its endpoints attach to the box's NEW position; NO connector line remains anchored at the old position (no stale/orphaned lines).
+- [ ] **(functional)** Reroute occurs at least on move-commit (drop). Whether connectors also track live during the drag is architect-scoped (AC updated on design); the committed-position reroute is the minimum acceptance.
+- [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): move a CONNECTED box -> its edges redraw to the new position (pixel: no line segment left at the old anchor); planted-defect: lines stay at old position after move = RED.
 
 ## Subtasks
 

@@ -37,16 +37,6 @@ updating ALL references (profiles.json, devices.json, room owner tokens, .ssh pa
 Idempotent; no data loss. Old token is mapped → new UUIDv4 consistently everywhere.
 _(Architect designs the reference-rewrite + ordering; req confirms requirement text.)_
 
-## Acceptance Criteria
-
-- [ ] AC1: Every `token-<timestamp>` dir is copied to a fresh UUIDv4 dir (141 → 141 new UUID dirs)
-- [ ] AC2: In each copied dir, ALL `rooms/*/room.json` `ownerToken` (+ any `creatorId`/`creatorToken`) rewritten from the old token to the new UUID — zero `token-` strings remain in the copies (171 refs rewritten)
-- [ ] AC3: A persisted remap table `data/migration/token-remap.json` (old→new) is produced for T98
-- [ ] AC4: profiles.json correctly handled — no-op on current data (0 token-* profiles); defensive rekey+redirect branch present for any future token-* profile
-- [ ] AC5: Idempotent — re-run is a no-op; already-UUID dirs untouched
-- [ ] AC6: No data loss — copy-then-verify; original token-* dirs left intact (removal deferred to T99, gated)
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** None (can run alongside T96)

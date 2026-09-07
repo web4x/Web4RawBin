@@ -34,10 +34,9 @@ Center shows the true total of the children's bytes, formatted the one product-w
 
 ## Acceptance Criteria
 
-- [ ] CENTER = TOTAL: the sunburst center circle displays the SUM of all children's sizes (total bytes of the rendered arcs).
-- [ ] TOTAL CORRECTNESS: center total == sum of the arc byte-values tied to /api/trace sizes (same on-disk-bytes source as P4b, not childCount); proven with a stub where a wrong sum -> RED.
-- [ ] HUMAN-FORMATTED VIA THE SHARED FORMATTER (DRY): the center formats the total through R40.80's ONE formatHumanReadableSize — NOT its own inline logic; center and legend cannot disagree by construction.
-- [ ] @390 TEAM-VERIFIED (rewordProvenance 2026-09-05, customer-not-tester law): WE verify @390 real-WebKit that the center shows the human-formatted total; Tron ACCEPTS delivered verified work.
+- [ ] **(user-visible@390)** WE verify @390 real-WebKit: the sunburst centre circle shows the TOTAL size = the SUM of all child sizes; the centre displays a total, not blank. Tron accepts.
+- [ ] **(measurable)** The centre total equals the sum of the child arc sizes (same on-disk bytes). A centre total that does not match the summed children => wrong.
+- [ ] **(user-visible@390)** The centre total is rendered by the ONE product-wide size formatter (R40.80 AC-one-size-formatter-DRY), NOT a centre-specific reimplementation. WE verify @390 real-WebKit: the centre value uses the SAME format as the legend (e.g. 15.6 MB). DRY: centre and legend can never disagree.
 
 ## Subtasks
 

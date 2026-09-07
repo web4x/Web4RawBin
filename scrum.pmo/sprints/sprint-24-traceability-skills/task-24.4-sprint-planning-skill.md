@@ -38,12 +38,12 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 
 ## Acceptance Criteria
 
-- [x] (generate) generate-sprint-md builds planning.md + per-task MD files from the Sprint/Task scenario units (markdown is a view, never hand-authored source)
-- [x] (list-all) --list enumerates sprints; --all (re)generates every sprint's MD
-- [x] (roundtrip) --check (check:sprint-md) asserts on-disk MD is a byte-match of the regenerated view; any drift fails
-- [x] (task-files) Task MD files are created from Task units with their coveredRequirements + chain, speaking-name slugs
-- [x] (law100) Scenario units are the source of truth; MD is derived (law #100)
-- [x] (drift-scope) --check (check:sprint-md) drift detection also catches EXTRA/orphan stale MD files (e.g. left by a slug rename), scoped to the GENERATED_HEADER region - not just content byte-diff of expected files
+- [ ] **(generate)** generate-sprint-md builds planning.md + per-task MD files from the Sprint/Task scenario units (markdown is a view, never hand-authored source).
+- [ ] **(list-all)** --list enumerates sprints; --all (re)generates every sprint's MD.
+- [ ] **(roundtrip)** --check (check:sprint-md) asserts on-disk MD is a byte-match of the regenerated view; any drift fails.
+- [ ] **(task-files)** Task MD files are created from Task units with their coveredRequirements + chain, speaking-name slugs.
+- [ ] **(law100)** Scenario units are the source of truth; MD is derived (law #100).
+- [ ] **(drift-scope)** --check (check:sprint-md) drift detection also catches EXTRA/orphan stale MD files (e.g. left by a slug rename), scoped to the GENERATED_HEADER region - not just content byte-diff of expected files.
 
 ## Implementation
 

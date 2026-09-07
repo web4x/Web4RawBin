@@ -82,15 +82,6 @@ The `commit` field is the short SHA of the git commit at which the source locati
 - `commit`: short SHA (7+ chars)
 - `lines`: 1-indexed, inclusive range
 
-## Acceptance Criteria
-
-- [ ] AC1: UseCase scenario units have `model.source` with file path, line range, and git commit
-- [ ] AC2: Class scenario units have `model.source` pointing to .ts source or .puml class diagram
-- [ ] AC3: Method scenario units have `model.source` pointing to .ts method declaration with line range
-- [ ] AC4: `model.source.ior` follows `ior:file:<path>?commit=<sha>&lines=<start>-<end>` format
-- [ ] AC5: Commit SHA resolves to the correct file version (`git show <sha>:<path>` returns the expected content)
-- [ ] AC6: Source locations are populated during scenario migration (T128 extension or new pass)
-
 ## Dependencies
 
 - **Requires:** T128 scenario migration (baseline scenario units must exist), T124.3 storage layout

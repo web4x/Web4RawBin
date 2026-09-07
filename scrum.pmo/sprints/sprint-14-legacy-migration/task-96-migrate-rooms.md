@@ -39,16 +39,6 @@ Idempotent (safe to re-run); no data loss. Each legacy room mapped to its owner'
 per-user dir. Rooms already present per-user are skipped (no duplication).
 _(Architect designs the safe/idempotent algorithm; req confirms requirement text.)_
 
-## Acceptance Criteria
-
-- [ ] AC1: Every legacy `data/rooms/<id>.json` whose `<id>` already exists per-user is SKIPPED — the per-user copy is NEVER overwritten (no schema regression). [239/239 today]
-- [ ] AC2: A genuine legacy-only room (id absent from all per-user dirs) is copied forward; with no resolvable owner it is quarantined under `data/users/_unowned/rooms/<id>/` and REPORTED (count + ids) — never silently dropped, never deleted. [0 today]
-- [ ] AC3: Idempotent — re-running migrates nothing new, creates no duplicates, mutates no existing per-user room.json
-- [ ] AC4: No data loss — legacy `data/rooms/*.json` files left UNTOUCHED (copy, not move; deletion is T99, gated)
-- [ ] AC5: Per-room outcome logged: migrated | skipped(already-per-user) | orphan-quarantined; summary counts emitted
-- [ ] AC6: Migration adds NO new code dependence on the flat `data/rooms/` dir
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** None

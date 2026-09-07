@@ -33,7 +33,22 @@ AddressIndex.mintAddress: store ior:class:Address { oneLine "Country City Postal
 
 ## Acceptance Criteria
 
-See requirement unit 5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f (architect-refined AC + gateable test scenarios).
+- [ ] **(format)** The address is stored as ONE string field `oneLine` ordered large to small: Country City PostalCode Street HouseNumber.
+- [ ] **(format)** Canonical example: `DE Berlin 10115 Strasse 7` — country code first, postal code third, house number last.
+- [ ] **(format)** The five tokens appear in exactly this sequence: Country, City, PostalCode, Street, HouseNumber (no reordering, no separate fields).
+- [ ] **(unit-shape)** Each address is minted as an `ior:class:Address` scenario unit with its own v4 uuid in scenario/index.
+- [ ] **(unit-shape)** The unit model carries exactly: { uuid, oneLine, verified, osmLink, gmapsLink, ownerIor }.
+- [ ] **(unit-shape)** At creation the unit is { verified:false, osmLink:null, gmapsLink:null }.
+- [ ] **(unit-shape)** ownerIor points to the owning Profile (nav parent, NOT a chain edge); the Profile carries the forward IOR in model.addresses[]. A profile may hold multiple Address units.
+- [ ] **(async-verify)** Save is immediate and NEVER blocks: the unit is index.put synchronously and returned before any network call.
+- [ ] **(async-verify)** A background VerifyJob(uuid) is enqueued off the request path (server worker), not awaited by the caller.
+- [ ] **(async-verify)** VerifyJob queries Nominatim GET /search?q=<oneLine>&format=json&limit=1 with a descriptive User-Agent, rate-limited to <=1 req/s, cached by oneLine.
+- [ ] **(async-verify)** On an OSM hit: unit.verified=true and links are set, then index.put — the verified badge appears on next render/push.
+- [ ] **(async-verify)** On an OSM miss: unit stays verified=false, persists, and displays WITHOUT a badge — never deleted, never errors the UI.
+- [ ] **(badge-states)** Badge states: UNVERIFIED (no badge) at creation and on miss; VERIFIED (badge shown) only after a confirmed OSM hit.
+- [ ] **(link-storage)** On verification, osmLink is stored as https://www.openstreetmap.org/?mlat=<lat>&mlon=<lon>#map=18/<lat>/<lon>.
+- [ ] **(link-storage)** On verification, gmapsLink is stored as https://www.google.com/maps?q=<lat>,<lon>.
+- [ ] **(link-storage)** BOTH links are stored on the same unit on success; both remain null while unverified.
 
 ## Dependencies
 

@@ -27,15 +27,6 @@
 
 Strip game-specific logic out of server.ts to leave a generic room server.
 
-## Acceptance Criteria
-
-- [x] Server compiles and starts
-- [x] No references to game concepts (cards, deck, rounds, scoring, bots, leaderboard)
-- [x] profiles.json and devices.json separated
-- [x] PROFILE response only includes requesting user's devices
-- [x] All vitest tests pass
-- [x] ~900 lines or less
-
 ## QA Audit & User Feedback
 
 ## Subtasks

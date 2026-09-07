@@ -38,13 +38,12 @@ S30 diff/merge editor completeness (R30.23, IMG_4522) — no one-sided-invisibil
 
 ## Acceptance Criteria
 
-- [x] (origin) A local-only change (diff3 ok-region whose content differs from its BASE slice) is emitted as Conflict{kind:'change', pick:'local'} into conflicts[]/centerSeq → change block on the LOCAL (left) side, not swallowed as a stable ok-run
-- [x] (origin) A repo-only change is emitted as Conflict{kind:'change', pick:'repo'} → change block on the REPOSITORY (right) side
-- [x] (both) A both-sides divergence stays a true conflict (kind:'conflict'), NOT double-counted as a repo change
-- [x] (result) Auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) — ADDS visibility + a take-over arrow only; a truly-stable ok-region (content==BASE) remains an ok-run
-- [x] (downstream) renderCenterChangeBlocks + R30.19 renderSideChangeBlocks + renderConnectorRibbons + jumpToChange iterate the SAME conflicts[] → each surfaced change gets block+ribbon+arrow, NO new rendering code (impl-edit to computeMergedCenter marker a0b30550 only)
-- [x] (verify) IMG_4522 repro + DET-3x: a 'merged, 0 true-conflicts' file still shows every one-sided change as block/ribbon/arrow; merge output byte-identical
-- [x] (label-count / R30.23.1) The conflict-count label counts TRUE conflicts only (v0.7.34) — one-sided changes are changes, not conflicts
+- [ ] **(origin)** A local-only change (diff3 ok-region whose content differs from its BASE slice) is emitted as Conflict{kind:'change', pick:'local'} into conflicts[]/centerSeq -> renders as a change block on the LOCAL (left) side, not swallowed as a stable ok-run.
+- [ ] **(origin)** A repo-only change is emitted as Conflict{kind:'change', pick:'repo'} -> renders as a change block on the REPOSITORY (right) side.
+- [ ] **(both)** A both-sides divergence stays a true conflict (kind:'conflict'), NOT double-counted as a repo change.
+- [ ] **(result)** Auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ADDS visibility + a take-over arrow only; a truly-stable ok-region (content == BASE) remains an ok-run.
+- [ ] **(downstream)** Downstream renderCenterChangeBlocks + R30.19 renderSideChangeBlocks + renderConnectorRibbons + jumpToChange iterate the SAME conflicts[] -> each surfaced change gets block + ribbon + arrow with NO new rendering code (impl-edit to computeMergedCenter only, marker a0b30550 stays).
+- [ ] **(verify)** IMG_4522 repro + DET-3x: a 'merged, 0 true-conflicts' file still shows every one-sided change as a block/ribbon/arrow (no ZERO-blocks / one-sided-visibility); merge output byte-identical. Client-facing -> version-bump.
 
 ## Implementation
 

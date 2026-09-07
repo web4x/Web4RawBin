@@ -77,19 +77,6 @@ renderer module, different surfaces.
   whose href is the cumulative prefix up to that segment
 - Client-side (`rb-file-tree`, if mirrored): same breadcrumb rendering
 
-## Acceptance Criteria
-
-- [ ] AC1 — On any `/md/<path>` listing, the path-header shows each segment as a clickable link
-- [ ] AC2 — Clicking a segment navigates to that segment's directory (the prefix up to and including that segment)
-- [ ] AC3 — Visual separators (e.g. `/`) between segments are NOT clickable (or render distinctly); only segment text is the anchor
-- [ ] AC4 — Root segment (e.g. `/md/`) behaves correctly — clicking lands on the `/md/` root listing (200)
-- [ ] AC5 — Works consistently across `/md/scenarios/sprints.md/...`, `/md/scenarios/sprints.json/...`, `/md/scenarios/index/...`, and any other `/md/` subtree
-- [ ] AC6 — If `rb-file-tree` mirrors server-side rendering (architect decides), it shows the same breadcrumb behavior
-- [ ] AC7 — No regression on T144 (row icons + click-through on `.json` side), T147 (when it lands), T141 (chain-link icons inside views)
-- [ ] AC8 — `npm run build` succeeds; all existing tests pass
-- [ ] AC9 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: likely exempt (no new route)
-- [ ] AC10 — All 4 roles committed work in this file (req anchor + architect design + expert impl + tester verify)
-
 ## Dependencies
 
 - **Requires:** T131 (file-browser symlinks baseline — the listings T148 adds the header to)

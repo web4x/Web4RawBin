@@ -38,11 +38,11 @@ RawBin Federation: dragging a unit from server A to server B must carry a resolv
 
 ## Acceptance Criteria
 
-- [x] (protocol) DataTransfer carries application/rb-federated-ref = { ior:'ior:instance:<uuid>@<originHost>', originHost, type, name, fetchUrl:'<originHost>/api/scenario/<uuid>?grant=<capabilityToken>', contentHash? }
-- [x] (protocol-no-json) The full scenario JSON is NOT serialized into DataTransfer (files are MB; size-limited + synchronous-read); the ref is a reference + fetch URL
-- [x] (fallback) A text/uri-list fallback = '<originHost>/app#<hash>' remains for human/browser (unchanged)
-- [x] (flow) The receiver reads the federated-ref and asks ITS OWN server to import from fetchUrl (server-to-server, never browser->origin)
-- [x] (optimization) For tiny units (URL WebItem, short text) the full JSON MAY be inlined in the ref to skip the round-trip; the canonical path stays reference+fetch
+- [ ] **(protocol)** DataTransfer carries application/rb-federated-ref = { ior:'ior:instance:<uuid>@<originHost>', originHost, type, name, fetchUrl:'<originHost>/api/scenario/<uuid>?grant=<capabilityToken>', contentHash? }.
+- [ ] **(protocol)** The full scenario JSON is NOT serialized into DataTransfer (files are MB; size-limited + synchronous-read); the ref is a reference + fetch URL.
+- [ ] **(fallback)** A text/uri-list fallback = '<originHost>/app#<hash>' remains for human/browser (unchanged).
+- [ ] **(flow)** The receiver reads the federated-ref and asks ITS OWN server to import from fetchUrl (server-to-server, never browser->origin).
+- [ ] **(optimization)** For tiny units (URL WebItem, short text) the full JSON MAY be inlined in the ref to skip the round-trip; the canonical path stays reference+fetch.
 
 ## Implementation
 

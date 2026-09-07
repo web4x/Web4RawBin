@@ -37,13 +37,6 @@ are flagged like other Web4Articles compliance warnings.
 Closes the loop: T87-T89 add chains; T90 proves 89/89 resolve and keeps them
 honest going forward (audit catches future drift).
 
-## Acceptance Criteria
-
-- [ ] Chain-resolution check implemented (every link target exists)
-- [ ] `sprint audit` (or a companion) reports chain coverage + broken links
-- [ ] 89/89 tasks chain-complete and resolving
-- [ ] Check runnable in the planner's 15-min monitoring loop
-
 ## Dependencies
 
 - **Requires:** T87, T88, T89 (chains must exist to verify)

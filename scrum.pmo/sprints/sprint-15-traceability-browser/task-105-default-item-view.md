@@ -36,17 +36,6 @@ Build a per-object default list item view (`rb-object-item`), visually like the 
 room entry, with native-OS draggable support (HTML5 drag plus file/dnd integration). It
 renders any typed object's summary and serves as the building block for ListOverview.
 
-## Acceptance Criteria
-
-- [ ] AC1: `<rb-object-item>` renders a typed object's default summary (title + `type:uuid` + optional status) for ALL 7 T101 types, attribute-driven (`ref`/`type`/`title`/`status`)
-- [ ] AC2: Visually consistent with the lobby room entry — reuses the `.room-card` idiom (rounded translucent flex row; title + muted id sub-line + trailing status chip)
-- [ ] AC3: `draggable="true"`; `dragstart` sets `text/plain`=`#<type>.show?uuid=…` and `application/rb-object-ref`=`type:uuid`
-- [ ] AC4: `dataTransfer` also sets `text/uri-list`=absolute `${origin}/app#<type>.show?uuid=…` (OS-recognizable native drag)
-- [ ] AC5: ViewBus subscribe-on-connect / unsubscribe-on-disconnect; `ViewBus.notify(ref)` re-renders (no reload) — T103 MVC path
-- [ ] AC6: Click calls `TraceRouter.navigate(type,'show',{uuid})`
-- [ ] AC7: Tests cover render-per-type, draggable + all three dataTransfer payloads, ViewBus live re-render, click→navigate
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T103

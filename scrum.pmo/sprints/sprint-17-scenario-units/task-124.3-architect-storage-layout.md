@@ -41,15 +41,6 @@ Design the 3-layer storage layout: canonical UUID index, speaking-name symlink t
 
 Tron 2026-05-30 (verbatim): "uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5 characters of the uuid and there stores the original uuid.scenario.json. under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1. in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder."
 
-## Acceptance Criteria
-
-- [x] AC1 — Canonical index layout: `scenario/index/<5-char>/<uuid>.scenario.json`
-- [x] AC2 — Speaking-name JSON tree: `scenarios/sprints.json/<sprint>/<task>/` with ln symlinks
-- [x] AC3 — Generated MD tree: `scenarios/sprints.md/<sprint>/<task>/` with rendered views
-- [x] AC4 — File-browser ↔ traceability-browser navigation bridge documented
-- [x] AC5 — Migration path from current scrum.pmo/ layout documented
-- [ ] AC6 — PO + Tron reviewed
-
 ## Dependencies
 
 - **Requires:** T124.1 (scenario JSON shape), T124.2 (view templates for MD generation)

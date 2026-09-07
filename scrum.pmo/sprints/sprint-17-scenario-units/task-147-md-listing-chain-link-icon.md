@@ -87,31 +87,6 @@ same three icons, same order, same behaviors.
 - 📋 leading icon indicates row class (architect chooses concrete glyph if
   Tron's quote leaves room; or uses class-specific icons like in T113)
 
-## Acceptance Criteria
-
-- [ ] **AC1 — Icon presence:** Every row in a `/md/scenarios/sprints.md/<class>/`
-  listing shows `📋 🔗 ✏️` (or architect-finalized symmetric set) in that order
-- [ ] **AC2 — 🔗 target:** Clicking 🔗 navigates to the canonical
-  `/md/scenario/index/<prefix>/<uuid>.scenario.json` (same target as T144's
-  `.json`-side 🔗) — 200 + valid JSON content
-- [ ] **AC3 — ✏️ target:** Clicking ✏️ navigates to `/edit/<path-to-md-file>`
-  (same edit route as the rest of the app)
-- [ ] **AC4 — Order matches T144:** Icon order `🔗 ✏️` on the right (T144's
-  rule); leading 📋 row-type indicator on the left (architect decides exact
-  layout — must be consistent across `.json` and `.md` sides)
-- [ ] **AC5 — Symmetry verified:** Side-by-side visual on `.json` and `.md`
-  listings of the same class shows the same icon scheme
-- [ ] **AC6 — `rb-file-tree` consistency:** If the component mirrors `/md/`
-  rendering (architect decides), it shows the same icons in the same order
-- [ ] **AC7 — Regression:** T144's `.json` side icons / order / click-through
-  unchanged; T141's chain-link rendering inside `.md` views unchanged
-- [ ] **AC8 — `npm run build` succeeds; all existing tests pass**
-- [ ] **AC9 — Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version"
-  bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as
-  the user-facing impl. (c) STATIC_SHELL: likely exempt — architect to confirm
-- [ ] **AC10 — All 4 roles committed work in this file** (req anchor +
-  architect design + expert impl + tester verify)
-
 ## Dependencies
 
 - **Requires:** T144 (icon order + 🔗 helper + click-through pattern on the `.json` side — T147 reuses), T141 (chain-link helper), T126 (generates the `.md` views T147 lists into), T131 (symlink file-browser baseline)

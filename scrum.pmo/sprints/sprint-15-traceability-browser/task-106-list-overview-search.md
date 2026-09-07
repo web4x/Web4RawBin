@@ -36,17 +36,6 @@ Build a `rb-list-overview` component that renders a collection of `defaultItemVi
 a search over the listed objects. The search is designed to extend cleanly to a
 `remoteSearch` (server-side) without changing the component's public contract.
 
-## Acceptance Criteria
-
-- [ ] AC1: `<rb-list-overview>` renders a collection as a list of T105 `<rb-object-item>`s (`setItems(refs)` or `type=` auto-list)
-- [ ] AC2: Search input filters in real time via default `LocalSearch` (title/type/uuid substring), debounced 300ms
-- [ ] AC3: Search goes through `SearchProvider` (`search(query): Promise<ObjectRef[]>`); a `RemoteSearch` provider assignable via `list.searchProvider` WITHOUT changing the component API
-- [ ] AC4: Explicit empty/no-results state when the query matches nothing
-- [ ] AC5: ViewBus live-update — items mutating re-render (T105); add/remove on the set re-runs the active search and updates the list
-- [ ] AC6: No artificial input/result limits (TRON rule)
-- [ ] AC7: Tests cover render, local filtering, provider substitution (mock RemoteSearch), empty state, live add/remove
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T105

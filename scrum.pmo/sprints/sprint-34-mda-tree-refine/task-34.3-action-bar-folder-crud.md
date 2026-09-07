@@ -34,11 +34,11 @@ R-B. The in-room action bar MUST offer, for the selected item: Add folder (new v
 
 ## Acceptance Criteria
 
-- [x] (functional) 'Add folder' appears on folder/diagram context; POST /api/model/folder/create {parent,name} mints an ior:class:Folder unit in MODEL_STORE (store-only INV, mirrors /api/model/diagram/create), then load()+expandPath reveals it.
-- [x] (functional) 'Remove' detaches the node from its tree/diagram VIEW (view-link removal, non-destructive) - the scenario unit STILL EXISTS.
-- [x] (security) 'Delete' destroys the UNIT, gated by a confirm() WARN ('Delete <name> permanently?') BEFORE the delete endpoint; on confirm the unit is gone.
-- [x] (functional) remove and delete are DISTINCT verbs with distinct labels + distinct semantics (view vs unit), same discipline as R33.8/R33.9.
-- [x] (gate) GATE @390 real-WebKit: add folder -> appears+reveals; remove -> node gone from tree BUT unit still exists; delete -> confirm WARN -> unit gone.
+- [ ] **(functional)** «📁 Add folder» appears on folder/diagram context; POST /api/model/folder/create {parent,name} mints an ior:class:Folder unit in MODEL_STORE (store-only INV, mirrors /api/model/diagram/create), then load()+expandPath reveals it.
+- [ ] **(functional)** «✕ Remove» detaches the node from its tree/diagram VIEW (view-link removal, non-destructive) — the scenario unit STILL EXISTS.
+- [ ] **(security)** «🗑 Delete» destroys the UNIT, gated by a confirm() WARN ('Delete <name> permanently?') BEFORE the delete endpoint; on confirm the unit is gone.
+- [ ] **(functional)** remove and delete are DISTINCT verbs with distinct labels + distinct semantics (view vs unit), same discipline as R33.8/R33.9.
+- [ ] **(gate)** GATE @390 real-WebKit: add folder → appears+reveals; remove → node gone from tree BUT unit still exists; delete → confirm WARN → unit gone.
 
 ## Subtasks
 

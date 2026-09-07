@@ -34,11 +34,10 @@ Board-track R40.90 at its honest status; declare the ONE canonical planning unit
 
 ## Acceptance Criteria
 
-Mirrors R40.90 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.
-- [ ] AC-symptom-literal: LITERAL SYMPTOM (verbatim so an intake search by what the tester SEES finds it): expandPath waitForNode TIMEOUT on the room ROOT node. Observed REPEATEDLY by the tester.
-- [ ] AC-root-unowned-symptom-only: the ROOT is NOT yet owned; this captures the SYMPTOM + the correct shape ONLY (expandPath should resolve the room root without timeout); do NOT build a fix until the root is diagnosed (architect).
-- [ ] AC-distinct-from-r40.84: DISTINCT from R40.84 and NOT attached — folders render via the reDerive IN-PLACE path (Impl 8693dc2b), NOT via expandPath; this timeout did NOT affect the R40.84 verdict.
-- [ ] AC-expandpath-resolves-root-no-timeout: the EVENTUAL gate (once the root is known + fixed): expandPath waitForNode RESOLVES the room ROOT node WITHOUT timeout; a waitForNode timeout on the room root => RED.
+- [ ] **(symptom/intake)** LITERAL SYMPTOM (carried verbatim so an intake search by what the tester SEES finds it): expandPath waitForNode TIMEOUT on the room ROOT node. Observed REPEATEDLY by the tester during R40.84-B.
+- [ ] **(symptom-only/R40.69-discipline)** The ROOT is NOT yet owned. This captures the SYMPTOM + the correct shape only (expandPath should resolve the room root without timeout); do NOT build a fix until the root is diagnosed (R40.69 symptom-only discipline). Architect diagnoses root.
+- [ ] **(scope/do-not-attach)** DISTINCT from R40.84 and NOT attached to it: folders render via the reDerive IN-PLACE path (Impl 8693dc2b), NOT via expandPath. This timeout did NOT affect the R40.84 verdict (PO). Do NOT conflate or attach it to R40.84.
+- [ ] **(failable/eventual-gate)** THE eventual gate (when the root is known + fixed): expandPath waitForNode RESOLVES the room ROOT node WITHOUT timeout. A waitForNode timeout on the room root node => RED.
 
 ## Subtasks
 

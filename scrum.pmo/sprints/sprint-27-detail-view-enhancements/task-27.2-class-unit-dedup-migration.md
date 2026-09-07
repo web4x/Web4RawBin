@@ -40,12 +40,12 @@ PO/req 2026-07-01: prior chains minted a fresh Class per requirement -> the chai
 
 ## Acceptance Criteria
 
-- [x] (invariant) The scenario graph holds AT MOST ONE Class unit per code class (by class name/identity); no per-req duplication
-- [x] (reuse-on-wire) Wiring a UC to a Class REUSES the existing Class node for that code class (adds the method to it), NEVER mints a new Class unit (the R27.1 pattern)
-- [x] (cleanup) The 55 existing duplicate Class units (23 code classes) are collapsed to one canonical each: methods repointed + every UC.class ref rewritten to the canonical + emptied duplicates removed
-- [x] (gate) The canonical is the active-chain unit if one exists else most-methods; the collapse is dry-run + count FIRST (never silently drop a method or break a UC.class ref) + the 5 hard invariants pass before --apply
-- [x] (invariant) After the fix, minting a chain for a NEW req on an EXISTING code class cannot create a duplicate Class unit (wiring reuses)
-- [x] (verify) A trace audit shows exactly ONE Class unit per code class; no chain fans out through duplicate Class nodes + a CI check (1 Class unit per code-class name) so it never recurs
+- [ ] **(invariant)** The scenario graph holds AT MOST ONE Class unit per code class (by class name/identity); no per-req duplication.
+- [ ] **(reuse-on-wire)** Wiring a UC to a Class REUSES the existing Class node for that code class (adds the method to it), NEVER mints a new Class unit (the R27.1 pattern).
+- [ ] **(cleanup)** The 55 existing duplicate Class units (23 code classes, per audit) are collapsed to one canonical each: methods repointed + every UC.class ref rewritten to the canonical + emptied duplicates removed.
+- [ ] **(cleanup)** The canonical is the unit ON AN ACTIVE CHAIN if one exists (keep its uuid + UC.class refs UNCHANGED, merge the others INTO it) - protecting R26.1 IORResolver b4eaa489 / R25.7+R26.4-5 Room 2172dc56 / R25.4 RbDetailDrawer d86af73d; ELSE the most-methods unit (tiebreak: lowest uuid). The collapse is dry-run + count FIRST, never silently drop a method or break a UC.class ref.
+- [ ] **(invariant)** After the fix, minting a chain for a NEW req on an EXISTING code class cannot create a duplicate Class unit (wiring reuses).
+- [ ] **(verify)** A trace audit shows exactly ONE Class unit per code class; no chain fans out through duplicate Class nodes.
 
 ## Implementation
 

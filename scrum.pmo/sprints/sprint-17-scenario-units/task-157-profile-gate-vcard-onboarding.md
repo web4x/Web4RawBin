@@ -76,22 +76,6 @@ drag-and-drop API, mobile share-sheet / file-drop handling.
 - vCard V3.0 parser populates the existing form fields
 - User reviews + edits before submitting (architect-confirmed UX)
 
-## Acceptance Criteria
-
-- [ ] AC1 (Upload button) — "Upload vCard" button at the TOP of the first-time-connect profile gate (above name/phone/URL fields)
-- [ ] AC2 (File picker) — Clicking the button opens a file picker filtered to `.vcf` / `text/vcard`
-- [ ] AC3 (Drag-and-drop) — Dropping a `.vcf` file onto the gate form populates fields; visual hint (overlay + highlight) appears during dragover
-- [ ] AC4 (Parser) — vCard V3.0 fields parsed: **FN** → name, **TEL** → phone, **URL** → url, **PHOTO** → avatar (data URL or web URL — architect decides how to feed into existing upload pipeline T50)
-- [ ] AC5 (Review-before-save) — Imported fields appear in the existing form; user can edit before submitting (no auto-save)
-- [ ] AC6 (iOS) — Works on iOS Safari (share-sheet file path or drag if supported)
-- [ ] AC7 (Android) — Works on Android Chrome (file picker + drag if supported)
-- [ ] AC8 (Windows) — Works on Windows desktop browsers (file picker + native OS file drag)
-- [ ] AC9 (Avatar pipeline) — PHOTO data integrates with existing T50 POST `/api/avatar` upload (no plaintext storage; encrypted-at-rest preserved)
-- [ ] AC10 (Regression) — ProfileEditor non-gate (edit) mode unchanged; existing profile creation without vCard still works
-- [ ] AC11 — `npm run build` succeeds; all existing tests pass
-- [ ] AC12 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: likely exempt (no new route — architect confirms)
-- [ ] AC13 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** existing ProfileEditor gate mode, existing T50 `/api/avatar` upload endpoint (for the PHOTO field)

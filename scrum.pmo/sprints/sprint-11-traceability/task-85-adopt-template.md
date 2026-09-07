@@ -40,12 +40,6 @@ forward-traceability convention so all FUTURE tasks comply immediately.
 Tron: adopt the Web4Articles planning standard. Reference:
 `/Users/Shared/Workspaces/2cuGitHub/Web4Articles/scrum.pmo/sprints/`.
 
-## Acceptance Criteria
-
-- [x] task-template.md reflects Web4Articles structure (VERIFIED 2026-05-26)
-- [x] traceability-standard.md published — at `scrum.pmo/standards/traceability-standard.md` (robbin-req, committed 33de99f)
-- [x] Future tasks created from the template pass `sprint audit` (S10 T81-83, S12 T84, S13 T91-94 all authored to standard, audit 0 issues)
-
 ## Dependencies
 
 - **Requires:** None

@@ -97,25 +97,6 @@ tree is uniform across all 9.
 - New scenarios get symlinks at the same time the canonical JSON is emitted
   (architect decides whether this is a write-time hook or a post-process step)
 
-## Acceptance Criteria
-
-- [ ] AC1 (Requirement) — `scenarios/sprints.md/requirement/<speaking>.md` exists and resolves for every Requirement scenario in the index
-- [ ] AC2 (UseCase) — `scenarios/sprints.md/usecase/<speaking>.md` exists and resolves for every UseCase scenario
-- [ ] AC3 (Task) — T131's existing `scenarios/sprints.md/task/<speaking>.md` unchanged; no regression
-- [ ] AC4 (Class) — `scenarios/sprints.md/class/<speaking>.md` exists and resolves for every Class scenario
-- [ ] AC5 (Method) — `scenarios/sprints.md/method/<speaking>.md` exists and resolves for every Method scenario
-- [ ] AC6 (Test) — `scenarios/sprints.md/test/<speaking>.md` exists and resolves for every Test scenario
-- [ ] AC7 (TraceLink) — `scenarios/sprints.md/tracelink/<speaking>.md` exists and resolves for every TraceLink scenario
-- [ ] AC8 (User) — `scenarios/sprints.md/user/<speaking>.md` exists and resolves for every User scenario (T145 dependency)
-- [ ] AC9 (View) — `scenarios/sprints.md/view/<speaking>.md` exists and resolves for every View scenario (T126 dependency)
-- [ ] AC10 — 🔗 click-through (T141 / T144 / T147) resolves for ALL 9 classes; no 404s
-- [ ] AC11 — One-shot back-fill executed: existing scenarios across all 9 classes have their symlinks present after the migrator runs
-- [ ] AC12 — Chain audit (`trace-cli`) reports universal resolution: 0 broken links across the migrated graph
-- [ ] AC13 — No regression on T131 (Task), T141 (chain-link rendering), T144 (`.json` side icons), T147 (`.md` side icons when it lands)
-- [ ] AC14 — `npm run build` succeeds; all existing tests pass
-- [ ] AC15 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: likely exempt — architect to confirm
-- [ ] AC16 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** T131 (Task symlink emitter — pattern to generalize), T125 (foundation: ClassRegistry knows the 9 classes), T126 (View class lives here — needed for AC9), T134 (TraceLink unit — needed for AC7), T145 (User scenario class — needed for AC8)

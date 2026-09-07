@@ -22,6 +22,10 @@ Deliver + verify requirement R40.24 (Selecting a diagram element changes the act
 
 ## Acceptance Criteria
 
-
+- [ ] **(selection-driven)** Selecting a diagram/model element CHANGES the action bar to include the element-context verbs: remove-from-diagram, delete, find-linked.
+- [ ] **(anti-vacuity)** Those verbs are FIREABLE and ACT on the selected element (not merely rendered — a verb that appears but does nothing fails).
+- [ ] **(no-reverse-regression)** The A1 defaults and the diagram-LEVEL verbs REMAIN present (no regression the other way).
+- [ ] **(red-baseline-device-gate)** Pinned by a RED-baseline DEVICE gate @390 with STUB-MUST-FAIL, added to the device lane so it RE-RUNS (an ungated protection is a promise, not a guard — this behaviour worked and a refactor took it).
+- [ ] **(family)** Implemented via the family-named selection-driven-action-provider (single source for selection->verbs), not a bespoke bar.
 
 ## Subtasks

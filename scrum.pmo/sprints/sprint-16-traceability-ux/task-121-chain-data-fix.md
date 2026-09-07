@@ -96,17 +96,6 @@ Order of operations: C4 + C6 first (cheap to fix, unblock graph parsing); then
 C3/C5/C7 (architect-led); then C1/C2 (req-led, sweep across active sprints);
 C8 explicitly deferred.
 
-## Acceptance Criteria
-
-- [ ] AC1 — Diagnosis report committed in this task file (Phase 1 output table with classes C1-C8 counts/samples/severity)
-- [ ] AC2 — All BLOCKER + HIGH defects from the diagnosis remediated and verified
-- [ ] AC3 — `npm run trace:check` (T102 engine) runs clean against the remediated graph, OR documented allowlist with rationale
-- [ ] AC4 — `sprint audit` (Web4Articles compliance) passes 0-issue across S10-S16 task files after remediation
-- [ ] AC5 — `scrum.pmo/traceability-matrix.md` reconciled with live graph; T102 engine reports consistent
-- [ ] AC6 — S1-9 boundary explicitly documented as deferred to S11 T87-T89 (not in T121 scope)
-- [ ] AC7 — `npm run build` succeeds; vitest + playwright pass; no regression
-- [ ] AC8 — **Version + sw.js bumped IF any client-facing file changed** (per learnings #15); planning/PUML/task-file-only changes likely don't need bump — architect documents the call
-
 ## Dependencies
 
 - **Requires:** T116, T117 (trace-cli machinery); T102 (matrix consistency engine)

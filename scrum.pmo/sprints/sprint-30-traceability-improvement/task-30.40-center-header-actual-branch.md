@@ -38,10 +38,10 @@ S30 diff/merge editor, R30.40 (Tron QA-USE): center header showed the wrong bran
 
 ## Acceptance Criteria
 
-- [x] (header) The center Result header shows the ACTUAL current checked-out branch of the repo the diff targets, resolved dynamically (git) at request time - matching the user's `git -C <repo> branch --show-current`.
-- [x] (header) The header is NEVER a stale, cached, hardcoded, or other-clone branch name; if the targeted repo is on 'mcdonges.latest', the header reads otmux@mcdonges.latest (not dev-teampush-astray).
-- [x] (root) [PENDING expert root-cause] The 'oosh' (and every) RepoRegistry key resolves to the repo clone the diff actually targets, so GitApi.currentBranch reports THAT clone's HEAD - not a different clone's. Final AC wording aligns to the confirmed root-cause.
-- [x] (gate) GATE (DET-3x + Tron visual): open the real deep-link -> the center header branch == the git current-branch of the targeted repo clone (dynamic); client-facing -> version-bump + atomic deploy (R30.28).
+- [ ] **(header)** The center Result header shows the ACTUAL current checked-out branch of the repo the diff targets, resolved dynamically (git) at request time - matching the user's `git -C <repo> branch --show-current`.
+- [ ] **(header)** The header is NEVER a stale, cached, hardcoded, canonicalized, or OOSH_DIR-overridden branch; when HOME/oosh points to the mcdonges.latest worktree the header reads otmux@mcdonges.latest (not dev-teampush-astray).
+- [ ] **(root)** The 'oosh' RepoRegistry root resolves BY CONSTRUCTION to os.homedir()+'/oosh' - the HOME/oosh SYMLINK path (path.resolve, NOT realpath'd/canonicalized to a fixed worktree), NOT an OOSH_DIR env override. Git FOLLOWS the symlink live, so the header reflects the branch of WHATEVER worktree HOME/oosh currently points to (now mcdonges.latest); if `oo` mode-switch repoints the symlink (dev/macos/prod/mcdonges.latest), the header tracks it DYNAMICALLY. Never a misconfigurable env, never a canonicalized fixed worktree.
+- [ ] **(gate)** GATE (DET-3x + Tron visual): open the real deep-link -> the center header branch == the git current-branch of the targeted repo clone (dynamic); client-facing -> version-bump + atomic deploy (R30.28).
 
 ## Implementation
 

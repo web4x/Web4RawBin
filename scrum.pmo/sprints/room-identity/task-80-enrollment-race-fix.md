@@ -27,15 +27,6 @@
 
 Fix the enrollment race where a second PROFILE_UPDATED message re-renders the dialog.
 
-## Acceptance Criteria
-
-- [x] `ProfileEditor.ts` clears `this.onSave` before invoking it (one-shot pattern)
-- [x] `device-enrollment.spec.ts` PASSES (wrong code → error, correct code → keys stored, reload auto-auths)
-- [x] `new-user.spec.ts` PASSES (not flaky — ran 3× consecutively, all green)
-- [x] Full E2E suite reaches **21/21**
-- [x] `npm run build` succeeds
-- [x] No regression: full suite green incl. profile-editor, room-lifecycle, mobile-viewport
-
 ## QA Audit & User Feedback
 
 - Pending Tron QA review.

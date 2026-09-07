@@ -34,9 +34,9 @@ A coordination-root parent shows its real rolled state (weakest-link + per-child
 
 ## Acceptance Criteria
 
-- [ ] AC-parent-renders-rolled-summary: a coordination-root parent pin/detail RENDERS a rolled summary of its children — (a) weakest-link status (the parent's derived-status enum, R40.1 CR-4) AND (b) a per-child mini-state list — NOT its own empty stored checklist.
-- [ ] AC-no-blank-parent-with-stateful-children (failable 1->0): a coordination-root parent NEVER renders 'no state at all' while any child carries state (the exact Tron defect); seed a parent with stateful children whose pin renders blank -> RED; render the rolled summary -> GREEN.
-- [ ] AC-render-live-via-view-bus: the rolled summary re-renders LIVE when a child's state changes (via the ONE VIEW BUS, R37.12) — no reload; a child advancing updates the parent's rolled render in place.
+- [ ] **(render/by-construction)** A coordination-root parent pin/detail RENDERS a rolled summary of its children: (a) weakest-link status (the parent's derived-status enum, R40.1 CR-4) AND (b) a per-child mini-state list. It does NOT render its own empty stored checklist.
+- [ ] **(render/stub-must-fail)** A coordination-root parent must NEVER render 'no state at all' while any child carries state - the exact Tron defect. Seed a parent with stateful children whose pin renders blank => RED. 1->0.
+- [ ] **(render/liveness)** The rolled summary re-renders LIVE when a child's state changes (via the ONE VIEW BUS, R37.12) - no reload; a child advancing updates the parent's rolled render in place.
 
 ## Subtasks
 

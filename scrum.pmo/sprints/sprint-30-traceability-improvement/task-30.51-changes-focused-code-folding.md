@@ -42,14 +42,14 @@ S30 diff/merge editor — R30.51 changes-focused code-folding (Tron feature): ke
 
 ## Acceptance Criteria
 
-- [ ] Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository): folding a region in one pane folds the ALIGNED region in all three.
-- [ ] A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (changes are never hidden by folding).
-- [ ] On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view).
-- [ ] Fold state = single shared _collapsedGaps Set; applyFold projects it via editor.setHiddenAreas() on all 3 editors (one state -> 3 projections; no per-editor folding model). Aligned by conflicts[] per-editor ranges (R30.16 row-alignment via getTopForLineNumber). Reflows spline+gutters after.
-- [ ] Native folding DISABLED (folding:false). Only computeFoldRegions gaps (complement of conflicts[]) are collapsible; a change region has no collapse control = non-collapsible by construction.  [GREEN DET-3x @390 MOBILE Tron-viewport, anti-circular ruler-measure (9fae1c617); Tron final visual -> Done]
-- [ ] On computeMergedCenter tail (conflicts[] ready): _collapsedGaps=all gaps -> applyFold -> changes-only view; expand reveals context on demand (view-zone '... N lines . expand').
-- [ ] [DESIGN-FLAG - PO/Tron] Context margin K around each change region in computeFoldRegions: K=0 (pure changes-only) .. K=3 (GitHub-like context). Architect recommends K=3. Ruling affects computeFoldRegions gap boundaries.
-- [ ] GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded.
+- [ ] **(fold)** Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository): folding a region in one pane folds the ALIGNED region in all three.
+- [ ] **(guard)** A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (changes are never hidden by folding).
+- [ ] **(initial)** On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view).
+- [ ] **(impl)** Fold state = single shared _collapsedGaps Set; applyFold projects it via editor.setHiddenAreas() on all 3 editors (one state -> 3 projections; no per-editor folding model). Aligned by conflicts[] per-editor ranges (R30.16 row-alignment via getTopForLineNumber). Reflows spline+gutters after.
+- [ ] **(impl)** Native folding DISABLED (folding:false). Only computeFoldRegions gaps (complement of conflicts[]) are collapsible; a change region has no collapse control = non-collapsible by construction.
+- [ ] **(impl)** On computeMergedCenter tail (conflicts[] ready): _collapsedGaps=all gaps -> applyFold -> changes-only view; expand reveals context on demand (view-zone '... N lines . expand').
+- [ ] **(flag)** [DESIGN-FLAG - PO/Tron] Context margin K around each change region in computeFoldRegions: K=0 (pure changes-only) .. K=3 (GitHub-like context). Architect recommends K=3. Ruling affects computeFoldRegions gap boundaries.
+- [ ] **(gate)** GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded.
 
 ## Implementation
 

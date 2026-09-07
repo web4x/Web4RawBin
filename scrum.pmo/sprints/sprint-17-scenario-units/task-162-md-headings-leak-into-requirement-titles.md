@@ -58,16 +58,6 @@ T161 closed the blockquote-leak class of bug but not the heading-leak class. Tes
 - Choose the **content** of the first speaky line as the title — strip the prefix tokens
 - One-helper change keeps the fix DRY across all typed-scenario title rendering
 
-## Acceptance Criteria
-
-- [ ] AC1 — A requirement whose first non-blank source line is `## Title Here` renders title `Title Here` (no `##` / leading whitespace)
-- [ ] AC2 — Same for `###`, `# ` (any heading level)
-- [ ] AC3 — Existing T161 behaviour preserved: blockquote prefixes still skipped; speaky names still chosen over raw Tron quotes
-- [ ] AC4 — Architect-scoped: if any other typed scenario (UseCase / Task / Class / Method / Test / TraceLink / View) shares the same pipeline, fix applies there too — chain audit across `/trace` shows zero MD-prefix titles
-- [ ] AC5 — `npm run build` succeeds; all existing tests pass (no regression on T161 / T159 / T160)
-- [ ] AC6 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set; (c) STATIC_SHELL exempt (no new route)
-- [ ] AC7 — Tester re-runs T161 TS6 + a new TS targeting `###` / `# ` cases; all PASS
-
 ## Dependencies
 
 - **Requires:** T161 (shipped 737c841 — same helper area)

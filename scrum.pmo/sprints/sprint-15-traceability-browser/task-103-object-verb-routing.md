@@ -37,16 +37,6 @@ web-component attributes. Objects push MVC live-updates to their registered view
 Object state serializes as flat JSON with route-like references to other objects (no
 protocols), so the typed object graph is navigable and renderable.
 
-## Acceptance Criteria
-
-- [ ] AC1: A `verb` (method) is addressable as a route — method anchor plus query params resolve to a class instance method invocation
-- [ ] AC2: Object attributes map to web-component attributes (set/get round-trips through the component)
-- [ ] AC3: Objects register views and emit MVC live-updates; a state change pushes to all registered views without a full reload
-- [ ] AC4: `serialize()` produces flat JSON of object state, with references to other objects as route-like strings (no protocol/transport coupling)
-- [ ] AC5: `deserialize()` reconstructs the object graph from flat JSON, resolving route-like references back to typed objects
-- [ ] AC6: Tests cover route resolution, attribute round-trip, MVC update propagation, and serialize/deserialize fidelity
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T101

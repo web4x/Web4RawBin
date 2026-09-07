@@ -34,10 +34,10 @@ ENRICH the Method ScenarioUnit with a FULL SIGNATURE: visibility (public/private
 
 ## Acceptance Criteria
 
-- [x] (functional) The Method unit carries a FULL signature: visibility {public|private|protected}, name(parameters[]), returnType, docs (oosh-style) — enriched from the source decl.
-- [x] (functional) parentClass field distinguishes Method (PRESENT => instanceOf UmlMethod) from Function (ABSENT => instanceOf UmlFunction). Function->Method convertible (add parentClass); Method->Function blocked (modelled one-way).
-- [x] (functional) UmlMethod/UmlFunction + ts-method-code projections render as typed facet-lens VIEWS of the enriched Method/Function unit (no copy).
-- [x] (gate) GATE @390 real-WebKit: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function->Method conversion works, Method->Function blocked.
+- [ ] **(functional)** The Method unit carries a FULL signature: visibility {public|private|protected}, name(parameters[]), returnType, docs (oosh-style) — enriched from the source decl.
+- [ ] **(functional)** parentClass field distinguishes Method (PRESENT ⇒ instanceOf UmlMethod) from Function (ABSENT ⇒ instanceOf UmlFunction). Function→Method convertible (add parentClass); Method→Function blocked (modelled one-way).
+- [ ] **(functional)** UmlMethod/UmlFunction + ts-method-code projections render as typed facet-lens VIEWS of the enriched Method/Function unit (no copy).
+- [ ] **(gate)** GATE @390: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function→Method conversion works, Method→Function blocked.
 
 ## Subtasks
 

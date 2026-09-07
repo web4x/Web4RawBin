@@ -40,12 +40,12 @@ Tron screenshot directive (2026-06-29): one chain section only, and Forward Link
 
 ## Acceptance Criteria
 
-- [x] (issue 1 — dedupe chain) The Task detail view shows only ONE Traceability Chain section
-- [x] The empty/false "Traceability Chain: No chain" section that rendered ABOVE the real chain is gone (removed or merged)
-- [x] The remaining single chain section still renders the real chain correctly (no regression)
-- [x] (issue 2 — Forward Links → MD) The Forward Links section links to the MD task documentation file, not the raw `useCases` IOR reference
-- [x] The link resolves/opens the task's `.md` file in the sprint directory
-- [x] Verified live (headless) — tester GREEN DET-3x v0.6.75 (commit c6560f97f); impl v0.6.75 (61b21fbf6, architect 35bec7d)
+- [ ] **(chain-dedup)** The Task detail view shows only ONE Traceability Chain section.
+- [ ] **(chain-dedup)** The empty/false 'Traceability Chain: No chain' section that rendered ABOVE the real chain is gone (removed or merged).
+- [ ] **(chain-dedup)** The remaining single chain section still renders the real chain correctly (no regression).
+- [ ] **(forward-links-md)** The Forward Links section links to the MD task documentation file (the sprint task .md file path), not the raw useCases IOR reference.
+- [ ] **(forward-links-md)** The link resolves/opens the task's .md file in the sprint directory.
+- [ ] **(verify)** Verified live (headless) against the running app: the Task detail view matches the corrected layout.
 
 ## Implementation
 

@@ -44,13 +44,6 @@ Lucide / Tabler / Feather — square, MIT/ISC) and records the choice + license 
 Tron 2026-05-27: "on the left side they should gave a catchy icon for requirement or
 task. quadratic svgs… choose a good free library."
 
-## Acceptance Criteria
-
-- [ ] AC1 — Each tree-item shows a square SVG icon on its left, distinct per type (requirement/task)
-- [ ] AC2 — Icons come from a free, appropriately-licensed library (choice + license documented here)
-- [ ] AC3 — Icons render crisply at the tree-item size (and the collapsed icon-only size, see T115)
-- [ ] `npm run build` succeeds; version + sw.js bumped; no regression
-
 ## Dependencies
 
 - **Requires:** architect icon-library decision — **DONE (Lucide, ISC)**

@@ -40,11 +40,11 @@ S30 diff/merge editor, R30.41 (Tron feature, architect-derived feasible+low-risk
 
 ## Acceptance Criteria
 
-- [x] (all-panes) Opening a known filetype highlights keywords/strings/comments CORRECTLY in ALL THREE panes (Local/Center/Repository)
-- [x] (per-filetype) The language is derived from the file path/extension (per-filetype), not a fixed default; each file gets its own language
-- [x] (coexist) Syntax highlighting COEXISTS with the diff/merge change-block coloring (R30.35 add/delete/modify/conflict) + splines (R30.34) — neither clobbers the other
-- [x] (mechanism) applyLanguage derives the Monaco language id from the left.path extension and calls setModelLanguage on the pane models
-- [x] (gate) GATE (DET-3x + Tron visual): open otmux (bash) / a .cs (C#) / a .ts (typescript) -> all 3 panes highlight correctly + the diff coloring stays intact
+- [ ] **(highlight)** Opening a known filetype highlights keywords/strings/comments CORRECTLY in ALL THREE panes (Local / Result / Repository), driven by the file language (otmux -> bash, .cs -> C#, .ts -> typescript).
+- [ ] **(highlight)** The language is derived from the file path/extension (per-filetype), not a fixed default; each of the 3 editor models is set to that language.
+- [ ] **(coexist)** Syntax highlighting COEXISTS with the diff/merge change-block coloring (R30.35 add/delete/modify/conflict) AND the continuous spline (R30.34): all render intact together, neither the tokenizer nor the diff decorations override the other.
+- [ ] **(impl)** applyLanguage derives the Monaco language id from the left.path extension and calls setModelLanguage(model,id) on all 3 editors at the END of loadSide, mutating the SAME model so R30.35 decorations + R30.34 spline persist (architect-confirmed).
+- [ ] **(gate)** GATE (DET-3x + Tron visual): open otmux (bash) / a .cs (C#) / a .ts (typescript) -> all 3 panes highlight keywords/strings/comments AND the change-blocks + spline still render intact; client-facing -> version-bump + atomic deploy (R30.28).
 
 ## Implementation
 

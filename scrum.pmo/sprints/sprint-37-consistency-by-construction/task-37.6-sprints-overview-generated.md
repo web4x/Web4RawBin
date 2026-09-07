@@ -34,10 +34,14 @@ R37.6 (architect-surfaced during R37.2 design). sprints.overview.md is currently
 
 ## Acceptance Criteria
 
-- [ ] (functional) The sprints.overview.md sprint-table (number/name/status/goal per sprint) is GENERATED from the Sprint units, not hand-maintained.
-- [ ] (functional) A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration untouched (mirror the GENERATED-header/OWNED-output guard) - the generator writes the table region, preserves the narrative region.
-- [ ] (functional) A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) - the overview joins the pin==board==files guard (R37.3).
-- [ ] (gate) TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint-table reflects the Sprint units AND the preserved-narrative region is byte-untouched; injecting table-drift -> --check FAILS. Verify Impl.tests[] on disk before flip.
+- [ ] **(functional)** The sprints.overview.md sprint-table (number/name/status/goal per sprint) is GENERATED from the Sprint units, not hand-maintained.
+- [ ] **(functional)** A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration untouched (mirror the GENERATED-header/OWNED-output guard) — the generator writes the table region, preserves the narrative region.
+- [ ] **(functional)** A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) — the overview joins the pin==board==files guard (R37.3).
+- [ ] **(gate)** TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint-table reflects the Sprint units AND the preserved-narrative region is byte-untouched; injecting table-drift -> --check FAILS. Verify Impl.tests[] on disk before flip.
+- [ ] **(region)** REGION granularity (INV-C6-1): the generator writes ONLY between <!-- GENERATED-INDEX:BEGIN --> and <!-- GENERATED-INDEX:END --> markers; bytes OUTSIDE the markers are byte-identical pre/post (hand narrative safe by construction). First run (markers absent): insert the marker pair at the canonical index location, preserving all surrounding prose.
+- [ ] **(frozen)** FROZEN-LEGACY VISIBLE (INV-C6-3, no silent cap): the excluded sets - S01-18 frozen-legacy + the 10 design-doc planning.md (S01-09) - are EXPLICITLY LISTED as frozen-legacy in --check output from a NAMED list (not inferred); dropping a sprint from the frozen set surfaces it BACK into the gate (a change, not a silent slip). The overview index also tags them 'frozen-legacy' so a reader sees the boundary.
+- [ ] **(vacuous)** FAIL-CLOSED on vacuous (INV-C6-4, per R37.3): generateOverview on empty sprint set / unresolvable current-pin / missing markers / vacuous-or-unresolvable frozen-list -> REFUSE with a named reason, NEVER emit an empty index (an empty index would read as 'no sprints'); --check on a missing overview file -> FAIL named, not skip-as-match.
+- [ ] **(honesty)** NO status invention (INV-C6-5): the index status = R37.5 rollup (R37.1 pin marks current/last/next); Done and supersededBy are counted DISTINCTLY (INV-C1-7 carried up) - the overview never shows/collapses a superseded sprint as Done.
 
 ## Subtasks
 

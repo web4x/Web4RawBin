@@ -37,16 +37,6 @@ planning (`rb-overview`) that stays consistent with the underlying objects via l
 The planning overview must always reflect the current typed object graph, never a stale
 snapshot.
 
-## Acceptance Criteria
-
-- [ ] AC1: `<rb-detail-view ref=…>` renders a single object's full detail (title/type/uuid/status) + its typed links as clickable rows that `TraceRouter.navigate` to the linked object (chain-navigable both directions)
-- [ ] AC2: `<rb-overview>` renders planning across Task objects — grouped by sprint with per-status rollup + a row per task (reusing T105 `<rb-object-item>`)
-- [ ] AC3: Both subscribe to the T103 ViewBus — object/link change updates the view without reload (always consistent)
-- [ ] AC4: The Overview is COMPUTED from the live typed graph every render (no hand-maintained duplicate, no cached snapshot) — drift structurally impossible
-- [ ] AC5: `rb-detail-view` is the registered `show` verb handler; `rb-overview` the `planning.overview`/`task.list` handler (T103 VerbRegistry)
-- [ ] AC6: Tests cover detail render + link-row navigation, overview rollup correctness, and live consistency on object/status change
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T103

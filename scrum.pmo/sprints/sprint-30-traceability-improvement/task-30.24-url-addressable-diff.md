@@ -40,12 +40,12 @@ S30 diff/merge editor (R30.24, IMG_4522) — make a diff a clickable, shareable 
 
 ## Acceptance Criteria
 
-- [x] (deep-link) Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff, restoring the state — edit.ts reads the params on load and initializes the diff
-- [x] (deep-link) The URL carries repo (KEY, resolved via R30.6.7 RepoRegistry allowlist), path, left ref, right ref, optional 3way flag; no client-supplied absolute path is honored
-- [x] (share) A copy-link / share affordance generates the shareable URL from the CURRENT diff state (repo+path+left+right+3way) and copies it to the clipboard
-- [x] (share) Open→share→open round-trips: the generated link, when opened, restores the identical diff view
-- [x] (security) The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse
-- [x] (verify) IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing → version-bump
+- [ ] **(deep-link)** Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff (repo + path + left + right + 3way), restoring the state — edit.ts reads the params on load and initializes the diff.
+- [ ] **(deep-link)** The URL carries repo (KEY, resolved via R30.6.7 RepoRegistry allowlist), path, left ref, right ref, and an optional 3way flag; no client-supplied absolute path is honored.
+- [ ] **(share)** A copy-link / share affordance on the diff generates the shareable URL from the CURRENT diff state (repo+path+left+right+3way) and copies it to the clipboard.
+- [ ] **(share)** Open->share->open round-trips: the generated link, when opened, restores the identical diff view.
+- [ ] **(security)** The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse.
+- [ ] **(verify)** IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing -> version-bump.
 
 ## Implementation
 

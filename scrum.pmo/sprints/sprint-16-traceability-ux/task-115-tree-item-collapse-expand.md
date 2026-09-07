@@ -50,15 +50,6 @@ quadratic item, taping again will make the item expand to show name and descript
 on rhe right side the icon will have a ">" like icon if the item has children and
 clicking on it will expand the tree."
 
-## Acceptance Criteria
-
-- [ ] AC1 — Tapping the left icon collapses the item to icon-only
-- [ ] AC2 — Tapping again expands to name + description
-- [ ] AC3 — A ">" expander shows on the right ONLY when the item has children
-- [ ] AC4 — Clicking ">" expands the child subtree (and toggles closed)
-- [ ] AC5 — Icon-tap (collapse) is distinguishable from drag (T114) and from ">" (children)
-- [ ] `npm run build` succeeds; version + sw.js bumped; no regression
-
 ## Implementation
 
 **Icon tap vs drag distinction:** Use a 200ms timer. On `pointerdown` on `.oi-icon`, start timer. If `pointerup` within 200ms AND no movement (< 5px) → it's a tap → toggle collapsed. If drag starts (T114 `dragstart` fires) → cancel timer, it's a drag.

@@ -54,16 +54,6 @@ into running code.
 - T125.3 ships the storage layer: writes `scenario/index/<5char>/<uuid>.scenario.json`; maintains the `scenarios/sprints.json/` symlink tree with speaking names.
 - T125.4 ships the view template engine: registers per-class HTML + MD renderers; emits views from flat JSON (no class methods in the template path — purely functional rendering); wires live-update on JSON change.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `Unit` base + `IOR.resolve(ior)` work end-to-end (round-trip serialize/parse/load)
-- [ ] AC2 — All 7 classes instantiable as `{ior, model, ownerIor}`; `ownerIor` resolves to the parent (e.g. Task.ownerIor → Sprint)
-- [ ] AC3 — `scenario/index/<5char>/<uuid>.scenario.json` write+read works; one round-trip preserves bytes
-- [ ] AC4 — `scenarios/sprints.json/sprint-1/task-1/task-1.1` symlink resolves to the right index file (speaking-name tree → UUID store)
-- [ ] AC5 — `TemplateRegistry.register(class, html, md)` + `view.render(unit) → {html, md}` work for at least the Task class
-- [ ] AC6 — vitest covers T125.1-T125.4 (≥1 test per sub-task)
-- [ ] AC7 — `npm run build` succeeds; full suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL untouched** per #16 (T125 introduces no new SPA route — server-side + tooling only)
-
 ## Dependencies
 
 - **Requires:** T124 (architecture + standards)

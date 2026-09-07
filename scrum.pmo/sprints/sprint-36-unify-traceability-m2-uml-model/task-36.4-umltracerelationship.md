@@ -34,10 +34,10 @@ NEW UmlTraceRelationship EXTENDS the existing TraceLink (reuse {from,to,fromType
 
 ## Acceptance Criteria
 
-- [x] (functional) UmlTraceRelationship EXTENDS TraceLink (reuse from/to/fromType/toType/relation/direction/label) + a RawBin relation vocabulary (decomposes/traces) — NOT strict UML 2.5, NOT a new fork.
-- [x] (functional) Semantics: a UseCase (Class.method/Object.verb) traces/decomposes -> its Method; each endpoint is a typed OOP-extended unit tracking usage-refs.
-- [x] (functional) Renders as a typed connector on the diagram — reuse R32.6 edges + EDGE_DEFS kind-map with the added trace kind (no fork).
-- [x] (gate) GATE @390 real-WebKit: a UmlTraceRelationship between a UseCase + its Method renders the typed trace connector; the relation vocabulary (decomposes/traces) is carried; endpoints resolve to real units.
+- [ ] **(functional)** UmlTraceRelationship EXTENDS TraceLink (reuse from/to/fromType/toType/relation/direction/label) + a RawBin relation vocabulary (decomposes/traces) — NOT strict UML 2.5, NOT a new fork.
+- [ ] **(functional)** Semantics: a UseCase (Class.method/Object.verb) traces/decomposes → its Method; each endpoint is a typed OOP-extended unit tracking usage-refs.
+- [ ] **(functional)** Renders as a typed connector on the diagram — reuse R32.6 edges + EDGE_DEFS kind-map with the added trace kind (no fork).
+- [ ] **(gate)** GATE @390: a UmlTraceRelationship between a UseCase + its Method renders the typed trace connector; the relation vocabulary (decomposes/traces) is carried; endpoints resolve to real units.
 
 ## Subtasks
 

@@ -34,11 +34,11 @@ R-A (client half). Every scenario-instance detail view MUST render an orange «�
 
 ## Acceptance Criteria
 
-- [x] (functional) Every scenario-instance detail view renders the «◆ Scenario» + «✎ Edit» default pair via actionsForContext/DEFAULT_ACTIONS, independent of and BEFORE any type-specific verbs.
-- [x] (functional) «Scenario» dispatches to the instance's scenario-view (/scenario?ior=<ref>).
-- [x] (functional) «Edit» opens the edit flow for that instance.
-- [x] (functional) The default pair renders ORANGE (a .da-btn variant class), visually distinct from type-specific verbs.
-- [x] (gate) GATE @390 real-WebKit: open ANY item detail -> the orange Scenario+Edit pair is present + functional; type-specific verbs append after.
+- [ ] **(functional)** Every scenario-instance detail view renders the «◆ Scenario» + «✎ Edit» default pair via actionsForContext/DEFAULT_ACTIONS, independent of and BEFORE any type-specific verbs.
+- [ ] **(functional)** «Scenario» dispatches to the instance's scenario-view (/scenario?ior=<ref>).
+- [ ] **(functional)** «Edit» opens the edit flow for that instance.
+- [ ] **(functional)** The default pair renders ORANGE (a .da-btn variant class), visually distinct from type-specific verbs.
+- [ ] **(gate)** GATE @390 real-WebKit: open ANY item detail → the orange Scenario+Edit pair is present + functional; type-specific verbs append after.
 
 ## Subtasks
 

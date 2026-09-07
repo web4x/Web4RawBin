@@ -40,11 +40,11 @@ Tron: the task detail view should render the status checklist visually (not raw 
 
 ## Acceptance Criteria
 
-- [x] (read) The status checklist is read from the task unit's model.statusChecklist field (markdown)
-- [x] (render) The detail view renders it as a VISUAL checklist showing Planned / In Progress / QA Review / Done
-- [x] (nested) Nested sub-items under 'In Progress' render indented: refinement, creating test cases, implementing, testing
-- [x] (alongside) The status checklist appears in the Task detail view alongside the MD-file link (R22.1)
-- [x] (verify) Verified live (headless): a task carrying a statusChecklist renders the visual checklist
+- [ ] **(source)** The status checklist is read from the task unit's model.statusChecklist field (markdown), NOT re-parsed from the .md file on disk.
+- [ ] **(render)** The detail view renders it as a VISUAL checklist showing Planned / In Progress / QA Review / Done, each with a checked/unchecked state.
+- [ ] **(render)** Nested sub-items under 'In Progress' render indented: refinement, creating test cases, implementing, testing.
+- [ ] **(placement)** The status checklist appears in the Task detail view alongside the MD-file link (R22.1).
+- [ ] **(verify)** Verified live (headless): a task carrying a statusChecklist renders the visual checklist matching the unit field.
 
 ## Implementation
 

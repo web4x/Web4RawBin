@@ -46,14 +46,6 @@ methods and requirements link to, enabling T116's method→UC→requirement chai
 Tron 2026-05-27: "this implies tracking the usecases in puml as dedicated instances of
 a UseCase class."
 
-## Acceptance Criteria
-
-- [ ] AC1 — A `UseCase` class is defined in PUML; each use case is an instance of it
-- [ ] AC2 — Use case instances carry an id linking up to a requirement and down to classes/methods
-- [ ] AC3 — Existing use-case references migrate to the first-class instance form (no orphan labels)
-- [ ] AC4 — Generated SVG renders; /trace can surface UseCase nodes
-- [ ] `npm run build` succeeds; no regression
-
 ## Dependencies
 
 - **Requires:** None (architect-led modeling task)

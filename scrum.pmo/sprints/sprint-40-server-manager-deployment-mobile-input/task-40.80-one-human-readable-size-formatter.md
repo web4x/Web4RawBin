@@ -34,11 +34,10 @@ One size-formatting verb for the whole product; two call sites can never disagre
 
 ## Acceptance Criteria
 
-- [ ] ONE FORMATTER, SINGLE-SOURCE: a single formatHumanReadableSize(bytes) -> B/kB/MB/GB/TB living in ONE place; if a size-formatting helper already exists, EXTEND it, do not add a second.
-- [ ] BOTH SUNBURST CALL SITES render via THIS formatter: LEGEND (per-file size) AND CENTER (total) — neither formats inline/ad-hoc.
-- [ ] PRODUCT-WIDE: every other size-render site in the product routes through the same one formatter (Tron: DRY everywhere).
-- [ ] FORBID A 2ND (stub-must-fail): a lint/gate scans for raw-byte->human size formatting OUTSIDE the one function -> RED if a second call site/impl exists (scan the HAZARD not the actors); proven able-to-fail on a planted duplicate.
-- [ ] @390 TEAM-VERIFIED (rewordProvenance 2026-09-05, customer-not-tester law): WE verify @390 real-WebKit that legend + center show human-readable sizes (not raw bytes) — sizes ARE verifiable by us, 'un-mockable/his-screen' was WRONG; Tron ACCEPTS delivered verified work.
+- [ ] **(user-visible@390)** WE verify @390 real-WebKit: the legend shows human-readable sizes, NOT raw bytes — 10916416 renders as '10.9 MB', 43 as '43 B', 4717922 as '4.7 MB', 1 as '1 B' (his exact values, human-formatted). Sizes ARE verifiable by us @390 real-WebKit (the 'un-mockable/his-screen' framing was WRONG); Tron accepts.
+- [ ] **(format)** The format is SI (1000-based): 1 kB=1000 B, 1 MB=1e6 B, GB=1e9, TB=1e12; 1 decimal for kB+, integer for B. Derived from Tron's own 10916416->10.9 MB example. Rounding is stated so OUR @390 real-WebKit verification is unambiguous.
+- [ ] **(consistency)** The same human format applies to BOTH the legend AND the centre total (R40.79) — no surface shows raw bytes. WE verify @390 real-WebKit: neither the legend nor the centre shows a raw byte count.
+- [ ] **(DRY/failable-R40.54)** DRY (Tron standing law): ONE size formatter renders the human-readable size EVERYWHERE — the sunburst CENTRE total (R40.79), the LEGEND per-file sizes, and ANY size rendered elsewhere in the product. NOT one formatter for the centre and another for the legend. If two call sites can EVER disagree about how 10916416 renders, we have failed => a second size-format impl => RED. Check-before-create: extend the existing formatter if one exists, do not add a rival.
 
 ## Subtasks
 

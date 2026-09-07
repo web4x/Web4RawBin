@@ -40,12 +40,12 @@ RawBin Federation: the receiver-side endpoint that orchestrates a federated impo
 
 ## Acceptance Criteria
 
-- [x] (endpoint) The receiver exposes POST /api/federation/import accepting a federated reference (or fetchUrl) and returning the imported unit's local IOR
-- [x] (orchestrate) Import sequences: fetch unit JSON from origin (R26.3) -> validate -> recreate locally with provenance (R26.1 originHost/originIor) -> resolve children per eager/lazy policy (R26.4) -> reconcile uuid conflict (R26.5) -> link the chain
-- [ ] (security) Incoming JSON is validated (schema + size-cap + sanitize), NEVER executed; foreign identities never become local auth principals (per securityNote + R25.7 members-by-reference)
-- [x] (result) After import the transferred unit exists locally (recreated) with intact unitLinks + provenance, appearing in the target room/context
-- [x] (idempotent) Re-import of the same reference is safe - it delegates to the R26.5 reconcile (no blind duplicate)
-- [x] (integration) R26.6 is the INTEGRATION that composes R26.1-R26.5 (<<include>>); the constituent capabilities live in those reqs
+- [ ] **(endpoint)** The receiver exposes POST /api/federation/import accepting a federated reference (or fetchUrl) and returning the imported unit's local IOR.
+- [ ] **(orchestrate)** Import sequences: fetch unit JSON from origin (R26.3) -> validate -> recreate locally with provenance (R26.1 originHost/originIor) -> resolve children per eager/lazy policy (R26.4) -> reconcile uuid conflict (R26.5) -> link the chain.
+- [ ] **(security)** Incoming JSON is validated (schema + size-cap + sanitize), NEVER executed; foreign identities never become local auth principals (per securityNote + R25.7 members-by-reference).
+- [ ] **(result)** After import the transferred unit exists locally (recreated) with intact unitLinks + provenance, appearing in the target room/context.
+- [ ] **(idempotent)** Re-import of the same reference is safe - it delegates to the R26.5 reconcile (no blind duplicate).
+- [ ] **(integration)** R26.6 is the INTEGRATION that composes R26.1-R26.5 (<<include>>); the constituent capabilities live in those reqs.
 
 ## Implementation
 

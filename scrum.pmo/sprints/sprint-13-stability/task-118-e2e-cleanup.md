@@ -40,16 +40,6 @@
 
 Clean up the E2E tests: add cleanupTestUsers, per-spec afterAll teardown, and purge backfilled test data.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `cleanupTestUsers(pattern)` helper exists in `test/e2e/helpers.ts`, honors `DATA_DIR`, refuses unbounded patterns
-- [ ] AC2 — All 8 ensureLobby-using specs have `test.afterAll` calling `cleanupTestUsers` (+ `cleanupTestRooms` where rooms were created) with spec-specific regex
-- [ ] AC3 — Backfill dry-run report lists matched test users and explicitly shows the 3 real owners as preserved
-- [ ] AC4 — Backfill apply reduces `data/users/` to the 3 real owners + intentional fixtures only; no real-user dir touched
-- [ ] AC5 — Full E2E suite (`npm run test:e2e`) → `data/users/` count after the run equals the count before the run (zero net add)
-- [ ] AC6 — `npm run build` succeeds; full vitest + playwright suite passes; no regression on T100 (vitest isolation still works)
-- [ ] AC7 — Real owner accounts (Marcel Donges's Room, Admins's Room, Marcel Surface Mini per S14 audit) untouched by both helper and backfill
-
 ## Dependencies
 
 - **Requires:** T100 (DATA_DIR override — helpers honor it)

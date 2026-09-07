@@ -41,15 +41,6 @@ Design the view template architecture: per-class HTML + MD templates, registered
 
 Tron 2026-05-30 (verbatim): "the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates. views are purely generated and live updated from the flat json data."
 
-## Acceptance Criteria
-
-- [x] AC1 — Template registry design: class IOR → HTML template + MD template
-- [x] AC2 — 7 class templates defined (Sprint, Task, Requirement, UseCase, Class, Method, Test)
-- [x] AC3 — Pure-function rendering: template(scenario) → HTML string / MD string
-- [x] AC4 — Live-update strategy via ViewBus documented
-- [x] AC5 — planning.md + sprint overview as generated views documented
-- [ ] AC6 — PO + Tron reviewed
-
 ## Dependencies
 
 - **Requires:** T124.1 (scenario JSON shape — templates consume it)

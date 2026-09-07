@@ -40,12 +40,12 @@ S30 diff/merge editor, R30.26 (BUG-1 = the RIGHT-corrupt half of R30.25-B; archi
 
 ## Acceptance Criteria
 
-- [x] (preserved) Open a diff from a deep-link URL, then pick a RIGHT ref: the user's pick is preserved (RIGHT = the picked ref), NOT clobbered by the in-flight deep-link/right load
-- [x] (guard) openFromParams guards against overwriting a user pick that lands while the deep-link load is still in flight (R30.25.1)
-- [x] (seq) loadSide uses a _rightLoadSeq sequence token: a stale in-flight load whose result returns AFTER a newer pick is discarded — the newest load wins (R30.25.2)
-- [x] (no-regression) R30.24 deep-link open/restore + share round-trip still work; R30.25 right-pick-preserves-left still holds
-- [x] (impl-edit) Impl-edits to EXISTING RbDiffEditor.openFromParams (Impl dc236c19) + RbDiffEditor.loadSide (Impl c4da837c) — markers STAY, no new Method/Class
-- [x] (verify) DET-3x GREEN on v0.7.39 (Test 7d3e1a52 R30.25.1/.2 deep-link change-RIGHT, status pass, on both Impls)
+- [ ] **(preserved)** Open a diff from a deep-link URL, then pick a RIGHT ref: the user's pick is preserved (RIGHT = the picked ref), NOT clobbered by the in-flight deep-link/right load.
+- [ ] **(guard)** openFromParams guards against overwriting a user pick that lands while the deep-link load is still in flight (R30.25.1).
+- [ ] **(seq)** loadSide uses a _rightLoadSeq sequence token: a stale in-flight load whose result returns AFTER a newer pick is discarded - the newest load wins (R30.25.2).
+- [ ] **(no-regression)** R30.24 deep-link open/restore + share round-trip still work; R30.25 right-pick-preserves-left still holds.
+- [ ] **(impl-edit)** Impl-edits to EXISTING RbDiffEditor.openFromParams (Impl dc236c19) + RbDiffEditor.loadSide (Impl c4da837c) - markers STAY, no new Method/Class.
+- [ ] **(verify)** DET-3x GREEN on v0.7.39 (Test 7d3e1a52 R30.25.1/.2 deep-link change-RIGHT, status pass, on both Impls). Status DONE - retroactive #126 completion; planner backfills T30.26.
 
 ## Implementation
 

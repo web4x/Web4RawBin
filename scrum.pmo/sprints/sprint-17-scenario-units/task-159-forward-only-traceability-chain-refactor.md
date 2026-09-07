@@ -96,22 +96,6 @@ its back-ref INPUT must be replaced by forward parsing from
 - Refactor T155 closure: forward-only data sources (parse `requirements.md` forward bullets, not task `links.up`)
 - Standard documents the forward-only chain explicitly
 
-## Acceptance Criteria
-
-- [ ] AC1 (Standard spec) — `scrum.pmo/standards/traceability-standard.md` documents the forward-only chain: `Requirement → Task → (Subtask ∪ UseCase) → Class → Method`; explicit "no back-refs" rule per class
-- [ ] AC2 (LoaderDefaults) — Task / UseCase / Class / Method Loaders drop back-ref fields (`links.up` to a parent type, `requirement`, `requirements[]`, etc.). Forward fields (`subtasks[]`, `useCases[]`, `classes[]`, `methods[]`) retained
-- [ ] AC3 (Migration — strip back-refs) — One-shot migration removes back-ref fields from every existing scenario JSON; per-class audit table reports before-count (back-refs present) → after-count (zero). Mismatch = hard FAIL.
-- [ ] AC4 (T155 refactor) — `fixUcDataQuality()` + reverse-closure logic refactored: forward-only inputs (parse `requirements.md` forward bullets, NOT task `links.up`); `requirement.tasks[]` forward output unchanged in semantics; `tests[]` direction reviewed (architect decides if `requirement.tests[]` is still forward or removed)
-- [ ] AC5 (Zero back-refs per class) — For EVERY scenario unit, no back-ref field remains. `trace-cli` validator gains a "no-back-refs" check.
-- [ ] AC6 (Forward walks unchanged) — T143 `walkDown` and the planning view (T126) render forward edges identically to pre-T159 (modulo no longer showing reverse edges)
-- [ ] AC7 (Idempotence) — Running the strip migration twice yields the same JSON
-- [ ] AC8 (Dry-run) — `--dry-run` mode reports per-class strip-counts without writing
-- [ ] AC9 (Spot-check ≥5 across classes) — Architect/tester selects ≥5 scenarios across Task/UC/Class/Method; verifies zero back-refs + forward edges intact
-- [ ] AC10 (Regression) — No regression on T126 / T143 / T149 / T151 forward arrays / T154 (forward `tasks[]`); T158 depends on T159
-- [ ] AC11 — `npm run build` succeeds; all existing tests pass
-- [ ] AC12 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl (T126 view regeneration reaches Tron's device). (c) STATIC_SHELL: likely exempt (no new route — architect to confirm)
-- [ ] AC13 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** T151 (JSON model shape), T143 (tree forward semantics), T126 (templates regenerate)

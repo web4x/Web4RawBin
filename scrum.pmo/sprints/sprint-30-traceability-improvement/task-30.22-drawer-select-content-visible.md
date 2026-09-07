@@ -38,12 +38,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its sc
 
 ## Acceptance Criteria
 
-- [x] (open) Selecting a node with detail content opens the drawer EXPANDED (body display:flex, content-height) so content is visible immediately
-- [x] (close) X still minimizes to peek (R27.8 minimize / R30.20 closeOrReturn) - X-behavior unchanged
-- [x] (toggle) The grab-bar toggle still expands/collapses the drawer (unchanged)
-- [x] (close) ESC still closes the drawer (unchanged)
-- [x] (supersede) Supersedes R27.8(B): the closed->open+peek behavior for a content-select becomes open->expanded
-- [x] (verify) Tron visual + DET-3x: select task/class/impl -> content visible immediately (no grab-bar, body display:flex)
+- [ ] **(open)** Selecting a node with detail content opens the drawer EXPANDED (body display:flex, content-height) so the content is VISIBLE immediately - no grab-bar click needed (was drawerH=40px peek + body display:none = hidden).
+- [ ] **(close)** X still minimizes to peek (R27.8 minimize / R30.20 closeOrReturn) - the X-behavior is unchanged.
+- [ ] **(toggle)** The grab-bar toggle still expands/collapses the drawer (unchanged).
+- [ ] **(close)** ESC still closes the drawer (unchanged).
+- [ ] **(supersede)** Supersedes R27.8(B): the closed->open+peek behavior for a content-select becomes open->expanded; R27.8 X=minimize (via R30.20) is preserved.
+- [ ] **(verify)** Tron visual + DET-3x: select task/class/impl -> content visible immediately (no grab-bar, body display:flex, content-height); X->peek; grab-bar toggles; ESC closes. Client-facing -> version-bump.
 
 ## Implementation
 

@@ -27,14 +27,6 @@
 
 Bring the header to parity with the UpDown app.
 
-## Acceptance Criteria
-
-- [x] Home button navigates to /
-- [x] Fullscreen toggle works on desktop + mobile
-- [x] Reload refreshes the page
-- [x] Header layout matches UpDown pattern
-- [x] Touch-friendly button sizes (44px min)
-
 ## QA Audit & User Feedback
 
 ## Subtasks

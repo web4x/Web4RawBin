@@ -22,6 +22,11 @@ Deliver + verify requirement R40.21 (Credentials-in-URLs -> capability-not-ident
 
 ## Acceptance Criteria
 
-
+- [ ] **(auth-off-url)** In-app auth uses the sm_session cookie / x-player-token HEADER — NO identity credential in any URL parameter.
+- [ ] **(cap-for-sharing)** Shareable resource URLs carry ?cap=signed({resourceId,exp,scope}) reusing the T26.3 capability-grant HMAC — opens ONLY that one resource, short-lived/expiring, scoped.
+- [ ] **(stub-must-fail-cap-gate)** The capability gate is STUB-MUST-FAIL: a forged / expired / wrong-scope cap FAILS (proven), never opens the resource.
+- [ ] **(INV-URL-1-5)** INV-URL-1..5 per the LOCAL design: no identity token in a URL; cap scoped to exactly one resource; cap expires; wrong/missing cap -> 403/404 no-leak; old identity-in-URL links inert post-migration.
+- [ ] **(phased-migration)** Phased migration: accept BOTH (identity-URL + cap) -> then REJECT identity-in-URL; post-rotation old links are inert and 404 GRACEFULLY (no leak, no crash).
+- [ ] **(device-390)** @390 owner-device (Tron): the share + capability-open flow works on his phone.
 
 ## Subtasks

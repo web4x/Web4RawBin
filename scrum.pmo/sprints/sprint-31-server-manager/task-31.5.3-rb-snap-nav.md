@@ -31,9 +31,8 @@ rb-snap-nav is a data-driven bottom nav: one button per COMPARTMENT segment (lab
 
 ## Acceptance Criteria
 
-- [ ] rb-snap-nav renders one button per COMPARTMENT segment (labels from the strip descriptors — {L,C,R} editor / {What,Overview,Details,Actions} WODA, one component); click -> scrollIntoView that compartment's snap point (native CSS, no JS scroll math). BARS are NOT nav buttons.
-- [ ] POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
-- [ ] AC-INV-PRESENTATION (cross-cutting R31.5.8): positioning != function — presentation is a reactive layer, never a second fork.
+- [ ] **(functional)** rb-snap-nav renders one button per COMPARTMENT segment (labels from the strip descriptors — {L,C,R} editor / {What,Overview,Details,Actions} WODA, one component); click -> scrollIntoView that compartment's snap point (native CSS, no JS scroll math). BARS are NOT nav buttons.
+- [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
 
 ## Subtasks
 

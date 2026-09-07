@@ -55,16 +55,6 @@ Cross-link semantics:
 - Requirement → Task links (the existing `→ T<n>` in requirements.md) become TraceLink units (T134) on commit.
 - UseCase → Task / UseCase → Method links (from puml chain blocks) become TraceLink units too.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `migrate-to-scenario.ts` extended with `--include-requirements` + `--include-usecases` flags (or default-on; architect picks)
-- [ ] AC2 — Running migration on Sprint 1 emits all Requirement + UseCase units from its sources; round-trip via IOR.resolve()
-- [ ] AC3 — TraceLink units emitted for every `Requirement → Task` and `UseCase → {Task, Method}` cross-reference
-- [ ] AC4 — Idempotent: re-running on the same sources does not duplicate units (existing v4 uuid used as index key)
-- [ ] AC5 — T128.1 exemplar regenerated cleanly with the extension; `scenario/sprints.md/` tree now includes `/requirement/` + `/useCase/` peers to `/task/`
-- [ ] AC6 — `npm run trace:check` clean (no new orphans); graph object count grows by the emitted reqs+UCs
-- [ ] AC7 — `npm run build` + suite passes; rule-pair: (a)+(b) per #15 (data emission counts as user-visible since /md/ and /trace will surface the new units); (c) STATIC_SHELL exempt unless new route
-
 ## Dependencies
 
 - **Requires:** T128 (migration parent), T125 (classes), T126 (Requirement+UseCase templates), T134 (TraceLink for cross-references), T135 (req-audit cleans the source)

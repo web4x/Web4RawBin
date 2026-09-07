@@ -38,11 +38,14 @@ designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.m
 
 ## Acceptance Criteria
 
-- [ ] Dropping an itemView onto a diagram creates a VIEW of that unit at the drop x,y.
-- [ ] A class view composes sub-views into UML compartments: attributes compartment (attribute views), methods compartment (method views), properties compartment (getter/setter views).
-- [ ] N views of one unit across N diagrams = N diagram-LINKS recorded on the unit; views are references NOT copies (identity-by-reference, R25.7) - editing the unit reflects in all its views.
-- [ ] A view records its drop x,y and is interactively SELECTABLE + MOVABLE (drag to reposition).
-- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+- [ ] **(functional)** Dropping a TS file on a model drop-zone (REUSE the existing drop-dispatcher) POSTs its path/content to a NEW `POST /api/model/generate` endpoint, which runs TsToModel.generate (R32.2 REUSE) - no drop or generate fork.
+- [ ] **(functional)** Generation writes to an ISOLATED ScenarioIndex dir `data/model-store/index/` via TsToModel.generate({ indexDir: MODEL_STORE, write: true }) (TsToModel.ts:96 hook) - prod `scenario/index` is NEVER mutated (the PO don't-force-prod-mutation safe-mechanism law). The store is demo-scoped + resettable; its M2 metaclasses are seeded once so instanceOf/modelFacetType resolve self-contained.
+- [ ] **(functional)** The ONE server read-change: `/api/model/tree` reads MODEL_STORE (not prod scenario/index); `/api/trace/children`, when the uuid is a ModelElement, resolves from MODEL_STORE (UNION - trace units stay in prod scenario/index, model units come from the store). rb-trace-tree + the R32.3 forward-key walk are UNCHANGED - they just read a store that now has data (this is why R32.3 correctly returned roots=0 on empty prod).
+- [ ] **(functional)** Generation produces the M1/M2 ModelElement units PLUS a demo Diagram unit with Layer-2 view-links (one per generated class/interface, viewKind 'class', DETERMINISTIC auto-layout x,y grid/row) so the R32.4 surface has nodes. View-links are REFERENCES (R25.7 identity-by-ref): the unit lives in the store, position lives on the link - N views across N diagrams = N links, editing the unit reflects in all its views.
+- [ ] **(functional)** The R32.3 tree (/api/model/tree -> store) AND the R32.4 diagram surface (rb-diagram-detail over the demo Diagram's view-links) render the generated model LIVE - a DEMONSTRABLE drop->populated tree + diagram that Tron can SEE (the go-live milestone): classes -> members with correct M2 icons/badges (R32.3) + UML class boxes on the surface (R32.4).
+- [ ] **(functional)** Re-dropping the same TS file yields the SAME UUIDs (R32.2 deterministic sourceFile::qualifiedName) -> idempotent: 0 duplicate units, 0 duplicate diagram nodes; the store re-binds rather than re-mints.
+- [ ] **(functional)** The whole pipeline is REUSE-ONLY: drop-dispatcher + TsToModel.generate + rb-trace-tree (R32.3) + rb-diagram-detail (R32.4) + Layer-2 view-links - NO forks of any of them. The only new code is the MODEL_STORE const + read-reroute + the /api/model/generate endpoint + drop-zone wiring.
+- [ ] **(functional)** ISOLATION PROVEN (gate-able): the count of ior:class:ModelElement units in prod `scenario/index` is UNCHANGED after generation (all model writes hit the store). And /trace + Server Manager + room detail-views + prod traceability stay UNREGRESSED (model reads hit the store, trace reads hit prod). Server change -> real restart + R31.7 served==committed invariant re-stamped.
 
 ## Subtasks
 

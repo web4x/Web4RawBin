@@ -34,13 +34,13 @@ R40.28 (Tron device 2026-08-11: 'make sure the default action scenario edit alwa
 
 ## Acceptance Criteria
 
-- [x] AC-1: The A1 'Scenario' default action opens the scenario in a NEW TAB (gate 501f17ad sync-uuid path).
-- [x] AC-2: The A1 'Edit' default action opens the editor in a NEW TAB (gate 501f17ad sync-uuid path).
-- [x] AC-3: 'ALWAYS' = from EVERY surface the universalActionBar composes on (trace/model/room/task detail/drawer) — by-construction via the single shared onUniversalAction handler, not a per-surface branch.
-- [x] AC-4: The CURRENT tab is NOT navigated away (window.open _blank; the user keeps his place — the mobile pain being fixed).
-- [x] AC-5: The OTHER actions' behaviour is unchanged (distinct 3rd increment on the shared method, no reverse regression, R30.11-clean).
-- [x] AC-6: Device-gated @390 real-WebKit (iOS-parity, NOT chromium-emulation): a NEW browsing context ACTUALLY OPENS — detected via the page/popup EVENT, NOT target=_blank-in-DOM (empty-container false-green killed). GREEN DET-3x, Test 501f17ad, served==0.8.84==HEAD.
-- [ ] AC-7: DEVICE-ONLY (real iOS Safari @390, Tron-verified, NEVER headless-green): the new-tab open MUST be SYNCHRONOUS in the tap/user-gesture handler (open first, then point) — iOS silently popup-blocks a non-sync open. Headless CANNOT enforce the sync-gesture rule (async open also fires a context = would false-green), so AC-7 is Tron's device gate only.
+- [ ] **(new-tab)** The A1 'Scenario' default action opens the scenario in a NEW TAB.
+- [ ] **(new-tab)** The A1 'Edit' default action opens the editor in a NEW TAB.
+- [ ] **(always-every-surface)** ★ 'ALWAYS' = from EVERY surface the universalActionBar is composed on (trace / model / room / task detail / drawer), not just the one currently in view. The word 'always' is part of the requirement — a per-surface exception is a defect.
+- [ ] **(current-tab-preserved)** The CURRENT tab is NOT navigated away — the user keeps his place (losing context on a phone is the actual pain being fixed).
+- [ ] **(no-reverse-regression)** The OTHER actions' behaviour is unchanged (no reverse regression).
+- [ ] **(device-gate-result)** Device-gated @390 real-WebKit (iOS-parity, NOT chromium-emulation) asserting a NEW browsing context ACTUALLY OPENED — detected via the page/popup EVENT, NOT target=_blank-in-DOM (in-DOM != opened = the empty-container false-green). ★ AUTO-GATE-ABLE half (tester prove-the-prover: real sync tap fires a context 3/3).
+- [ ] **(device-only-390)** ★ DEVICE-ONLY (real iOS Safari @390, Tron-verified, NEVER headless-green): the new-tab open MUST be SYNCHRONOUS in the tap/user-gesture handler (no await/fetch/resolve before window.open; open the tab first then point it). iOS Safari silently popup-blocks a non-sync open — the tab never appears, invisibly. ⚠ HEADLESS CANNOT VERIFY THIS (measured, tester prove-the-prover): headless Playwright-WebKit does NOT enforce the sync-gesture popup rule — an async-timeout AND async-promise open ALSO fire a context, so auto-gating AC-7 would FALSE-GREEN a broken async open. Therefore AC-7 is verified ONLY on Tron's real device; AC-6 (a context actually opens) is the auto-gate-able half. Do NOT headless-green AC-7 (R22.2 device-only precedent).
 
 ## Subtasks
 

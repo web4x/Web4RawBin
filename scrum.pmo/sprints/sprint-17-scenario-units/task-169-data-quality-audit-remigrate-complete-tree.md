@@ -92,20 +92,6 @@ on the existing data + builds the ongoing audit.
 - Remigration script (or in-place patches) fixes the flagged units
 - Audit becomes a permanent CI gate (no future regression)
 
-## Acceptance Criteria
-
-- [ ] AC1 — Audit script enumerates every scenario unit (Requirement / Task / UseCase / Class / Method / Implementation / Test) in the index
-- [ ] AC2 — For every non-Requirement unit, audit confirms a path UP to a requirement root via the canonical T168 chain (`requirement → task → usecase(s) → class → method → implementation → test(s)`); zero orphan units
-- [ ] AC3 — Audit confirms zero back-refs across all units (forward-only rule T159 holds)
-- [ ] AC4 — Audit confirms cardinality: Implementation has `tests[]` IOR array (1:N); task has `useCases[]` IOR array (1:N); plural hops enforced
-- [ ] AC5 — Remigration completes any units flagged by AC2-AC4 (orphan fix; back-ref strip; cardinality fill)
-- [ ] AC6 — Re-running the audit post-remigration: **all clean** (0 orphans, 0 back-refs, cardinality enforced)
-- [ ] AC7 — Audit script wired as a CI gate (or runnable via `npm run trace:audit` or equivalent — architect specifies)
-- [ ] AC8 — `traceability-standard.md` references T169's audit as the official data-quality gate
-- [ ] AC9 — No regression on shipped tasks (T134/T143/T158/T160/T161/T163/T165/T166)
-- [ ] AC10 — `npm run build` succeeds; all existing tests pass
-- [ ] AC11 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL — architect confirms (likely exempt)
-
 ## Dependencies
 
 - **Requires:** T168 (canonical chain rule — must land first or in lockstep); T159/T160 (forward-only baseline); T128.1/T128.2 (migration baseline); T164 (in-flight — narrow data fix that T169 generalizes)

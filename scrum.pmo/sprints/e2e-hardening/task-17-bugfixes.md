@@ -27,12 +27,6 @@
 
 Umbrella bug-fix task collecting assorted defect fixes for this cycle.
 
-## Acceptance Criteria
-
-- [x] All E2E tests pass
-- [x] No critical bugs open
-- [x] External access confirmed working
-
 ## QA Audit & User Feedback
 
 ## Subtasks (from T13 E2E findings)

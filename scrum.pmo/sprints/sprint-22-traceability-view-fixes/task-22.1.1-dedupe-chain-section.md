@@ -34,10 +34,12 @@ Issue 1 of R22.1: one chain section only.
 
 ## Acceptance Criteria
 
-- [x] The Task detail view shows only ONE Traceability Chain section
-- [x] The empty/false "Traceability Chain: No chain" section above the real chain is gone
-- [x] The remaining single chain section renders the real chain correctly (no regression)
-- [x] Verified live (headless) — tester GREEN DET-3x v0.6.75 (c6560f97f)
+- [ ] **(chain-dedup)** The Task detail view shows only ONE Traceability Chain section.
+- [ ] **(chain-dedup)** The empty/false 'Traceability Chain: No chain' section that rendered ABOVE the real chain is gone (removed or merged).
+- [ ] **(chain-dedup)** The remaining single chain section still renders the real chain correctly (no regression).
+- [ ] **(forward-links-md)** The Forward Links section links to the MD task documentation file (the sprint task .md file path), not the raw useCases IOR reference.
+- [ ] **(forward-links-md)** The link resolves/opens the task's .md file in the sprint directory.
+- [ ] **(verify)** Verified live (headless) against the running app: the Task detail view matches the corrected layout.
 
 ## Implementation
 

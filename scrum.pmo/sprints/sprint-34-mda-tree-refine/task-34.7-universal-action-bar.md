@@ -34,12 +34,12 @@ R-E (Tron 2026-08-03: 'add the action bar to all usages of the drawer'). The act
 
 ## Acceptance Criteria
 
-- [x] (functional) INV-E1: the action bar renders on EVERY drawer usage (all 7 mount sites: /trace, /scenario, in-room, /server-manager, feature-manager, trace/index, /model) with the context-appropriate verb-set - BY CONSTRUCTION (the shared drawer sets the default itself, not gated on a per-page host wiring).
-- [x] (functional) INV-E2: default [Scenario, Edit] everywhere; + model verbs (unit always / membership when a diagram is active, R33.9 actionsForContext) ONLY where the model host registered via registerActionProvider; + per-type verbs where defined. Reuse actionsForContext - no fork.
-- [x] (functional) INV-E3: setActions/showActionsForType/actionsForContext reused as-is (no fork); the /model page's existing bar + verb-set UNCHANGED (unregressed); rb-drawer-detail-shown still dispatched (back-compat); empty/chat selection still clears the bar.
-- [x] (functional) The «Scenario» verb opens /scenario?ior=<ref>; the «Edit» verb opens the edit flow - both GENERIC (no host needed), wired in the shared drawer's rb-drawer-action path so they work on every usage.
-- [x] (functional) Unifies with R-A A1 (793760f2): A1's universal [Scenario,Edit] default is built INTO the shared drawer per this design, so A1 + R-E are ONE universal mechanism (not two parallel implementations).
-- [x] (gate) GATE @390 real-WebKit: the action bar is PRESENT on a detail in /trace, /scenario, in-room, /server-manager, feature-manager (default Scenario+Edit at minimum); /model still shows its FULL model verb-set (unregressed); Scenario opens the scenario view, Edit opens edit; empty selection clears the bar; no page throws.
+- [ ] **(functional)** INV-E1: the action bar renders on EVERY drawer usage (all 7 mount sites: /trace, /scenario, in-room, /server-manager, feature-manager, trace/index, /model) with the context-appropriate verb-set — BY CONSTRUCTION (the shared drawer sets the default itself, not gated on a per-page host wiring).
+- [ ] **(functional)** INV-E2: default [◆ Scenario, ✎ Edit] everywhere; + model verbs (unit always / membership when a diagram is active, R33.9 actionsForContext) ONLY where the model host registered via registerActionProvider; + per-type verbs where defined. Reuse actionsForContext — no fork.
+- [ ] **(functional)** INV-E3: setActions/showActionsForType/actionsForContext reused as-is (no fork); the /model page's existing bar + verb-set UNCHANGED (unregressed); rb-drawer-detail-shown still dispatched (back-compat); empty/chat selection still clears the bar.
+- [ ] **(functional)** The «Scenario» verb opens /scenario?ior=<ref>; the «Edit» verb opens the edit flow — both GENERIC (no host needed), wired in the shared drawer's rb-drawer-action path so they work on every usage.
+- [ ] **(functional)** Unifies with R-A A1 (793760f2): A1's universal [Scenario,Edit] default is built INTO the shared drawer per this design, so A1 + R-E are ONE universal mechanism (not two parallel implementations).
+- [ ] **(gate)** GATE @390 real-WebKit: the action bar is PRESENT on a detail in /trace, /scenario, in-room, /server-manager, feature-manager (default Scenario+Edit at minimum); /model still shows its FULL model verb-set (unregressed, R-A/R33.9); Scenario opens the scenario view, Edit opens edit; empty selection clears the bar; no page throws.
 
 ## Subtasks
 

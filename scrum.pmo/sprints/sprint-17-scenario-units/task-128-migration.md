@@ -67,16 +67,6 @@ into the scenario-unit model. Strategy:
   regenerated task:uuids to v4 (clean base). Output: trace-cli reports
   orphanMethods=0 (or matches documented waiver).
 
-## Acceptance Criteria
-
-- [ ] AC1 — Sprint 1 task-1 + task-1.1 migrated via T128.1; views generated; symlink tree resolves; PO/Tron approves the exemplar
-- [ ] AC2 — Sprints 2-9 migrated via T128.2 (artifact mode); their indexed units exist in `scenario/index/`; legacy markdown preserved under `.legacy/`
-- [ ] AC3 — Sprints 10-16 migrated via T128.3 (regenerated views); their `planning.md` + per-task files are now generated views (no hand-edited prose)
-- [ ] AC4 — `[impl:uuid:]` markers added per T128.4; trace-cli reports `orphanMethods=0` (or matches documented waiver)
-- [ ] AC5 — `npm run trace:check` clean against the migrated graph
-- [ ] AC6 — `sprint audit` (Web4Articles compliance) passes 0-issue across all migrated sprints
-- [ ] AC7 — `npm run build` succeeds; full vitest + playwright pass; rule-pair #15 + #16 verified
-
 ## Dependencies
 
 - **Requires:** T125 (foundation), T126 (views), T127 (nav), and T121 clean uuid base (already done)

@@ -27,15 +27,6 @@
 
 Bring the room member list to parity with the UpDown app.
 
-## Acceptance Criteria
-
-- [x] Members shown as compact horizontal badges with avatars
-- [x] Self member has green tint + "(you)"
-- [x] Status indicator shows connected/disconnected
-- [x] Host indicated with icon (not text badge)
-- [x] Clickable names with dotted underline
-- [x] Responsive on mobile (flex-wrap)
-
 ## QA Audit & User Feedback
 
 ## Subtasks

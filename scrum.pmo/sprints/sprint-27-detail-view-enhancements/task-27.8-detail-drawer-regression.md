@@ -40,9 +40,9 @@ Tron: drawer regression fix. Moved from S30->S27 (it's a regression of S27's dra
 
 ## Acceptance Criteria
 
-- [x] (drawer) The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.
-- [x] (drawer) The drawer opens MINIMIZED on first call (not expanded/empty).
-- [x] (drawer) The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).
+- [ ] **(drawer)** The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.
+- [ ] **(drawer)** The drawer opens MINIMIZED on first call (not expanded/empty).
+- [ ] **(drawer)** The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).
 
 ## Implementation
 

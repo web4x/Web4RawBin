@@ -34,10 +34,10 @@ R-D1 (build FIRST, low-risk). On select->navigate the tree MUST auto-EXPAND the 
 
 ## Acceptance Criteria
 
-- [x] (functional) On select->navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing).
-- [x] (functional) The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4) - reused wholesale, NO fork, NO new verb/Method.
-- [x] (functional) An off-tree / absent target is a graceful no-op (no error).
-- [x] (gate) GATE @390 real-WebKit: select a class (from diagram/detail) -> its folder path auto-expands + the leaf highlights, with NO manual expand.
+- [ ] **(functional)** On select→navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing).
+- [ ] **(functional)** The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement→expandPath (R33.7.4) — reused wholesale, NO fork, NO new verb/Method.
+- [ ] **(functional)** An off-tree / absent target is a graceful no-op (no error).
+- [ ] **(gate)** GATE @390 real-WebKit: select a class (from diagram/detail) → its folder path auto-expands + the leaf highlights, with NO manual expand.
 
 ## Subtasks
 

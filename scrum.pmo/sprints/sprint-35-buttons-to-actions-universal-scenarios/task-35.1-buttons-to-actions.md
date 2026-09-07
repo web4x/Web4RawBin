@@ -34,11 +34,11 @@ Every bespoke per-item-view button (rb-detail-view vcard[member/user]+preview-fi
 
 ## Acceptance Criteria
 
-- [x] (functional) Every bespoke per-view button maps to an actionsForContext/ACTIONS_BY_TYPE verb keyed by type (member/user->download-vcard; file->preview-file+open-newtab; webitem->proxy-preview), rendered in the shared universalActionBar.
-- [x] (functional) INV-1: each converted action preserves the OLD button's effect (dispatches to the existing downloadVCard/renderFilePreview/window.open/toProxy fn) - same result, relocated into the bar.
-- [x] (functional) INV-2: NO bespoke item-action button remains in any detail view (zoom-reset EXCEPTED = in-pane viewer control, not an item-action).
-- [x] (functional) Verb-listing rides actionsForContext (a1a5be99); the click handler routes via rb-drawer-action (wireDrawerActions). Client-only.
-- [x] (gate) GATE @390 real-WebKit: each converted action is PRESENT + FIRES in the bar per type; the old bespoke buttons are gone; no behavior lost.
+- [ ] **(functional)** Every bespoke per-view button maps to an actionsForContext/ACTIONS_BY_TYPE verb keyed by type (member/user->download-vcard; file->preview-file+open-newtab; webitem->proxy-preview), rendered in the shared universalActionBar.
+- [ ] **(functional)** INV-1: each converted action preserves the OLD button's effect (dispatches to the existing downloadVCard/renderFilePreview/window.open/toProxy fn) — same result, relocated into the bar.
+- [ ] **(functional)** INV-2: NO bespoke item-action button remains in any detail view (zoom-reset EXCEPTED = in-pane viewer control, not an item-action).
+- [ ] **(functional)** Verb-listing rides actionsForContext (a1a5be99); the click handler routes via rb-drawer-action (wireDrawerActions). Client-only.
+- [ ] **(gate)** GATE @390 real-WebKit: each converted action is PRESENT + FIRES in the bar per type; the old bespoke buttons are gone; no behavior lost.
 
 ## Subtasks
 

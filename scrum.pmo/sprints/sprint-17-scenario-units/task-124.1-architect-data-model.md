@@ -42,15 +42,6 @@ Design the scenario-unit JSON shape, IOR format, class registry, and loading pro
 Tron 2026-05-30 (verbatim in compound-requirement-source.md): "the json has { ior, model, ownerIor } model contains all attributes and ior relationships to other instances."
 Tron clarification: "the outer ior is the IOR to the CLASS LOADER (e.g. task.class) that loads the right class to process this scenario."
 
-## Acceptance Criteria
-
-- [x] AC1 — Scenario unit JSON shape `{ior, model, ownerIor}` defined with `ior` = class loader
-- [x] AC2 — IOR format defined: `ior:class:<Name>`, `ior:instance:<uuid>`, `ior:file:<path>`
-- [x] AC3 — Loading protocol defined: read ior → resolve class → instantiate → populate model+ownerIor
-- [x] AC4 — All 7 class models defined (Sprint, Task, Requirement, UseCase, Class, Method, Test)
-- [x] AC5 — Compatibility with existing TraceModel documented
-- [ ] AC6 — PO + Tron reviewed
-
 ## Dependencies
 
 - **Requires:** None (foundation design)

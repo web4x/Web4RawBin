@@ -27,12 +27,6 @@
 
 Define the RawBin architecture, forking from the QnD stack.
 
-## Acceptance Criteria
-
-- [x] PO + architect agree on keep/remove/rename lists
-- [x] Tron approves architecture decisions (2026-05-22)
-- [x] Task file committed to Web4RawBin repo
-
 ## QA Audit & User Feedback
 
 ## Subtasks

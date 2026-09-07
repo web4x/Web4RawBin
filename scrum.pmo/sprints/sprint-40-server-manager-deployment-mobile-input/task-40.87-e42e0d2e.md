@@ -34,14 +34,13 @@ Board-track R40.87 at its honest status; declare the ONE canonical planning unit
 
 ## Acceptance Criteria
 
-Mirrors R40.87 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.
-- [ ] AC-add-folder-succeeds-on-model-collection: pressing Add folder on a MODEL COLLECTION (like diagrams) CREATES the folder and it APPEARS — NOT suppressed, NOT failed.
-- [ ] AC-routing-branch-to-model-store: the model add-folder endpoint BRANCHES to the MODEL-STORE create when the parent has NO physical dir (both paths already exist); it does NOT route EVERY add-folder through the physical path.
-- [ ] AC-truthful-applicability-offered-implies-succeeds: if a verb is OFFERED it MUST SUCCEED (offered IMPLIES succeeds, by construction); offered-but-fails => RED. SUCCEED, not suppress.
-- [ ] ★OPEN-CR — CONFIRMED FAILING ON PROD (tester + architect, independent) AC-stub-must-fail-malformed-still-bad-parent-loc: a MALFORMED non-Folder ref MUST STILL return bad-parent-loc (fail-closed) — but the shipped v0.8.179 impl MINTS a garbage Folder instead = SILENT DATA CREATION. Tester byte-identical scratch: 'garbage-not-a-folder-xyzzy' -> 200 ok=true MINTED bebe15e9; 'task:00000000-...' -> MINTED 6b5963b0 (prod index deliberately untouched 6078->6078). Fix in flight: architect discriminator isVirtualModelParent, tester RED gate first. THIS AC BLOCKS clean-Done.
-- [ ] AC-doctrine-folder-is-model-object: DOCTRINE (object-ownership lens): a Folder unit is a MODEL OBJECT, NOT inherently a directory; we ASSUMED folder==directory and THAT ASSUMPTION was the defect.
-- [ ] AC-delete-harmless-comment: the harmless comment in action-applicability.ts (treating offer-then-fail on a virtual parent as acceptable) is DELETED — a shown-then-fails button is a broken promise.
-- [ ] AC-verify-member-session: WE verify @390 member-session (Add folder on a diagrams model collection -> created + appears); Tron ACCEPTS — he reported this MULTIPLE times as a customer.
+- [ ] **(behaviour/USER-TERMS)** Pressing Add folder on a MODEL COLLECTION (like diagrams) CREATES the folder and it APPEARS — NOT suppressed, NOT failed. (Suppressing it would recreate the sometimes-a-button behaviour Tron explicitly rejected.)
+- [ ] **(by-construction/root-fix)** The model add-folder endpoint BRANCHES to the MODEL-STORE create when the parent has NO physical dir (both paths ALREADY EXIST) — it does NOT route EVERY add-folder through the PHYSICAL-create path (the root: the physical path returns bad-parent-loc for a parent with no real directory = the uncovered THIRD cause, a virtual Folder with no physical dir).
+- [ ] **(doctrine/by-construction)** TRUTHFUL APPLICABILITY: if a verb is OFFERED, it MUST SUCCEED — offered IMPLIES succeeds, BY CONSTRUCTION. A verb that is offered but then fails => RED. This is SUCCEED-not-suppress: we do NOT hide the verb, we make it work. Completes R40.37 applicability into a biconditional: offered <=> can-succeed. A shown button that then fails is a BROKEN PROMISE.
+- [ ] **(stub-must-fail/fail-closed-stays-real)** A MALFORMED non-Folder ref STILL returns bad-parent-loc — the fail-closed remains REAL. We route VALID virtual Folders to the model store, but a genuinely broken/non-Folder ref must still fail-closed (we do NOT paper over real errors). Stub: a malformed non-Folder ref that SUCCEEDS => RED.
+- [ ] **(doctrine/RECORD)** DOCTRINE (the valuable part): a Folder unit is a MODEL OBJECT, NOT inherently a directory. We ASSUMED folder == directory, and THAT ASSUMPTION IS THE DEFECT. A Folder with no physical dir is a VALID model Folder (lives in the model store); a physical dir is one REALIZATION of a Folder, not its identity.
+- [ ] **(cleanup/broken-promise)** The HARMLESS comment in action-applicability.ts (treating offer-then-fail on a virtual parent as acceptable) is DELETED — a button we show that then fails is a BROKEN PROMISE, never harmless. Gate: no code comment sanctions offering a verb that cannot succeed.
+- [ ] **(verify/customer-not-tester)** WE verify @390 member-session (Add folder on a diagrams model collection -> folder created + appears). Tron ACCEPTS delivered verified work — he reported this MULTIPLE TIMES as a customer (our verification + intake failure), NOT a test he runs.
 
 ## Subtasks
 

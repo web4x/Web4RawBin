@@ -34,12 +34,11 @@ Board-track R40.93 at its honest status; declare the ONE canonical planning unit
 
 ## Acceptance Criteria
 
-Mirrors R40.93 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.
-- [ ] AC-route-through-single-owner: a room folder's PHYSICAL create routes through the ONE physical-folder owner (FolderService.createPhysicalFolder / RoomFilesService, which already gates room-physical).
-- [ ] AC-no-raw-mkdir-at-2565: the raw fsSync.mkdirSync(target) at server.ts:2565 is REMOVED for the room-folder create — the create is delegated to the owner.
-- [ ] AC-green-by-routing-not-listing: on fix, the INFRA_ALLOW-list entry for server.ts:2565 COMES OUT — the guard stays GREEN because the create ROUTES through the owner, NOT because the raw mkdir is allow-LISTED.
-- [ ] AC-failable-self-stub: once the INFRA_ALLOW entry is gone, a seeded raw mkdir for a room folder (outside the owner) makes the guard go RED (self-bites, R40.88 pattern).
-- [ ] AC-legit-today-named-not-blocking: NAMED honestly — the current raw mkdir is LEGIT room-physical-by-construction (a room folder IS a real dir), currently INFRA_ALLOW-listed with the guard GREEN = NOT a live defect, NOT blocking.
+- [ ] **(single-owner/by-construction)** A room folder's PHYSICAL create routes through the ONE physical-folder owner (FolderService.createPhysicalFolder / RoomFilesService, which already gates room-physical at server.ts:47), NOT a raw inline mkdir. One canonical owner for physical-folder creation; duplicate physical-create paths ARE the defect (same family as R40.81/R40.91 two-source).
+- [ ] **(single-owner/removal)** The raw fsSync.mkdirSync(target) at server.ts:2565 (currently 'mkdirSync(filesBase,{recursive:true}); mkdirSync(target)') is REMOVED for the room-folder create — the create is delegated to the owner. (The filesBase container ensure may remain if it is the owner's responsibility, but the FOLDER dir is not raw-mkdir'd here.)
+- [ ] **(single-owner/the-point)** On fix, the INFRA_ALLOW-list entry for server.ts:2565 COMES OUT — the guard stays GREEN because the create ROUTES through the owner, NOT because the raw mkdir is allow-LISTED. Green-by-routing, never green-by-listing (an allow-list entry is a suppressed violation, not a fixed one).
+- [ ] **(self-failability)** Once the INFRA_ALLOW entry is gone, a seeded raw mkdir for a room folder (outside the owner) makes the guard go RED. The guard self-bites (R40.88 pattern). If seeding a raw room-folder mkdir does not RED, the guard is inert.
+- [ ] **(provenance/honest)** NAMED honestly: the current raw mkdir is LEGIT room-physical-by-construction (a room folder IS a real dir), currently INFRA_ALLOW-listed with the guard GREEN = NOT a live defect, NOT blocking. This is a single-owner CLEANLINESS fix (one canonical physical-create owner), queued for the expert AFTER R40.92 closes. It was HIDDEN until R40.88 e4 close (3f9a2d309) removed the recursive:true that masked it.
 
 ## Subtasks
 

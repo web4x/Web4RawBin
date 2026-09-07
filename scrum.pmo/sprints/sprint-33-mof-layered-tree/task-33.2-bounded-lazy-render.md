@@ -30,10 +30,10 @@ S33-P2b: the /model MOF tree must render BOUNDED + LAZY at 390px so the 1195-nod
 
 ## Acceptance Criteria
 
-- [x] AC1 / INV-P2b-1: the /model tree renders BOUNDED at 390px - ONLY the top layer (MOF folders, collapsed), NOT the full 1195 nodes. data-always-expanded is dropped on /model (client, mirror server-manager R31.3) so buildSeedNode does NOT eagerly build all layers; initial DOM << 1195.
-- [x] AC2 / INV-P2b-2: deeper layers (project -> files -> classes -> members) load LAZILY on expand via /api/trace/children/<uuid> (MODEL_STORE-rerouted, R32.5) - each expand is ONE bounded layer fetch; members/deep grandchildren are NEVER inlined in the mofLayerRoots payload.
-- [x] AC3 / INV-P2b-3: RawBin's 139 classes are SUB-GROUPED by sourceFile/dir into rb-trace-tree folders (e.g. src/ts/scenario -> 26 file-folder nodes -> their classes -> members), NOT a flat 139-list. Reuses the rb-trace-tree collection/folder rendering (same as the MOF layers).
-- [x] AC4 / INV-P2b-4: a @390 RENDER-PERF gate - the 1195-node model does NOT hang/flood mobile (bounded initial DOM measured << 1195 + render fast; each expand asserted a bounded lazy /api/trace/children fetch, not one 1195 payload); real RawBin classes still reachable (P2-1 unregressed); /model owner-gated 403 non-member; /trace unregressed. Gate the RENDER-PERF, not merely 'loads'.
+- [ ] **(functional)** AC1 / INV-P2b-1: the /model tree renders BOUNDED at 390px - ONLY the top layer (MOF folders, collapsed), NOT the full 1195 nodes. data-always-expanded is dropped on /model (client, mirror server-manager R31.3) so buildSeedNode does NOT eagerly build all layers; initial DOM << 1195.
+- [ ] **(functional)** AC2 / INV-P2b-2: deeper layers (project -> files -> classes -> members) load LAZILY on expand via /api/trace/children/<uuid> (MODEL_STORE-rerouted, R32.5) - each expand is ONE bounded layer fetch; members/deep grandchildren are NEVER inlined in the mofLayerRoots payload.
+- [ ] **(functional)** AC3 / INV-P2b-3: RawBin's 139 classes are SUB-GROUPED by sourceFile/dir into rb-trace-tree folders (e.g. src/ts/scenario -> 26 file-folder nodes -> their classes -> members), NOT a flat 139-list. Reuses the rb-trace-tree collection/folder rendering (same as the MOF layers).
+- [ ] **(gate)** AC4 / INV-P2b-4: a @390 RENDER-PERF gate - the 1195-node model does NOT hang/flood mobile (bounded initial DOM measured << 1195 + render fast; each expand asserted a bounded lazy /api/trace/children fetch, not one 1195 payload); real RawBin classes still reachable (P2-1 unregressed); /model owner-gated 403 non-member; /trace unregressed. Gate the RENDER-PERF, not merely 'loads'.
 
 ## Subtasks
 

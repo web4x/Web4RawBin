@@ -38,11 +38,11 @@ RawBin Federation (Tron 2026-07-01: dragging items between two RawBin servers). 
 
 ## Acceptance Criteria
 
-- [x] (format) The IOR string supports an optional host suffix: ior:instance:<uuid>@<originHost>; a local IOR omits @host (implicit self) and stays 100% back-compatible with every existing ior:instance:<uuid>
-- [x] (provenance) An imported unit stores provenance: model.originHost (source server canonical https:// URL) + model.originIor (the original ior:instance:<uuid>@host). Local-born units omit both
-- [x] (resolver) Resolution is polymorphic via a pluggable loader registry: no-@host/@self -> local ScenarioIndex.get; @remote -> a registered federated loader (fetches via R26.3), keyed on @host exactly as FileLoader is registered locally
-- [x] (resolver-lazy) A federated IOR can be dereferenced lazily anywhere it appears (ISR-style), not only at import
-- [x] (identity) originHost is the server's canonical https:// origin (reuses per-server host identity), never an IP
+- [ ] **(format)** The IOR string supports an optional host suffix: ior:instance:<uuid>@<originHost>; a local IOR omits @host (implicit self) and stays 100% back-compatible with every existing ior:instance:<uuid>.
+- [ ] **(provenance)** An imported unit stores provenance: model.originHost (source server canonical https:// URL) + model.originIor (the original ior:instance:<uuid>@host). Local-born units omit both.
+- [ ] **(resolver)** Resolution is polymorphic via a pluggable loader registry: no-@host/@self -> local ScenarioIndex.get; @remote -> a registered federated loader (fetches via R26.3), keyed on @host exactly as FileLoader is registered locally.
+- [ ] **(resolver)** A federated IOR can be dereferenced lazily anywhere it appears (ISR-style), not only at import.
+- [ ] **(identity)** originHost is the server's canonical https:// origin (reuses per-server host identity), never an IP.
 
 ## Implementation
 

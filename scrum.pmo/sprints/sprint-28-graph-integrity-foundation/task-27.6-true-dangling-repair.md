@@ -40,12 +40,12 @@ S28 Graph-Integrity Foundation. STOOD UP scenario-first; implementation awaits T
 
 ## Acceptance Criteria
 
-- [ ] (repair) The true-dangling inventory is enumerated per slot: Method.implementation (51) + Test.parent (32) + Test.verifies (12) + Test.methods (1), full-uuid verified (no prefix collisions), token false-positives excluded.
-- [ ] (repair) Each true-dangling ref is triaged repoint-to-live-target OR drop-the-ref with a reason; dry-run + count FIRST, never silently drop a real edge.
-- [ ] (repair) Repair is atomic + rollbackable + self-reassert (all four slot counts -> 0 on the mutated disk), same gated discipline as R27.4.
-- [ ] (repair) Post-repair, every ref-slot in the canonical registry (R27.5) resolves; no back-edge (ownerIor/Test.methods/Test.parent/Test.verifies) or forward-edge dangles.
-- [ ] (ci-gate) trace:audit:strict (R24.5) using the R27.5 registry FAILS on any true-dangling ref -> recurrence prevented by construction.
-- [ ] (verify) Post-repair re-measure via the registry: Method.implementation/Test.parent/Test.verifies/Test.methods dangling all = 0.
+- [ ] **(repair)** The true-dangling inventory is enumerated per slot: Method.implementation (51) + Test.parent (32) + Test.verifies (12) + Test.methods (1), full-uuid verified (no prefix collisions), token false-positives excluded.
+- [ ] **(repair)** Each true-dangling ref is triaged repoint-to-live-target OR drop-the-ref with a reason; dry-run + count FIRST, never silently drop a real edge.
+- [ ] **(repair)** Repair is atomic + rollbackable + self-reassert (all four slot counts -> 0 on the mutated disk), same gated discipline as R27.4.
+- [ ] **(repair)** Post-repair, every ref-slot in the canonical registry (R27.5) resolves; no back-edge (ownerIor/Test.methods/Test.parent/Test.verifies) or forward-edge dangles.
+- [ ] **(ci-gate)** trace:audit:strict (R24.5) using the R27.5 registry FAILS on any true-dangling ref -> recurrence prevented by construction.
+- [ ] **(verify)** Post-repair re-measure via the registry: Method.implementation/Test.parent/Test.verifies/Test.methods dangling all = 0.
 
 ## Implementation
 

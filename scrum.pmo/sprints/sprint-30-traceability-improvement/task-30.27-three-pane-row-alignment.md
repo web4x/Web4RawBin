@@ -40,12 +40,12 @@ S30 diff/merge editor (R30.27, Tron live-confirmed): 3-pane rows were mis-aligni
 
 ## Acceptance Criteria
 
-- [x] (aligned) A 3-way diff with ≥1 one-sided change: the top stable line sits on the SAME visual row in all 3 panes; every corresponding stable line thereafter shares a row across Local/Center/Repository
-- [x] (aligned) A LEFT (local-only) insertion of N lines shows N blank spacer rows in the REMOTE pane AT that position (not piled at the top); content below stays row-matched. Symmetric for repo-only
-- [x] (no-regression) Repo-only changes AND pure conflicts both still align — the conflict path's real aStart/bStart are untouched (regression guard)
-- [x] (result) The merge RESULT is byte-identical — pick/kind semantics unchanged; this only moves where spacer rows are inserted
-- [x] (fix) Running per-buffer line counters la/lb threaded through the region loop; computeOneSidedHunks(region, cid, la, lb) sets aStart:la / bStart:lb (0 fallbacks removed); ok-runs (la+=len, lb+=len) and the conflict path advance the counters; alignPaneRows / renderCenterChangeBlocks / renderSideChangeBlocks / ribbons unchanged
-- [x] (verify) Assertion-grade: for each stable line, getTopForLineNumber is equal (±0) across edLocal/edCenter/edRemote; DET-3x + Tron visual on the 4-screenshot repro; client fix → version-bump
+- [ ] **(aligned)** A 3-way diff with >=1 one-sided change: the top stable line sits on the SAME visual row in all 3 panes; every corresponding stable line thereafter shares a row across Local/Center/Repository.
+- [ ] **(aligned)** A LEFT (local-only) insertion of N lines shows N blank spacer rows in the REMOTE pane AT that position (not piled at the top); content below stays row-matched. Symmetric for repo-only.
+- [ ] **(no-regression)** Repo-only changes AND pure conflicts both still align - the conflict path's real aStart/bStart are untouched (regression guard).
+- [ ] **(result)** The merge RESULT is byte-identical - pick/kind semantics unchanged; this only moves where spacer rows are inserted.
+- [ ] **(fix)** Running per-buffer line counters la/lb are threaded through the region loop; computeOneSidedHunks(region, cid, la, lb) sets aStart:la / bStart:lb (the 0 fallbacks removed); ok-runs (la+=len, lb+=len) and the conflict path advance the counters. alignPaneRows / renderCenterChangeBlocks / renderSideChangeBlocks / ribbons unchanged.
+- [ ] **(verify)** Assertion-grade: for each stable line, getTopForLineNumber is equal (+/-0) across edLocal/edCenter/edRemote. DET-3x + Tron visual on the 4-screenshot repro. Client fix (no restart) -> version-bump.
 
 ## Implementation
 

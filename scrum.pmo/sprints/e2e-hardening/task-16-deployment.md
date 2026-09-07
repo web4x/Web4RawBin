@@ -27,14 +27,6 @@
 
 Harden the deployment configuration and process.
 
-## Acceptance Criteria
-
-- [x] `./src/sh/rawbin.sh` starts server reliably
-- [x] Server restarts on crash
-- [x] Logs written to disk
-- [x] GET /api/health returns server status
-- [x] External access works at https://home.donges.it:4444/app
-
 ## QA Audit & User Feedback
 
 ## Subtasks

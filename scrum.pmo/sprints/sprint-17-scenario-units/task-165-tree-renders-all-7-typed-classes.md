@@ -83,17 +83,6 @@ the tree-shaped traceability per R17.26.
   parents
 - Each tree-item navigates to its T158 DetailView (existing) on click
 
-## Acceptance Criteria
-
-- [ ] AC1 — All 7 typed scenario classes (architect to enumerate + confirm) appear as tree-items in `/trace`
-- [ ] AC2 — Clicking any tree-item opens its corresponding T158 DetailView (Class/Method/Test/Impl) or existing Requirement/UseCase/Task DetailView
-- [ ] AC3 — Tree-item rendering is consistent with T143 (speaky name + word-wrap description + square SVG icon when T113 lands; for now, per-type icon convention defined by architect)
-- [ ] AC4 — Tree-item parent/child edges follow the forward-ref graph (T160's repopulated arrays) — no back-refs introduced (R17 forward-only rule)
-- [ ] AC5 — Chain audit on `/trace` shows zero orphan typed objects (every typed scenario appears in the tree at least once)
-- [ ] AC6 — No regression on T158 / T160 / T161 / T163; existing Requirement tree-items render unchanged
-- [ ] AC7 — `npm run build` succeeds; all existing tests pass
-- [ ] AC8 — **Rule-pair (a)+(b) [learnings #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set; (c) STATIC_SHELL exempt (no new route, architect to confirm)
-
 ## Dependencies
 
 - **Requires:** T158 (shipped — destination DetailViews), T160 (shipped — forward-ref edges), T161 (shipped — speaky names), T163 (shipped — clean /api/trace titles), T143 (parent direction — tree model design)

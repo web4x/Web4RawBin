@@ -38,11 +38,11 @@ RawBin Federation: importing must never blind-duplicate a uuid — idempotent re
 
 ## Acceptance Criteria
 
-- [x] (idempotent) Same uuid + same originHost -> idempotent re-transfer: update the local copy IF the remote is newer (updatedAt/version), else no-op (re-dragging is safe)
-- [x] (remint) Same uuid + DIFFERENT originHost -> re-mint under a fresh local uuid, set model.originIor = ior:instance:<oldUuid>@<host>, and rewrite all inbound forward refs to the new uuid (import remap)
-- [x] (dedup) Content files dedup by contentHash regardless of uuid (same bytes = same content unit)
-- [x] (remap) Reference-rewrite pass on import: for every forward ref (children[]/parentFolder/class/etc) — target in this transfer -> remap to its new local uuid; stays remote -> keep as a federated @host IOR (lazy resolve); already local -> relink. The chain stays intact across the boundary
-- [x] (provenance) Always record originHost + originIor so a federated copy can attribute + re-sync later
+- [ ] **(idempotent)** Same uuid + same originHost -> idempotent re-transfer: update the local copy IF the remote is newer (updatedAt/version), else no-op (re-dragging is safe).
+- [ ] **(remint)** Same uuid + DIFFERENT originHost -> re-mint under a fresh local uuid, set model.originIor = ior:instance:<oldUuid>@<host>, and rewrite all inbound forward refs to the new uuid (import remap).
+- [ ] **(dedup)** Content files dedup by contentHash regardless of uuid (same bytes = same content unit).
+- [ ] **(remap)** Reference-rewrite pass on import: for every forward ref (children[]/parentFolder/class/etc) — target in this transfer -> remap to its new local uuid; stays remote -> keep as a federated @host IOR (lazy resolve); already local -> relink. The chain stays intact across the boundary.
+- [ ] **(provenance)** Always record originHost + originIor so a federated copy can attribute + re-sync later.
 
 ## Implementation
 

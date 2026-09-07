@@ -30,12 +30,12 @@ The traceability TREE must deep-nest the FULL forward chain UC -> Class -> Metho
 
 ## Acceptance Criteria
 
-- [x] In the traceability tree, expanding a UC node deep-nests the FULL forward chain as EXPANDABLE child nodes: UC -> Class -> Method -> Impl -> Test, each an expandable tree node. The tree MUST NOT stop at the UC (the chain is not drawer-only) - the Class/Method/Impl/Test are nested tree children like S30.
-- [x] Each chain node renders its TYPE-ICON matching the S30 target (IMG_4702): UC=puzzle, Class=cube, Method=terminal, Impl=</>, Test=flask with a green check when status=pass.
-- [x] Each expandable chain node shows its CHILD-COUNT badge (e.g. Class RbTraceTree badge = its method count), matching the S30 target's eager child-count badges.
-- [x] The deep-nesting works for EVERY sprint INCLUDING S31 - the fix lives in the SHARED rb-trace-tree (DRY, by-construction all sprints). S31 UCs (serverManager.ownerGuard, drawer.observePosition) deep-nest their full Class->Method->Impl->Test exactly like S30 UCs.
-- [x] This is a TREE-RENDERING / chain-walk fix, NOT a unit-mint gap: the chain DATA is already complete and resolves to the CORRECT units (the drawer shows the right full chain for S31; R31.10 sibling-fallback is fixed). No missing units are minted to satisfy R31.11 - the shared tree-walk is fixed to nest what already exists.
-- [x] Gated @390: expand a S31 Task's UC (serverManager.ownerGuard AND drawer.observePosition) -> the full Class->Method->Impl->Test nests as expandable icon+badge nodes, matching the S30 target screenshot (IMG_4702, e.g. Task 30.1 traceTree.currentSprintEagerLazy). /trace unregressed. Tron device re-verify (S31 tree looks like the S30 target).
+- [ ] **(functional)** In the traceability tree, expanding a UC node deep-nests the FULL forward chain as EXPANDABLE child nodes: UC -> Class -> Method -> Impl -> Test, each an expandable tree node. The tree MUST NOT stop at the UC (the chain is not drawer-only) - the Class/Method/Impl/Test are nested tree children like S30.
+- [ ] **(functional)** Each chain node renders its TYPE-ICON matching the S30 target (IMG_4702): UC=puzzle, Class=cube, Method=terminal, Impl=</>, Test=flask with a green check when status=pass.
+- [ ] **(functional)** Each expandable chain node shows its CHILD-COUNT badge (e.g. Class RbTraceTree badge = its method count), matching the S30 target's eager child-count badges.
+- [ ] **(functional)** The deep-nesting works for EVERY sprint INCLUDING S31 - the fix lives in the SHARED rb-trace-tree (DRY, by-construction all sprints). S31 UCs (serverManager.ownerGuard, drawer.observePosition) deep-nest their full Class->Method->Impl->Test exactly like S30 UCs.
+- [ ] **(invariant)** This is a TREE-RENDERING / chain-walk fix, NOT a unit-mint gap: the chain DATA is already complete and resolves to the CORRECT units (the drawer shows the right full chain for S31; R31.10 sibling-fallback is fixed). No missing units are minted to satisfy R31.11 - the shared tree-walk is fixed to nest what already exists.
+- [ ] **(gate)** Gated @390: expand a S31 Task's UC (serverManager.ownerGuard AND drawer.observePosition) -> the full Class->Method->Impl->Test nests as expandable icon+badge nodes, matching the S30 target screenshot (IMG_4702, e.g. Task 30.1 traceTree.currentSprintEagerLazy). /trace unregressed. Tron device re-verify (S31 tree looks like the S30 target).
 
 ## Subtasks
 

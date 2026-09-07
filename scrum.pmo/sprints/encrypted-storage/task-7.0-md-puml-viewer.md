@@ -27,13 +27,6 @@
 
 Add PlantUML SVG rendering support to the markdown browser.
 
-## Acceptance Criteria
-
-- [x] `/md/path/to/diagram.svg` serves SVG with correct Content-Type
-- [x] Markdown files with `![](diagram.svg)` show inline SVGs
-- [x] `.puml` references auto-redirect to `.svg` companion
-- [x] Sprint task files can reference PUML diagrams
-
 ## QA Audit & User Feedback
 
 ## Subtasks

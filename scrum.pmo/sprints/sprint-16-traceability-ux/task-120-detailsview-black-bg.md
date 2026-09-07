@@ -56,16 +56,6 @@ green, `dv-type-usecase` orange) re-tinted as needed for black-bg legibility.
 Surface-level UI change to the drawer + DetailViews shipped in S16 Phase 1
 (T110 + T111). Tron iteration after using the live `/trace` browser on device.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `rb-detail-drawer` background is black (or near-black, architect/expert call within Tron's intent); existing slideUp/Down + dismiss behavior unchanged
-- [ ] AC2 — Hosted typed views (`rb-task-detail`, `rb-requirement-detail`, `rb-usecase-detail`, `rb-detail-view`) render legibly on the black background — body text, labels, links, code blocks all readable (WCAG contrast where reasonable)
-- [ ] AC3 — Type badges (`dv-type-task` / `dv-type-requirement` / `dv-type-usecase`) remain visually distinct against black
-- [ ] AC4 — Chain link rows (`dv-link`, `dv-rel`, `dv-link-title`) remain tappable + visually distinguishable
-- [ ] AC5 — No regression: tree (above the drawer), tree-item visual, drag, collapse/expand, children expander all still look correct
-- [ ] AC6 — `npm run build` succeeds; vitest + playwright pass; **version + sw.js bumped** (per learnings #15); **if any new route/bundle introduced (not expected), STATIC_SHELL entry added** (per learnings #16)
-- [ ] AC7 — Visual regression covered by an updated `test/e2e/contacts-ui.spec.ts` or a dedicated `trace-drawer-theme.spec.ts` (architect/expert call)
-
 ## Dependencies
 
 - **Requires:** T110 (drawer), T111 (typed views — surface to repaint)

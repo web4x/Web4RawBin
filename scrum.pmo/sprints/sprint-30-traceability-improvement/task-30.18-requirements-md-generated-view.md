@@ -38,12 +38,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its sc
 
 ## Acceptance Criteria
 
-- [x] (generate) generate-sprint-md emits requirements.md per sprint from the scenario Requirement units (altId/name/ACs)
-- [x] (view) The generated requirements.md carries the GENERATED-FROM-SCENARIO-UNITS header (law #100); hand-edits are overwritten
-- [x] (ci) --check (checkRoundTrip) byte-match round-trip covers requirements.md; regen->--check is green
-- [x] (audit) ONE --all regen brings every sprint's requirements.md in sync (fixes S21-S28 staleness at once)
-- [x] (by-construction) A newly-minted Requirement unit appears in requirements.md on the next regen automatically
-- [x] (verify) After the change: regen S30 -> requirements.md is byte-generated from the units (matches/supersedes tracked)
+- [ ] **(generate)** generate-sprint-md emits requirements.md per sprint from the scenario Requirement units (altId / name / uuid / tronQuote / description / acceptanceCriteria / UC links + traceability matrix), the same way it emits planning.md.
+- [ ] **(view)** The generated requirements.md carries the GENERATED-FROM-SCENARIO-UNITS header (law #100); the hand-maintained WARN is removed - no hand-maintenance.
+- [ ] **(ci)** --check (checkRoundTrip) byte-match round-trip covers requirements.md; regen -> --check is green; CI gates drift.
+- [ ] **(audit)** ONE `--all` regen brings every sprint's requirements.md in sync (fixes S21-S28 staleness at once); regen + git diff IS the staleness audit - no per-sprint manual audit.
+- [ ] **(by-construction)** A newly-minted Requirement unit appears in requirements.md on the next regen automatically - a req unit on disk can NEVER again be invisible in the doc humans read (fixes the R30.6-R30.17 invisible-plannings class).
+- [ ] **(verify)** After the change: regen S30 -> requirements.md is byte-generated from the 23 units (matches/supersedes the hand-written e190db49f); --check green across all sprints.
 
 ## Implementation
 

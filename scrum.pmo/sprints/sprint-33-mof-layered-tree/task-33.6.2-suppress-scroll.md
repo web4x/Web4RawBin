@@ -34,9 +34,9 @@ Tron item-2 (interaction polish). When a diagram element is SELECTED + MOVED, th
 
 ## Acceptance Criteria
 
-- [x] While a selected element is being dragged/moved, the browser PAGE does not scroll (the drag is captured by the diagram canvas - preventDefault / touch-action:none on the active drag). @390 a touch-drag of an element does NOT scroll the page.
-- [x] The DIAGRAM edge-autoscroll (auto-pan) fires ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary; while the element stays inside the diagram bounds there is NO autoscroll. The autoscroll is bounded to the diagram viewport, never the page.
-- [x] GATE @390 (screenshot/pixel + planted bite): drag a selected element within bounds -> page fixed, no autoscroll; drag the element just past the diagram edge -> the DIAGRAM edge-pans (page still fixed). planted-defect: page scrolls during drag = RED.
+- [ ] **(functional)** While a selected element is being dragged/moved, the browser PAGE does not scroll (the drag is captured by the diagram canvas - preventDefault / touch-action:none on the active drag). @390 a touch-drag of an element does NOT scroll the page.
+- [ ] **(functional)** The DIAGRAM edge-autoscroll (auto-pan) fires ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary; while the element stays inside the diagram bounds there is NO autoscroll. The autoscroll is bounded to the diagram viewport, never the page.
+- [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): drag a selected element within bounds -> page fixed, no autoscroll; drag the element just past the diagram edge -> the DIAGRAM edge-pans (page still fixed). planted-defect: page scrolls during drag = RED.
 
 ## Subtasks
 

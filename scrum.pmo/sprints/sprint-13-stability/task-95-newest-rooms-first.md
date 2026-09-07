@@ -32,15 +32,6 @@
 
 Order the lobby room list newest-first.
 
-## Acceptance Criteria
-
-- [ ] AC1: In the lobby, rooms are ordered newest-first (highest `createdAt` at the top)
-- [ ] AC2: Creating a new room makes it appear at the TOP of the list for all clients on the next ROOM_LIST
-- [ ] AC3: Ordering is stable across server restart (rooms reload with persisted `createdAt`; order does not reshuffle)
-- [ ] AC4: Rooms with a missing/legacy `createdAt` sort deterministically to the bottom (no error, no reshuffle)
-- [ ] AC5: Owner-aware list (T93) still includes the owner's own private/empty rooms — ordering does not drop any room
-- [ ] AC6: `npm run build` succeeds; version bumped + sw.js cache (user-facing change)
-
 ## QA Audit & User Feedback
 
 - 2026-05-26: Tron directive — newest rooms at top of lobby. Impl v0.5.5 (3748f0e); tester-verified TS1 1/1 + room-order.test 10/10 (073b027). Awaiting Tron QA.

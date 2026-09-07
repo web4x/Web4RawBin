@@ -92,16 +92,6 @@ visually present but functionally broken.
 - One anchor wrap + href-resolution for 🔗 (B5(b))
 - One server route handler or filename-click rewrite for `.json` → MD view (B5(c))
 
-## Acceptance Criteria
-
-- [ ] **AC1 (B5(a) — icon order):** In `/md/scenarios/...` listings, every row that has both icons shows them in order `🔗 ✏️` (link first, edit second)
-- [ ] **AC2 (B5(b) — 🔗 clickable + target):** Clicking 🔗 navigates to the symlink target = `scenario/index/<prefix>/<uuid>.scenario.json` (canonical JSON unit), not back to the symlink directory
-- [ ] **AC3 (B5(c) — .json click → MD view):** Clicking a `.json` filename in a `scenarios/sprints.json/...` listing navigates to the corresponding `scenarios/sprints.md/<class>/<speaking-name>.md` view; no 404
-- [ ] AC4 — All 3 fixes verified across multiple sprint trees (e.g. sprint-17 task class, requirement class, usecase class)
-- [ ] AC5 — `rb-file-tree` component (if it renders these icons) stays consistent with `/md/` server-side rendering
-- [ ] AC6 — `npm run build` succeeds; all existing tests pass (no regression on T131 / T141)
-- [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl (no STATIC_SHELL change expected — no new route, but architect to confirm)
-
 ## Dependencies
 
 - **Requires:** T131 (file-browser symlinks present), T141 (chain-link icon precedent), T126 (speaking-name MD views B5(c) resolves to)

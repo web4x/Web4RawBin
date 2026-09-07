@@ -38,11 +38,12 @@ S30 diff/merge editor completion (R30.14). Minted for #126 traceability (was req
 
 ## Acceptance Criteria
 
-- [x] (detect) ServiceWorker.pollForWorkerUpdate: while the app is open, periodically (setInterval ~60s + on visibilitychange-visible / focus, debounced) calls registration.update() AND re-runs the /api/config version compare -> a new deploy triggers updatefound / the version-mismatch -> the EXISTING banner, WITHOUT a hard-refresh.
-- [x] (takeover) ServiceWorker.claimClients: the sw.js activate handler calls self.clients.claim() (after old-cache cleanup) so the newly-activated SW controls open pages -> the existing controllerchange -> location.reload() fires (with the existing SKIP_WAITING = reliable takeover).
-- [x] (reuse) The existing flow is reused UNCHANGED (markers stay): registerServiceWorker updatefound wiring, showBanner + SKIP_WAITING post, controllerchange->reload, the sw.js SKIP_WAITING handler; checkForUpdate re-scoped to be callable periodically (impl-edit); ignoreSearchNav/flushAndReload untouched.
-- [x] (ux) Primary UX = the existing one-tap banner ('New version - reload') — no surprise reload mid-edit. (Auto-reload-on-idle is a flagged nice-to-have follow-up, NOT in this scope.)
-- [x] (verify) Tron deploy-visibility re-check: after a deploy, the banner appears within the poll interval WITHOUT a hard-refresh; DET-3x on the poll/claim behavior.
+- [ ] **(invariant)** INVARIANT (Tron: clean releases, NO hard reloads): a version bump MUST auto-propagate to EVERY running client; a manual HARD-RELOAD must NEVER be required to receive the new version. A running client that only updates after a manual hard-reload is a HARD FAIL.
+- [ ] **(network)** ROOT-CAUSE FIX (architect-measured): the SW fetch handler serves the app SHELL (index.html) + bundles NETWORK-FIRST - fetch fresh, fall back to cache ONLY when offline. The prior CACHE-FIRST shell served a STALE shell+bundle until a manual hard-reload and DEFEATED pollForWorkerUpdate + claimClients (they swapped the SW, but the cache-first shell kept serving the old bundle). Network-first is the missing piece that makes a deploy actually reach the running client.
+- [ ] **(poll)** CONTINUOUS version poll: ServiceWorker.pollForWorkerUpdate periodically (setInterval ~60s + on visibilitychange/focus) reg.update() + /api/config version compare - detects a deploy without a navigation/hard-refresh.
+- [ ] **(banner)** One-click 'New version - reload' banner is the auto-pickup UX (no surprise auto-reload mid-edit, never nuke unsaved merge state); ServiceWorker.claimClients (skipWaiting + clients.claim in the sw.js activate) gives reliable takeover so the pending version applies on the one tap.
+- [ ] **(atomic)** ATOMIC deploy: sw.js + shell + bundles + the /api/config version flip land TOGETHER (R30.28, served==committed==HEAD) so a running client never fetches a MISMATCHED shell / bundle / version during the swap.
+- [ ] **(gate)** GATE (verified on a REAL long-open running client, NOT a fresh navigation): deploy a new version -> the left-open client picks it up within <=60s with NO manual hard-reload (network-first shell serves the fresh bundle + poll detects + one-click banner) and then reports the new version. Confirm across a deploy; version-confirm/screenshot, NEVER DOM/element-count.
 
 ## Implementation
 

@@ -69,18 +69,6 @@ verify it works and add the equivalent to Connection-Failed.
 - Verify (or restyle) the offline page button
 - Architect-finalized button shape applies to both
 
-## Acceptance Criteria
-
-- [ ] AC1 — Connection-Failed page (`app.ts`) shows a clickable reload button
-- [ ] AC2 — Clicking the button invokes `location.reload()` (page refreshes)
-- [ ] AC3 — Offline page (`sw.js` OFFLINE_HTML) reload button verified working (or replaced if not)
-- [ ] AC4 — Visual consistency: both buttons follow the same shape/styling per architect's design
-- [ ] AC5 — iPhone safe-area-inset-bottom respected if the button is bottom-anchored
-- [ ] AC6 — No regression: existing pages unchanged
-- [ ] AC7 — `npm run build` succeeds; all existing tests pass
-- [ ] AC8 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: exempt (no new route)
-- [ ] AC9 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** None (small standalone UI fix)

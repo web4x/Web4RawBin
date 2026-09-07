@@ -42,10 +42,10 @@ Tron: "in the /md/ file browser, PNG files should be clickable and open in a pre
 
 ## Acceptance Criteria
 
-- [x] PNG entries in the /md/ file browser render as clickable links (like SVG entries) — impl v0.6.78 (9c052bd9a)
-- [x] Clicking a PNG opens it in the SAME preview/viewer that SVG files use — RED (404) v0.6.78 → fix v0.6.79 (404→200) → GREEN
-- [x] SVG behaviour is unchanged (no regression)
-- [x] Verified live (headless) on the /md/ test/visual listing — tester GREEN DET-3x v0.6.79 (verdict 4d6474790; 9/9, PNG HTTP 200 image/png, 124 clickable anchors)
+- [ ] **(clickable)** PNG entries in the /md/ file browser render as clickable links (like SVG entries).
+- [ ] **(preview)** Clicking a PNG opens it in the SAME preview/viewer that SVG files use.
+- [ ] **(no-regression)** SVG behaviour is unchanged (no regression).
+- [ ] **(verify)** Verified live (headless) on the /md/ test/visual listing — the listed PNGs open in preview.
 
 ## Implementation
 

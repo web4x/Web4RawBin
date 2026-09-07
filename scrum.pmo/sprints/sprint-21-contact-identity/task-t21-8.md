@@ -33,7 +33,31 @@ CompanyIndex.mintOrReuseShared: companyNameKey (NFKD+diacritics, lowercase, &->a
 
 ## Acceptance Criteria
 
-See requirement unit bf6a0433-6e85-4341-92e5-79acb725e0bf (architect-refined AC + gateable test scenarios).
+- [ ] **(namekey)** companyNameKey(raw) is deterministic and pure — identical input always yields identical output; the SAME implementation is shared by server and client.
+- [ ] **(namekey)** Normalization steps, in order: NFKD unicode-fold + strip diacritics, lowercase, replace & with " and ", repeat-strip legal suffixes until stable, strip all non-alphanumerics.
+- [ ] **(namekey)** Canonical collapse: "Cerulean Circle", "cerulean circle GmbH", and "CeruleanCircle" all map to nameKey "ceruleancircle".
+- [ ] **(namekey)** Legal-suffix strip is token-wise, case-insensitive, repeated until stable, and covers at least: gmbh, mbh, ag, se, kg, ug, inc, llc, ltd, limited, corp, corporation, co, company, plc, lp, llp, sa, sarl, bv, nv, oy, ab, as, spa, srl, pty (so "GmbH & Co KG" fully strips).
+- [ ] **(namekey)** nameKey is a RECALL/suggestion key ONLY: a nameKey collision NEVER by itself triggers an automatic merge of two companies.
+- [ ] **(domain)** When a company email or URL is available, domain = the registrable host derived from it (e.g. cerulean.circle); otherwise domain is null.
+- [ ] **(domain)** Domain is AUTHORITATIVE: two inputs with the same domain resolve to the SAME company unit even if their names (and nameKeys) differ.
+- [ ] **(domain)** Two inputs with DIFFERENT domains resolve to SEPARATE company units even if their nameKeys collide (e.g. "Apple Inc" vs an unrelated "Apple").
+- [ ] **(domain)** Where a domain is present it overrides nameKey in both lookup and mint decisions.
+- [ ] **(autocomplete)** GET /api/company/suggest?q=<typed> returns up to 5 existing units ranked: exact nameKey > domain match > nameKey prefix > token-overlap fuzzy (Jaccard on word-set).
+- [ ] **(autocomplete)** The suggestion list ALWAYS includes a permanent bottom row "Create \"<typed>\"".
+- [ ] **(autocomplete)** Selecting an existing suggestion reuses that Company uuid — NO new unit is minted.
+- [ ] **(autocomplete)** Choosing Create mints a NEW unit even if a nameKey neighbour exists (explicit user override = distinct company): no silent merge ever happens from normalization alone.
+- [ ] **(autocomplete)** When a user confirms a typed variant onto an existing unit, the raw typed string is appended to that unit aliases[] (for future recall + audit).
+- [ ] **(autocomplete)** The company input is debounced (~150 ms) before querying /api/company/suggest.
+- [ ] **(dedup)** mintOrReuseShared(name, domain?) step 1: if domain present and alt/company-domain/<domain> exists, return that unit uuid (no mint).
+- [ ] **(dedup)** Step 2: else if alt/company/<nameKey> exists, return that unit uuid (no mint).
+- [ ] **(dedup)** Step 3: else mint a new ior:class:Company, declare unitLinks (nameKey + domain when known), and index.put (which self-syncs the symlinks).
+- [ ] **(dedup)** Concurrent first-mint of the same nameKey does NOT create a duplicate: the alt/company/<nameKey> symlink is created with an atomic exclusive (wx) write — first writer wins, the loser re-reads the winner.
+- [ ] **(unit-shape)** Each company is an ior:class:Company unit whose model carries: { uuid, name (display = first-entered form), nameKey, domain|null, aliases[], unitLinks[] }.
+- [ ] **(unit-shape)** unitLinks include alt/company/<nameKey>.scenario.json and, when domain is known, alt/company-domain/<domain>.scenario.json — both symlinks point to the Company unit ITSELF (not to a profile).
+- [ ] **(unit-shape)** Profile.model.companies[] holds the forward IOR(s) to Company unit(s); a profile may reference multiple companies.
+- [ ] **(shared)** Company.ownerIor === null — a company is owned by NO single profile (legitimate null, like a Skill unit).
+- [ ] **(shared)** Multiple profiles reference the SAME Company uuid via their own companies[]; there is exactly one unit, no duplication.
+- [ ] **(shared)** There is NO back-pointer/members[] array on Company (forward-only): "who works here" is answered by walking all profiles companies[]; any member count shown in UI is a derived read, never stored as source of truth.
 
 ## Dependencies
 

@@ -27,12 +27,6 @@
 
 Address the fixes raised during Tron live feedback.
 
-## Acceptance Criteria
-
-- [x] Profile page has "Edit Profile" button
-- [x] ProfileEditor supports avatar/picture upload with preview
-- [x] QR code invite popup shows scannable room URL
-
 ## QA Audit & User Feedback
 
 ## Subtasks

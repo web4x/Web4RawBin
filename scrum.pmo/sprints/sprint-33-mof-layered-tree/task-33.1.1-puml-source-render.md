@@ -34,10 +34,10 @@ R33.1.1 (S33-P1 completion, CONSOLIDATED with R33.6 item-4 per PO dd3fa403b + de
 
 ## Acceptance Criteria
 
-- [x] INV-P1.1 (existing-source only): a puml-src FOLDER-leaf itemview (an EXISTING authored .puml under the project's source, the R33.5 source half) renders its diagram as SVG in-section on select/expand. It renders the RAW authored .puml text, NEVER R32.7 modelToPuml model-generated puml. Absent source -> no section.
-- [x] INV-P1.2 (render reuse, no fork): the SVG comes from the SAME /api/puml-render + rb-preview.renderPuml path as the /md preview - identical output, no second renderer. GET /md/<relpath>.puml (raw text/plain) -> POST /api/puml-render -> SVG.
-- [x] INV-P1.3 (isolation-safe): the render is READ-ONLY - fetch the source .puml then POST to render only; no MODEL_STORE or prod mutation.
-- [x] GATE @390 real-WebKit (Test 478d8204, r3364-puml-source-render-gate.mjs, served==HEAD 0.8.38): select a REAL puml-src leaf -> GET /md raw -> POST /api/puml-render (docker plantuml) -> SVG renders in-section (okW>0, nodes>0, PIXEL-sample non-bg); a planted bogus relpath -> NO svg. DET-3x.
+- [ ] **(functional)** INV-P1.1 (existing-source only): a puml-src FOLDER-leaf itemview (an EXISTING authored .puml under the project's source, the R33.5 source half) renders its diagram as SVG in-section on select/expand. It renders the RAW authored .puml text, NEVER R32.7 modelToPuml model-generated puml. Absent source -> no section.
+- [ ] **(functional)** INV-P1.2 (render reuse, no fork): the SVG comes from the SAME /api/puml-render + rb-preview.renderPuml path as the /md preview - identical output, no second renderer. GET /md/<relpath>.puml (raw text/plain) -> POST /api/puml-render -> SVG.
+- [ ] **(security)** INV-P1.3 (isolation-safe): the render is READ-ONLY - fetch the source .puml then POST to render only; no MODEL_STORE or prod mutation.
+- [ ] **(gate)** GATE @390 real-WebKit (Test 478d8204, r3364-puml-source-render-gate.mjs, served==HEAD 0.8.38): select a REAL puml-src leaf -> GET /md raw -> POST /api/puml-render (docker plantuml) -> SVG renders in-section (okW>0, nodes>0, PIXEL-sample non-bg); a planted bogus relpath -> NO svg. DET-3x.
 
 ## Subtasks
 

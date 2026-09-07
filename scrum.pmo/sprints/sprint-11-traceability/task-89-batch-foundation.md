@@ -40,13 +40,6 @@ files (`task-2-rawbin-architecture-definition.md` vs `task-2-rawbin-architecture
 Highest-risk batch: all signed-off long ago. Smallest sub-batches, per-sprint
 Tron gate. This is the sanctioned path to touch these files (vs silent inline edits).
 
-## Acceptance Criteria
-
-- [ ] Sprints 1,2,3,4 tasks have resolving forward chains
-- [ ] requirements.md/use-case stubs authored for 1,3,4
-- [ ] Sprint 1 duplicate task-2 reconciled (one canonical file)
-- [ ] Each sprint's changes Tron-gated before its sub-batch is Done
-
 ## Dependencies
 
 - **Requires:** T86 (matrix), T88 (pattern)

@@ -27,19 +27,6 @@
 
 Bring room chat to parity with the UpDown app.
 
-## Acceptance Criteria
-
-- [x] Chat renders as bottom sheet (collapsed by default)
-- [x] Drag handle expands/collapses sheet
-- [x] Messages display with colored sender names
-- [x] Send works (Enter + button)
-- [x] Message peek preview on new message while collapsed
-- [x] WS status indicator (green/red/orange)
-- [x] QR invite popup works
-- [x] Chat works between multiple users in same room
-- [x] Chat history preserved on rejoin
-- [x] Mobile-friendly (touch drag, responsive)
-
 ## QA Audit & User Feedback
 
 ## Subtasks

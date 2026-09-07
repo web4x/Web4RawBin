@@ -38,8 +38,8 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.1.
 
 ## Acceptance Criteria
 
-- [x] (panes) Three panes: LEFT + RIGHT (the two compared versions) + CENTER (the merged result), side by side.
-- [x] (highlight) Line-level diff highlighting between left<->center AND right<->center (changed/added/removed lines marked).
+- [ ] **(panes)** Three panes: LEFT + RIGHT (the two compared versions) + CENTER (the merged result), side by side.
+- [ ] **(highlight)** Line-level diff highlighting between left<->center AND right<->center (changed/added/removed lines marked).
 
 ## Implementation
 

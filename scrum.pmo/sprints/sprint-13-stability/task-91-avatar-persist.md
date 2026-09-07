@@ -38,14 +38,6 @@
 3. Does server restart reload `profile.avatar` from profiles.json? (Check `loadProfiles()`)
 4. Is there a race between IDENTIFY backfill (async) and the client reading the profile?
 
-## Acceptance Criteria
-
-- [x] AC1: Uploaded avatar persists across page reload
-- [x] AC2: Uploaded avatar persists across server restart
-- [x] AC3: Uploaded avatar persists across new WS connections (reconnect)
-- [x] AC4: Default avatar assignment only happens when NO avatar.enc exists for the user
-- [x] AC5: `data/users/<token>/files/avatar.enc` is not overwritten by backfill when it already contains an upload
-
 ## QA Audit & User Feedback
 
 - 2026-05-26: Tron directive — "my avatar picture disappeared. its back to default." Fixed v0.4.11 (ensureAvatar guards on file, not string); tester-verified (avatar-persist 5/5 + 21/21 Playwright). Awaiting Tron QA.

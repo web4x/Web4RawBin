@@ -51,13 +51,6 @@ has a drawer like detail area like in google maps. create a dedicated
 DetailViewContainer that can contain specialized DetailViews … show the details
 there when i click on the items on the traceability tree."
 
-## Acceptance Criteria
-
-- [ ] AC1 — A drawer-style container exists on /trace, modeled on the room chat drawer
-- [ ] AC2 — Clicking a traceability tree item shows its details in the container
-- [ ] AC3 — Container hosts pluggable DetailViews (integration point for T111)
-- [ ] `npm run build` succeeds; version + sw.js bumped; no regression
-
 ## Dependencies
 
 - **Requires:** None (Phase 1 foundation)

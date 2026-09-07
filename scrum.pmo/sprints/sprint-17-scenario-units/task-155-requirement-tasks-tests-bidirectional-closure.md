@@ -91,43 +91,6 @@ gaps via **bidirectional closure**:
 - Per-Req audit gate: tasks count == reverse-scan count; tests count ==
   coverage count
 
-## Acceptance Criteria
-
-- [ ] AC1 (Shape spec) — `RequirementLoader` defaults include
-  `tasks: []` AND `tests: []`; documented in
-  `scrum.pmo/standards/traceability-standard.md`
-- [ ] AC2 (Tasks reverse-closure rule) — Architect-finalized rule for
-  reverse-scanning task units' upward refs; documented in the standard
-- [ ] AC3 (Tests coverage rule) — Architect-finalized rule for how a test
-  file declares requirement coverage (marker / annotation / linkage);
-  documented in the standard
-- [ ] AC4 (Tasks closure per Req) — For EVERY Requirement scenario, the
-  count of `model.tasks[]` entries EQUALS the count of Task units whose
-  `links.up` references that requirement. Per-Req audit table reports
-  mismatches (target: 0). Mismatch = hard FAIL.
-- [ ] AC5 (Tests coverage per Req) — For EVERY Requirement scenario, the
-  count of `model.tests[]` entries EQUALS the count of tests whose coverage
-  includes that requirement (per architect's rule). Per-Req audit table
-  reports mismatches (target: 0). Mismatch = hard FAIL.
-- [ ] AC6 (Idempotence) — Running the closure twice yields the same JSON;
-  counts unchanged on the second run
-- [ ] AC7 (Dry-run) — `--dry-run` mode reports per-Req audit table without
-  writing
-- [ ] AC8 (Spot-check round-trip ≥5 Reqs) — Architect/tester selects ≥5
-  Requirements across S10–S17; verifies bidirectional counts match
-- [ ] AC9 (T126 regenerates) — Requirement `.md` views show both downward
-  edges: tasks + tests, each clickable per T143
-- [ ] AC10 (`trace-cli` clean) — Chain audit shows 0 broken
-  requirement → task or requirement → test links
-- [ ] AC11 (Regression) — No regression on T126 / T134 / T143 / T146 /
-  T149 / T151 / T152 / T153 / T154
-- [ ] AC12 — `npm run build` succeeds; all existing tests pass
-- [ ] AC13 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json`
-  "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME
-  commit-set as the user-facing impl. (c) STATIC_SHELL: likely exempt
-  (no new route — architect to confirm)
-- [ ] AC14 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** T154 (Requirement name/description + forward `tasks[]` — T155 closes the count gap bidirectionally + adds `tests[]`), T151 (JSON arrays — shape), T134 (TraceLink class — may emit closure links), T126 (ViewGenerator + Requirement template — consumes both arrays), T143 (chain tree — downward edges), T149 (universal symlinks — task + test refs resolve)

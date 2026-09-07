@@ -34,12 +34,12 @@ MINT UmlUseCase as a M2 metaclass on disk (ABSENT today) — the existing UseCas
 
 ## Acceptance Criteria
 
-- [x] (functional) UmlUseCase is minted as a M2 metaclass ON DISK (absent today); a UseCase unit carries instanceOf:[...,UmlUseCase] — typed OOP extension, NOT a duplicate.
-- [x] (functional) A-MERGE (fork-A resolve-at-detail, architect b08995a28): the traceability UseCase unit IS the model element (enriched with the instanceOf facet + draggability + usedIn IN PLACE); a generated M1 ModelElement reconciles to the SAME canonical unit by the DETERMINISTIC key sourceFile::qualifiedName (keyToUuid same-uuid) OR a modelElement<->baseUnit link, resolved at /api/ior — ONE unit per real use case, no duplication.
-- [x] (functional) Drag->diagram creates a Diagram view-link to the UseCase unit, rendered as a UML use-case ellipse FROM its existing data (name=Object.verb/class/method) — a VIEW, no copied data.
-- [x] (functional) The UseCase unit tracks usedIn[] (diagrams/folders it is placed on) — bidirectional with Diagram.views.
-- [x] (gate) HARD AC (Tron constraint, reuse A2/R35.4 protect-the-tree): /api/model/tree + rawbin children [ts,puml,diagrams,traceability] + sprint structure + EVERY existing node render BYTE-IDENTICAL before vs after merge (byte-diff==0). A merged element STILL shows at its current node — only its detail / /api/ior / Scenario / Edit / facet-views resolve to the ONE canonical unit; NO node added/removed/reordered/recounted. The MOF tree + traceability folder + /api/model/tree UNTOUCHED. GATE @390: pre/post-merge tree byte-diff==0.
-- [x] (gate) GATE @390 real-WebKit: UmlUseCase exists on disk (M2); a UseCase instanceOf it (ONE merged unit); drag renders the ellipse from unit data (no duplicate); usedIn bidirectional.
+- [ ] **(functional)** UmlUseCase is minted as a M2 metaclass ON DISK (absent today); a UseCase unit carries instanceOf:[...,UmlUseCase] — typed OOP extension, NOT a duplicate.
+- [ ] **(functional)** A-MERGE (fork-A resolve-at-detail, architect b08995a28): the traceability UseCase unit IS the model element (enriched with the instanceOf facet + draggability + usedIn IN PLACE); a generated M1 ModelElement reconciles to the SAME canonical unit by the DETERMINISTIC key sourceFile::qualifiedName (keyToUuid same-uuid) OR a modelElement<->baseUnit link, resolved at /api/ior — ONE unit per real use case, no duplication.
+- [ ] **(functional)** Drag→diagram creates a Diagram view-link to the UseCase unit, rendered as a UML use-case ellipse FROM its existing data (name=Object.verb/class/method) — a VIEW, no copied data.
+- [ ] **(functional)** The UseCase unit tracks usedIn[] (diagrams/folders it is placed on) — bidirectional with Diagram.views.
+- [ ] **(gate)** HARD AC (Tron constraint, reuse A2/R35.4 protect-the-tree): /api/model/tree + rawbin children [ts,puml,diagrams,traceability] + sprint structure + EVERY existing node render BYTE-IDENTICAL before vs after merge (byte-diff==0). A merged element STILL shows at its current node — only its detail / /api/ior / Scenario / Edit / facet-views resolve to the ONE canonical unit; NO node added/removed/reordered/recounted. The MOF tree + traceability folder + /api/model/tree are UNTOUCHED. GATE @390: pre/post-merge tree byte-diff==0.
+- [ ] **(gate)** GATE @390 real-WebKit: UmlUseCase exists on disk (M2); a UseCase instanceOf it (ONE merged unit); drag renders the ellipse from unit data (no duplicate); usedIn bidirectional. Chain-to-Test, Impl.tests[] on disk before flip.
 
 ## Subtasks
 

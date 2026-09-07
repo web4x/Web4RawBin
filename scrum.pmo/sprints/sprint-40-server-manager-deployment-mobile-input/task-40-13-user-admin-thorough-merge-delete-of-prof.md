@@ -22,6 +22,11 @@ Deliver + verify requirement R40.13 (User Admin — thorough merge + delete of p
 
 ## Acceptance Criteria
 
-
+- [ ] **(merge-all-refs)** MERGE consolidates EVERY reference, not just the profile row — room memberships, file/unit ownership, device enrollments, alt-identity indexes (phone/email symlinks), avatars, vCards, usedIn side-index.
+- [ ] **(delete-no-dangling)** DELETE leaves NO dangling reference — every ref to the removed user is repointed (merge) or removed (delete).
+- [ ] **(gate-graph-query-REUSE)** The completion GATE is a GRAPH QUERY: ZERO dangling/orphan refs after merge or delete, PROVEN by the EXISTING S37 identity-family detectors (orphan-owner / truncated-ref / prefix-collision). REUSE them — do NOT write a parallel checker.
+- [ ] **(dry-run-reversible-idempotent)** DRY-RUN + counts BEFORE apply; reversible backup; idempotent (the R27.2 / repair protocol).
+- [ ] **(owner-gated-403)** OWNER-GATED; non-owner => 403 (same integrity argument as R40.10 — if anyone can merge identities, identity means nothing).
+- [ ] **(device-390)** Usable at 390px on mobile (Tron's phone).
 
 ## Subtasks

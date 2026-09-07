@@ -56,16 +56,6 @@ Tron iteration after using the live `/trace` browser. T120 (black background)
 is a peer surface change; this is the positioning fix. Both target the same
 component (`rb-detail-drawer`) — coordinate with T120 to avoid step-on commits.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `rb-detail-drawer` stays anchored to the viewport bottom (`position: fixed; bottom: 0`) regardless of `/trace` page scroll position
-- [ ] AC2 — Behavior holds on iPhone Safari (safe-area-inset-bottom respected — drawer does not hide behind the home indicator)
-- [ ] AC3 — slideUp/slideDown + swipe-down dismiss + ESC + outside-click (T110 behaviors) unchanged
-- [ ] AC4 — No regression with T120's black background (peer task — coordinate on the same component)
-- [ ] AC5 — Tree (above the drawer) remains scrollable and visible
-- [ ] AC6 — `npm run build` succeeds; vitest + playwright pass; **version + sw.js bumped** per learnings #15
-- [ ] AC7 — **STATIC_SHELL untouched** per learnings #16 (no new route — confirm in commit message)
-
 ## Dependencies
 
 - **Requires:** T110 (drawer)

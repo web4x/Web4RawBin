@@ -38,12 +38,12 @@ Tron: "the implementation should be a link to the source code... The Class a lin
 
 ## Acceptance Criteria
 
-- [x] A Class chain node links to its .puml diagram AND its rendered .svg
-- [x] A Method chain node links to the source .ts file:line of the method
-- [x] An Implementation chain node links to the source .ts file:line of the impl
-- [x] Every chain detail-view node renders as a clickable link to its real artifact (not raw text/IOR)
-- [x] Links resolve to the actual file:line / diagram (open in the browser)
-- [x] Verified live (headless) — tester source-links GREEN DET-3x v0.6.78 (adddd7ae5); impl v0.6.77 (5a3e794d6, 3 prereq fixes architect-diagnosed) + v0.6.79 RbFileDetail sourceFile data-gap fill (4e3c3df0d)
+- [ ] **(per-type-link)** A Class chain node links to its .puml diagram AND its rendered .svg.
+- [ ] **(per-type-link)** A Method chain node links to the source .ts file:line of the method.
+- [ ] **(per-type-link)** An Implementation chain node links to the source .ts file:line of the impl.
+- [ ] **(render)** Every chain detail-view node renders as a clickable link to its real artifact, not raw text/IOR.
+- [ ] **(render)** Links resolve to the actual file:line / diagram (open in the browser).
+- [ ] **(verify)** Verified live (headless) against the running app.
 
 ## Implementation
 

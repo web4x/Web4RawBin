@@ -42,14 +42,16 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Acceptance Criteria
 
-- [ ] (add) The dialog accepts a GIT CLONE URL and a CHECKOUT LOCATION (server path); it clones the repo to that location.
-- [ ] (add) After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector.
-- [ ] (add) Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered).
-- [ ] (security) [PENDING Tron ratify] The clone CHECKOUT LOCATION is BOUNDED to ratified allowed roots (no arbitrary server write path); a location outside bounds is rejected before cloning.
-- [ ] (security) [PENDING Tron ratify] The clone URL / protocol is constrained per Tron ratify (e.g. allowed schemes/hosts, credential handling) - no SSRF / arbitrary-command surface.
-- [ ] (security) [PENDING Tron ratify] Cloning is gated by the ratified authorization model.
-- [ ] (security) [PENDING Tron ratify] The cloned repo registers per the ratified persistence mechanism; a failed clone leaves NOTHING half-registered.
-- [ ] (gate) GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump.
+- [ ] **(add)** The dialog accepts a GIT CLONE URL and a CHECKOUT LOCATION (server path); it clones the repo to that location.
+- [ ] **(add)** After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector.
+- [ ] **(add)** Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered).
+- [ ] **(security)** RATIFIED D1: the clone CHECKOUT LOCATION, after realpath, MUST be within the HOME subtree OR REPO_ALLOW; a location outside those bounds is REJECTED before cloning.
+- [ ] **(security)** RATIFIED D2 (architect §9 Guard-2, built GitApi.assertAllowedUrl v0.7.67): The clone URL is validated by GitApi.assertAllowedUrl using the WHATWG URL parser (new URL(); NEVER legacy url.parse - its authority split is @-confusion-prone). ACCEPTED iff ALL hold: (a) scheme in {https, ssh} only (reject http/file/git/ext); (b) NO password component; (c) username is EMPTY (anonymous https) OR exactly "git" (ssh) - any other username rejected; (d) hostname EXACTLY matches an entry in HOST_ALLOW {github.com, <TEAM_GIT_HOST>}. Otherwise -> 400. The clone subprocess additionally runs env GIT_ALLOW_PROTOCOL=https:ssh + -c protocol.file.allow=never (defense-in-depth vs redirect/submodule escape). Exact-host is the PRIMARY @-confusion/SSRF defense: WHATWG sets host = substring after the LAST @, so credential-confusion forms (e.g. https://github.com@evil.com) resolve host=evil.com and are rejected.
+- [ ] **(security)** RATIFIED D4: cloning requires the admin-key (all writes admin-key-gated).
+- [ ] **(security)** RATIFIED D4: registration is an admin-key-gated write; a failed clone leaves NOTHING half-registered (atomic).
+- [ ] **(security)** RATIFIED D2 invariant (must-hold, mirror of the R30.39 over-reject bug): EMPTY username MUST remain ALLOWED - the rule is "reject if username && username!==git", NOT "require username===git" (else it re-breaks anonymous https clones). An anonymous https URL (no username) is ACCEPTED.
+- [ ] **(security)** RATIFIED D2 invariant (must-hold): the URL parser MUST be WHATWG new URL() (never legacy url.parse) - with both invariants held there is NO residual SSRF hole.
+- [ ] **(gate)** GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump.
 
 ## Implementation
 

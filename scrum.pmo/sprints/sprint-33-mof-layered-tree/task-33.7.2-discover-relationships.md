@@ -34,10 +34,10 @@ Tron items 2+3 (COUPLED - both add relationships from the model graph onto the d
 
 ## Acceptance Criteria
 
-- [x] (item-2) When an element is ADDED to a diagram, its relationships to elements ALREADY on the diagram are auto-added - the new element's connectors to existing on-diagram elements appear immediately (no orphan-added element; only relationships to elements PRESENT on the diagram, not the whole graph).
-- [x] (item-3) A 'Discover relationships' action-bar action on a SELECTED diagram element (added to the R33.6.5 class-selected action set) adds onto the diagram, from the model graph: the base class + the extends relationship; navigation links + their target classes; inheriting subclasses; implemented interfaces - the discovered classes AND their relationships.
-- [x] Discover adds ONLY 1 level (the selected element's IMMEDIATE neighbors) - never transitive/recursive graph expansion. Re-running Discover on a newly-added neighbor expands the next level (user-controlled, one hop per action).
-- [x] GATE @390 (screenshot/pixel + planted bite): add an element with known relationships to on-diagram elements -> connectors appear to those elements; select an element -> Discover relationships -> its 1-level neighbors (base/subclasses/interfaces/nav-targets) + relationships appear (exactly 1 level, not transitive). planted: add/discover yields no connectors, or discover goes transitive = RED.
+- [ ] **(functional)** (item-2) When an element is ADDED to a diagram, its relationships to elements ALREADY on the diagram are auto-added - the new element's connectors to existing on-diagram elements appear immediately (no orphan-added element; only relationships to elements PRESENT on the diagram, not the whole graph).
+- [ ] **(functional)** (item-3) A 'Discover relationships' action-bar action on a SELECTED diagram element (added to the R33.6.5 class-selected action set) adds onto the diagram, from the model graph: the base class + the extends relationship; navigation links + their target classes; inheriting subclasses; implemented interfaces - the discovered classes AND their relationships.
+- [ ] **(functional)** Discover adds ONLY 1 level (the selected element's IMMEDIATE neighbors) - never transitive/recursive graph expansion. Re-running Discover on a newly-added neighbor expands the next level (user-controlled, one hop per action).
+- [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): add an element with known relationships to on-diagram elements -> connectors appear to those elements; select an element -> Discover relationships -> its 1-level neighbors (base/subclasses/interfaces/nav-targets) + relationships appear (exactly 1 level, not transitive). planted: add/discover yields no connectors, or discover goes transitive = RED.
 
 ## Subtasks
 

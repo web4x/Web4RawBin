@@ -38,12 +38,6 @@ Sprints 8 (Monaco Editor), 9 (Room Identity), 10 (Contacts UI).
 Sprints 8,9 are the closest to standard (have req + diagrams). Sprint 10 is active —
 standardize as it develops so it sets the example.
 
-## Acceptance Criteria
-
-- [ ] Every task in Sprints 8,9,10 has a resolving req→usecase→puml→class/method chain
-- [ ] Sprint 10 requirements.md + use cases authored
-- [ ] No closed-task checkbox state changed (chain links only; Tron-gated)
-
 ## Dependencies
 
 - **Requires:** T86 (matrix)

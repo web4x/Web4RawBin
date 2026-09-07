@@ -31,9 +31,8 @@ WODA is an INSTANCE of the rb-strip model: descriptor [{bar-expandable:What},{C:
 
 ## Acceptance Criteria
 
-- [ ] WODA = rb-strip descriptor [{bar-expandable:What},{C:Overview},{C:Details},{bar:Actions}] with nav {What,Overview,Details,Actions}; What bar expands to a What compartment. Pure descriptor wiring on the existing infra (5.1-5.4), zero new infra.
-- [ ] POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
-- [ ] AC-INV-PRESENTATION (cross-cutting R31.5.8): positioning != function — presentation is a reactive layer, never a second fork.
+- [ ] **(functional)** WODA = rb-strip descriptor [{bar-expandable:What},{C:Overview},{C:Details},{bar:Actions}] with nav {What,Overview,Details,Actions}; What bar expands to a What compartment. Pure descriptor wiring on the existing infra (5.1-5.4), zero new infra.
+- [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
 
 ## Subtasks
 

@@ -35,9 +35,9 @@ C4.1 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, arc
 
 ## Acceptance Criteria
 
-- [ ] (functional) ANY unit object (pin/board/task and any other class) VALIDATES on init/read: recompute to reflect reality (fresh) OR REFUSE to run when drifted (fresh-or-refuse) — generic, not per-class special-casing.
-- [ ] (functional) The objects NEVER return a silently-drifted value — always fail-loud or self-correct on read (C2/C6 = measured instances: status derived Planned while the chain had shipped an Impl). Feeds the pipeline a fresh-or-refused value.
-- [ ] (DRY-AC / gate) STUB-MUST-FAIL: construct a drifted unit object -> it recomputes-to-reality OR throws/refuses (never returns silently-wrong); a NEW unit class inherits self-heal-on-read with ZERO edits to the validation mechanism (generic/registration-only); break the validate-on-read path -> gate RED. FAMILY: under-recorded-progress / silent-drift.
+- [ ] **(functional)** The pin/board objects VALIDATE on init/read -> either recompute to reflect reality, or REFUSE to run when drifted.
+- [ ] **(functional)** The objects NEVER return a silently-drifted value — always fail-loud or self-correct on read.
+- [ ] **(gate)** TEST EXERCISES AC-validate-on-init+AC-never-silent: construct a drifted pin/board object -> it recomputes to reality OR throws/refuses (never returns silently-wrong). Verify Impl.tests[] on disk before flip.
 
 ## Subtasks
 

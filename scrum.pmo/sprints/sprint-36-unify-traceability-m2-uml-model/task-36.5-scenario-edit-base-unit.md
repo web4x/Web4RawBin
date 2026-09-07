@@ -34,10 +34,11 @@ For EVERY projected view/element, the Scenario + Edit buttons carry the info to 
 
 ## Acceptance Criteria
 
-- [x] (functional) For every projected view/element, Scenario opens /scenario?ior=<BASE-unit> + Edit opens the base unit's editor — the CORRECT underlying ScenarioUnit the view projects (rides S35 universal-actions + ensureViewUnit). Gate the actual open-TARGET, not button presence.
-- [x] (functional) Each unit carries usedIn:[{kind:'diagram'|'folder', ref}] tracking where it is placed/linked; a resolver answers 'where is this used' (back-refs).
-- [x] (functional) INVARIANT: unit.usedIn <-> Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided.
-- [x] (gate) GATE @390 real-WebKit: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram -> unit.usedIn + diagram.views both updated; remove -> both cleared).
+- [ ] **(functional)** For every projected view/element, ◆Scenario opens /scenario?ior=<BASE-unit> + ✎Edit opens the base unit's editor — the CORRECT underlying ScenarioUnit the view projects (rides S35 universal-actions + ensureViewUnit). Gate the actual open-TARGET, not button presence.
+- [ ] **(functional)** Each unit carries usedIn:[{kind:'diagram'|'folder', ref}] tracking where it is placed/linked; a resolver answers "where is this used" (back-refs).
+- [ ] **(functional)** INVARIANT: unit.usedIn ⟷ Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided.
+- [ ] **(gate)** GATE @390: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram → unit.usedIn + diagram.views both updated; remove → both cleared).
+- [ ] **(gate)** The usedIn data DISPLAYS at Tron's surface (NOT a raw /api/ior check): RbModelElementDetail's detail drawer shows a 'Where used' section listing each usedIn {kind, ref} as a clickable dv-link that drills to the using diagram/element (selectionModel.replaceWith), and 'Not used' when empty. The DATA already persists (usedIn on /api/ior via the R36.2c side-index) - THIS is the DISPLAY deliverable Tron requires. GATE @390 (screenshot/pixel at Tron's mobile surface, NOT /api/ior): open an element's detail -> the 'Where used' section is VISIBLE; add a diagram view -> it lists the diagram; click a ref -> drills. INV-W1..4 (data-driven / drill / tree byte-diff==0 / empty-safe). Client-only -> version bump + real restart.
 
 ## Subtasks
 

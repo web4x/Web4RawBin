@@ -30,9 +30,9 @@ Tron 2026-08-12: on WODA.test the server-manager root is still hardcoded WODA.pr
 
 ## Acceptance Criteria
 
-- [ ] AC-D-discovered-root: root discovered from on-disk config (ssh config) like otmux tree items.
-- [ ] AC-D-no-hardcode: on WODA.test root == WODA.test (discovered), hardcoded host forbidden.
-- [ ] AC-D-DEVICE [@390 Tron]: WODA.test server-manager root shows WODA.test not WODA.prod, verified on device.
+- [ ] **(functional)** The server-manager ROOT host is DISCOVERED from real on-disk config (ssh config etc.), the SAME way otmux tree items are discovered — read from files, not a constant.
+- [ ] **(functional)** On WODA.test the root resolves to WODA.test (discovered), NOT the hardcoded WODA.prod; a hardcoded root host is FORBIDDEN (fragile-heuristic class). Provable by running on a non-prod host and asserting the root == that host.
+- [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron, NEVER headless-green, TRON-ONLY] Tron verifies on WODA.test the server-manager root shows WODA.test (discovered), not WODA.prod.
 
 ## Implementation
 

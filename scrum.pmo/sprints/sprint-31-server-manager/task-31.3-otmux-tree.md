@@ -42,16 +42,16 @@ R31.3 = read-only tree (lower risk; build after gate+section, before the termina
 
 ## Acceptance Criteria
 
-- [ ] The view renders sessions -> windows -> panes hierarchically, matching the structure of 'otmux tree'.
-- [ ] The tree is read SERVER-SIDE via otmux (behind the owner-guard R31.2), not from any client-side enumeration.
-- [ ] The tree is refreshable and reflects the current live session/pane state on refresh.
-- [ ] Each pane node is selectable and displays its title/target (e.g. robbinTeam2:0.4 = robbin-req@...) so the owner can identify the agent pane.
-- [ ] The /server-manager page has a 'Back to Profile' exit link/affordance that navigates to /profile. (Tron 2026-07-20 - page navigation/exit affordance.)
-- [ ] Every expandable node - session AND window - has its OWN expand/collapse chevron; the three levels (session / window / pane) toggle INDEPENDENTLY. BUG (IMG_4598): session nodes have a chevron but the WINDOW node has none. Panes are leaves (no chevron). Generic behavior of the shared rb-trace-tree component.
-- [ ] Expanding a node reveals ONLY its DIRECT children, themselves collapsed - layer by layer / lazy (session expand -> windows collapsed; window expand -> panes), never exploding the whole subtree at once. BUG (IMG_4598): expansion explodes windows+panes together and only settles after the owner manually toggles each session.
-- [ ] The window node is labeled by its window index/name (e.g. 'window 0'), NOT the active-command placebo (e.g. '0: bash'). BUG (IMG_4598): the middle level shows the active command instead of a clear window label.
-- [ ] The tree's INITIAL state is correctly collapsed (sessions collapsed, or a clear sensible default) - no 'open yet closed' mixed/indeterminate state on first render that only corrects after manual toggling. BUG (IMG_4598): initial state was closed-yet-open and behaved naturally only after each session was manually opened+closed once.
-- [ ] The tree node child-count BADGE is derived from the node's STANDARD parent/children scenario REFERENCES (the OO-referenced tree - exactly as /trace's scenario badges derive their count from children refs), NOT a bespoke per-node count fork. RETIRE nodeChildCount (the bespoke fork whose split(':') colon-parsing miscounts - the colon bug). The badge == the real referenced child count at EVERY level (session/window/pane).
+- [ ] **(functional)** The view renders sessions -> windows -> panes hierarchically, matching the structure of 'otmux tree'.
+- [ ] **(functional)** The tree is read SERVER-SIDE via otmux (behind the owner-guard R31.2), not from any client-side enumeration.
+- [ ] **(functional)** The tree is refreshable and reflects the current live session/pane state on refresh.
+- [ ] **(functional)** Each pane node is selectable and displays its title/target (e.g. robbinTeam2:0.4 = robbin-req@...) so the owner can identify the agent pane.
+- [ ] **(ui)** The /server-manager page has a 'Back to Profile' exit link/affordance that navigates to /profile. (Tron 2026-07-20 - page navigation/exit affordance.)
+- [ ] **(functional)** Every expandable node - session AND window - has its OWN expand/collapse chevron; the three levels (session / window / pane) toggle INDEPENDENTLY. BUG (IMG_4598): session nodes have a chevron but the WINDOW node has none. Panes are leaves (no chevron). Generic behavior of the shared rb-trace-tree component.
+- [ ] **(functional)** Expanding a node reveals ONLY its DIRECT children, themselves collapsed - layer by layer / lazy (session expand -> windows collapsed; window expand -> panes), never exploding the whole subtree at once. BUG (IMG_4598): expansion explodes windows+panes together and only settles after the owner manually toggles each session.
+- [ ] **(functional)** The window node is labeled by its window index/name (e.g. 'window 0'), NOT the active-command placebo (e.g. '0: bash'). BUG (IMG_4598): the middle level shows the active command instead of a clear window label.
+- [ ] **(functional)** The tree's INITIAL state is correctly collapsed (sessions collapsed, or a clear sensible default) - no 'open yet closed' mixed/indeterminate state on first render that only corrects after manual toggling. BUG (IMG_4598): initial state was closed-yet-open and behaved naturally only after each session was manually opened+closed once.
+- [ ] **(functional)** The tree node child-count BADGE is derived from the node's STANDARD parent/children scenario REFERENCES (the OO-referenced tree - exactly as /trace's scenario badges derive their count from children refs), NOT a bespoke per-node count fork. RETIRE nodeChildCount (the bespoke fork whose split(':') colon-parsing miscounts - the colon bug). The badge == the real referenced child count at EVERY level (session/window/pane).
 
 ## Implementation
 

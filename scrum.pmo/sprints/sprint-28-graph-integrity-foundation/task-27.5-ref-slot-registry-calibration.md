@@ -40,12 +40,15 @@ S28 Graph-Integrity Foundation. STOOD UP scenario-first; implementation awaits T
 
 ## Acceptance Criteria
 
-- [x] (registry) A canonical ref-slot registry lists every ref-bearing slot {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies}; every migration + audit imports it so no slot is scanned ad-hoc.
-- [x] (registry) Each slot is tagged forward / back / cross and classified token/edge/self, so back-edges (ownerIor, Test.methods) and cross-refs are covered, not just forward chain.
-- [x] (registry) ~500 auth-token false-positives (non-ref token strings) are classified as token (not edge) and excluded from the dangling/orphan counts.
-- [x] (calibrate) trace-audit orphan metric calibrated: non-chain types added to ORPHAN_BY_DESIGN + Requirement->tasks + Sprint-roots added to the walk (the benign ~2207 metric drops to real chain-orphans).
-- [x] (calibrate) After the registry + calibration, a non-zero orphan/dangling count indicates REAL debt (trustworthy enough to hard-gate); R27.6's true-dangling inventory is measurable against it.
-- [x] (verify) Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt.
+- [ ] **(registry)** A canonical ref-slot registry lists every ref-bearing slot {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies}; every migration + audit imports it so no slot is scanned ad-hoc.
+- [ ] **(registry)** Each slot is tagged forward / back / cross and classified token/edge/self, so back-edges (ownerIor, Test.methods) and cross-refs are covered, not just forward chain.
+- [ ] **(registry)** ~500 auth-token false-positives (non-ref token strings) are classified as token (not edge) and excluded from the dangling/orphan counts.
+- [ ] **(calibrate)** trace-audit orphan metric calibrated: non-chain types added to ORPHAN_BY_DESIGN + Requirement->tasks + Sprint-roots added to the walk (the benign ~2207 metric drops to real chain-orphans).
+- [ ] **(calibrate)** After the registry + calibration, a non-zero orphan/dangling count indicates REAL debt (trustworthy enough to hard-gate); R27.6's true-dangling inventory is measurable against it.
+- [ ] **(verify)** Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt.
+- [ ] **(registry)** trace:audit FLAGS any unit with no model.uuid OR a path/uuid mismatch (file basename != model.uuid) - catching bash/tooling artifacts like the undefined.scenario.json where a backtick ate the uuid field. This is a structural no-uuid gate, cheap + recurrence-proof.
+- [ ] **(marker-chain)** (Axis-4 DETECTION) trace:audit:strict scans the codebase for [impl:uuid] markers and flags any marker whose Impl unit does not resolve OR is not reachable Requirement->UseCase->Class->Method->Impl (marker-has-chain). Single-source audit logic.
+- [ ] **(marker-chain)** (ENFORCEMENT, delta-scoped) The marker-has-chain check is a build gate: a NEW chain-less [impl:uuid] marker on src HARD-FAILS the build at pre-commit + ci:gates; pre-existing legacy chain-less markers are DEFERRED/reported (no false-red) - same delta-vs-absolute discipline as R27.2 INV2. Makes code-before-chain impossible by construction; the 4 retroactive-#126 reqs (R26.6/R27.1/R27.3/R29.1) are regression fixtures. (Absorbed from the retired R29.2; detection AC above + this enforcement AC = the detection-vs-enforcement split, housed in ONE req per PO.)
 
 ## Implementation
 

@@ -66,16 +66,6 @@ bound on the right pane's width so the tree remains visible/usable.
 - Hard `max-width` on right pane (architect picks the value — e.g. 480px / 50vw)
 - Expert applies CSS; rule-pair (a)+(b) for cache invalidation
 
-## Acceptance Criteria
-
-- [ ] AC1 — `/trace` layout works mobile-first (iPhone 375px viewport: tree usable, no horizontal scroll)
-- [ ] AC2 — Hard width-cap on right (detail) pane: enforces architect-specified max-width on all DetailViews (Req/Task/UC/Class/Method/Test/Impl)
-- [ ] AC3 — Desktop layout (≥768px or architect's breakpoint) preserves the split tree+detail experience without regression
-- [ ] AC4 — Width-cap holds when the detail content is wide (long titles, code blocks, deep chain links)
-- [ ] AC5 — No regression on T110/T111/T143/T165/T166 (drawer + DetailViews + tree-item rendering)
-- [ ] AC6 — `npm run build` succeeds; all existing tests pass
-- [ ] AC7 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in same commit-set; (c) STATIC_SHELL exempt (no new route)
-
 ## Dependencies
 
 - **Requires:** T110 (drawer), T143 (tree-item layout), T165 (7/7 tree rendering), T166 (Class+Method in graph)

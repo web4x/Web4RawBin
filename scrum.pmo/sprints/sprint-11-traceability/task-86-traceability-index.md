@@ -37,12 +37,6 @@ living matrix that drives batch ordering for T87-T89.
 Baseline: 89/89 have UUID; 20 link requirements, 19 use cases, 6 PUML, 15 code.
 Sprints 1,3,4,5,6,10 lack requirements.md.
 
-## Acceptance Criteria
-
-- [x] traceability-matrix.md lists all Sprint 1-9 tasks (86) with per-link coverage — published at `scrum.pmo/traceability-matrix.md`
-- [x] Missing-artifact list per sprint (requirements.md absent in Sprints 1-7; puml ~absent everywhere)
-- [x] Batch order recommendation for T87-T89
-
 ## Dependencies
 
 - **Requires:** T85 (chain definition)

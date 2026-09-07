@@ -34,11 +34,11 @@ R40.12 (Tron: 'here we also have a massive regression from a music player and th
 
 ## Acceptance Criteria
 
-- [ ] [AUTOMATABLE @390 real-WebKit] A FILE unit detail view renders a TYPE-APPROPRIATE preview; an AUDIO file renders a WORKING HTML5 audio player (play/pause/seek controls PRESENT + functional), NOT an empty container.
-- [ ] [AUTOMATABLE, ★ silent-failure guard] If a preview CANNOT render, an EXPLICIT error state is shown -- an empty box is a SILENT failure (the same sin as R40.11 eternal spinner). Fail-LOUD, never a blank container; stub-must-fail (break the asset -> explicit error, not empty).
-- [ ] [AUTOMATABLE] The asset is REGISTERED/present in EVERY context the drawer opens: ROOM view AND /trace AND /app -- a context-dependent empty render is HOW this hid (the drawer resolved the file in one context, not the room view).
-- [ ] [AUTOMATABLE @390 real-WebKit PIXEL + Tron real-device] Tap the .mp3 -> the player is VISIBLE with controls present, proven by PIXEL screenshot @390 -- NEVER a DOM-count green (a <audio> container in the DOM != a player that renders). Tron confirms on his phone.
-- [ ] [AUTOMATABLE] DET-3x + stub-must-fail: strip the player render -> gate RED (proves the gate catches the empty-box regression that shipped).
+- [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] A FILE unit detail view renders a TYPE-APPROPRIATE preview; an AUDIO file renders a WORKING HTML5 audio player (play/pause/seek controls PRESENT + functional), NOT an empty container.
+- [ ] **(automatable)** [AUTOMATABLE, ★ silent-failure guard] If a preview CANNOT render, an EXPLICIT error state is shown -- an empty box is a SILENT failure (the same sin as R40.11 eternal spinner). Fail-LOUD, never a blank container; stub-must-fail (break the asset -> explicit error, not empty).
+- [ ] **(automatable)** [AUTOMATABLE] The asset is REGISTERED/present in EVERY context the drawer opens: ROOM view AND /trace AND /app -- a context-dependent empty render is HOW this hid (the drawer resolved the file in one context, not the room view).
+- [ ] **(device)** [AUTOMATABLE @390 real-WebKit PIXEL + Tron real-device] Tap the .mp3 -> the player is VISIBLE with controls present, proven by PIXEL screenshot @390 -- NEVER a DOM-count green (a <audio> container in the DOM != a player that renders). Tron confirms on his phone.
+- [ ] **(automatable)** [AUTOMATABLE] DET-3x (deterministic 3x) + stub-must-fail: strip the player render -> gate RED (proves the gate catches the empty-box regression that shipped).
 
 ## Subtasks
 

@@ -43,15 +43,6 @@ dir and can never write into prod `data/`.
 - **Tester (specs):** launch the test server with `DATA_DIR=<tmp/e2e-data>` (per-run
   temp dir), point specs at it, and clean it between runs. Prod `data/` is never touched.
 
-## Acceptance Criteria
-
-- [ ] AC1: `server.ts` resolves its data base from `DATA_DIR` env (default = current prod path; unset → no change)
-- [ ] AC2: ALL data paths (profiles, devices, rooms, users/<token>) honor the resolved base — no stray hardcoded `data/`
-- [ ] AC3: E2E specs launch the server with an isolated `DATA_DIR` (tmp) — prod `data/` byte-unchanged after a full E2E run
-- [ ] AC4: A test proves isolation: run E2E, assert prod `data/rooms` count unchanged
-- [ ] AC5: No regression — prod run (DATA_DIR unset) behaves exactly as before
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** None

@@ -61,15 +61,6 @@ template ever invokes class methods; templates read only the `model` flat JSON.
 3. **Speaking-name hrefs:** all markdown links use speaking-name paths (e.g., `[T1.1: Clone](./task-1.1-clone-ud-team.md)`), NOT uuid paths. Links must resolve (no 404).
 4. **404 page:** when a speaking-name URL resolves to no file, render a "Not Found" page with `← Back to Sprint Overview` + `← All Sprints` links (parent always derivable: task → sprint, sprint → overview).
 
-## Acceptance Criteria
-
-- [ ] AC1 — `regenerate-views` command emits `planning.md` for at least one migrated sprint from its Task instances (no hand-edited prose left)
-- [ ] AC2 — `scenarios/sprints.md/<speaking-name>/...` tree generated, mirroring `scenarios/sprints.json/`
-- [ ] AC3 — Each of the 7 classes has a registered HTML + MD template; sample views render correctly
-- [ ] AC4 — Live-update verified: editing a scenario.json triggers re-render of its `.md` + `.html` views
-- [ ] AC5 — vitest covers template registry + render + regenerate flows
-- [ ] AC6 — `npm run build` succeeds; full suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL entry per #16 if a new /views or /md route is introduced** (architect to decide in T124.2 — flag in commit)
-
 ## Dependencies
 
 - **Requires:** T125 (foundation primitives + templates)

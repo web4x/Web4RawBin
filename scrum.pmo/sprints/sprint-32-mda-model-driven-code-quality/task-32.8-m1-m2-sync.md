@@ -34,10 +34,14 @@ designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.m
 
 ## Acceptance Criteria
 
-- [ ] Each model action (class.add/remove, attribute.add/edit, method.add, ...) updates M1+M2 in BOTH the TS and PUML representations consistently.
-- [ ] Sync is bidirectional (TS<->model<->PUML) with NO drift: after any action, all three representations are consistent (testable: action -> both-representations-consistent gate).
-- [ ] The same UUID is preserved throughout the sync (an element keeps its identity across TS, model, and PUML on every action).
-- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+- [ ] **(functional)** AC1 (PO-refined 2026-07-30) - a 'Re-Sync from source' action button is available on the DIAGRAM TOOLBAR (rb-diagram-detail) of the model view (MODEL units only - Diagram/ModelElement - NOT trace units); on Re-Sync, ALL views (tree R32.3 + diagram/edges R32.4/R32.6 + PUML R32.7) AUTO-re-render via the 'rb-model-resynced' event. NO button on the shared rb-trace-tree header (that would leak a feature-button onto /trace, violating the generic-shared-component law - features supply DATA not buttons to the shared tree). A tree-side trigger on a dedicated model host is DEFERRED (R33 backlog).
+- [ ] **(functional)** AC2 - Re-Sync re-runs generation on the model's OWN sourceFile via the EXISTING POST /api/model/generate (TsToModel.generate) - NO new server endpoint, NO fork (client-only action).
+- [ ] **(functional)** AC3 - after Re-Sync, the R32.3 tree re-renders and shows the CURRENT model: added elements appear, removed elements disappear (INV-S2 reconcile: stale-drop + new-add + unchanged rebind).
+- [ ] **(functional)** AC4 - after Re-Sync, the R32.4 diagram surface + the R32.6 relationship edges re-render to the current model.
+- [ ] **(functional)** AC5 - after Re-Sync, the R32.7 exported PUML reflects the current model - TS <-> model <-> PUML consistent (INV-S4 all-views-consistent: tree + diagram + edges + PUML all re-read the one MODEL_STORE).
+- [ ] **(functional)** AC6 / INV-S1 - unchanged elements keep the SAME uuid across re-sync: no duplicate, no re-mint (the R32.2 deterministic keyToUuid rebind + content-compared write; INV-P1/P2 lineage).
+- [ ] **(functional)** AC7 / INV-S3 - Re-Sync mutates ONLY the isolated model-store (data/model-store); prod scenario/index is NEVER touched (the R32.5 safe-mechanism law) - gate-able: prod ModelElement count / git-clean unchanged across sync.
+- [ ] **(functional)** AC8 - Re-Sync with NO source change is idempotent: 0-churn (wrote=0, store byte-identical, all views stable) - by construction from generate()'s content-compared write.
 
 ## Subtasks
 

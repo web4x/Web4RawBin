@@ -33,7 +33,16 @@ On IDENTIFY with a phone/email already in the alt-index, resolveKeyToProfile ret
 
 ## Acceptance Criteria
 
-See requirement unit 04dff687-ae49-4d9c-9150-6e2419a1c0b9 (architect-refined AC + gateable test scenarios).
+- [ ] **(detect)** On IDENTIFY with phone/email when NO profile exists for the connecting token, the server consults resolveKeyToProfile(phone, email).
+- [ ] **(detect)** If a known profile is found (knownUuid != connecting token), the server sends KNOWN_KEY_CHALLENGE { profileUuid, maskedName } and does NOT mint a new profile or attach a device (break, await enroll).
+- [ ] **(detect)** If NO known key matches, a fresh profile is minted as before (unchanged new-identity path).
+- [ ] **(detect)** resolveKeyToProfile uses the SAME alt-index mechanism for phone and email (PhoneIndex/EmailIndex.resolveToProfile) — the rule applies to phone AND email.
+- [ ] **(challenge)** The challenge carries a MASKED existing name (maskName, e.g. 'Marcel Donges' -> 'M***** D*****') so the user sees who they'd link to without leaking the full name.
+- [ ] **(challenge)** DEVICE_ENROLL_REQUEST verifies msg.secretCode === existing profile.secretCode; a mismatch returns DEVICE_ENROLL_FAILED 'Wrong secret code' and enrolls nothing.
+- [ ] **(challenge)** Enroll guards: not-identified / no-profile / keys-not-generated each return DEVICE_ENROLL_FAILED with no enroll.
+- [ ] **(device-link)** On the correct secret code with profileUuid set (device-link), a device record is created/enrolled under the EXISTING profile (ownerToken = existing uuid), not the fresh connecting token.
+- [ ] **(device-link)** The connecting fresh token is redirected to the existing identity: tokenToClient.set(existingUuid, clientId), client.playerToken = existingUuid, and the server sends TOKEN_REDIRECT { newToken: existingUuid }.
+- [ ] **(device-link)** The server then sends PROFILE for the EXISTING user with its linked devices — this device becomes that same user; NO new profile is minted and NO merge/consolidation occurs.
 
 ## Dependencies
 

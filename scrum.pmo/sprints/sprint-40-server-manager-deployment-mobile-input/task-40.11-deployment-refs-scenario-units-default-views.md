@@ -34,11 +34,11 @@ R40.11 (Tron: 'all deploymentRefs are still buggy on the details view as long as
 
 ## Acceptance Criteria
 
-- [ ] [AUTOMATABLE, graph] EVERY deploymentRef is a REAL minted scenario unit of the right R40.6 type (ssh-service->Service, ssh-host-identity->KeyFile, domain(.env#LE_DOMAIN)->EnvValue, letsencrypt-cert->Certificate; FileBacked realizers where a real file backs them). REUSE the R40.6 M2 types (0022-0033), NOT new machinery — no synthetic pseudo-unit.
-- [ ] [AUTOMATABLE, source] The tree emits the REAL unit ior for each deploymentRef node, NEVER a synthetic depref:<name> pseudo-id (grep: no depref: id reaches the drawer).
-- [ ] [AUTOMATABLE render + @390 device] The detail drawer renders identity + fields + parent/children via ONE GENERIC default view DRIVEN BY THE M2 TYPE (the type determines the fields) — NOT per-type bespoke views that can drift (PO steer; DRY, the R40.5 lesson). The drawer does NOT hang. Verified @390 real-WebKit it renders content, not Loading.
-- [ ] [AUTOMATABLE, ★ silent-failure guard] An UNRESOLVABLE ref renders an EXPLICIT 'unresolved: <ior>' error state — a permanent 'Loading...' is a SILENT failure that HIDES the bug (why it survived). Fail-LOUD, never silent-Loading; stub-must-fail (feed an unresolvable ref -> must show the error, not spin).
-- [ ] [DEVICE @390 pixel - Tron on phone] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). AND the deploymentRefs array-removal stays a GATED dry-run+count migration with INV-T byte-diff==0 (leaves unchanged).
+- [ ] **(automatable)** [AUTOMATABLE, graph] EVERY deploymentRef is a REAL minted scenario unit of the right R40.6 type (ssh-service->Service, ssh-host-identity->KeyFile, domain(.env#LE_DOMAIN)->EnvValue, letsencrypt-cert->Certificate; FileBacked realizers where a real file backs them). REUSE the R40.6 M2 types (0022-0033), NOT new machinery — no synthetic pseudo-unit.
+- [ ] **(automatable)** [AUTOMATABLE, source] The tree emits the REAL unit ior for each deploymentRef node, NEVER a synthetic depref:<name> pseudo-id (grep: no depref: id reaches the drawer).
+- [ ] **(device)** [AUTOMATABLE render + @390 device] The detail drawer renders identity + fields + parent/children via ONE GENERIC default view DRIVEN BY THE M2 TYPE (the type determines the fields shown) — NOT per-type bespoke views that can drift (PO steer; DRY, the R40.5 lesson). The drawer does NOT hang. Verified @390 real-WebKit that it renders content, not Loading.
+- [ ] **(automatable)** [AUTOMATABLE, ★ the silent-failure guard] An UNRESOLVABLE ref renders an EXPLICIT "unresolved: <ior>" error state — a permanent "Loading..." is a SILENT failure that HIDES the bug (that is exactly why it survived). Fail-LOUD, never silent-Loading; stub-must-fail (feed an unresolvable ref -> must show the error, not spin).
+- [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). Scopes exactly what Tron owes (his own device tap); cannot be auto-certified. (Split from the former combined AC-5 by content-name; no scope change.)
 
 ## Subtasks
 

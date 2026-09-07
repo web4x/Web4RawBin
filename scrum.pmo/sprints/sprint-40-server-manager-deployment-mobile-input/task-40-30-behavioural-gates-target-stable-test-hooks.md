@@ -22,6 +22,9 @@ Deliver + verify requirement R40.30 (Behavioural gates target STABLE test hooks 
 
 ## Acceptance Criteria
 
-
+- [ ] **(stable-hooks)** Behavioural gates target STABLE test hooks (data-testid or an equivalent contract), NOT incidental CSS class names — a cosmetic rename cannot break a behavioural gate.
+- [ ] **(hook-dependency-discoverable)** Renaming or removing a test hook REQUIRES re-running the gates that depend on it — the dependency is DISCOVERABLE: a gate declares which hooks it binds.
+- [ ] **(retarget-stub-must-fail)** A re-targeted gate MUST re-prove it can FAIL (stub-must-fail) before its GREEN counts — otherwise re-pointing a selector until it passes silently empties the gate.
+- [ ] **(drift-names-itself)** Drift is DETECTABLE rather than discovered by accident: a gate whose hook has VANISHED says 'hook missing' LOUDLY (distinct signal), not read -1 and report a behavioural failure. The RED must name drift, not masquerade as a code regression.
 
 ## Subtasks

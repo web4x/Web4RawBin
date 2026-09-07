@@ -57,16 +57,6 @@ Empty `this._path` (no file open) → fall back to `/md/` (browse root).
 **Label:** "← App" → "← Back". **Keep** the `📂` browse button (line 37,
 `<a href="/md/">📂</a>`) unchanged.
 
-## Acceptance Criteria
-
-- [x] AC1: Back button navigates to parent dir of current file (`a/b/c.md` → `/md/a/b/`)
-- [x] AC2: Back button shows "← Back" (not "← App")
-- [x] AC3: No file open → goes to `/md/` (browse root) — code path: empty `_path` → `/md/` (same guard as AC6)
-- [x] AC4: `📂` browse button still goes to `/md/` (unchanged)
-- [x] AC5: Deep paths work (`scrum.pmo/sprints/sprint-09-room-identity/planning.md` → `/md/scrum.pmo/sprints/sprint-09-room-identity/`)
-- [x] AC6: Root-level files work (`README.md` → `/md/`)
-- [x] `npm run build` succeeds; version bump + sw.js cache (expert; live server now v0.5.4)
-
 ## Dependencies
 
 - **Requires:** None (Sprint 8 Monaco editor already shipped)

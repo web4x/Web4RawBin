@@ -49,16 +49,6 @@ T163 switched `/api/trace` to read `model.name` from scenario index. But 9 scena
 | 7e4f8a2b | `## Extension 4 (2026-05-31 — traceability is a TREE)` | `Extension 4` |
 | dd8709c3 | `## Extension 2 (2026-05-31)` | `Extension 2` |
 
-## Acceptance Criteria
-
-- [ ] AC1 — All 9 dirty scenarios have clean `model.name` (no `##`, no `---`, no `> `)
-- [ ] AC2 — `cleanModelName()` handles: `## Heading` → `Heading`, `---` → uuid fallback, `## X (date)` → `X`
-- [ ] AC3 — `firstLine()` skips `##`, `---`, `**R` prefixed lines (defensive for any caller)
-- [ ] AC4 — Re-migration is idempotent (running twice = same result)
-- [ ] AC5 — `/trace` browser shows clean names for all 9 formerly-dirty requirements
-- [ ] AC6 — No regression on T161/T163 (speaky names + title source switch)
-- [ ] AC7 — Rule-pair (a)+(b): version + CACHE_NAME bump
-
 ## QA Audit & User Feedback
 
 - 2026-06-02: PO directed planner stand-up; architect created this file concurrently with a more accurate 9-scenario inventory (vs PO's earlier 3-unit estimate). Planner reconciled per learning #12 — architect's content authoritative, planner fixed the uuid (was non-v4, violated learning #17) and added required Subtasks + QA Audit sections for Web4Articles compliance. Path (b) — 12 unmigrated S10-S16 reqs — remains separate as **T128.2**. Awaiting expert impl → tester verify (target: 9/9 clean + T163 41/41 minus the T128.2 batch) → Tron QA.

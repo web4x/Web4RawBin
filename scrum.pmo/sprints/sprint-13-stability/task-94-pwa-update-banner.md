@@ -47,16 +47,6 @@
 6. iOS Safari PWA: does the SW update check fire in standalone mode? (iOS has known limitations)
 7. Is `<rb-update-banner>` present in the DOM on all pages?
 
-## Acceptance Criteria
-
-- [x] AC1: Deploying a new version (package.json bump + build) → update banner appears on next visit
-- [x] AC2: Clicking "Update Now" reloads with the new version
-- [x] AC3: `/api/config` returns the current package.json version
-- [x] AC4: sw.js served with `Cache-Control: no-cache, must-revalidate`
-- [~] AC5: Works on iOS Safari standalone (PWA installed on home screen) — NOT testable in headless Chromium; defer to Tron's iPhone QA
-- [x] AC6: Works on desktop Chrome/Firefox
-- [x] AC7: Banner appears on ALL pages (/app, /profile, /bug-report, /edit) not just /app
-
 ## QA Audit & User Feedback
 
 - 2026-05-26: Tron directive — "i did also not see the version update bar any more." CRITICAL: may indicate SW serving stale code; architect audits update path end-to-end before fix. Awaiting refinement, then Tron QA.

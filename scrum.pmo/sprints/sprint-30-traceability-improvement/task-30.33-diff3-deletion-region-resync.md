@@ -38,12 +38,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its sc
 
 ## Acceptance Criteria
 
-- [x] (root) Vendor diff3MergeRegions dropped a pure-DELETION region (abLength===0, oLength=2 base->dev, 2 removed) -> alignment couldn't resync there
-- [x] (emit-deletion) vendor/diff3.ts emits the single-hunk region even for abLength===0 (bufferContent=[]), so pure deletions surface
-- [x] (one-sided) computeOneSidedHunks puts the M=oLength base lines on the non-changed (retaining) pane + spacers opposite
-- [x] (resync-gate) With the deletion region present, the existing R30.29/R30.30 re-anchor resyncs at send.verified
-- [x] (no-regression) Insertions/modifications/conflicts/agreed-both-sides all still 0px at every stable anchor; RESULT byte-identical
-- [x] (verify) Vendor diff3.ts emit + computeOneSidedHunks (a0b30550) + alignPaneRows -> resync at the deletion; DET-3x
+- [ ] **(root)** Vendor diff3MergeRegions dropped a pure-DELETION region (abLength===0, oLength=2 - base->dev, 2 removed lines) via its abLength>0 guard, so the model was 2 lines short from L1813 (send.verified) and the re-anchor could not resync a region absent from the model.
+- [ ] **(emit-deletion)** vendor/diff3.ts emits the single-hunk region even for abLength===0 (bufferContent=[]), so pure deletions ARE represented in the region stream.
+- [ ] **(one-sided)** computeOneSidedHunks puts the M=oLength base lines on the non-changed (retaining) pane + spacers on the deleting pane and advances la/lb by oLength - the deletion has correct per-pane counts and renders origin-correct (block on the retaining side).
+- [ ] **(resync-gate)** With the deletion region present, the existing R30.29/R30.30 re-anchor resyncs at send.verified: the CORRECTED gate is GREEN (content-located, notFound=0) on ALL corresponding lines including send.verified. Deployed v0.7.43.
+- [ ] **(no-regression)** Insertions / modifications / conflicts / agreed-both-sides all still 0px at every stable anchor; RESULT byte-identical (deletion adds base lines on the retaining pane + spacers, no content change).
+- [ ] **(verify)** Vendor diff3.ts emit + computeOneSidedHunks (under computeMergedCenter [a0b30550]) + alignPaneRows [17c71adf] - markers STAY, no new units. Covers deployed v0.7.43 (a61258a39). DET-3x corrected strict-0px gate + Tron pixel-perfect. (Tester independently re-gating v0.7.43 = the real close.)
 
 ## Implementation
 

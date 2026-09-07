@@ -40,12 +40,12 @@ S30 diff/merge editor regression (R30.25, Tron): open a working file (auto-promo
 
 ## Acceptance Criteria
 
-- [x] (fires) Open a working file (promote→older-on-left), then pick a branch on the RIGHT: LEFT still renders its content, RIGHT = file@branch, center recomputes — LEFT NEVER blanks; includes the RACE WINDOW (pick RIGHT immediately after open, promote still in flight)
-- [x] (fix) A symmetric _rightUserPicked guard (set in setSideRef('right')/the right ref path) makes a user-driven RIGHT WIN over the auto-promote: populateLeftHistory does NOT replace this.right and does NOT run its default left-reload when _rightUserPicked (mirrors _leftUserPicked)
-- [x] (fix) The promote is serialized (await populateLeftHistory + a generation token); a stale promote's left-reload tail aborts on token mismatch so it can never reload LEFT over a fresh user pick; defaultIdx computed from a snapshot of this.left.content taken BEFORE the awaits, not live this.right.content
-- [x] (no-regression) TRON4 preserved: a working-file left load with NO right interaction still auto-promotes (older-on-left) as before
-- [x] (no-regression) R30.17 left PICK-WINS (_leftUserPicked) + R30.24 _deepLink promote-suppression both still hold; buildShareLink/openFromParams (R30.24) still round-trip after the right-pick
-- [x] (verify) DET-3x + instrumentation trace (addLog at promote entry/exit, loadSide, setSideRef): on the repro the event order shows NO post-pick left-reload; client fix → version-bump; Tron visual verify
+- [ ] **(fires)** Open a working file (promote -> older-on-left), then pick a branch on the RIGHT: LEFT still renders its content, RIGHT = file@branch, center recomputes - LEFT NEVER blanks. Includes the RACE WINDOW (pick RIGHT immediately after open, promote still in flight).
+- [ ] **(fix)** A symmetric _rightUserPicked guard (set in setSideRef('right')/the right ref path) makes a user-driven RIGHT WIN over the auto-promote: populateLeftHistory does NOT replace this.right and does NOT run its default left-reload when _rightUserPicked (mirrors _leftUserPicked).
+- [ ] **(fix)** The promote is serialized (await populateLeftHistory + a generation token); a stale promote's left-reload tail aborts on token mismatch so it can never reload LEFT over a fresh user pick. defaultIdx is computed from a snapshot of this.left.content taken BEFORE the awaits, not the live this.right.content.
+- [ ] **(no-regression)** TRON4 preserved: a working-file left load with NO right interaction still auto-promotes (older-on-left) as before.
+- [ ] **(no-regression)** R30.17 left PICK-WINS (_leftUserPicked) + R30.24 _deepLink promote-suppression both still hold; buildShareLink/openFromParams (R30.24) still round-trip after the right-pick.
+- [ ] **(verify)** DET-3x + instrumentation trace (addLog at promote entry/exit, loadSide(side,ref), setSideRef(side)): on the repro the event order shows NO post-pick left-reload. Client fix (pure client, no restart) -> version-bump; Tron visual verify.
 
 ## Implementation
 

@@ -37,16 +37,6 @@ the full req→uc→puml→method→test chain, and reports any inconsistencies.
 detected drift, keeping `scrum.pmo/traceability-matrix.md` consistent with the typed
 object graph.
 
-## Acceptance Criteria
-
-- [ ] AC1: Engine loads the T101 typed object graph + scans the repo to build the live req→uc→puml→method→test chain
-- [ ] AC2: Validation reports every broken/missing chain link with the offending UUID and a human-readable reason
-- [ ] AC3: `fix` mode repairs drift (regenerates/updates `scrum.pmo/traceability-matrix.md`) without losing manually-authored content outside generated regions
-- [ ] AC4: Engine is idempotent — running `fix` twice produces no further changes when the matrix is already consistent
-- [ ] AC5: A `--check`/report-only mode exits non-zero on inconsistency (CI-usable) and zero when consistent
-- [ ] AC6: Tests cover validate (clean + drifted fixtures) and fix (drift → consistent → idempotent)
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T101

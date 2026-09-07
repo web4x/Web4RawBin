@@ -34,12 +34,11 @@ Board-track R40.84 at its honest status; declare the ONE canonical planning unit
 
 ## Acceptance Criteria
 
-Mirrors R40.84 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.
-- [ ] AC-add-child-updates-node-in-place: the unit IS the MVC model — adding a child updates THAT node's children IN PLACE (controller mutates the model node, the view re-renders JUST that node via the ONE VIEW BUS R37.12).
-- [ ] AC-expanded-state-survives: any EXPANDED state survives the add (scroll + expansion preserved); collapse-or-reset-after-add => RED.
-- [ ] AC-user-terms-tree-stays-put: (Tron) when I add a folder, the tree stays where it was and ONLY the folder I added into changes. WE verify @390 member-session (the add path, no owner rights); Tron ACCEPTS.
-- [ ] AC-targeted-notify-not-wholesale: the add path emits a TARGETED node update (ViewBus.notify for the affected node only), NEVER a full-tree re-render or reload.
-- [ ] AC-stub-must-fail: seed the exact 0.8.175 defect (add-child triggers a full tree COLLAPSE + wholesale rerender losing expanded state) => RED; a suite green on collapse-on-add is inadmissible.
+- [ ] **(by-construction/MVC-ROOT)** The unit IS the MVC model: adding a child updates THAT node children IN PLACE (the controller mutates the model node, the view re-renders JUST that node via the ONE VIEW BUS). The tree does NOT collapse and does NOT rebuild wholesale. A full-tree rebuild OR collapse on a single add => RED.
+- [ ] **(render/state)** Any EXPANDED state survives the add — the tree stays exactly where it was (scroll + expansion preserved). Collapsed-or-reset-after-add => RED.
+- [ ] **(acceptance/USER-TERMS)** Tron in user terms: when I add a folder, the tree stays exactly where it was and ONLY the folder I added into changes. WE verify @390 member-session (the add path, no owner rights); Tron ACCEPTS delivered verified work (not Tron-verified).
+- [ ] **(by-construction/ONE-VIEW-BUS)** The add path emits a TARGETED node update (ViewBus.notify for the affected node only, R37.12 ONE VIEW BUS), NEVER a full-tree re-render or reload. A wholesale re-render / reload on a single add => RED. (Same live-MVC law as R37.12: mutation -> in-place node re-render, not a rebuild.)
+- [ ] **(stub-must-fail)** Seed the exact 0.8.175 defect — an add-child that triggers a full tree COLLAPSE + wholesale RERENDER (losing expanded state) => RED. A suite green on a collapse-on-add is inadmissible.
 
 ## Subtasks
 

@@ -98,19 +98,6 @@ is the orthogonal "wrong field rendered" bug on the same surface.
 - Architect audits sample JSONs + renderer code path to pin A vs B
 - Fix path A: re-run T154 parser (with refined rules if needed); per-Req re-audit
 
-## Acceptance Criteria
-
-- [ ] AC1 (Root-cause diagnosis) — Architect's Design section in this file identifies (A) data-store wrong, (B) renderer wrong, or both; evidence cited (sample JSON paths, renderer file refs)
-- [ ] AC2 (model.name correct per Req) — For EVERY Requirement scenario, `model.name` is plain English ≤5 words, NOT a `>`-prefixed quote line. Per-Req audit table reports failures (target: 0); identical gate to T154 AC2 — re-verify it holds post-T161
-- [ ] AC3 (model.description correct per Req) — For EVERY Requirement scenario, `model.description` matches the Tron quote blockquote in `requirements.md` (verbatim); identical to T154 AC3 — re-verify post-T161
-- [ ] AC4 (Renderer reads correct fields) — `rb-tree-item` (or equivalent title-rendering Web Component) uses `model.name` for the title; `rb-requirement-detail` uses `model.description` for the body. Code paths verified
-- [ ] AC5 (Browser smoke test) — Load /trace; Requirement items render speaky titles (NOT `>`-prefixed blockquotes). Spot-check ≥5 Requirements across sprints
-- [ ] AC6 (Sibling-class smoke) — Same bug pattern checked on Task / UC / Class / Method items (does `model.name` render correctly on those too?). If yes, fix scoped to Requirements only; if no, extend to all classes
-- [ ] AC7 (Regression) — No regression on T126 / T143 / T146 / T149 / T154 / T160 (forward arrays unchanged)
-- [ ] AC8 — `npm run build` succeeds; all existing tests pass
-- [ ] AC9 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: architect confirms (likely exempt — no new route)
-- [ ] AC10 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** T146 (NAME-first format), T154 (data-quality migration), T125 (Loaders), T126 (templates), T111 (DetailView pattern)

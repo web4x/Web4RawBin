@@ -38,14 +38,14 @@ Tron: "on apple iPhone and macOS a lot can be dragged and dropped next to files:
 
 ## Acceptance Criteria
 
-- [ ] (types) On every drop, log all DataTransfer.types entries
-- [ ] (items) Log every DataTransfer.items entry (kind + type), including non-File items
-- [ ] (files) Log every DataTransfer.files entry (name, type, size)
-- [ ] (getData) For each advertised type, log getData(type) - the raw URL/payload (text/uri-list, text/plain, text/html, text/calendar, text/x-vcard, Apple UTIs)
-- [ ] (scheme) Extract and log the URL SCHEME of each dropped item (mailto, webcal, calshow, maps, geo, tel, x-apple-reminder, http(s), ...) - the scheme is the routing key
-- [ ] (chat+server) Log to BOTH chat (client-visible) AND server (persisted) so a drop in Tron's test room is diagnosable after the fact
-- [ ] (no-handler diagnose) When no handler matches the scheme/type, the log captures enough (all types + getData + extracted scheme) to diagnose WHAT was dropped - replacing today's file.name+type-only routeUnknown
-- [ ] (non-file path) Apple URL-scheme items that are NOT File objects are captured (the handler reads beyond dt.files + getData(uri-list||plain))
+- [ ] **(datatransfer)** On every drop, log all DataTransfer.types entries.
+- [ ] **(datatransfer)** Log every DataTransfer.items entry (kind + type), including non-File items.
+- [ ] **(datatransfer)** Log every DataTransfer.files entry (name, type, size).
+- [ ] **(payload)** For each advertised type, log getData(type) - the raw URL/payload (text/uri-list, text/plain, text/html, text/calendar, text/x-vcard, Apple UTIs).
+- [ ] **(scheme)** Extract and log the URL SCHEME of each dropped item (mailto, webcal, calshow, maps, geo, tel, x-apple-reminder, http(s), ...) - the routing key.
+- [ ] **(sink)** Log to BOTH chat (client-visible) AND server (persisted) so a drop in Tron's test room is diagnosable after the fact.
+- [ ] **(diagnose)** When no handler matches the scheme/type, the log captures enough (all types + getData + extracted scheme) to diagnose WHAT was dropped - replacing today's file.name+type-only routeUnknown.
+- [ ] **(non-file)** Apple URL-scheme items that are NOT File objects are captured (handler reads beyond dt.files + getData(uri-list||plain)).
 
 ## Implementation
 

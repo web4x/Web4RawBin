@@ -33,7 +33,13 @@ Normalize phone to +<digits> and register alt/phone/<key>.scenario.json as a sym
 
 ## Acceptance Criteria
 
-See requirement unit 144d1332-e3c8-4e37-a1ca-93904801b5c6 (architect-refined AC + gateable test scenarios).
+- [ ] **(normalize)** A phone key is normalized to +<digits> (normalizePhone strips all non-digits); isValidPhoneKey requires /^\+\d{6,15}$/ before the key may become a path.
+- [ ] **(normalize)** An invalid/empty key is rejected: registerSymlink returns null and writes no symlink.
+- [ ] **(symlink)** registerSymlink(profileUuid, rawPhone) creates alt/phone/<key>.scenario.json as a relative symlink pointing to the PROFILE's canonical scenario file (the symlink target is the PROFILE, not the Phone unit).
+- [ ] **(symlink)** The link is declared on the Profile's unitLinks[] (via index.addLink -> ensureSymlinkDisk), so it self-writes on put() and self-removes when the profile is removed — one source of truth (the unit JSON).
+- [ ] **(symlink)** registerSymlink returns null if the profile does not exist (no dangling symlink).
+- [ ] **(lookup)** resolveToProfile(rawPhone) normalizes the input, follows alt/phone/<key>.scenario.json, and returns the owning profile uuid — i.e. the phone number is an ALTERNATE UUID for the profile.
+- [ ] **(lookup)** resolveToProfile returns null on an invalid key or a missing symlink (new identity).
 
 ## Dependencies
 

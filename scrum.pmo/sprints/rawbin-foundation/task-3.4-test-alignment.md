@@ -31,11 +31,6 @@ Align Room.ts with its test cases so behaviour matches the specified tests.
 
 Expert wrote Room.ts (385 lines), tester wrote room.test.ts (484 lines, 33 tests) in parallel. First vitest run: 6 passed, 27 failed. Failures are API mismatches, not logic bugs. Both sides need alignment.
 
-## Acceptance Criteria
-
-- [x] All 33 tests pass
-- [x] No test changes that weaken coverage
-
 ## QA Audit & User Feedback
 
 ## Subtasks

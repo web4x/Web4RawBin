@@ -27,14 +27,6 @@
 
 Create the RoomUI client-side components.
 
-## Acceptance Criteria
-
-- [x] `npm run build` succeeds (esbuild bundles app.js)
-- [x] App loads in browser with no console errors
-- [x] Full room lifecycle works (create → join → chat → leave → delete)
-- [x] No references to game concepts in client code
-- [x] Responsive on mobile (PWA)
-
 ## QA Audit & User Feedback
 
 ## Subtasks

@@ -40,11 +40,11 @@ S30 diff/merge editor, R30.38 (Tron post-arc: the deep-linked merge Save was 404
 
 ## Acceptance Criteria
 
-- [x] (repo-route) The merge Save routes the PUT through the DIFF'S repo (the repo the file lives in, e.g. OOSH), not always rawbin
-- [x] (repo-key) The server save PUT endpoint (/api/files PUT) accepts the repo KEY (?repo=<key>, R30.6.7 RepoRegistry allowlist) + writes the file (writeFile)
-- [x] (header) The CENTER pane header shows 'filename@currentBranch' (e.g. otmux@<currentBranch>) reflecting the diff's repo/branch
-- [x] (succeeds) With all conflicts resolved, pressing Save SUCCEEDS (HTTP 200, file written) - no 'save failed' 404
-- [x] (gate) GATE on the REAL deep-link (e.g. /edit/otmux?repo=oosh&left=<ref>&right=<ref>&3way=1): resolve + Save -> 200, correct repo/branch; DET-3x [bee2ce7c0 v0.7.61]
+- [ ] **(save)** The merge Save routes the PUT through the DIFF'S repo (the repo the file lives in, e.g. OOSH for 'otmux'), NOT the main/rawbin repo, writing to the file in the CURRENT CHECKED-OUT branch/commit. A file in a non-rawbin repo saves WITHOUT a 404.
+- [ ] **(save)** The server save PUT endpoint (/api/files PUT) accepts the repo KEY (?repo=<key>, R30.6.7 RepoRegistry) and resolves the write path in that repo - mirroring the C read-path fix. (Server-side change -> requires a server restart; expert authority.)
+- [ ] **(header)** The CENTER pane header shows 'filename@currentBranch' (e.g. otmux@<currentBranch>) reflecting WHERE the save writes.
+- [ ] **(gate)** With all conflicts resolved, pressing Save SUCCEEDS (HTTP 200, file written) - no 'save failed (404)'.
+- [ ] **(gate)** GATE on the REAL deep-link (e.g. /edit/otmux?repo=oosh&left=<ref>&right=<ref>&3way=1): resolve conflicts -> Save succeeds (no 404), the file is written to the OOSH repo's checked-out branch, and the center header reads otmux@<branch>. Verified live; version-bump + atomic deploy (R30.28).
 
 ## Implementation
 

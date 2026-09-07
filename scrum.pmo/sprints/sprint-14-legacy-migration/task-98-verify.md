@@ -40,17 +40,6 @@ record maps to exactly one migrated record, counts reconcile, content matches
 first half of T99's gate** — T99 cannot proceed unless this PASSES.
 _(Architect defines the invariants; expert implements the verifier; tester runs it.)_
 
-## Acceptance Criteria
-
-- [ ] AC1: Room coverage — `count(per-user rooms ∪ _unowned quarantine) ≥ baseline.legacyFlatRooms` (run-time baseline, NOT a hardcoded number); orphans enumerated (Inv.1)
-- [ ] AC2: Content integrity on IMMUTABLE fields only (`id`, `createdAt`, `chatHistory`) — checksum/compare these; `ownerToken` is EXPECTED to differ where T97 rewrote it (assert new==newUuid, not byte-equality). (Inv.3)
-- [ ] AC3: Every `token-*` dir has exactly one valid-v4 mapping in `token-remap.json`; no duplicates; every token-dir room (count == `baseline.tokenDirRooms`, run-time) present under its newUuid (Inv.2, Inv.4)
-- [ ] AC4: Zero `token-<timestamp>` strings anywhere in the canonical UUID tree + profiles.json + devices.json (Inv.5 — Tron's no-dangling-ref requirement)
-- [ ] AC5: Every canonical user dir + room subdir name matches v4 UUID regex; any `_unowned` rooms listed for Tron (Inv.6)
-- [ ] AC6: Report `data/migration/verify-report.json` written with explicit top-level `PASS:true|false`; verifier is READ-ONLY (mutates nothing but the report)
-- [ ] AC7: FAIL is loud (lists failing invariant + offending ids, non-zero exit) and BLOCKS T99 — no silent pass
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T96 (rooms migrated), T97 (user dirs migrated)

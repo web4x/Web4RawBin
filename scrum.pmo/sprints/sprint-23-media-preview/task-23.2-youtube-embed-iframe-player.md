@@ -38,11 +38,11 @@ Tron: "when a YouTube URL is discovered in the room... automatically render it a
 
 ## Acceptance Criteria
 
-- [x] A YouTube URL discovered in the room (text/uri-list drop or chat paste) is detected
-- [x] The video ID is extracted from the URL (watch?v=<id>, youtu.be/<id>, and embed/<id> forms)
-- [x] The preview renders an embedded iframe at `https://www.youtube.com/embed/<id>` (not raw text)
-- [x] The existing Heartspaces `.url` (youtube.com/watch?v=a-_CuBOu6BA) renders as an embedded player, not text
-- [x] Verified live (headless) — a YouTube URL in a room renders the embed
+- [ ] **(detect)** A YouTube URL discovered in the room (text/uri-list drop or chat paste) is detected.
+- [ ] **(extract)** The video ID is extracted from the URL (watch?v=<id>, youtu.be/<id>, and embed/<id> forms).
+- [ ] **(embed)** The preview renders an embedded iframe at https://www.youtube.com/embed/<id> (not raw text).
+- [ ] **(repro)** The existing Heartspaces .url (youtube.com/watch?v=a-_CuBOu6BA) renders as an embedded player, not text.
+- [ ] **(verify)** Verified live (headless): a YouTube URL in a room renders the embed.
 
 ## Implementation
 

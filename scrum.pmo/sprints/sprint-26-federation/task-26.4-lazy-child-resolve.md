@@ -40,11 +40,11 @@ RawBin Federation: item appears instantly (eager structure) while bytes/subtrees
 
 ## Acceptance Criteria
 
-- [x] (eager) Eager: the primary unit + light metadata are minted immediately so the item appears in the target room instantly
-- [x] (lazy) Lazy: file BYTES fetch on first preview/open (via R26.3 /content); deep subtrees and member profiles resolve on demand
-- [x] (dedup) Content dedups across servers by contentHash: on import, if the receiver already stores that hash, SKIP the byte transfer and just relink
-- [x] (members) Room members transfer as federated identity references (ior:instance:<memberUuid>@originHost), NOT minted as local profiles; a foreign member materializes locally only on later connect+consolidate (ties to R25.7 redirectTo)
-- [x] (invariant) Federating a room NEVER mints foreign identities as local members — it must not re-create the duplication R25.7 eliminated
+- [ ] **(eager)** Eager: the primary unit + light metadata are minted immediately so the item appears in the target room instantly.
+- [ ] **(lazy)** Lazy: file BYTES fetch on first preview/open (via R26.3 /content); deep subtrees and member profiles resolve on demand.
+- [ ] **(dedup)** Content dedups across servers by contentHash: on import, if the receiver already stores that hash, SKIP the byte transfer and just relink.
+- [ ] **(members)** Room members transfer as federated identity references (ior:instance:<memberUuid>@originHost), NOT minted as local profiles; a foreign member materializes locally only on later connect+consolidate (ties to R25.7 redirectTo).
+- [ ] **(invariant)** Federating a room NEVER mints foreign identities as local members — it must not re-create the duplication R25.7 eliminated.
 
 ## Implementation
 

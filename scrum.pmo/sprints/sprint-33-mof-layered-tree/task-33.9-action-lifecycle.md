@@ -34,12 +34,12 @@ R33.9 (Tron device-critique IMG_4802 diagram-open / IMG_4803 no-diagram; formali
 
 ## Acceptance Criteria
 
-- [ ] UNIT verbs (new / rename / delete) are ALWAYS present on a selected modelelement (class) regardless of whether a diagram is open (INV-A3). rename/delete/new-class act on the UNIT itself.
-- [ ] MEMBERSHIP verbs (add / remove) are NEVER shown without an ACTIVE OPEN diagram - correct-by-construction, killing the fragile any/last-diagram implicit target (INV-A1). No membership action can ever fire against an ambiguous/last diagram.
-- [ ] When shown, membership verbs target the ACTIVE OPEN diagram EXPLICITLY (via the rb-active-diagram{uuid} signal from rb-diagram-detail; model.ts tracks activeDiagramUuid; showActionsForType recomputes on selection AND on rb-active-diagram), never a resolved any/last diagram (INV-A2).
-- [ ] IMG_4802 fix: diagram-open + selected element -> membership verbs (esp. remove-from-THIS-diagram) are PRESENT. IMG_4803 fix: no-diagram + selected element -> membership verbs are ABSENT (only unit verbs show) (INV-A4).
-- [ ] new/rename/delete act on the unit via NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (mirror add/remove-view store-only, MODEL_STORE, prod scenario/index untouched). delete removes the UNIT with a guard (distinct from R33.8 remove-view which only drops the diagram view-link). Server change -> boundary restart.
-- [ ] GATE @390 (screenshot/pixel + planted bite, Tron device-gated for the visual): EACH verb appears in its CORRECT context - diagram-open shows unit + membership verbs; no-diagram shows ONLY unit verbs; NO action with an ambiguous/last-diagram target; new/rename/delete mutate the unit. planted: a membership verb shown with no active diagram, or targeting a non-active diagram = RED.
+- [ ] **(functional)** UNIT verbs (new / rename / delete) are ALWAYS present on a selected modelelement (class) regardless of whether a diagram is open (INV-A3). rename/delete/new-class act on the UNIT itself.
+- [ ] **(functional)** MEMBERSHIP verbs (add / remove) are NEVER shown without an ACTIVE OPEN diagram - correct-by-construction, killing the fragile any/last-diagram implicit target (INV-A1). No membership action can ever fire against an ambiguous/last diagram.
+- [ ] **(functional)** When shown, membership verbs target the ACTIVE OPEN diagram EXPLICITLY (via the rb-active-diagram{uuid} signal from rb-diagram-detail; model.ts tracks activeDiagramUuid; showActionsForType recomputes on selection AND on rb-active-diagram), never a resolved any/last diagram (INV-A2).
+- [ ] **(functional)** IMG_4802 fix: diagram-open + selected element -> membership verbs (esp. remove-from-THIS-diagram) are PRESENT. IMG_4803 fix: no-diagram + selected element -> membership verbs are ABSENT (only unit verbs show) (INV-A4).
+- [ ] **(functional)** new/rename/delete act on the unit via NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (mirror add/remove-view store-only, MODEL_STORE, prod scenario/index untouched). delete removes the UNIT with a guard (distinct from R33.8 remove-view which only drops the diagram view-link). Server change -> boundary restart.
+- [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite, Tron device-gated for the visual): EACH verb appears in its CORRECT context - diagram-open shows unit + membership verbs; no-diagram shows ONLY unit verbs; NO action with an ambiguous/last-diagram target; new/rename/delete mutate the unit. planted: a membership verb shown with no active diagram, or targeting a non-active diagram = RED.
 
 ## Subtasks
 

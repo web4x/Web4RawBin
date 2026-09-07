@@ -34,12 +34,12 @@ R40.2 (Tron-authorized S40). A scenario-first representation of the SERVER (WODA
 
 ## Acceptance Criteria
 
-- [ ] (node-exists) A deployment-node unit for WODA.prod exists on disk (UML deployment-Node facet), with its 3 references present.
-- [ ] (refs-resolve-REAL) The 3 refs — SSH config, configured domain, LetsEncrypt certificate — RESOLVE to REAL MEASURED artefacts on WODA.prod AND are SEMANTICALLY CORRECT (the node's OWN inbound service config, not a resolvable-but-wrong outbound client file); NEVER invented/assumed paths. Measured: DOMAIN=.env LE_DOMAIN/BASE_DOMAIN (prod.wo-da.de); CERT=/etc/letsencrypt/live/prod.wo-da.de/; SSH=/etc/ssh/sshd_config (inbound) + host identity ~/.ssh/public_keys/root.WODA.prod.public_key — NOT ~/.ssh/config (outbound client).
-- [ ] (otmux-children) The current otmux items appear as CHILDREN under the node root in the correct hierarchy: session -> window -> pane.
-- [ ] (deployment-style) Renders in the UML diagram in DEPLOYMENT-NODE style (the 3D node-box notation), NOT a plain class box.
-- [ ] (inv-t) INV-T: tree byte-diff == 0 — the node projection is compute-on-read / non-mutating (no write-back to the scenario tree).
-- [ ] (device-gate) @390 mobile REAL-WebKit: the node + its otmux children render legibly.
+- [ ] **(node-exists)** A deployment-node unit for WODA.prod exists on disk (UML deployment-Node facet), with its 3 references present.
+- [ ] **(refs-resolve-REAL)** The 3 refs — SSH config, configured domain, LetsEncrypt certificate — RESOLVE to REAL MEASURED artefacts on WODA.prod AND are SEMANTICALLY CORRECT (each answers the right question for a deployment NODE — the node's OWN inbound service config, not a resolvable-but-wrong outbound client file). NEVER invented/assumed paths (= fabricated identity) and NEVER a real-path-answering-the-wrong-question. Measured referents: DOMAIN=.env LE_DOMAIN/BASE_DOMAIN(prod.wo-da.de); CERT=/etc/letsencrypt/live/prod.wo-da.de/; SSH=/etc/ssh/sshd_config (inbound service) + host identity ~/.ssh/public_keys/root.WODA.prod.public_key — NOT ~/.ssh/config (outbound client).
+- [ ] **(otmux-children)** The current otmux items appear as CHILDREN under the node root in the correct hierarchy: session -> window -> pane.
+- [ ] **(deployment-style)** Renders in the UML diagram in DEPLOYMENT-NODE style (the 3D node-box notation), NOT a plain class box.
+- [ ] **(inv-t)** INV-T: tree byte-diff == 0 — the node projection is compute-on-read / non-mutating (no write-back to the scenario tree).
+- [ ] **(device-gate)** @390 mobile REAL-WebKit: the node + its otmux children render legibly.
 
 ## Subtasks
 

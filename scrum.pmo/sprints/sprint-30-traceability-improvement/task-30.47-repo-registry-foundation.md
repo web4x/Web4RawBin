@@ -46,11 +46,11 @@ S30 diff/merge editor — R30.47 RepoRegistry foundation: the dynamic/persisted/
 
 ## Acceptance Criteria
 
-- [x] (mechanism) Runtime register/unregister (not a compile-time allowlist) — Tested (register c8529e2a + unregister 6f6edecd via module-import builtin-refused), r3047 re-gate GREEN v0.7.71.
-- [x] (mechanism) Persists + reloads on startup (persist/load) so repos survive restart — Tested (persist 09c60094 + load 91da80e8), re-gate GREEN.
-- [x] (§10.1 mechanism/policy separation) Spine is PURE MECHANISM: register=pure store (no policy throw), load=keep-iff-.git-present (stale-drop by existence, NOT an allowlist), resolve=pure lookup (no TOCTOU). The D1 bounds policy (assertAllowedRoot) is a BACKLOG endpoint-guard (R30.48/BH-3), NOT in the registry mechanism — separation achieved.
-- [x] (supersede) Supersedes R30.40 static ROOTS: oosh root lives in the dynamic registry, still resolving HOME/oosh by construction (symlink-follow preserved) — gated.
-- [x] (gate) DET-3x GREEN at SERVED v0.7.71 (re-gate 1e6ffa99f, served==gated): register->appears+persists across restart (load); assertAllowedRoot choke-LOGIC rejects out-of-bounds (gate B; enforcement deferred to R30.48); version-bump.
+- [ ] **(registry)** The registry supports runtime register/unregister (not a fixed compile-time allowlist).
+- [ ] **(registry)** The registry persists (persist) + reloads on startup (load) so registered repos survive a restart.
+- [ ] **(security)** §10.1 MECHANISM/POLICY SEPARATION: the spine is PURE MECHANISM - register = pure store (no policy throw); load = keep entry IFF .git STILL present at root (stale-drop by EXISTENCE, a mechanism integrity check, NOT an allowlist); resolve = pure lookup (no TOCTOU re-assert). The D1 bounds POLICY (assertAllowedRoot) is a BACKLOG endpoint-guard - re-wired at the ADD endpoint alongside requireAdmin (symmetric), NOT inside the registry mechanism.
+- [ ] **(registry)** Supersedes the R30.40 static ROOTS: the oosh root now lives in the dynamic registry, still resolving HOME/oosh by construction (R30.40 symlink-follow preserved).
+- [ ] **(gate)** GATE (DET-3x): register a root -> appears + persists across restart (load); an out-of-bounds root is rejected at the choke; version-bump.
 
 ## Implementation
 

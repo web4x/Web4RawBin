@@ -33,7 +33,12 @@ RoomBrowser must show the actual profile name immediately on connect, never a bl
 
 ## Acceptance Criteria
 
-See requirement unit 4f099ef2-66b6-4eba-b9e2-5b2a4c86e98b (architect-refined AC + gateable test scenarios).
+- [ ] **(first-render)** On first render the member name is resolved as: URL ?name= > client.getProfile()?.name > localStorage 'rawbin-name' > 'User <rand>' — the authoritative server profile name is preferred over an empty localStorage snapshot.
+- [ ] **(first-render)** On a warm profile cache the correct name shows on the FIRST paint — no blank/default flash, no second reload required.
+- [ ] **(self-heal)** On MSG.PROFILE_UPDATED with a non-empty profile.name, memberName is set to that name and persisted to localStorage 'rawbin-name'.
+- [ ] **(self-heal)** The PROFILE_UPDATED handler updates BOTH the #member-name input value AND the rb-avatar 'name' attribute (not just the input) so the visible lobby name+avatar block self-heals.
+- [ ] **(self-heal)** A PROFILE_UPDATED with an empty/absent name is ignored (no clobbering the current name).
+- [ ] **(verify)** Verified headless against the running app (Strict Verify Bar): first connect on a fresh device shows the real profile name with zero second-reload.
 
 ## Dependencies
 

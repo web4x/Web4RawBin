@@ -34,13 +34,11 @@ Board-track R40.92 at its honest status; declare the ONE canonical planning unit
 
 ## Acceptance Criteria
 
-Mirrors R40.92 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.
-- [ ] AC-folder-renders-in-collection-after-add: THE SYMPTOM (Tron literal): after add-folder on a MODEL COLLECTION (e.g. diagrams), the new folder RENDERS as a child of that collection in the model view AND PERSISTS across reload.
-- [ ] AC-children-include-parent-linked-store-only-folders: ROOT NAMED: the model-collection children derivation (server.ts:1789, rawbin:diagram) must INCLUDE ior:class:Folder units parented under that collection, NOT filter to ior:class:Diagram only.
-- [ ] AC-found-by-parent-link-not-location: a store-only model Folder is found by its PARENT link (parent=rawbin:diagram), NOT by a filesystem location; the location-based dir: merge (server.ts:1780) cannot find a locationless folder.
-- [ ] AC-offered-implies-succeeds-implies-visible: the VIOLATED invariant (ties Bug c83c02f2 + R40.84-B + R40.87): if add-folder is OFFERED on a surface, a successful add is VISIBLE on THAT surface; succeeds-invisibly is a defect.
-- [ ] AC-failable-gate-self-stub: the gate ships with a RED-proving fixture: seed a store-only Folder parented under rawbin:diagram (no location); /api/trace/children(rawbin:diagram) MUST include it; the pre-fix code goes RED.
-- [x] AC-impl-marker-SEATED (6/6, updated 2026-09-05 — was 5/6 at mint, flipped minutes later): the Impl source-code marker [impl:uuid:973481f2] is now SEATED at server.ts:1740 (expert d1c006d3f); req GREP-VERIFIED it matches the minted uuid + tester independently confirmed the scoreboard shows all 6 hops with NO false-open -> req SATISFIED (918be49d4). Chain 6/6 source-stamped. Done pending TRON only.
+- [ ] **(symptom/by-construction)** THE SYMPTOM (Tron literal): after add-folder on a MODEL COLLECTION (e.g. diagrams), the new folder RENDERS as a child of that collection in the model view, and PERSISTS across reload. Not 'mints successfully' — VISIBLE. offered<=>succeeds<=>appears.
+- [ ] **(root/by-construction)** ROOT NAMED: the model-collection children derivation (server.ts:1789, rawbin:diagram) must include ior:class:Folder units parented under that collection, NOT filter to ior:class:Diagram only. A store-only Folder (mintRealUnit, parent=rawbin:<collection>) is surfaced as a child.
+- [ ] **(root/DRY)** A store-only model Folder is found by its PARENT link (parent=rawbin:diagram), NOT by a filesystem location. The location-based dir: merge (server.ts:1780) cannot find a locationless store-only Folder; the derivation must resolve parent-linked-but-locationless units, never silently drop them. (Same store-vs-view DRY law as R40.81: the unit's declared parent is the truth, not a physical dir.)
+- [ ] **(invariant/ties-bug)** The VIOLATED invariant (ties Bug c83c02f2 + R40.84-B + R40.87): if add-folder is OFFERED on a surface, a successful add is VISIBLE on THAT surface. succeeds-invisibly is a defect, not a pass. This half-fix (error stopped, folder still unseen) does NOT satisfy the Bug from Tron's point of view.
+- [ ] **(self-failability)** The gate ships with a RED-proving fixture: seed a store-only Folder parented under rawbin:diagram (no location); /api/trace/children(rawbin:diagram) MUST include it. Fed the pre-fix Diagram-only derivation, the gate goes RED. If the stub passes, the gate is not wired (R40.54 own-failability; isolated per R40.31).
 
 ## Subtasks
 

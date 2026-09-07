@@ -57,16 +57,6 @@ served at `/md/`.
 - `src/public/ts/trace/rb-file-tree.ts` — 🔗 marker on symlinked entries
 - 818/818 pass
 
-## Acceptance Criteria
-
-- [x] AC1 — `scenarios/sprints.json/sprint-1/task-1/` (the symlink tree from T128.1) is browsable in `/md/` (Tron-verifiable on live)
-- [x] AC2 — Symlinked entries show the 🔗 marker in rb-file-tree
-- [x] AC3 — Broken symlinks silently skipped (no error popup, no broken entry)
-- [x] AC4 — Symlink target type (dir/file) resolved correctly so navigation goes to the right view
-- [x] AC5 — `(a) v0.5.30 ✓ (b) sw.js rawbin-v0.5.30 ✓ (c) STATIC_SHELL exempt` (no new route) — rule-pair explicit in commit msg
-- [x] AC6 — 818/818 tests pass (build clean)
-- [x] AC7 — Tester independent verification on live: walk `scenarios/sprints.json/sprint-1/...` tree end-to-end; confirm 🔗 markers visible; confirm broken symlinks degrade gracefully (PO-confirmed 2026-05-31; 37 markers verified)
-
 ## Dependencies
 
 - **Requires:** T125.3 (symlink-tree emitter) + T128.1 (live symlink content)

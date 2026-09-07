@@ -109,26 +109,6 @@ formalized by req-eng in `ac8c8e7`) re-shapes traceability:
 - Regenerate planning.md views; rework refined task files (this is the
   T143 workstream for R17.29).
 
-## Acceptance Criteria
-
-- [ ] AC1 — `TraceModel` supports multi-parent + multi-child edges; chain
-  walks (`walkUp`/`walkDown`) become tree walks
-- [ ] AC2 — Generated views (HTML + MD) render every typed reference as a
-  resolvable link; chain audit shows 0 bare/broken refs across migrated units
-- [ ] AC3 — Migration coverage audit run: every type appearing in a
-  traceability view is a scenario unit; gaps captured as T128.x extensions
-- [ ] AC4 — planning.md generated views (per #19 / T126) reflect the tree —
-  parent/child navigation visible; symbols (⏳📝🔧✅🧪🏁) derive from FSM
-- [ ] AC5 — Existing refined task files (T141, T134, T126, T124.x, …) re-render
-  cleanly against the new templates; no broken links surfaced
-- [ ] AC6 — `npm run build` succeeds; all existing tests pass (no regression)
-- [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version"
-  bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as
-  the user-facing impl; if any new route/page introduced, STATIC_SHELL entry
-  added (architect to decide if applicable)
-- [ ] AC8 — chain audit (`trace-cli`) reports 0 compliance failures across
-  all sprint-17 units after the rework
-
 ## Dependencies
 
 - **Requires:** T134 (TraceLink unit — generalize), T126 (ViewGenerator + templates — extend), T128.x (migration coverage — extend per R17.28), T141 (chain-link rendering — generalize to "every element a link")

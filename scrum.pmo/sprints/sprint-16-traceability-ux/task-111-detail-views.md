@@ -45,13 +45,6 @@ Tron 2026-05-27: "specialized DetailViews like eg TaskDetailView or
 RequirementDetailView inside it and then show the details there when i click on the
 items on the traceability tree."
 
-## Acceptance Criteria
-
-- [ ] AC1 — TaskDetailView renders a task's details inside the container
-- [ ] AC2 — RequirementDetailView renders a requirement's details
-- [ ] AC3 — View selection is by object type; adding a new type is a small, documented extension
-- [ ] `npm run build` succeeds; version + sw.js bumped; no regression
-
 ## Dependencies
 
 - **Requires:** T110 (container to render into)

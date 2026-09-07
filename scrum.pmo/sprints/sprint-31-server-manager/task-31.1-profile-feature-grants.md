@@ -42,10 +42,11 @@ R31.1 = the profile surface that renders the Server Manager entry (build after t
 
 ## Acceptance Criteria
 
-- [ ] The profile view renders a feature-grants section AFTER 'My Bug Reports' (bottom of profile).
-- [ ] Feature grants are keyed to the user token/UUID; the model is generic+extensible (a grants map, not a hardcoded single feature).
-- [ ] The 'Server Manager' entry renders ONLY when the viewing token === 41ad88c4-4dee-49ac-afcb-8a2026657b2d; for any other user the section renders no entries (and is absent if empty).
-- [ ] A non-owner viewing their own profile sees NO Server Manager entry and NO empty affordance hinting at it.
+- [ ] **(ui)** The profile view renders a feature-grants section AFTER 'My Bug Reports' (bottom of profile).
+- [ ] **(data)** Feature grants are keyed to the user token/UUID; the model is generic+extensible (a grants map, not a hardcoded single feature).
+- [ ] **(ui)** The 'Server Manager' entry renders ONLY when the viewing token === 41ad88c4-4dee-49ac-afcb-8a2026657b2d; for any other user the section renders no entries (and is absent if empty).
+- [ ] **(ui)** A non-owner viewing their own profile sees NO Server Manager entry and NO empty affordance hinting at it.
+- [ ] **(model)** The profile granted-feature section renders the LIST of Features the viewing user is in Feature.allowedUsers for (server-computed m.features), DRIVEN BY the R31.8 Feature model — not an ad-hoc per-feature grant. Tron -> Server Manager + Feature Manager; non-granted -> section absent by construction. (R31.8 reframe in place.)
 
 ## Implementation
 

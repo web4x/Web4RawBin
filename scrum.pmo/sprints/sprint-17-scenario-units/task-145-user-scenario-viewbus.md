@@ -93,33 +93,6 @@ problems in one directive.
   the User unit via ViewBus
 - Migrate existing user JSONs to the scenario-unit form (T128.x pattern)
 
-## Acceptance Criteria
-
-- [ ] AC1 — User is a scenario unit with `[user:uuid:v4]` identity (or
-  `class=User` in scenario JSON); ClassLoader + ScenarioIndex + ViewTemplate
-  registered alongside Requirement/Task/UseCase/Class/Method/Test/TraceLink
-- [ ] AC2 — Stale-name bug fixed: after a profile edit (name change via
-  ProfileEditor or vCard upload), the name in the lobby AND on first-room-enter
-  refreshes without a page reload
-- [ ] AC3 — Every view that displays user-name subscribes via ViewBus; no
-  special-case refresh code remains in ProfileEditor / RoomBrowser / RoomView /
-  rb-member-badge
-- [ ] AC4 — Chain audit (`trace-cli`) shows User as first-class scenario unit;
-  `/trace` and `/md/scenarios/sprints.md/user/` list users
-- [ ] AC5 — No regression on Sprint 9 (room identity — owner-name still loads
-  correctly) or Sprint 17 (other scenario classes unaffected); full test suite
-  green
-- [ ] AC6 — `npm run build` succeeds; all existing tests pass
-- [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version"
-  bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as
-  the user-facing impl. (c) STATIC_SHELL: no new route expected — architect
-  to confirm
-- [ ] AC8 — Migration of existing user JSONs to scenario-unit form (T128.x
-  pattern): every user in `data/users/` participates in the new model; no
-  orphans; no data loss
-- [ ] AC9 — All 4 roles committed work in this file (req anchor + architect
-  design + expert impl + tester verify)
-
 ## Dependencies
 
 - **Requires:** T125 (foundation: Unit + IOR + ClassLoaders + ScenarioIndex + ViewTemplateRegistry), T126 (templates — adds an 8th), T136 (Req+UC migration pattern — T145 follows for User), T143 (chain → tree — User joins as a new class node)

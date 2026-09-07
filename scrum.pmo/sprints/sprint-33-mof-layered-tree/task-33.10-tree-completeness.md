@@ -34,11 +34,11 @@ R33.10 (Tron device; architect design 7e1365d60, R33.10-tree-completeness-folder
 
 ## Acceptance Criteria
 
-- [x] The ts/ folder enumerates ALL 123 src .ts files (count == disk) by walking the src/ DIRECTORY TREE recursively - NOT only the ~25 files that were run through TsToModel.generate. Completeness = the enumeration source is the src/ dir walk, not the generated-sourceFile set (INV-T1).
-- [x] ts/ groups files by directory: dir:<relpath> folder nodes mirror the src/ directory tree; expanding a folder reveals its files + subfolders (layer-by-layer). The directory hierarchy IS the folder grouping (INV-T2).
-- [x] Expanding a file:<relpath> .ts leaf shows its M1 ModelElements from MODEL_STORE if that file was generated, else empty (or generate-on-expand reusing /api/model/generate). A non-generated file still APPEARS in the tree (completeness) even with no elements.
-- [x] Reuse the mof layer-by-layer + /api/trace/children routing; the puml/ (55) + diagram/ folders are UNREGRESSED; read-only src/ walk + MODEL_STORE reads only, prod scenario/index untouched (INV-T3 no-fork / INV-T4 isolation).
-- [x] GATE @390 (tester + Tron device): ts/ shows ALL src .ts grouped in directory folders (count == disk 123); expand a folder -> its files/subfolders; expand a file -> its M1 elements (generated) or empty; puml/=55 + diagram/ + /trace UNREGRESSED. SERVER change -> boundary restart + boot-verify. planted: count != 123 or a flat non-folder-grouped list = RED.
+- [ ] **(functional)** The ts/ folder enumerates ALL 123 src .ts files (count == disk) by walking the src/ DIRECTORY TREE recursively - NOT only the ~25 files that were run through TsToModel.generate. Completeness = the enumeration source is the src/ dir walk, not the generated-sourceFile set (INV-T1).
+- [ ] **(functional)** ts/ groups files by directory: dir:<relpath> folder nodes mirror the src/ directory tree; expanding a folder reveals its files + subfolders (layer-by-layer). The directory hierarchy IS the folder grouping (INV-T2).
+- [ ] **(functional)** Expanding a file:<relpath> .ts leaf shows its M1 ModelElements from MODEL_STORE if that file was generated, else empty (or generate-on-expand reusing /api/model/generate). A non-generated file still APPEARS in the tree (completeness) even with no elements.
+- [ ] **(functional)** Reuse the mof layer-by-layer + /api/trace/children routing; the puml/ (55) + diagram/ folders are UNREGRESSED; read-only src/ walk + MODEL_STORE reads only, prod scenario/index untouched (INV-T3 no-fork / INV-T4 isolation).
+- [ ] **(gate)** GATE @390 (tester + Tron device): ts/ shows ALL src .ts grouped in directory folders (count == disk 123); expand a folder -> its files/subfolders; expand a file -> its M1 elements (generated) or empty; puml/=55 + diagram/ + /trace UNREGRESSED. SERVER change -> boundary restart + boot-verify. planted: count != 123 or a flat non-folder-grouped list = RED.
 
 ## Subtasks
 

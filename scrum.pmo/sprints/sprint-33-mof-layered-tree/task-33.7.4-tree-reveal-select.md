@@ -34,8 +34,8 @@ Tron item-4. Selecting a diagram element -> the model/itemview TREE navigates/sc
 
 ## Acceptance Criteria
 
-- [x] Selecting a diagram element dispatches a tree-reveal for that element's uuid: the model tree scrolls it into view AND expands the ancestry (mof-m1 -> project -> file -> class) as needed so the node is VISIBLE + highlighted. Reuse R33.5 expandPath / revealNode (uuid-walk) - selection-triggered from the diagram, no new reveal mechanism.
-- [x] GATE @390 (screenshot/pixel + planted bite): select an element in the diagram -> the tree scrolls + expands to its node (visible + highlighted); planted: selection changes but the tree does not reveal/expand to it = RED.
+- [ ] **(functional)** Selecting a diagram element dispatches a tree-reveal for that element's uuid: the model tree scrolls it into view AND expands the ancestry (mof-m1 -> project -> file -> class) as needed so the node is VISIBLE + highlighted. Reuse R33.5 expandPath / revealNode (uuid-walk) - selection-triggered from the diagram, no new reveal mechanism.
+- [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): select an element in the diagram -> the tree scrolls + expands to its node (visible + highlighted); planted: selection changes but the tree does not reveal/expand to it = RED.
 
 ## Subtasks
 

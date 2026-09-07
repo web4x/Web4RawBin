@@ -38,13 +38,13 @@ RawBin Federation: the origin exposes a safe, authenticated server-to-server API
 
 ## Acceptance Criteria
 
-- [x] (endpoint-unit) GET /api/scenario/<uuid> returns the unit JSON (ScenarioIndex.get)
-- [x] (endpoint-content) GET /api/scenario/<uuid>/content returns file bytes (content-addressable), served only when the receiver lacks the contentHash
-- [x] (endpoint-children) GET /api/scenario/<uuid>/children?mode=trace returns forward children (reuses /api/trace/children) for the tree walk
-- [x] (transport) Fetches are server-to-server (receiver's server calls origin), NOT browser->origin — no CORS; auth is server-presented
-- [x] (auth-adhoc) Ad-hoc DnD auth = a short-lived SIGNED capability grant scoped to {uuid + its transferable subtree}, minutes-expiry, embedded in fetchUrl?grant=; only the drag recipient holds it
-- [ ] (auth-standing) Standing federation auth = the caller server signs requests with its per-server keypair; the origin verifies the signature + an explicit trust list
-- [x] (safety) Every federated fetch is rate-limited + audit-logged (addLog)
+- [ ] **(endpoint)** GET /api/scenario/<uuid> returns the unit JSON (ScenarioIndex.get).
+- [ ] **(endpoint)** GET /api/scenario/<uuid>/content returns file bytes (content-addressable), served only when the receiver lacks the contentHash.
+- [ ] **(endpoint)** GET /api/scenario/<uuid>/children?mode=trace returns forward children (reuses /api/trace/children) for the tree walk.
+- [ ] **(transport)** Fetches are server-to-server (receiver's server calls origin), NOT browser->origin — no CORS; auth is server-presented.
+- [ ] **(auth)** Ad-hoc DnD auth = a short-lived SIGNED capability grant scoped to {uuid + its transferable subtree}, minutes-expiry, embedded in fetchUrl?grant=; only the drag recipient holds it.
+- [ ] **(auth)** Standing federation auth = the caller server signs requests with its per-server keypair; the origin verifies the signature + an explicit trust list.
+- [ ] **(safety)** Every federated fetch is rate-limited + audit-logged (addLog).
 
 ## Implementation
 

@@ -42,9 +42,9 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Acceptance Criteria
 
-- [x] (ui) The repo selector's FIRST option reads 'Add repository' (above the actual repos).
-- [x] (ui) Selecting/clicking 'Add repository' opens the add/manage dialog (not a repo named 'Add repository').
-- [ ] (gate) GATE — DET-3x GREEN ✓ (r3042 42235f1bf, Test 158bdfc7->Impl openRepoManager bfb92645, served==gated v0.7.71); Tron VISUAL pending. Full: selector shows 'Add repository' first; clicking opens dialog; client-facing -> version-bump.
+- [ ] **(ui)** The repo selector's FIRST option reads 'Add repository' (above the actual repos).
+- [ ] **(ui)** Selecting/clicking 'Add repository' opens the add/manage dialog (does not try to load a repo named 'Add repository').
+- [ ] **(gate)** GATE (DET-3x + Tron visual): the selector shows 'Add repository' first; clicking opens the dialog; client-facing -> version-bump.
 
 ## Implementation
 

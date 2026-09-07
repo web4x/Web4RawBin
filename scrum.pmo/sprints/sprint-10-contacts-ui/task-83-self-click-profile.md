@@ -52,17 +52,6 @@
    - "Download vCard" still works (user can download their own vCard)
 3. **ProfileSheet.ts:** When NOT `isSelf` (other user): existing behavior — "Download vCard" + "Link Account"
 
-## Acceptance Criteria
-
-- [x] AC1: Self-click in member list opens ProfileSheet (read-only view), not ProfileEditor
-- [x] AC2: Self ProfileSheet shows own avatar and name
-- [x] AC3: Self ProfileSheet shows "Download vCard" button — downloads own .vcf
-- [x] AC4: Self ProfileSheet shows "Edit" button — opens ProfileEditor with current profile data
-- [x] AC5: Other-user ProfileSheet shows "Download vCard" + "Link Account" (unchanged)
-- [x] AC6: Other-user ProfileSheet does NOT show "Edit" button
-- [x] AC7: ProfileEditor still accessible via lobby avatar and /profile page edit button
-- [x] AC8: No regression on other-user click flow (GET_USER_INFO → sheet)
-
 ## QA Audit & User Feedback
 
 - 2026-05-25: Tron directive — "clicking on my users item, i want the profile to open, not the profile editor." Renumbered from T81 collision (planner).

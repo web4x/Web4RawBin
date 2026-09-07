@@ -73,23 +73,6 @@ Architect diagnoses which of the three (or combination) and specifies the fix.
 - Switch data source to scenarios/index/ OR cache-bust OR no-cache headers
 - Verify pre/post mutation in tester pass
 
-## Acceptance Criteria
-
-- [ ] AC1 (Forward-source spec) — Architect documents the canonical FORWARD MD sources for repopulation: `requirements.md` forward bullets (Req→Task) + task files' forward `## Traceability` bullets (Task→UseCase, Task→Subtasks, UseCase→Class, Class→Method). Documented in `scrum.pmo/standards/traceability-standard.md`. **Preserves T159/B18 no-back-ref rule** — no reverse parsing (no `task.links.up → req` reads)
-- [ ] AC2 (`requirement.tasks[]` repopulated) — For EVERY Requirement scenario, `model.tasks[]` count EQUALS the count of forward `→ task` bullets in `requirements.md`. Per-Req audit table; mismatch = hard FAIL
-- [ ] AC3 (`task.useCases[]` repopulated) — For EVERY Task scenario, `model.useCases[]` count EQUALS the count of forward `→ usecase` bullets in the task file. Per-Task audit table; mismatch = hard FAIL
-- [ ] AC4 (`useCase.classes[]` / `class.methods[]` if same root cause) — Architect confirms if these arrays were also over-stripped; if yes, same forward-source repopulation applies; per-class audit
-- [ ] AC5 (T143 walkDown) — From any Requirement, `walkDown` resolves the full forward chain Req → Task → (Subtask ∪ UseCase) → Class → Method (no dead ends post-repopulation)
-- [ ] AC6 (Browser reflects mutations) — Tester mutates a `requirements.md` entry OR a Task scenario JSON; loads `/trace` browser; **the browser reflects the change** (resolves Tron's original "items don't change" symptom). No manual reload / cache clear required
-- [ ] AC7 (Server data source — secondary verification) — Architect confirms `/api/trace` reads from `scenarios/index/` (canonical) NOT from legacy MD scan; if cache invalidation strategy needed, specify (no-cache header / ETag / cache-bust on write)
-- [ ] AC8 (Spot-check ≥3 mutations across classes) — Tester mutates a Requirement, a Task, a UseCase; browser reflects all three changes
-- [ ] AC9 (No back-refs reintroduced — T159 invariant holds) — Post-fix audit: zero back-refs on any scenario; the repopulation MUST be from forward sources only
-- [ ] AC10 (Idempotence) — Running the repopulation twice yields the same JSON
-- [ ] AC11 (Regression) — No regression on T126 / T143 / T149 / T151 / T158 / T159
-- [ ] AC12 — `npm run build` succeeds; all existing tests pass
-- [ ] AC13 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: architect confirms (likely exempt — no new route)
-- [ ] AC14 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** T125 (scenarios/index foundation), T151 (JSON arrays canonical), T159 (forward-only chain — provides the data shape browser must surface)

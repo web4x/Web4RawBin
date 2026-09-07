@@ -34,10 +34,10 @@ A gate either INVOKES its tool faithfully, or it is explicitly MARKED known-brok
 
 ## Acceptance Criteria
 
-- [ ] FIX-SPAWN: the gate-spawn invocation is corrected so r241-objectverb + r245-s24 INVOKE their tools faithfully (return the real result, not null) — root = stale subprocess cwd / output-parse in the spawn.
-- [ ] MARK-NOT-SILENCE (never remove): any gate that cannot currently invoke its tool STAYS in the suite + KEEPS RUNNING + carries a KNOWN-BROKEN-INVOCATION marker naming its tracking task, so its RED reads 'gate cannot invoke its tool (tracked: T<n>)' not 'product broken'. NEVER remove/disable a gate to make CI green (= the check:task-status weakening mistake). Status-EXPLAINED, never status-HIDDEN.
-- [ ] COUNTED, CAN-ONLY-SHRINK: the suite EMITS 'N gates / M known-broken (listed)' so the known-broken set is VISIBLE and can only shrink; a growing known-broken set is a flagged regression, never a quiet dumping ground (R37.25 coverage-self-report shape).
-- [ ] EVIDENCE / POSITIVE-CONTROL: the fix is proven at the SPAWN layer, not the tool and not the repoint — positive control that the tools run GREEN standalone (objectVerb = 537 reqs) + 3 sibling gates (r217/r218/r218b) repointed GREEN, isolating the failure to the spawn invocation (R37.25 Arm-B).
+- [ ] **(fix)** Fix the gate SPAWN so a spawned-tool invocation returns the tool's REAL result — resolve the stale subprocess cwd + the output-parse that produced NULL. After the fix, r241-objectverb returns the real scoreboard (~537 reqs) and r245-s24 returns real T24.4/T24.5 results, matching standalone.
+- [ ] **(by-construction)** INTERIM: a gate with a known-broken invocation STAYS in ci:gates and RUNS, carrying a KNOWN-BROKEN-INVOCATION marker that NAMES this task (status EXPLAINED, not hidden). It is NEVER removed or disabled — removing/disabling a gate to make the suite green is the check:task-status silent-deletion mistake (a deleted gate certifies nothing + hides the hole).
+- [ ] **(meta/coverage-self-report)** The suite EMITS 'N gates / M known-broken (listed by name)' every run, and the M set can ONLY SHRINK (a known-broken marker is removed only by FIXING the gate, never by hiding it). A marker set that grows silently, or a known-broken gate absent from the emitted list, => RED (else the marker becomes a quiet dumping ground = decay). Same shape as R37.25 AC-coverage-self-report.
+- [ ] **(armB/positive-control)** The diagnosis is EVIDENCED, not assumed: the tools are GREEN STANDALONE (positive control = the instrument CAN succeed) AND the repoint siblings (r217/r218/r218b) are GREEN => the suspect is the SPAWN invocation, NOT the tools and NOT a repoint regression. A gate's NULL is validated against the tool's standalone result before it is trusted as pass-or-fail (R37.25 Arm-B: a result asserted from a broken instrument is inadmissible).
 
 ## Subtasks
 

@@ -40,11 +40,11 @@ Tron-visible 404 fix: every task-detail 📄 Scenario/MD link must open its OWN 
 
 ## Acceptance Criteria
 
-- [x] (emit) generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain links)
-- [x] (no-collapse) Task units do NOT set model.sourceFile to planning.md (which collapses all tasks into one view)
-- [x] (resolve-200) taskMdHref (rb-task-detail.ts:88) resolves to the per-task MD -> HTTP 200, never 404 (via the pinned model.slug / actual dir, not a re-slugified name)
-- [x] (roundtrip) The per-task MD is a generated VIEW (law #100); --check (check:sprint-md) byte-match holds
-- [x] (verify) Verified live: every task's 📄 link opens its own MD file
+- [ ] **(emit)** generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain), not only planning.md.
+- [ ] **(no-collapse)** Task units do NOT set model.sourceFile to planning.md (which collapses all tasks into one shared view); each task MD is its own file.
+- [ ] **(resolve-200)** taskMdHref (rb-task-detail.ts:88) resolves to the per-task MD -> HTTP 200, never 404 (the Tron-visible bug is gone).
+- [ ] **(roundtrip)** The per-task MD is a generated VIEW (law #100); --check (check:sprint-md) byte-match holds for the per-task files.
+- [ ] **(verify)** Verified live: every task's 📄 link opens its own MD file.
 
 ## Implementation
 

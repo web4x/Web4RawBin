@@ -63,16 +63,6 @@ T161 fixed the data; `/api/trace` doesn't read it. The browser sees MD-prefixed 
 - Apply same pattern across other typed classes if the endpoint computes their titles the same wrong way (architect scopes)
 - Removes the parallel derivation path
 
-## Acceptance Criteria
-
-- [ ] AC1 — `/api/trace` requirement-title responses read from scenario index `model.name`, NOT `scanRepo firstLine()`
-- [ ] AC2 — `/trace` Requirement tree-items + chain-link anchors show speaky names with **NO MD heading prefixes** (`##` / `###` / `# `) and **NO blockquote prefixes**
-- [ ] AC3 — Sibling typed classes (UseCase/Task/Class/Method/Test/TraceLink/View) audited: if `/api/trace` computes their titles via the same derived path, the switch applies there too (architect scopes)
-- [ ] AC4 — `model.name` remains the canonical title source — single derivation path (DRY restored)
-- [ ] AC5 — T160's forward-ref data path NOT regressed; T161's `firstLine()` fix in `TraceConsistency.ts` remains valid for any OTHER caller that uses it
-- [ ] AC6 — `npm run build` succeeds; all existing tests pass (no regression on T159 / T160 / T161)
-- [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set; (c) STATIC_SHELL exempt (no new route)
-
 ## Dependencies
 
 - **Requires:** T161 (shipped — scenario index `model.name` is clean), T160 (shipped — pattern reference for /api/trace data-source switch)

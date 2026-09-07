@@ -78,18 +78,6 @@ output. The fix is upstream of the tree builder — at the data-source layer.
 - Expert implements as a single endpoint change in one commit-set
 - Tree builder (T165) now has 7/7 typed objects to render
 
-## Acceptance Criteria
-
-- [ ] AC1 — `GET /api/trace` returns Class nodes populated from the scenario index (count > 0; verify against T128.1's migrated S1 class units)
-- [ ] AC2 — `GET /api/trace` returns Method nodes populated from the scenario index (count > 0)
-- [ ] AC3 — Class + Method nodes carry their forward refs (per T160 forward-only rule) — no back-refs reintroduced
-- [ ] AC4 — Class + Method titles use scenario-index `model.name` (T161/T163 clean) — no MD prefix leak
-- [ ] AC5 — Click-through from `/trace` Class / Method tree-items opens T158's DetailViews correctly
-- [ ] AC6 — T165 verify target met: **7/7 classes** render in the `/trace` graph
-- [ ] AC7 — No regression on T158 / T160 / T161 / T163 / T165 (existing 5 classes unchanged)
-- [ ] AC8 — `npm run build` succeeds; all existing tests pass
-- [ ] AC9 — **Rule-pair (a)+(b) [learnings #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set; (c) STATIC_SHELL exempt (no new route, architect to confirm)
-
 ## Dependencies
 
 - **Requires:** T165 (`60a97a7` architect design — tree builder ready to consume the 7/7), T128.1 (shipped — class/method scenario-index units exist), T158 (shipped — destination DetailViews), T160 + T163 (sister-pattern data-source switches)

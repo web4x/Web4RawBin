@@ -38,8 +38,8 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.3.
 
 ## Acceptance Criteria
 
-- [x] (per-hunk) Per-hunk buttons: left->center and right->center (+ the reverse center->side) to take over a diff hunk.
-- [x] (merged-build) Applying take-overs incrementally BUILDS the center merged file from the chosen hunks.
+- [ ] **(per-hunk)** Per-hunk buttons: left->center and right->center (+ the reverse center->side) to take over a diff hunk.
+- [ ] **(merged-build)** Applying take-overs incrementally BUILDS the center merged file from the chosen hunks.
 
 ## Implementation
 

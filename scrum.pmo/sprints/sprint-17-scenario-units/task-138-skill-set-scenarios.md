@@ -69,16 +69,6 @@ model:
 - Returns the walk as a structured array (each step = `{ior, class, relation}`)
 - Used by trace-cli, /trace browser, and role self-verification
 
-## Acceptance Criteria
-
-- [ ] AC1 — `captureQuote(text, sprintIor)` emits a valid Requirement scenario.json; IOR.resolve() round-trips
-- [ ] AC2 — `proposeTask(reqIor, spec)` emits a valid Task scenario.json initialized at `Planned`; T133 FSM verbs callable on the new Task
-- [ ] AC3 — `walkChain(ior)` returns a complete chain walk for an existing migrated task (e.g. Sprint 1 task-1) — covers req → task → useCase → method
-- [ ] AC4 — Cycle detection: `walkChain` on a known cycle (architect picks or constructs one) terminates with a documented cycle marker
-- [ ] AC5 — vitest covers each verb (≥2 tests per verb: happy path + edge)
-- [ ] AC6 — Verbs are importable from `src/ts/scenario/skills.ts` and used in at least one downstream caller (e.g. trace-cli or migrate-to-scenario.ts)
-- [ ] AC7 — `npm run build` + suite passes; rule-pair (a)+(b) per #15 (new exports + new module = surface change worth bumping); (c) STATIC_SHELL exempt
-
 ## Dependencies
 
 - **Requires:** T125 (classes), T133 (Task FSM), T134 (TraceLink for chain edges)

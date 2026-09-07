@@ -84,19 +84,6 @@ rules are good; making them enforced removes manual-discipline gaps.
 - Planner's role narrows to coordinating the gates (which is sustainable);
   the gates do the enforcement
 
-## Acceptance Criteria
-
-- [ ] AC1 — Data-quality gate runs in CI (or pre-commit) and fails the build on T169 audit violations
-- [ ] AC2 — Rule-pair gate (#15+#16) runs in CI and fails when an impl commit on a user-facing surface lacks package.json + sw.js bumps in the same commit-set
-- [ ] AC3 — Chain-order gate runs in CI and fails on T168 canonical-chain violations
-- [ ] AC4 — Gates report violations clearly (file path + rule violated + remediation hint)
-- [ ] AC5 — Gates pass on the current clean state post-T169 remigration (positive baseline)
-- [ ] AC6 — Negative tests: deliberately violating each rule fails the gate (each gate has a corresponding negative test)
-- [ ] AC7 — Sustain-cadence rule: planner's monitoring cadence (15-min / 30-min / 60-min back-off) is documented (planner SKILL.md or sprint doc) — no manual sweeps required to catch regressions
-- [ ] AC8 — No regression on shipped tasks
-- [ ] AC9 — `npm run build` succeeds; all existing tests pass
-- [ ] AC10 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL exempt
-
 ## Dependencies
 
 - **Requires:** T169 (data-quality audit — gate-1's underlying tool), T168 (chain-order rule — gate-3's underlying rule)

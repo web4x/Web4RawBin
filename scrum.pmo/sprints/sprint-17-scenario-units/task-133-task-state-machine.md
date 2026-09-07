@@ -44,18 +44,6 @@
 
 Add a state machine and status methods to the Task class so task lifecycle state (planned / in-progress / QA / done) is tracked and queryable.
 
-## Acceptance Criteria
-
-- [ ] AC1 — Task class has a documented state machine with all transitions modeled (architect's diagram in this file)
-- [ ] AC2 — Status methods (verbs) implemented per architect's design; each verb is a single callable that mutates state + persists via T125.3 index-store
-- [ ] AC3 — Guards prevent invalid transitions (e.g. can't `startTesting()` from `Planned`); errors are clear
-- [ ] AC4 — `task.tronApprove()` callable ONLY by Tron-authored explicit-approval commits — guard NOT bypassable by planner-sync (parallels learnings #15 QA-gate rule)
-- [ ] AC5 — Each verb emits an event consumed by T126 ViewGenerator → views live-update on transition
-- [ ] AC6 — Symbol legend (⏳📝🔧✅🧪🏁) is derived from `model.status` (single source of truth — planner no longer mirrors manually)
-- [ ] AC7 — vitest covers every transition + every guard rejection
-- [ ] AC8 — `npm run build` succeeds; suite passes; rule-pair #15 + #16
-- [ ] AC9 — Method markers added on every verb method per learning #18 + T128.4 retrofit — every verb traces back to req:r133 and task T133
-
 ## Dependencies
 
 - **Requires:** T125 (Task class foundation)

@@ -31,11 +31,10 @@ The viewport is a CSS presentation MODE of rb-strip (not a separate element): a 
 
 ## Acceptance Criteria
 
-- [ ] data-mode set by CONTAINER-QUERY (@container on the strip container; orientation media-query fallback), NOT a top-level media query — composes when nested. Landscape=display:flex;overflow:visible all-visible; portrait=overflow-x:auto;scroll-snap-type:x mandatory scroller.
-- [ ] COMPARTMENTS are the scroll-snap targets (scroll-snap-align:start); BARS are inter-compartment, NOT independent snap points (they ride at a compartment's leading edge). Snaps land on meaningful content; editor []|[ / ]|[]|[ / ]|[] fall out of compartment-align + peek — no bespoke per-snap JS.
-- [ ] The ACTIVE compartment (last-snapped/focused, id stored on the strip) is PRESERVED across landscape<->portrait flip: on flip, scrollIntoView the previously-active compartment.
-- [ ] POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
-- [ ] AC-INV-PRESENTATION (cross-cutting R31.5.8): positioning != function — presentation is a reactive layer, never a second fork.
+- [ ] **(functional)** data-mode set by CONTAINER-QUERY (@container on the strip container; orientation media-query fallback), NOT a top-level media query — composes when nested. Landscape=display:flex;overflow:visible all-visible; portrait=overflow-x:auto;scroll-snap-type:x mandatory scroller.
+- [ ] **(functional)** COMPARTMENTS are the scroll-snap targets (scroll-snap-align:start); BARS are inter-compartment, NOT independent snap points (they ride at a compartment's leading edge). Snaps land on meaningful content; editor []|[ / ]|[]|[ / ]|[] fall out of compartment-align + peek — no bespoke per-snap JS.
+- [ ] **(functional)** The ACTIVE compartment (last-snapped/focused, id stored on the strip) is PRESERVED across landscape<->portrait flip: on flip, scrollIntoView the previously-active compartment.
+- [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
 
 ## Subtasks
 

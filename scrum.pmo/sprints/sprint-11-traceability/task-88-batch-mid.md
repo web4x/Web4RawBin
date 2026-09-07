@@ -36,12 +36,6 @@ Backfill the forward chain for Sprints 5 (PWA Offline), 6 (Web Components),
 Closed/QA-approved sprints. DELIBERATE remediation — changes tracked in THIS task,
 reviewed, Tron-gated. Never silent inline edits.
 
-## Acceptance Criteria
-
-- [ ] Sprints 5,6,7 tasks have resolving forward chains
-- [ ] Missing requirements.md/use-case artifacts authored
-- [ ] Closed-task Status checkboxes unchanged (chain links only)
-
 ## Dependencies
 
 - **Requires:** T86 (matrix), T87 (pattern proven on active sprints)

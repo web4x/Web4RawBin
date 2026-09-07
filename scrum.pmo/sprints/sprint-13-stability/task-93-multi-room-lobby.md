@@ -38,15 +38,6 @@
 3. Is the room advertise logic (making dormant rooms active on owner connect) running for all rooms or just the first match?
 4. Does `listRooms()` return all active rooms or filter in a way that hides some?
 
-## Acceptance Criteria
-
-- [x] AC1: Creating 3 rooms → all 3 appear in lobby room list
-- [x] AC2: After server restart → all 3 rooms reload from disk
-- [x] AC3: After owner reconnects → all 3 rooms appear in ROOM_LIST
-- [x] AC4: Other users see all 3 rooms in their lobby (when owner connected)
-- [x] AC5: Deleting one room leaves the other 2 visible
-- [x] AC6: Room count in lobby matches actual rooms on disk for each user (subset invariant on shared server)
-
 ## QA Audit & User Feedback
 
 - 2026-05-26: Tron directive — "i created more than one room. but only one shows up in the lobby… all his rooms should show up… loaded from disk." Awaiting architect refinement, then Tron QA.

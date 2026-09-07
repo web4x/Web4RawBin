@@ -93,44 +93,6 @@ fields with the per-Req audit gate; mismatch on name/description/tasks-count
   tasks-count match
 - T126 regenerates Requirement view with both fields
 
-## Acceptance Criteria
-
-- [ ] AC1 (Shape spec) — Architect-finalized Requirement shape documented in
-  `scrum.pmo/standards/traceability-standard.md`: `model.name` = plain
-  English 3–5 word summary; `model.description` = verbatim Tron quote (no
-  paraphrase, no duplicate of name); `model.tasks[]` = forward-link array
-  to implementing Task units
-- [ ] AC2 (name plain English per Req) — For EVERY Requirement scenario,
-  `model.name` is non-empty, ≤5 words, plain English (no UUID, no
-  R-number, no code marker); per-Req audit table reports failures (target: 0)
-- [ ] AC3 (description = Tron quote verbatim per Req) — For EVERY Requirement
-  scenario, `model.description` matches the Tron quote blockquote in
-  `requirements.md` EXACTLY (whitespace-normalized); per-Req audit reports
-  failures (target: 0)
-- [ ] AC4 (tasks count match per Req) — For EVERY Requirement scenario, the
-  count of `model.tasks[]` entries EQUALS the count of forward links
-  req → task found in `requirements.md` + task files' `## Traceability`.
-  Mismatch = hard FAIL.
-- [ ] AC5 (Idempotence) — Running the data-quality pass twice yields the
-  same JSON; counts unchanged on the second run
-- [ ] AC6 (Dry-run) — `--dry-run` mode reports per-Req audit table without
-  writing
-- [ ] AC7 (Spot-check round-trip ≥5 Reqs) — Architect/tester selects ≥5
-  Requirements across S10–S17; verifies name + description + tasks against
-  the source `requirements.md` + linked task files
-- [ ] AC8 (T126 regenerates) — Requirement `.md` views show NAME + Tron-quote
-  description + tasks edges (clickable per T143)
-- [ ] AC9 (`trace-cli` clean) — Chain audit shows 0 broken
-  requirement → task links
-- [ ] AC10 (Regression) — No regression on T126 / T134 / T143 / T146 / T149 /
-  T151 / T152 / T153
-- [ ] AC11 — `npm run build` succeeds; all existing tests pass
-- [ ] AC12 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json`
-  "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME
-  commit-set as the user-facing impl. (c) STATIC_SHELL: likely exempt
-  (no new route — architect to confirm)
-- [ ] AC13 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** T146 (NAME-first format — source shape), T151 (JSON arrays — `tasks[]` shape), T126 (ViewGenerator + Requirement template), T134 (TraceLink class — may emit `req → task` links), T143 (chain tree — tasks are the downward edge), T149 (universal symlinks — task refs resolve via the tree)

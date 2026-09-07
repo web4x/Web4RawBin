@@ -31,10 +31,6 @@
 
 See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.
 
-## Acceptance Criteria
-
-- [x] See requirements.md for detailed AC per use case
-
 ## QA Audit & User Feedback
 
 - Pending Tron QA review.

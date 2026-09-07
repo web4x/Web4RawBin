@@ -38,10 +38,10 @@ S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, n
 
 ## Acceptance Criteria
 
-- [ ] (integration) Task units gain a messages[] field linking related AgentMessage units (thread the conversation on a task).
-- [ ] (integration) An agentMessage skill exposes verbs: send / inbox / read / list / thread (Object.verb per OOSH), each an addressable use case.
-- [ ] (integration) Messages thread by threadId; the thread verb shows the full conversation in order.
-- [ ] (integration) The mailbox skill is the canonical agent-comms path - replaces otmux send-keys / keystroke messaging for agent-to-agent communication.
+- [ ] **(integration)** Task units gain a messages[] field linking related AgentMessage units (thread the conversation on a task).
+- [ ] **(integration)** An agentMessage skill exposes verbs: send / inbox / read / list / thread (Object.verb per OOSH), each an addressable use case.
+- [ ] **(integration)** Messages thread by threadId; the thread verb shows the full conversation in order.
+- [ ] **(integration)** The mailbox skill is the canonical agent-comms path - replaces otmux send-keys / keystroke messaging for agent-to-agent communication.
 
 ## Implementation
 

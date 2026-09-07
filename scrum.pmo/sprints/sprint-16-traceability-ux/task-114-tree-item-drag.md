@@ -43,13 +43,6 @@ the drop semantics/targets).
 
 Tron 2026-05-27: "draggable so i could os specificly drag and drop the item."
 
-## Acceptance Criteria
-
-- [ ] AC1 — A tree-item can be dragged (native OS drag initiates)
-- [ ] AC2 — Drag carries a meaningful payload (item identity / type) for OS drop targets
-- [ ] AC3 — Drag does not break tap-collapse (T115) or children-expand (T115) interactions
-- [ ] `npm run build` succeeds; version + sw.js bumped; no regression
-
 ## Dependencies
 
 - **Requires:** tree-item redesign (T112/T113 establish the item)

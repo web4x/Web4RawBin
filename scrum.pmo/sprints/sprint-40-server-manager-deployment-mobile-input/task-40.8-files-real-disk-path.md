@@ -34,8 +34,8 @@ R40.8 (Tron: 'files should show where the file really is'). The editor footer 'F
 
 ## Acceptance Criteria
 
-- [x] [AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug.
-- [x] [AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there.
+- [ ] **(automatable)** [AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug.
+- [ ] **(automatable)** [AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there.
 
 ## Subtasks
 

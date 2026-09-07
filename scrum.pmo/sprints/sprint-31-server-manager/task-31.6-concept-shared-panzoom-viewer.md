@@ -39,11 +39,10 @@ Tron (2026-07-20): capture the shared-pan/zoom-viewer concept as a FUTURE plan. 
 
 ## Acceptance Criteria
 
-- [ ] A coherent CONCEPT is captured (req) — a plan, NOT code (facets below are DECOMPOSITION CANDIDATES, not testable ACs yet; no Test-hop until Tron authorizes build).
-- [ ] Pan/zoom is established as a SHARED viewer capability: RbPanZoom generalized into ONE shared base/mixin, not reimplemented per format.
-- [ ] EVERY embedded-format viewer pans + zooms consistently via that base (png/gif/webp/svg/html/…), not a subset; same gestures/limits across formats.
-- [ ] A new embeddable-format viewer INHERITS pan/zoom for free (extensible to future formats, no per-format reimplementation).
-- [ ] FUTURE / concept: acceptance is a coherent concept + (when authorized) the architect's shared-viewer-base design, NOT an implementation.
+- [ ] **(concept)** The concept establishes pan/zoom as a SHARED viewer capability: the SVG viewer's RbPanZoom (src/public/ts/trace/pan-zoom.ts) is generalized into ONE shared viewer base/mixin, NOT reimplemented per viewer or per format.
+- [ ] **(concept)** EVERY embedded-format viewer pans + zooms CONSISTENTLY via that shared base - across ALL embeddable content types: pictures (png, gif, webp), svg, html, and 'you name it' (every embeddable format), NOT a subset. Same gestures / affordances / zoom limits across formats.
+- [ ] **(concept)** A NEW embeddable-format viewer INHERITS pan/zoom for FREE from the shared base - the capability is extensible to future formats with no per-format reimplementation (same shared-mechanism doctrine as drawer / tree / template / badges).
+- [ ] **(concept)** FUTURE / concept: acceptance is a coherent CONCEPT (this captured model + the architect's shared-viewer-base design), NOT an implementation. Deferred until Tron authorizes build; each facet then decomposes into atomic build-requirements.
 
 ## Subtasks
 

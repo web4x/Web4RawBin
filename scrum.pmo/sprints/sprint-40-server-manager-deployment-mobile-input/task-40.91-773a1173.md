@@ -34,13 +34,12 @@ Board-track R40.91 at its honest status; declare the ONE canonical planning unit
 
 ## Acceptance Criteria
 
-Mirrors R40.91 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.
-- [ ] AC-single-owner-translator: exactly ONE unit-changed -> notify TRANSLATOR (owner = notifyUnitChanged); a 2nd site matching msg.type==='unit-changed' that builds the notify key INLINE (instead of delegating) => RED.
-- [ ] AC-measured-counts: named MEASURED counts (zero is a measured number, not an assertion): ownerCount===1 AND inlineNonOwnerTranslators===0; the guard reports BOTH; ownerCount!=1 OR inlineNonOwner!=0 => RED.
-- [ ] AC-legit-emits-not-flagged: legit local ViewBus.notify(viewBusKey) emits are NOT flagged — the guard scans the NARROW hazard (an inline notify-key build on a msg.type==='unit-changed' site), not legit emits.
-- [ ] AC-selftest-self-bites: FAILABLE via a built-in PER-RUN SELFTEST — injects a synthetic violation + asserts RED each run (self-bites, not just passes-today) + stub-must-fail.
-- [ ] AC-scan-the-hazard-not-actors: scan the HAZARD (the inline notify-key-build on a unit-changed site), NOT the actors -> a drifted copy anywhere is UNEVADABLE + self-naming.
-- [ ] AC-harden-marker-based-filename-independent: FOLLOW-UP HARDENING (architect flagged, req accepted): the built guard keys the owner by FILE (live-bridge.ts) — a rename makes ownerCount=0 -> RED (fail-closed+safe but noisy); harden to marker-based / filename-independent.
+- [ ] **(by-construction/ROOT)** Exactly ONE unit-changed -> notify TRANSLATOR (the owner = notifyUnitChanged). A 2nd site that matches msg.type==="unit-changed" and builds the notify key INLINE (instead of delegating to notifyUnitChanged) => RED. A 2nd drifted copy IS the R40.84-B 4-round defect (the drifted translator diverged).
+- [ ] **(measured/PO-required)** NAMED MEASURED COUNTS (zero is a measured number, not an assertion): ownerCount === 1 AND inlineNonOwnerTranslators === 0. The guard reports both counts; ownerCount!=1 OR inlineNonOwnerTranslators!=0 => RED.
+- [ ] **(0-noise/scan-narrow)** LEGIT local ViewBus.notify(viewBusKey) emits are NOT flagged — the guard scans the NARROW hazard (an inline notify-key build on a msg.type==="unit-changed" site), NOT legit emits. 0-noise, or it gets switched off. A false-positive on a legit ViewBus.notify => the guard is too broad => fix the scan.
+- [ ] **(self-failability/PO-required/R40.88-instance)** FAILABLE via a BUILT-IN PER-RUN SELFTEST: the guard injects a SYNTHETIC violation + asserts RED EACH RUN (self-bites, not just passes-today) + stub-must-fail. A guard that never goes RED on its own injected violation = unproven = counts as UNGUARDED (R40.88 guard-own-stub-must-fail).
+- [ ] **(by-construction/R40.82-pattern)** Scan the HAZARD (the inline notify-key-build OPERATION on unit-changed), NOT the actors -> a drifted copy anywhere is UNEVADABLE + self-naming (same pattern as R40.82 children-owner 9ef91a551 + R40.88 no-mkdir). Filename-independent, marker-sanctioned.
+- [ ] **(robustness/follow-up)** FOLLOW-UP HARDENING (architect flagged, req accepted): the built guard keys the owner by FILE (live-bridge.ts) — a rename makes ownerCount=0 -> RED (fail-closed + safe, but NOISY on a legit rename). Harden to MARKER-BASED (the [translator-owner:unit-changed] marker seed is placed on notifyUnitChanged) = filename-INDEPENDENT, matching the R40.82 children-owner (9ef91a551) + R40.88 patterns. Then the owner is resolved by the marker, not the filename, and a rename is a no-op. ★ SATISFIED (architect 3e3b17081): the check ALREADY resolves the owner via the [translator-owner:unit-changed] MARKER, not the filename = filename-independent. Follow-up DONE.
 
 ## Subtasks
 

@@ -51,15 +51,6 @@ Two integrations that complete the nav loop on `/trace` + `/md/`:
 - IOR resolves to: (a) the file path, (b) the unit's class (when in `scenario/index/`), (c) the rendered view.
 - A "Resolve IOR" endpoint (or client-side resolver) takes an IOR and returns `{ filePath, class, htmlView, mdView }`.
 
-## Acceptance Criteria
-
-- [ ] AC1 — From a Task tree node on `/trace`, "Open file" navigates to the corresponding `/md/.../task-N-*.md` (or its generated view)
-- [ ] AC2 — From a `/md/` rendered task file, "Open in trace" navigates to `/trace` with the right DetailView open
-- [ ] AC3 — Calling `IOR.resolve(ior)` on any repo file (md/ts/puml/json) returns `{filePath, class?, view?}` with appropriate fallbacks for non-scenario files
-- [ ] AC4 — Mobile (iPhone) — both nav directions work; safe-area respected
-- [ ] AC5 — `npm run build` succeeds; suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL entry per #16 if any new SPA route introduced**
-- [ ] AC6 — At least one playwright E2E covers the round-trip /trace → /md/ → /trace
-
 ## Dependencies
 
 - **Requires:** T125 (IOR primitive), T126 (generated views are the targets)

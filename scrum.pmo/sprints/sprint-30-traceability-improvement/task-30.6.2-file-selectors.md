@@ -38,8 +38,8 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.2.
 
 ## Acceptance Criteria
 
-- [x] (path-selectors) A full-path selector above left + right, and a merged-path selector in the center pane.
-- [x] (chooser) Each selector has an 'open file chooser' button that browses the project tree, REUSING RbFileTree (R30.5) for the tree browse.
+- [ ] **(path-selectors)** A full-path selector above left + right, and a merged-path selector in the center pane.
+- [ ] **(chooser)** Each selector has an 'open file chooser' button that browses the project tree, REUSING RbFileTree (R30.5) for the tree browse.
 
 ## Implementation
 

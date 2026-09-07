@@ -38,14 +38,14 @@ Tron: "create a scenario WebItem for URLs that acts like a Google bookmark (drag
 
 ## Acceptance Criteria
 
-- [x] (model) ior:class:WebItem has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[] — GREEN: WebItem.ts model + helpers (deriveScheme/deriveBadge/deriveFavicon/deriveName) + createWebItemUnit (v0.6.88-89). NOTE deriveFavicon = lazy favicon URL (http(s) only); favicon image-render deferred
-- [x] (drop->unit) Dropped URLs create WebItem units, NOT bare text/uri-list files — GREEN DET-3x (gate r252-webitem-gate.mjs, verdict 92dca4478; bare-URL fix v0.6.89 603be9b57, full RED->GREEN)
-- [x] (preview) The preview renders the scheme launcher card (v0.6.87) with name + icon + badge — GREEN
-- [x] (open) Open-in-New-Tab does window.open(url) → the native app handles the scheme URL — GREEN (v0.6.87)
-- [ ] (folders) WebItems organise into folders via parentFolder/children[] (parent/children like the file tree) — DEFERRED (model has the fields; folder-org behaviour not yet shipped)
-- [x] (import .url) Import from Windows .url (INI format) yields WebItem units — GREEN (v0.6.88)
-- [x] (import .webloc) Import from macOS .webloc (plist) yields WebItem units — GREEN (v0.6.88)
-- [ ] (import bookmarks) Import from Google bookmarks HTML yields WebItem units (with folder hierarchy preserved) — DEFERRED
+- [ ] **(model)** ior:class:WebItem has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[].
+- [ ] **(drop)** Dropped URLs create WebItem units, NOT bare text/uri-list files.
+- [ ] **(preview)** The preview renders the scheme launcher card (v0.6.87) with name + icon + badge.
+- [ ] **(launch)** Open-in-New-Tab does window.open(url) so the native app handles the scheme URL.
+- [ ] **(hierarchy)** WebItems organise into folders via parentFolder/children[] (parent/children like the file tree).
+- [ ] **(import)** Import from Windows .url (INI format) yields WebItem units.
+- [ ] **(import)** Import from macOS .webloc (plist) yields WebItem units.
+- [ ] **(import)** Import from Google bookmarks HTML yields WebItem units with folder hierarchy preserved.
 
 ## Implementation
 

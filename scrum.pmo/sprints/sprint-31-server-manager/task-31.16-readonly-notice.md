@@ -30,8 +30,8 @@ When a NON-host member opens the room settings/config modal, a visible READ-ONLY
 
 ## Acceptance Criteria
 
-- [x] When a NON-host member opens the room settings/config modal, a VISIBLE read-only notice is shown explaining they cannot edit because they are not the room owner. @390.
-- [x] The HOST/owner does NOT see the read-only notice (host has editable fields + Save, R31.12) - the notice is non-host-only.
+- [ ] **(functional)** When a NON-host member opens the room settings/config modal, a VISIBLE read-only notice is shown explaining they cannot edit because they are not the room owner. @390.
+- [ ] **(functional)** The HOST/owner does NOT see the read-only notice (host has editable fields + Save, R31.12) - the notice is non-host-only.
 
 ## Subtasks
 

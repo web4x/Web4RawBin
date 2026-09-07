@@ -38,7 +38,7 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.4.
 
 ## Acceptance Criteria
 
-- [x] (branch-commit) A chooser to pick a file from a specific git branch or commit, feeding it into the left OR right pane.
+- [ ] **(branch-commit)** A chooser to pick a file from a specific git branch or commit, feeding it into the left OR right pane.
 
 ## Implementation
 

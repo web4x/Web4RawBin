@@ -34,9 +34,9 @@ A user never dead-clicks a chevron into emptiness @390 — a traversed ref resol
 
 ## Acceptance Criteria
 
-- [ ] @390 NO-EMPTY-EXPANSION (rendered anchor): tapping any visible chevron/link expands to REAL content, never empty. ANCHOR: Requirement 1c3b86ad today expands to ZERO children (its 1 useCase is dead) = user sees an invisible chain — screenshot shows it now populated (or the dead ref hidden). No expanded node is empty.
-- [ ] DANGLING HIDDEN-OR-MARKED: a forward ref whose target does not exist is NOT a clickable chevron (hidden, or shown disabled-with-reason) so a user cannot dead-click into emptiness. Screenshot: no live chevron yields nothing.
-- [ ] SERVED-COUNT-TO-0 + CARRY-vs-CODEFIX (measurable): the type-correct SERVED-tree dangling count (baseline 17 = 15 Requirement.useCases->dead UseCase + 1 Class + 1 Task, TRAVERSED keys only) trends to 0. ★ The gate DISTINGUISHES carry-resolvable (hotfix->main uncarried — resolves by a CARRY, not code) from code-fix-needed, and measures the SERVED build. MUST NOT assume a code fix is the only resolution.
+- [ ] **(user-visible@390)** On 390px, tapping any visible chevron/link expands to REAL content, never empty. RENDERED ANCHOR: Requirement 1c3b86ad today expands to zero children (its one useCase is dead) = the user sees a Requirement with an invisible chain. Screenshot: no expanded node is empty.
+- [ ] **(user-visible@390)** A forward ref whose target does not exist is NOT shown as a clickable chevron (hidden or shown disabled-with-reason), so a user cannot dead-click into emptiness. Screenshot: no live chevron yields nothing.
+- [ ] **(measurable)** The type-correct served-tree dangling count (17: 15 Requirement.useCases->dead UseCase + 1 Class + 1 Task; traversed keys ONLY) trends to 0. Some resolve by a cross-branch CARRY (hotfix->main uncarried), not a code fix - the gate distinguishes carry-resolvable from code-fix-needed, and measures the SERVED build.
 
 ## Subtasks
 

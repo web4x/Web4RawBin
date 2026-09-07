@@ -39,10 +39,10 @@ Tron: every detail view shall show a 📄 Scenario link to its underlying scenar
 
 ## Acceptance Criteria
 
-- [x] (link) Every detail-view component renders a 📄 Scenario link
-- [x] (target) The link resolves to the underlying scenario unit (the /scenario or /md view of that unit's uuid)
-- [x] (universal) The link appears on ALL detail components uniformly (task, WebItem, member, file, requirement, drawer, ...), not just one
-- [x] (consistent) The 📄 Scenario affordance is placed/styled consistently across detail views
+- [ ] **(link)** Every detail-view component renders a 📄 Scenario link.
+- [ ] **(target)** The link resolves to the underlying scenario unit (the /scenario or /md view of that unit's uuid).
+- [ ] **(universal)** The link appears on ALL detail components uniformly (task, WebItem, member, file, requirement, drawer, ...), not just one.
+- [ ] **(consistent)** The 📄 Scenario affordance is placed/styled consistently across detail views.
 
 ## Implementation
 

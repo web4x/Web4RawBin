@@ -38,12 +38,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its sc
 
 ## Acceptance Criteria
 
-- [x] (l1823) The send.verified/debug.log-isPane-guard region -> 0px at its next stable line and to EOF: all 741 anchors snap to 0
-- [x] (self-heal) Inject a deliberate single-region 2-row mis-pad -> it snaps to 0 at the next stable/blank line
-- [x] (anchors-scope) 0px at ALL corresponding anchors (every diff3 stable/blank region + block boundaries)
-- [x] (no-regression) Insertions, modifications, conflicts, agreed-both-sides all still 0px at every stable anchor; RESULT byte-identical
-- [x] (mechanism) Single forward pass over VISUAL rows: changed/conflict region adds maxH; a stable region re-anchors laggards to max
-- [x] (verify) Assertion-grade: getTopForLineNumber equal (+/-0px) across edLocal/edCenter/edRemote at EVERY stable anchor
+- [ ] **(l1823)** The send.verified/debug.log-isPane-guard region -> 0px at its next stable line and to EOF: all 741 anchors 0px (was a clean 32px whole-region shift).
+- [ ] **(self-heal)** Inject a deliberate single-region 2-row mis-pad -> it snaps to 0 at the next stable/blank line (not carried forward) - self-healing, bounded to one block.
+- [ ] **(anchors-scope)** 0px at ALL corresponding anchors (every diff3 stable/blank region + block boundaries). Within-change INTERIOR non-alignment is correct-by-nature (IntelliJ-same, the two sides don't line-correspond inside a change) and is explicitly NOT gated.
+- [ ] **(no-regression)** Insertions, modifications, conflicts, agreed-both-sides all still 0px at every stable anchor; RESULT byte-identical (re-anchor only inserts corrective blank spacer rows).
+- [ ] **(mechanism)** Single forward pass over VISUAL rows: changed/conflict region adds maxH to each pane; a stable region re-anchors (target=max, pad laggards, vL=vC=vR=target) BEFORE emitting its lines. Impl-edit to computeMergedCenter (a0b30550) + alignPaneRows (17c71adf) merged into one pass; markers STAY, no new units. (Optional sub-pixel: pin lineHeight:19/wordWrap:off on mountThreePane c4c84142 - the residual is a whole-row miscount so re-anchor is primary.)
+- [ ] **(verify)** Assertion-grade: getTopForLineNumber equal (+/-0px) across edLocal/edCenter/edRemote at EVERY stable/blank line, at scrollTop=0 AND mid-scroll. Language-agnostic (any language / plain text). DET-3x strict-0px gate + Tron pixel-perfect. Client fix -> version-bump.
 
 ## Implementation
 

@@ -38,7 +38,7 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.5.
 
 ## Acceptance Criteria
 
-- [x] (swap) A SWAP button swaps the LEFT and RIGHT panes (their files, selections, and diffs).
+- [ ] **(swap)** A SWAP button swaps the LEFT and RIGHT panes (their files, selections, and diffs).
 
 ## Implementation
 

@@ -36,16 +36,6 @@ migrated-away `token-<timestamp>` dirs. Destructive — keep a one-shot backup
 (tar) before deletion per architect's design.
 _(Architect designs the safe-delete + backup; expert executes ONLY post-gate.)_
 
-## Acceptance Criteria
-
-- [ ] AC0 (GATE): T98 PASS committed AND Tron authorization recorded in QA Audit — verified before ANY other AC
-- [ ] AC1: Legacy roomManager.loadFromDisk path removed; per-user scan is sole source of truth
-- [ ] AC2: data/rooms/ legacy files removed (after backup tar)
-- [ ] AC3: Migrated-away token-<timestamp> dirs removed (after backup)
-- [ ] AC4: Server starts clean; /api/health room count == per-user count (no legacy inflation)
-- [ ] AC5: Full suite green; no regression
-- [ ] `npm run build` + version bump + sw.js cache
-
 ## Dependencies
 
 - **Requires:** T98 PASS + Tron authorization (HARD GATE — see top)

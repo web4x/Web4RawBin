@@ -55,16 +55,6 @@ made it into a requirements.md).
 4. Cross-update the referring task's `requirement:uuid` to match the freshly-formalized one (or leave the existing uuid and add the same uuid to requirements.md — architect picks which direction).
 5. Re-run `npm run trace:check` — orphan-req count must reach 0 across S10-S17 (S1-S9 stays on documented allowlist).
 
-## Acceptance Criteria
-
-- [ ] AC1 — backlog.md audited; every Tron-quote backlog item either has a `requirements.md` entry or is documented as deferred
-- [ ] AC2 — every `requirement:uuid:` referenced in any S10-S17 task file resolves to a `requirements.md` entry (no dangling references)
-- [ ] AC3 — `npm run trace:check` reports 0 orphan-req errors for S10-S17 (S1-S9 stays on documented allowlist per f487c2f)
-- [ ] AC4 — Every newly-formalized requirement has the verbatim Tron quote (not paraphrased — learning #17 + Tron literal-source directive)
-- [ ] AC5 — `sprint audit` 0 issues across S10-S17 after the audit lands
-- [ ] AC6 — No regression on S1-S9 documented allowlist
-- [ ] AC7 — `npm run build` + suite passes; rule-pair: (a)+(b) per #15 if any client surface changes (likely text-only — bump optional, planner annotates the call); (c) STATIC_SHELL exempt
-
 ## Dependencies
 
 - **Requires:** T121 (Phase 1 diagnosis catalogue — informs the audit scope), T128.1 exemplar (model for how a properly-formalized req+task pair looks)

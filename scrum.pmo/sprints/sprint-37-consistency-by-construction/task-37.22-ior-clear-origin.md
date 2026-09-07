@@ -30,10 +30,10 @@ Tron 2026-08-12: IORs need a clear origin for prod<->test DnD; reconcile with th
 
 ## Acceptance Criteria
 
-- [ ] AC-C-clear-origin: cross-instance IOR carries class+host+unit-path origin.
-- [ ] AC-C-reconcile-no-fork: reconcile with ior:instance:<uuid>@<originHost> (path from uuid-sharding, class from unit), NO 2nd format.
-- [ ] AC-C-cross-instance-resolves: prod->test drop resolves via origin, not a plain-URL WebItem.
-- [ ] AC-C-DEVICE [@390 Tron]: prod<->test drop carries origin + resolves, verified on device.
+- [ ] **(functional)** A cross-instance IOR carries a CLEAR ORIGIN — class + origin HOST + unit path — so a prod<->test DnD resolves the source unit unambiguously ('it should have a clear origin').
+- [ ] **(functional)** The origin RECONCILES with the EXISTING federated IOR ior:instance:<uuid>@<originHost> (+ model.originHost/originIor) — do NOT fork a 2nd origin format (single-source). Path derived from uuid-sharding, class from the resolved unit => ONE format carries class+host+path by-reference. Local IORs omit @host (back-compatible).
+- [ ] **(functional)** A unit dragged from WODA.prod dropped on WODA.test resolves via its origin (fetch by-reference through the federated scheme), NOT a plain-URL WebItem (the A2 defect at instance scope).
+- [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron, NEVER headless-green, TRON-ONLY] Tron verifies a prod<->test drop carries the origin and resolves the real unit.
 
 ## Implementation
 

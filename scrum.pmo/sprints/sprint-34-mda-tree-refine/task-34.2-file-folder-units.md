@@ -34,12 +34,12 @@ R-A (server half). mofChildren MUST mint/use real ior:class:Folder + ior:class:F
 
 ## Acceptance Criteria
 
-- [x] (functional) mofChildren mints/uses real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs); each resolves to a real unit with a detail view.
-- [x] (functional) The File/Folder detail shows its exact LOCATION (rel-path).
-- [x] (functional) File/Folder detail shows the R34.1 «Scenario»+«Edit» default pair (depends R34.1).
-- [x] (functional) Unit uuid = keyToUuid(rel-path) (R32.2 deterministic) so re-derive re-binds the same unit - no duplicates.
-- [x] (security) Units minted in MODEL_STORE ONLY; prod scenario/index untouched (R32.5 isolation); tree render unchanged (still rb-trace-tree folders); /trace detail unregressed.
-- [x] (gate) GATE @390 real-WebKit: a File/Folder node opens a REAL detail with exact location + Scenario/Edit; prod scenario/index untouched.
+- [ ] **(functional)** mofChildren mints/uses real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs); each resolves to a real unit with a detail view.
+- [ ] **(functional)** The File/Folder detail shows its exact LOCATION (rel-path).
+- [ ] **(functional)** File/Folder detail shows the R34.1 «Scenario»+«Edit» default pair (depends R34.1).
+- [ ] **(functional)** Unit uuid = keyToUuid(rel-path) (R32.2 deterministic) so re-derive re-binds the same unit — no duplicates.
+- [ ] **(security)** Units minted in MODEL_STORE ONLY; prod scenario/index untouched (R32.5 isolation); tree render unchanged (still rb-trace-tree folders); /trace detail unregressed.
+- [ ] **(gate)** GATE @390 real-WebKit: a File/Folder node opens a REAL detail with exact location + Scenario/Edit; prod scenario/index untouched.
 
 ## Subtasks
 

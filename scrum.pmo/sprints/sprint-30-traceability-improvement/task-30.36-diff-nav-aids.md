@@ -40,11 +40,11 @@ S30 diff/merge editor, R30.36 (Tron scenario-first): make navigation legible —
 
 ## Acceptance Criteria
 
-- [x] (nav-highlight) During UP/DOWN diff navigation (jumpToChange), the CURRENTLY-FOCUSED change is highlighted with a BRIGHTER color that is PIXEL-DISTINGUISHABLE from a non-current change of the SAME kind (a same-kind non-focused change is visibly dimmer).
-- [x] (nav-highlight) Stepping up/down focuses the next/previous change and MOVES the brighter highlight to it (only one change is 'current' at a time).
-- [x] (count) An accurate COUNT of OPEN changes (unresolved / not yet acted on) is shown; it counts only blocks that still NEED an action (>>/<</x), not already-resolved ones.
-- [x] (count) The open-count DECREMENTS as changes are acted on via '>>' / '<<' / 'x' (each resolve reduces it by one), and reaches 0 when all changes are handled.
-- [x] (verify) GATE: (a) the brighter current-change is PIXEL-DISTINGUISHABLE from non-current same-kind (screenshot at each nav step); (b) the open-count is accurate and decrements on each >>/<</x to 0. Client-facing -> version-bump.
+- [ ] **(nav-highlight)** During UP/DOWN diff navigation (jumpToChange), the CURRENTLY-FOCUSED change is highlighted with a BRIGHTER color that is PIXEL-DISTINGUISHABLE from a non-current change of the SAME kind (a same-kind non-focused change is visibly dimmer).
+- [ ] **(nav-highlight)** Stepping up/down focuses the next/previous change and MOVES the brighter highlight to it (only one change is 'current' at a time).
+- [ ] **(count)** The 'N conflicts to resolve' count = # of UNRESOLVED changes, where UNRESOLVED = the center holds 2 versions (derived from line-count), unless manually overridden via the R30.37 checkmark. Resolving (via 'x'/derived 1-line OR the checkmark) decrements it; re-opening increments it.
+- [ ] **(count)** The count DECREMENTS when a change is resolved via the R30.37 checkmark (12->11) and INCREMENTS when a merge action (x/>>/<<) RESETS a resolved change back to unresolved. It does NOT auto-decrement on a merge action (that was the expert's inverted build - corrected here to Tron's model).
+- [ ] **(verify)** GATE: (a) the brighter current-change is PIXEL-DISTINGUISHABLE from non-current same-kind (screenshot at each nav step); (b) the open-count is accurate and decrements on each >>/<</x to 0. Client-facing -> version-bump.
 
 ## Implementation
 

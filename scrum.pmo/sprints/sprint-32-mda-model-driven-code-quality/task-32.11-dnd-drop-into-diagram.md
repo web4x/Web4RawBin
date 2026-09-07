@@ -42,12 +42,12 @@ Make the /model diagram DROP interaction actually work on Tron's device — drop
 
 ## Acceptance Criteria
 
-- [x] INV-R1 - dragging a class / model-instance card from the model tree onto the diagram's .dm-surface: rb-diagram-detail's NEW dragover(preventDefault) + drop handlers read the dragged ref (application/rb-object-ref, set by rb-object-item.onDragStart) and map the drop point to x,y (accounting for RbPanZoom) -> POST /api/model/diagram/add-view {diagramUuid, elementUuid, x, y} appends the view-link {unit:'modelelement:X', x, y, viewKind:'class'} to the Diagram unit -> the surface re-renders and the class box appears (with R32.6 edges to other on-diagram boxes).
-- [x] INV-R2 - dropping the SAME class twice yields ONE view (the add-view endpoint dedups by element uuid); no duplicate box.
-- [x] INV-R3 - add-view writes ONLY the isolated MODEL_STORE (data/model-store); prod scenario/index is NEVER touched (gate-able: prod git-clean across the drop).
-- [x] INV-R4 - re-opening the diagram shows the added view (the view-link is PERSISTED to the Diagram unit, not just added in-DOM).
-- [x] DnD is PRIMARY (the drag-to-add-view above). ADDITIVE complement (PO): selecting a class node (selection-changed) with the /model diagram open AUTO-appends that class's view via the SAME add-view path (idempotent, no 2nd mechanism) - the drag stays for deliberate curation, the select gives instant feedback.
-- [x] GATE the DROP INTERACTION @390 (Tron viewport): empty diagram -> drag 'Circle' from the model tree -> drop -> Circle box appears; drag 'Point' -> 2nd box + R32.6 edges; drag Circle again -> NO dup (INV-R2); prod scenario/index git-clean (INV-R3); re-open the /model diagram -> views persist (INV-R4). Gate the DROP, NOT the label/generate-path [[gate-the-ac-surface]] - the 3rd 'gated-path != interaction' miss.
+- [ ] **(functional)** INV-R1 - dragging a class / model-instance card from the model tree onto the diagram's .dm-surface: rb-diagram-detail's NEW dragover(preventDefault) + drop handlers read the dragged ref (application/rb-object-ref, set by rb-object-item.onDragStart) and map the drop point to x,y (accounting for RbPanZoom) -> POST /api/model/diagram/add-view {diagramUuid, elementUuid, x, y} appends the view-link {unit:'modelelement:X', x, y, viewKind:'class'} to the Diagram unit -> the surface re-renders and the class box appears (with R32.6 edges to other on-diagram boxes).
+- [ ] **(functional)** INV-R2 - dropping the SAME class twice yields ONE view (the add-view endpoint dedups by element uuid); no duplicate box.
+- [ ] **(security)** INV-R3 - add-view writes ONLY the isolated MODEL_STORE (data/model-store); prod scenario/index is NEVER touched (gate-able: prod git-clean across the drop).
+- [ ] **(functional)** INV-R4 - re-opening the diagram shows the added view (the view-link is PERSISTED to the Diagram unit, not just added in-DOM).
+- [ ] **(functional)** DnD is PRIMARY (the drag-to-add-view above). ADDITIVE complement (PO): selecting a class node (selection-changed) with the /model diagram open AUTO-appends that class's view via the SAME add-view path (idempotent, no 2nd mechanism) - the drag stays for deliberate curation, the select gives instant feedback.
+- [ ] **(gate)** GATE the DROP INTERACTION @390 (Tron viewport): empty diagram -> drag 'Circle' from the model tree -> drop -> Circle box appears; drag 'Point' -> 2nd box + R32.6 edges; drag Circle again -> NO dup (INV-R2); prod scenario/index git-clean (INV-R3); re-open the /model diagram -> views persist (INV-R4). Gate the DROP, NOT the label/generate-path [[gate-the-ac-surface]] - the 3rd 'gated-path != interaction' miss.
 
 ## Subtasks
 

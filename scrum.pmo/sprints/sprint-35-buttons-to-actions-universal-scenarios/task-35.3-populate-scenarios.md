@@ -34,10 +34,10 @@ Each resolved scenario unit is POPULATED with the item's actual data (mirror the
 
 ## Acceptance Criteria
 
-- [x] (functional) Each resolved scenario unit is POPULATED with the item's actual data (name, description, type-specific fields, location/source) - NOT a bare/empty stub. The R35.2 ensureViewUnit resolver writes these at mint time (mirror node display data -> unit model).
-- [x] (functional) Per-type field-set non-empty: Folder = name/kind:'folder'/location/parent/childCount; File = name/location:rel/kind:'file'/sourceFile; PumlArtifact = name/kind:'pumlArtifact'/sourceFile/location; Project = name:'RawBin'/kind:'project'/childCount:4.
-- [x] (functional) Scenario opens a scenario showing the real info; Edit edits real content (not an empty unit).
-- [x] (gate) GATE @390 real-WebKit: the resolved scenario CONTAINS the item's info - assert the type's fields are NON-EMPTY for a populated sample per type.
+- [ ] **(functional)** Each resolved scenario unit is POPULATED with the item's actual data (name, description, type-specific fields, location/source) — NOT a bare/empty stub. The R35.2 ensureViewUnit resolver writes these at mint time (mirror node display data -> unit model).
+- [ ] **(functional)** Per-type field-set non-empty: Folder = name/kind:'folder'/location/parent/childCount; File = name/location:rel/kind:'file'/sourceFile; PumlArtifact = name/kind:'pumlArtifact'/sourceFile/location; Project = name:'RawBin'/kind:'project'/childCount:4.
+- [ ] **(functional)** OScenario opens a scenario showing the real info; OEdit edits real content (not an empty unit).
+- [ ] **(gate)** GATE @390 real-WebKit: the resolved scenario CONTAINS the item's info — assert the type's fields are NON-EMPTY for a populated sample per type.
 
 ## Subtasks
 

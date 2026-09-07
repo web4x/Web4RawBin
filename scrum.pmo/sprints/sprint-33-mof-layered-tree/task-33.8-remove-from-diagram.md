@@ -34,10 +34,10 @@ Tron IMG_4794 device ask ('i am lacking a remove from diagram button' + 'action'
 
 ## Acceptance Criteria
 
-- [x] When a class/element ON a diagram is selected, the R33.6.5 selection-driven action bar shows a 'Remove from diagram' action (added to the class-on-diagram action set alongside the shipped 'Add to diagram').
-- [x] Clicking 'Remove from diagram' removes that element's VIEW/view-link from the diagram - the INVERSE of R33.5 add-view (store-only view-removal endpoint mirroring add-view). The underlying model ELEMENT/unit is UNTOUCHED (stays in MODEL_STORE, re-addable via Add-to-diagram); prod scenario/index never touched. NOT a delete of the model element.
-- [x] After removal the diagram REFRESHES and the removed element's connectors re-route/drop (R33.6.3 rerouteEdges) - no stale edge left anchored to the removed box; other boxes + their edges untouched.
-- [x] GATE @390 (screenshot/pixel + planted bite + Tron device): select a class on the diagram -> 'Remove from diagram' -> the box AND its edges are GONE from the diagram, the model element STILL EXISTS (re-addable), other boxes untouched. planted-defect: the action DELETES the model element (wrong - must only drop the view) OR leaves a stale edge = RED.
+- [ ] **(functional)** When a class/element ON a diagram is selected, the R33.6.5 selection-driven action bar shows a 'Remove from diagram' action (added to the class-on-diagram action set alongside the shipped 'Add to diagram').
+- [ ] **(functional)** Clicking 'Remove from diagram' removes that element's VIEW/view-link from the diagram - the INVERSE of R33.5 add-view (store-only view-removal endpoint mirroring add-view). The underlying model ELEMENT/unit is UNTOUCHED (stays in MODEL_STORE, re-addable via Add-to-diagram); prod scenario/index never touched. NOT a delete of the model element.
+- [ ] **(functional)** After removal the diagram REFRESHES and the removed element's connectors re-route/drop (R33.6.3 rerouteEdges) - no stale edge left anchored to the removed box; other boxes + their edges untouched.
+- [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite + Tron device): select a class on the diagram -> 'Remove from diagram' -> the box AND its edges are GONE from the diagram, the model element STILL EXISTS (re-addable), other boxes untouched. planted-defect: the action DELETES the model element (wrong - must only drop the view) OR leaves a stale edge = RED.
 
 ## Subtasks
 

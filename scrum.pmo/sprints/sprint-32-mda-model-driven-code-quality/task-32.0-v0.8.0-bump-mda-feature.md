@@ -34,9 +34,9 @@ designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.m
 
 ## Acceptance Criteria
 
-- [x] The Config unit version is 0.8.0; build stamps it single-source (R31.7); served==committed==SW==0.8.0 (R31.13 deterministic).
-- [x] The MDA modeling capability is registered/entered as a FeatureManager feature (R31.8) - owner-gated feature entry, appears in the feature grid.
-- [x] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+- [ ] **(functional)** The Config unit version is 0.8.0; build stamps it single-source (R31.7); served==committed==SW==0.8.0 (R31.13 deterministic).
+- [ ] **(functional)** The MDA modeling capability is registered/entered as a FeatureManager feature (R31.8) - owner-gated feature entry, appears in the feature grid.
+- [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
 
 ## Subtasks
 

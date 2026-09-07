@@ -42,13 +42,13 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Acceptance Criteria
 
-- [x] (add) The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout in the dynamic registry.
-- [x] (add) After registering, the new repo APPEARS in the selector + is usable for diffs/merges (resolves via RepoRegistry).
-- [x] (V1-validate) The chosen dir MUST contain a .git (file or folder) — the SOLE validation; no REPO_ALLOW allowlist, no admin-auth for V1; invalid dir rejected with a clear error.
-- [ ] (BACKLOG D1) [deferred, NOT lost — path-traversal/info-disclosure] realpath within HOME subtree OR REPO_ALLOW — V1 drops this (sole check = .git-present). R30.48/BH-3.
-- [ ] (BACKLOG D4) [deferred, NOT lost — write-auth] register requires admin-key — V1 drops admin-auth for add-local. R30.48/BH-3.
-- [x] (V1-persist) The registration persists in the dynamic registry (survives restart). [BACKLOG: admin-key gating of that write deferred with D4.]
-- [ ] (gate) GATE — DET-3x GREEN ✓ (r3043 50cc4295e 'criteria GREEN, multi-worker DISPROVEN', Test 4a253cea->Impl isGitRepo 3d1b156d, served==gated v0.7.71); Tron VISUAL pending. Full: register /root/oosh -> appears + opens a diff; version-bump.
+- [ ] **(add)** The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout as a repo in the dynamic registry.
+- [ ] **(add)** After registering, the new repo APPEARS in the repo selector and is usable for diffs/merges (resolves via the dynamic RepoRegistry).
+- [ ] **(security)** V1 (Tron scope-simplification 2026-07-19): the chosen directory MUST contain a .git (a FILE or a FOLDER = a git checkout or worktree) - this is the SOLE validation. NO REPO_ALLOW allowlist, NO admin-auth for v1. An invalid dir (no .git) is rejected with a clear error.
+- [ ] **(security)** [BACKLOG v1 - deferred, NOT lost; rationale: path traversal / info-disclosure defense] RATIFIED D1 (deferred to a post-v1 admin-endpoint): the server-local path, after realpath, within HOME subtree OR REPO_ALLOW allowlist. V1 drops this - sole check is .git-present (AC-validate).
+- [ ] **(security)** [BACKLOG v1 - deferred, NOT lost; rationale: write-auth] RATIFIED D4 (deferred): register requires admin-key. V1 drops admin-auth for add-local.
+- [ ] **(security)** V1: the registration persists in the dynamic registry (survives restart). [BACKLOG v1: the admin-key gating of that write is deferred with D4.]
+- [ ] **(gate)** GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump.
 
 ## Implementation
 

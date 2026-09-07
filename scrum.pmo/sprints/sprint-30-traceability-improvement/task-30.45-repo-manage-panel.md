@@ -43,12 +43,12 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Acceptance Criteria
 
-- [x] (manage) The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees.
-- [x] (D3 read-key) Each worktree is SELECTABLE as a READ-ONLY key (worktree-as-key) — selecting one repoints the READ key so diff/header read that worktree ref; server performs NO checkout, mutates NO working tree.
-- [x] (switch) After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40).
-- [x] (D3 bounded) Switching selects only among the repo's OWN worktrees as read keys (bounded) — no server checkout, no arbitrary path.
-- [x] (D3/D4) A worktree SWITCH is READ-ONLY (D3) so requires NO admin-key — gated. [D4: mutating manage actions (register/remove) require admin-key — DEFERRED R30.48/BH-3.]
-- [ ] (gate) GATE — DET-3x GREEN ✓ (r3045-uc7 ebdf8b080 v0.7.72, Test 771e2e83->Impl switchWorktree 1a86a852, served==gated); Tron VISUAL pending. Full: open manage -> path+branch+worktrees; switch -> header/diff track it; version-bump.
+- [ ] **(manage)** The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees.
+- [ ] **(manage)** RATIFIED D3: each worktree is SELECTABLE as a READ-ONLY key (worktree-as-key) - selecting one repoints the READ key so diff/header read that worktree ref; the server performs NO checkout and mutates NO working tree.
+- [ ] **(manage)** After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40).
+- [ ] **(security)** RATIFIED D3: switching only selects among the repo OWN worktrees as read keys (bounded) - no server checkout, no arbitrary path.
+- [ ] **(security)** RATIFIED D3+D4: a worktree SWITCH is READ-ONLY (D3) so requires NO admin-key; any MUTATING manage action (register/remove from the registry) requires the admin-key (D4).
+- [ ] **(gate)** GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump.
 
 ## Implementation
 

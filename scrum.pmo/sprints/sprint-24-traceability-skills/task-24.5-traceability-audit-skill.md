@@ -38,11 +38,11 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 
 ## Acceptance Criteria
 
-- [x] (check) trace:check reports chain-integrity issues (missing/dangling links) across the scenario index
-- [x] (fix) trace:fix repairs the mechanically-fixable chain issues
-- [x] (strict) trace:audit:strict asserts every Test is reachable from a Requirement root via the 6-step chain and FAILS on any gap
-- [x] (ci) trace:audit:strict is part of the ci:gates pipeline (nothing ships chain-open)
-- [x] (walk) The audit walks the forward chain per type (FORWARD_KEYS), reporting per-Test reachable depth and offending UUIDs
+- [ ] **(check)** trace:check reports chain-integrity issues (missing/dangling links) across the scenario index.
+- [ ] **(fix)** trace:fix repairs the mechanically-fixable chain issues.
+- [ ] **(strict)** trace:audit:strict asserts every Test is reachable from a Requirement root via the 6-step chain and FAILS on any gap.
+- [ ] **(ci)** trace:audit:strict is part of the ci:gates pipeline (nothing ships chain-open).
+- [ ] **(walk)** The audit walks the forward chain per type (FORWARD_KEYS), reporting per-Test reachable depth and offending UUIDs.
 
 ## Implementation
 

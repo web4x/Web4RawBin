@@ -70,17 +70,6 @@ scheme for the breadcrumb.
 - Pick concrete colors for the three link states that pass a contrast standard
 - Apply via CSS scoped to the file-browser breadcrumb (and any sibling anchors that share the bug)
 
-## Acceptance Criteria
-
-- [ ] AC1 — Breadcrumb link unvisited color reads cleanly against the file-browser background (contrast ≥ WCAG AA, architect confirms exact target)
-- [ ] AC2 — Visited link color distinct from unvisited; still legible
-- [ ] AC3 — Hover state visually distinct (color change, underline, or both — architect decides)
-- [ ] AC4 — Consistent with existing link styling in the rest of the app (T58 precedent if architect adopts it)
-- [ ] AC5 — No regression on T144 / T147 row anchors (their colors unchanged unless architect explicitly scopes the fix wider)
-- [ ] AC6 — `npm run build` succeeds; all existing tests pass
-- [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing CSS change. (c) STATIC_SHELL: exempt (CSS-only)
-- [ ] AC8 — All 4 roles committed work in this file
-
 ## Dependencies
 
 - **Requires:** T148 (provides the breadcrumb segments T150 styles)

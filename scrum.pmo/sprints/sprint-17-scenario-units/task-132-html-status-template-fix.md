@@ -44,14 +44,6 @@
 
 Fix the HTML status template so the generated status view renders correctly.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `scenario/sprints.md/task/<uuid>.html` renders Status section identically (visually) to the canonical Web4Articles markdown form (checkbox + label + nested sub-steps with indent)
-- [ ] AC2 — All 7 class templates (Sprint/Task/Requirement/UseCase/Class/Method/Test) render Status correctly — no per-class divergence
-- [ ] AC3 — Visual parity verified by tester via Playwright screenshot (or equivalent visual regression) on at least 1 sample per class
-- [ ] AC4 — `npm run build` succeeds; full suite passes; **rule-pair (a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15; **(c) STATIC_SHELL exempt** per #16 (template-only change, no new route — confirm in commit message)
-- [ ] AC5 — No regression: MD views (T130 fix in v0.5.27 MD_CSS) still render correctly
-
 ## Dependencies
 
 - **Requires:** T126 (templates + ViewGenerator)

@@ -34,8 +34,8 @@ Every method is reachable by navigation @390 — expanding its Class shows it; a
 
 ## Acceptance Criteria
 
-- [ ] @390 METHOD-UNDER-CLASS: every Method is reachable by navigation — expanding its Class shows it in the methods list. Screenshot: the 3 currently-orphaned methods appear under a Class, not nowhere.
-- [ ] MEASURABLE: count of Method units in no Class.methods[] (baseline 3) is 0; a method with a shipped impl but no Class path is surfaced, never silently invisible.
+- [ ] **(user-visible@390)** On 390px, every Method is reachable by navigation: expanding its Class shows it in the methods list. Screenshot: the 3 currently-orphaned methods appear under a Class, not nowhere.
+- [ ] **(measurable)** The count of Method units in no Class.methods[] (baseline 3) is 0; a method with a shipped impl but no Class path is surfaced, never silently invisible.
 
 ## Subtasks
 

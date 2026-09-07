@@ -40,10 +40,10 @@ S30 diff/merge editor — R30.49 delete-for-removable (Tron-approved, V1 push): 
 
 ## Acceptance Criteria
 
-- [x] (delete) A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister — after delete it is gone from the selector + registry. Tested e4741c65 (r3049) + 6f6edecd (unregister spine).
-- [x] (protect) A BUILTIN repo (rawbin, oosh) is NEVER removable — delete affordance absent/disabled + unregister refuses builtins (gate A.unregister-builtin-false + r3049).
-- [x] (V1-auth) V1 delete uses read-auth only (no admin-key); D4 requireAdmin deferred (R30.48 backlog) until multi-user.
-- [x] (gate) GATE GREEN DET-3x (r3049-delete-repo-gate.mjs, ebdf8b080 v0.7.72, served==gated): add dynamic -> delete from manage panel -> gone from selector+registry; delete builtin -> refused.
+- [ ] **(delete)** A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister; after delete it is gone from the RepoRegistry AND from the repo selector.
+- [ ] **(guard)** A BUILTIN repo (rawbin, oosh) is NEVER removable: the delete affordance is absent/disabled for builtins, and unregister no-ops/rejects a builtin key (builtins stay in the selector).
+- [ ] **(auth)** V1 delete uses read-auth only (no admin-key). D4 requireAdmin stays deferred (R30.48 backlog) until multi-user / exposed deployment.
+- [ ] **(gate)** GATE: add a dynamic repo -> delete it from the manage panel -> it is gone from selector + registry; attempt to delete a builtin -> rejected/absent (builtin still listed). Verified live.
 
 ## Implementation
 

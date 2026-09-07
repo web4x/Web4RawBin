@@ -34,9 +34,9 @@ Tron item-1 (HIGHEST PRIORITY, bug). Dragging a tree element INTO a NEW or EMPTY
 
 ## Acceptance Criteria
 
-- [x] Dragging a tree element (class) and dropping it INTO a freshly-created NEW or EMPTY diagram adds a box to the diagram model AND renders it immediately - the drop-to-add path fires for a zero-element diagram, not only for diagrams that already contain boxes.
-- [x] The dropped element PERSISTS to the diagram model (the create/add-view write returns ok) and SURVIVES a fresh re-mount of the diagram (round-trip), identical to dropping into an already-populated diagram.
-- [x] GATE @390 on REAL drag-drop (screenshot/pixel + planted-defect bite, NOT 'loads'): create a new empty diagram -> drag a class in -> a box APPEARS and persists across re-mount; planted-defect (write rejected) -> NO box (bite). Real server restart + boot-verify if the write path is server-side.
+- [ ] **(functional)** Dragging a tree element (class) and dropping it INTO a freshly-created NEW or EMPTY diagram adds a box to the diagram model AND renders it immediately - the drop-to-add path fires for a zero-element diagram, not only for diagrams that already contain boxes.
+- [ ] **(functional)** The dropped element PERSISTS to the diagram model (the create/add-view write returns ok) and SURVIVES a fresh re-mount of the diagram (round-trip), identical to dropping into an already-populated diagram.
+- [ ] **(gate)** GATE @390 on REAL drag-drop (screenshot/pixel + planted-defect bite, NOT 'loads'): create a new empty diagram -> drag a class in -> a box APPEARS and persists across re-mount; planted-defect (write rejected) -> NO box (bite). Real server restart + boot-verify if the write path is server-side.
 
 ## Subtasks
 

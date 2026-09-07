@@ -37,16 +37,6 @@ navigate the traceability graph as a TREE. It integrates the
 `defaultItemView`/`ListOverview`/`DetailView`/`Overview` components into a single
 browsing experience over the typed object graph. This is the sprint capstone.
 
-## Acceptance Criteria
-
-- [ ] AC1: A `<rb-trace-tree>` traceability browser renders NEXT TO the existing `<rb-file-tree>` file browser in the `/edit` Documentation UI (sibling panel or toggle)
-- [ ] AC2: The graph is navigable as a TREE — expand/collapse `requirement→task→useCase→class→method→test` chain nodes; node rows reuse T105 `<rb-object-item>`; expand state persisted
-- [ ] AC3: Integrates T105 defaultItemView (node rows), T106 ListOverview (search/flat toggle), T107 DetailView + Overview (detail/planning panes)
-- [ ] AC4: Selecting a node calls `TraceRouter.navigate(type,'show',{uuid})` → opens its DetailView; tree highlight + detail stay consistent via T103 ViewBus
-- [ ] AC5: Tree built from the T102 consistency-validated graph (`GET /api/trace` = scanRepo→`graph.toJSON()`); broken/dangling nodes shown WITH a warning marker (not silently dropped)
-- [ ] AC6: Tests cover tree render, expand/collapse navigation, node-select→detail, and integration of the four view components
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T102, T105, T106, T107

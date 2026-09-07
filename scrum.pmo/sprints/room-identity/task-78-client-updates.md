@@ -31,15 +31,6 @@
 
 See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.
 
-## Acceptance Criteria
-
-- [x] (a) Default room name from `profile.name` — `RoomBrowser.ts` create-form prefill + confirm fallback `${name}'s Room`
-- [x] (b) Full UUID in room cards — `.room-id` span renders `room.id` (full crypto.randomUUID, not sliced)
-- [x] (c) Persistence indicator — `.room-persist` "💾 Persistent" badge on every room card (all Sprint 9 rooms persist to disk with own SSH identity)
-- [x] Owner attribution — `.room-owner` "by &lt;name&gt;" / "you" badge from `ownerToken`/`ownerName`
-- [x] `npm run build` succeeds (v0.4.8, bundle app-G2VRAV5W.js)
-- [x] robbin-tester: verify badges render in lobby; full E2E suite stays 21/21 (no regression)
-
 ## QA Audit & User Feedback
 
 - Pending Tron QA review.

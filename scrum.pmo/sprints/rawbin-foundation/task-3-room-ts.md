@@ -27,14 +27,6 @@
 
 Create Room.ts by extracting and adapting the room logic from GameRoom.ts.
 
-## Acceptance Criteria
-
-- [x] Room.ts compiles with no TypeScript errors
-- [x] No imports from game files (BotPlayer, SpecialCards, CardUtils, ScoreCalculator)
-- [x] All vitest tests pass
-- [x] File persistence works (create room, restart, room still exists)
-- [x] ~300 lines or less
-
 ## QA Audit & User Feedback
 
 ## Subtasks

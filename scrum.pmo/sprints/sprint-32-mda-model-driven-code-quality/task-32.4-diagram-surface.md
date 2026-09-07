@@ -34,10 +34,14 @@ designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.m
 
 ## Acceptance Criteria
 
-- [ ] The SVG diagram surface renders inside the shared rb-detail-drawer (details compartment), responsive at all sizes.
-- [ ] The diagram supports pan + pinch-zoom via the shared RbPanZoom viewer-base (NO re-fork).
-- [ ] A blank diagram is a valid drop target for MDA-unit itemViews.
-- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+- [ ] **(functional)** The SVG diagram SURFACE is a DRAWER DETAIL-VIEW: a NEW rb-diagram-detail element (like rb-terminal-detail/rb-class-detail) registered in the rb-detail-drawer tagMap for a `diagram:` ref, mounted via the STANDARD selection->renderDetailForRef flow - NOT showElement, NOT a bespoke overlay (the R31.12 no-fork law, exact fork R31.4 retired). It inherits the drawer's responsive position (R31.9: bottom portrait / inline landscape) + open/close/expand by construction. Selecting a diagram:<D> ref renders the surface.
+- [ ] **(functional)** NODES = the Diagram unit's ordered Layer-2 `views[]` view-links: each `{ unit:'modelelement:X', x, y, w?, h?, viewKind:'class' }` -> ONE SVG UML class box at (x,y) with 3 compartments (name / attributes / methods) built from X's `members`; the box KIND + icon come from X's M2 MODEL-facet (same modelFacetType as R32.3). viewKind attr/method/prop = inner rows.
+- [ ] **(functional)** Position lives on the view-LINK (x,y), NOT the unit: the box reads the UNIT for content but a move mutates x,y on the view-link ONLY - the ModelElement unit is untouched (R25.7 identity-by-reference). One unit can appear in many diagrams at different positions.
+- [ ] **(functional)** The surface supports pan + pinch-zoom via RbPanZoom.applyPanZoom (the ratified R31.6 shared pan/zoom base: viewBox + CSS-transform on the viewport) - NO new/forked pan/zoom code.
+- [ ] **(functional)** A ResizeObserver fits the surface to the drawer box (the same fit pattern as the R31.4 terminal); the surface just fills the already-CSS-responsive drawer at all sizes.
+- [ ] **(functional)** Clicking an SVG box -> selectionModel.clear(); selectionModel.select('modelelement:X') -> selection-changed -> the SHARED drawer renders X's node detail (the R32.3 / standard detail flow, identical to the room/Server Manager pane-click). No capture-hook, no fork.
+- [ ] **(functional)** EDGES (relatesTo -> UmlAssociation/UmlGeneralization) are EXCLUDED from R32.4 - they are R32.6. A view-link of viewKind 'relationship' is skipped by the R32.4 surface. R32.4 scope = SURFACE + NODES only.
+- [ ] **(functional)** The shared rb-detail-drawer stays UNREGRESSED: /trace, Server Manager, and room detail-views open + render exactly as before, because the tagMap `diagram` entry is ADDITIVE (R31.12 no-fork law - no drawer mechanics touched). Regression-green is part of acceptance.
 
 ## Subtasks
 

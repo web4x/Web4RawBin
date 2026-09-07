@@ -27,13 +27,6 @@
 
 Add PlantUML/SVG rendering support to the markdown browser.
 
-## Acceptance Criteria
-
-- [x] /md/scrum.pmo/.../diagrams/class-diagram.svg renders in browser
-- [x] Markdown with `![](diagrams/class-diagram.svg)` shows inline
-- [x] .puml links redirect to .svg
-- [x] Sprint planning pages viewable with diagrams
-
 ## QA Audit & User Feedback
 
 ## Subtasks

@@ -49,16 +49,6 @@ note the rendered defect vs the source markdown.
 **Expected source (the canonical Web4Articles Status block):**
 ```markdown
 
-## Acceptance Criteria
-
-- [ ] AC1 — `/md/scrum.pmo/sprints/sprint-13-stability/task-118-e2e-cleanup.md` (or any task with the canonical Status block) renders the In-Progress sub-steps visibly indented under "In Progress"
-- [ ] AC2 — Checkboxes render as visual markers (✅/⬜ or equivalent — architect/expert call) at the correct level
-- [ ] AC3 — Deeper nesting (3+ levels) also renders correctly (Acceptance Criteria with sub-bullets, etc.)
-- [ ] AC4 — No regression: existing non-hierarchical lists, tables, code blocks, links, headings still render the same
-- [ ] AC5 — `/md/.../planning.md` files render the symbol-prefixed task list (⏳📝🔧✅🧪🏁 per learning #14) intact
-- [ ] AC6 — `npm run build` succeeds; vitest + playwright pass; **(a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15. **(c) STATIC_SHELL exempt** per #16 (no new route — renderer fix only)
-- [ ] AC7 — At least one E2E or visual-regression test covers the nested-Status render (architect/expert decides scope)
-
 ## Dependencies
 
 - **Requires:** None (server-side renderer fix)

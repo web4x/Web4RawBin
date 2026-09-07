@@ -27,15 +27,6 @@
 
 Build the Playwright end-to-end test suite.
 
-## Acceptance Criteria
-
-- [x] All E2E tests pass in headless Chromium
-- [x] Full user journey covered (gate → room → chat → profile → vCard)
-- [x] Device enrollment + auto-auth verified
-- [x] Mobile viewport tested
-- [x] Server auto-starts before tests (webServer config)
-- [x] Tests run with `npm run test:e2e`
-
 ## QA Audit & User Feedback
 
 ## Subtasks

@@ -38,12 +38,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit).
 
 ## Acceptance Criteria
 
-- [x] (case1) CASE 1 - trace-view (this.chatPanel===null) + detail mode: .drawer-close MINIMIZES the drawer
-- [x] (case2) CASE 2 (REGRESSION FIXED) - in-room (this.chatPanel!==null) + detail mode: .drawer-close returns to chat
-- [x] (case3) CASE 3 - in-room + chat mode: .drawer-close MINIMIZES (already in chat)
-- [x] (case4) CASE 4 - ESC closes the drawer (unchanged)
-- [x] (detection) The in-room-vs-trace signal is this.chatPanel!==null (ChatPanel created ONLY via RoomView)
-- [x] (verify) Tron visual + DET-3x all cases: in-room detail X -> chat; trace-view X -> minimize (mobile+desktop)
+- [ ] **(case1)** CASE 1 - trace-view (this.chatPanel===null) + detail mode: .drawer-close MINIMIZES the drawer (R27.8 behavior kept, both mobile AND desktop).
+- [ ] **(case2)** CASE 2 (REGRESSION FIXED) - in-room (this.chatPanel!==null) + detail mode: .drawer-close calls setMode('chat') -> the X RETURNS to the chat view instead of minimizing.
+- [ ] **(case3)** CASE 3 - in-room + chat mode: .drawer-close MINIMIZES (already in chat, so X minimizes).
+- [ ] **(case4)** CASE 4 - ESC closes the drawer (unchanged).
+- [ ] **(detection)** The in-room-vs-trace signal is this.chatPanel!==null (ChatPanel is created ONLY via RoomView drawer.chat; the trace-view never creates it - the existing signal @ rb-detail-drawer.ts:86). No new state flag.
+- [ ] **(verify)** Tron visual + DET-3x all cases: in-room detail X -> chat; trace-view X -> minimize (mobile+desktop); in-room chat X -> minimize; ESC -> close. Built WITH a version-bump.
 
 ## Implementation
 

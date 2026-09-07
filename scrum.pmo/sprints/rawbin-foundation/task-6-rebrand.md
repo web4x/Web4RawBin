@@ -27,15 +27,6 @@
 
 Rebrand the assets from UpDown to RawBin.
 
-## Acceptance Criteria
-
-- [x] `grep -ri "updown" src/` returns zero results
-- [x] `grep -ri "updown" package.json` returns zero results
-- [x] TUI shows RawBin on help/status/clients screens
-- [x] Browser shows RawBin in all page titles
-- [x] PWA manifest shows RawBin
-- [x] CSS custom properties defined for future color swap
-
 ## QA Audit & User Feedback
 
 ## Subtasks

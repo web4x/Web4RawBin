@@ -38,12 +38,13 @@ Tron: "the drawer works well on touch and it shall be touch first, but it shall 
 
 ## Acceptance Criteria
 
-- [x] Touch remains the primary surface: 1-finger drag pans, pinch zooms, double-tap resets/toggles (unchanged)
-- [x] Mouse-drag pans the drawer content, identical to 1-finger pan
-- [x] Scroll-wheel zooms the drawer content, identical to pinch-zoom (zoom toward the pointer)
-- [x] Double-click resets/toggles the zoom, identical to double-tap
-- [x] Behaviour is identical across input types (no mouse-only or touch-only divergence)
-- [x] Verified live (headless) — tester RED→GREEN v0.6.75→v0.6.76 (RED baseline cb8d3eceb; impl 073378b7d); GREEN DET-3x
+- [ ] **(touch-device-only)** ★ DEVICE-ONLY (real iOS @390, Tron-verified, NEVER headless-green): touch is the primary surface — 1-finger drag pans, pinch zooms, double-tap resets/toggles. A headless browser SYNTHESIZES touch events and never exercises the real iOS gesture recognizer (no momentum, no passive-listener / touch-action conflict surfacing); this AC cannot be greened headless. Behaviour claim UNCHANGED — only the verification surface is made honest.
+- [ ] **(mouse-parity)** Mouse-drag pans the drawer content, identical to 1-finger pan. (Gated HEADLESS @390 — automatable.)
+- [ ] **(mouse-parity)** Scroll-wheel zooms the drawer content, identical to pinch-zoom (zoom toward the pointer). (Gated HEADLESS @390 — automatable.)
+- [ ] **(mouse-parity)** Double-click resets/toggles the zoom, identical to double-tap. (Gated HEADLESS @390 — automatable.)
+- [ ] **(parity)** Behaviour is identical across input types — no mouse-only or touch-only divergence in pan/zoom/reset. The MOUSE side is checkable headless; the mouse↔touch IDENTITY can only be fully confirmed on-device, since the touch half is device-only.
+- [ ] **(verify-headless)** Verified live HEADLESS @390 for the MOUSE/pointer surface: mouse-drag pan, scroll-wheel zoom, double-click reset (AC-m1/m2/m3).
+- [ ] **(device-only-390)** ★ DEVICE-ONLY: the TOUCH gestures (1-finger pan, pinch-zoom, double-tap — AC-t) verified on real iOS @390 on Tron's device, NEVER headless-green. Headless synthesizes touch and never exercises the real gesture recognizer — so the old single AC-v ('verified headless on both surfaces') was VACUOUSLY GREEN for touch since R22.2 shipped. Corrected to honest device-only per the R40.3/R40.20 template; the requirement is NOT weakened (behaviour unchanged, verification made truthful). Tester audit: test/visual/HEADLESS-ONLY-AC-AUDIT.md.
 
 ## Implementation
 

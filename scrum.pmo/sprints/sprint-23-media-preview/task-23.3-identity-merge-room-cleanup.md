@@ -38,13 +38,13 @@ Tron: "in the heartspaces are 2 marcel donges users. i tried to link accounts bu
 
 ## Acceptance Criteria
 
-- [x] (ghost members) After a merge, tombstoned profiles (redirectTo set) are removed/redirected from every room member list — no duplicate "ghost" member — GREEN (gate 549012182: exactly 1 'Marcel Donges')
-- [x] A room with merged identities shows exactly ONE canonical member per person (Heartspaces shows one Marcel Donges, not two) — GREEN (member token === primary 8f74dfba, not a tombstone)
-- [x] (link works) Link Account / consolidate SUCCEEDS when the entered secret code matches the target's secretCode — GREEN (gate 23bafb1db: CORRECT secret → CONSOLIDATE_OK)
-- [x] A correct secret code never yields a silent failure; a wrong code yields an explicit CONSOLIDATE_FAILED 'Wrong secret code' — GREEN (gate 23bafb1db: WRONG secret → CONSOLIDATE_FAILED)
-- [x] (no phantom) The identity/link flow does NOT create a phantom empty/uncommitted profile (e.g. the observed 6a27140d) — GREEN (gate 23bafb1db: profile count before == after)
-- [x] Existing ghost members from past merges are reconciled (cleanup is retroactive for already-tombstoned profiles in rooms) — GREEN (Heartspaces had 2 consolidated tombstones, now 1)
-- [x] Verified live (headless) in a real room — merge 2+ profiles, room member list collapses to one canonical member — GREEN (live Heartspaces join, ROOM_JOINED.members DET-3x)
+- [ ] **(ghost-members)** After a merge, tombstoned profiles (redirectTo set) are removed/redirected from every room member list - no duplicate ghost member.
+- [ ] **(ghost-members)** A room with merged identities shows exactly ONE canonical member per person (Heartspaces shows one Marcel Donges, not two).
+- [ ] **(link-works)** Link Account / consolidate SUCCEEDS when the entered secret code matches the target's secretCode.
+- [ ] **(link-works)** A correct secret code never yields a silent failure; a wrong code yields an explicit CONSOLIDATE_FAILED 'Wrong secret code'.
+- [ ] **(no-phantom)** The identity/link flow does NOT create a phantom empty/uncommitted profile (e.g. the observed 6a27140d).
+- [ ] **(retroactive)** Existing ghost members from past merges are reconciled (cleanup is retroactive for already-tombstoned profiles in rooms).
+- [ ] **(verify)** Verified live (headless) in a real room: merge 2+ profiles, the room member list collapses to one canonical member.
 
 ## Implementation
 

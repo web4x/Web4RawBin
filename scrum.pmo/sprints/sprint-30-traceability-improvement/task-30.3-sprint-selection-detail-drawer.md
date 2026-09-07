@@ -38,9 +38,9 @@ S30 Traceability Improvement — keep the traceability tree scaling + navigable.
 
 ## Acceptance Criteria
 
-- [x] (selection) Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details.
-- [x] (bug) THE BUG: selecting a sprint did NOT change the drawer content.
-- [x] (selection) selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details.
+- [ ] **(selection)** Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details.
+- [ ] **(bug)** THE BUG: selecting a sprint did NOT change the drawer content.
+- [ ] **(selection)** selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details (fix on RbDetailDrawer.renderDetailForRef).
 
 ## Implementation
 

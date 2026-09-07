@@ -38,10 +38,10 @@ S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, n
 
 ## Acceptance Criteria
 
-- [ ] (type) A NEW first-class ior:class:AgentMessage scenario unit type exists, peer to Task/Requirement/UseCase.
-- [ ] (type) An AgentMessage holds: from (sender agent + pane), to (recipient agent), subject/body, threadId, timestamp, status (unread/read), and an optional ref to a related Task/Requirement.
-- [ ] (type) A message is a COMMITTED scenario unit on disk (durable + auditable) - not an ephemeral keystroke; wer schreibt der bleibt.
-- [ ] (type) The AgentMessage type is registered in templates.ts (AgentMessageTemplate) + the tagMap so it renders + resolves (a new scenario type without its template + tagMap will not render/resolve - the R29.3 lesson).
+- [ ] **(type)** A NEW first-class ior:class:AgentMessage scenario unit type exists, peer to Task/Requirement/UseCase.
+- [ ] **(type)** An AgentMessage holds: from (sender agent + pane), to (recipient agent), subject/body, threadId, timestamp, status (unread/read), and an optional ref to a related Task/Requirement.
+- [ ] **(type)** A message is a COMMITTED scenario unit on disk (durable + auditable) - not an ephemeral keystroke; wer schreibt der bleibt.
+- [ ] **(type)** The AgentMessage type is registered in templates.ts (AgentMessageTemplate) + the tagMap so it renders + resolves (a new scenario type without its template + tagMap will not render/resolve - the R29.3 lesson).
 
 ## Implementation
 

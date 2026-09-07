@@ -69,15 +69,6 @@ maintaining structure:
 - Add T124.1-T124.6 to the sub-task list as their files land
 - Symbol maintenance on T124 itself (⏳→📝 when refinement done, etc.)
 
-## Acceptance Criteria
-
-- [ ] AC1 — `requirements.md` exists in `sprint-17-scenario-units/` with R17.1-R17.15 each carrying a proper v4 `requirement:uuid` (no invented `r17-*` strings; learnings #17)
-- [ ] AC2 — Architect design committed in T124.1-T124.3 + T124.6 sub-task files (data model, view templates, storage layout, PUML)
-- [ ] AC3 — `traceability-standard.md` updated to include IOR + scenario-unit + the canonical chain
-- [ ] AC4 — `s17-usecases.puml` exists in `diagrams/` with Phase-1 use cases as `<<UseCase>>` instances
-- [ ] AC5 — Planning.md reflects the refinement state (T124 ⏳→📝); architect+req sign off
-- [ ] AC6 — No client surface change in this parent — version bump deferred to T125 impl (per #15; T124 is documentation-only, exempt)
-
 ## Dependencies
 
 - **Requires:** None (foundation refinement)

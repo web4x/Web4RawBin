@@ -44,14 +44,6 @@ uses it (today: `/trace` browser, `/md/*` rendered docs/SVGs/PUMLs). Implement
 via inline CSS on the rendered `<nav>` element (or the wrapper it lives in)
 inside `pageNav()` at `src/ts/server/server.ts:293`.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `pageNav()` rendered output stays anchored to the viewport top while the user scrolls the page body
-- [ ] AC2 — Works on `/trace` (rb-trace-view tree) and `/md/*` (markdown/SVG/PUML viewer) — both routes that consume pageNav today
-- [ ] AC3 — Does not interfere with the drawer (T110/T120/T122) at the bottom of `/trace`; z-index ordering stays sane
-- [ ] AC4 — Mobile (iPhone Safari) — pageNav stays at top respecting safe-area-inset-top where applicable
-- [ ] AC5 — `npm run build` succeeds; vitest + playwright pass; **(a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15. **(c) STATIC_SHELL exempt** per #16 (no new route — confirm in commit message)
-
 ## Dependencies
 
 - **Requires:** None (server-side inline CSS only)

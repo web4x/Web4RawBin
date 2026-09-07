@@ -34,12 +34,11 @@ Board-track R40.85 at its honest status; declare the ONE canonical planning unit
 
 ## Acceptance Criteria
 
-Mirrors R40.85 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.
-- [ ] AC-upload-succeeds-drop-area: a file dropped on the drop area UPLOADS (recognition -> stored) for ALL types; the 0.8.175 face (png recognized then Upload FAILED) is gone.
-- [ ] AC-regression-root-identified: the regression is traced to the specific DEPLOY change that broke the upload path (recognition works; POST/store died) and the fix RESTORES it — US breaking something, our regression.
-- [ ] AC-scope-all-uploads-not-folder: scope = ALL drop-area uploads, NOT a folder-specific case; distinct from R40.86 (folders-as-drop-targets). Do not conflate.
-- [ ] AC-verify-member-session: WE verify @390 member-session (drop a png -> uploads + lands); Tron ACCEPTS — he hit this as a CUSTOMER (our regression = our verification failure), NOT a check we hand him.
-- [ ] AC-stub-must-fail: seed recognized-then-POST/store-dies => RED; a suite green on recognition-without-store is inadmissible.
+- [ ] **(regression/behaviour)** A file dropped on the drop area UPLOADS successfully (recognition -> stored), for ALL file types. The 0.8.175 face (png recognized as image/png then Upload FAILED) is gone. Upload-dies-after-recognition => RED.
+- [ ] **(regression/root)** The regression is traced to the specific DEPLOY change that broke the upload path (recognition works; the upload POST/store dies) and the fix RESTORES it. This is US breaking something (a regression), NOT a missing capability.
+- [ ] **(scope)** Scope = ALL uploads via the drop area, NOT a folder-specific case. Distinct from R40.86 (folders-as-drop-targets, a separate capability). Do not conflate.
+- [ ] **(verify/customer-not-tester)** WE verify @390 member-session (drop a png on the drop area -> it uploads + lands). Tron ACCEPTS — he hit this as a CUSTOMER (our regression = our verification failure), NOT a test he runs.
+- [ ] **(stub-must-fail)** Seed the exact 0.8.175 defect — a file recognized then the upload POST/store dies => RED. A suite green on recognition-without-store is inadmissible.
 
 ## Subtasks
 

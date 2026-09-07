@@ -76,19 +76,6 @@ PO 2026-06-02: "Tron R-F = ZERO untraced." T169 found the gap; T171 closes it.
 - Intentional orphans: documented allowlist + category-level requirement; audit recognizes them
 - R17.26 link-back: add `tasks: [T165, T166]` (and any other) forward IORs to R17.26's scenario unit
 
-## Acceptance Criteria
-
-- [ ] AC1 — R17.26 scenario unit has forward IOR links to **T165 + T166** (both); architect may include other implementing tasks if applicable
-- [ ] AC2 — All 50 currently-untraced units are resolved: each is **either** (a) linked to a requirement via the canonical chain, **or** (b) in a documented orphan-by-design registry referencing a category-level requirement that justifies it
-- [ ] AC3 — Architect produces a categorization document (`scrum.pmo/sprints/sprint-17-scenario-units/t171-orphan-categories.md` or similar) listing each of the 50 by category + resolution
-- [ ] AC4 — T169 audit re-run reports **ZERO untraced** (audit recognizes the documented orphan-by-design exemptions per category)
-- [ ] AC5 — Audit honors the allowlist mechanically — orphans NOT in the allowlist still fail the audit (gate integrity preserved)
-- [ ] AC6 — R17.26 walkDown via T169 audit reaches T165 + T166 (chain link-back works)
-- [ ] AC7 — No regression on T134/T143/T158/T159/T160/T161/T163/T165/T166/T169
-- [ ] AC8 — `npm run build` succeeds; all existing tests pass
-- [ ] AC9 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL exempt (no new route)
-- [ ] AC10 — **traceability-matrix refresh (folded per PO 2026-06-02):** `scrum.pmo/traceability-matrix.md` updated in the SAME commit-set as the data closure. Coverage: T143 through T171 (last touched 2026-05-31; stale relative to T143/T144/T145/T146/T147/T148/T149/T150/T151/T152/T153/T154/T155/T158/T159/T160/T161/T163/T164/T165/T166/T167/T168/T169/T170/T171). Matrix reflects the locked 7-step chain + 1:N at plural hops + the orphan-by-design categories from this task.
-
 ## Dependencies
 
 - **Requires:** T169 (audit + remigration tooling — shipped `7ddf64f`); T168 (canonical chain rule); T165/T166 (R17.26 implementing tasks)

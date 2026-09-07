@@ -43,25 +43,6 @@
 
 Add an upload-vCard onboarding gate to speed up first-time profile fill.
 
-## Acceptance Criteria
-
-- [ ] AC1 — On first-connect ProfileEditor, an "Upload vCard" button is visible at the TOP of the form
-- [ ] AC2 — Clicking the button opens the native file picker filtered to `.vcf` / `text/vcard`
-- [ ] AC3 — Selecting a valid .vcf populates name (FN), phone (TEL), url (URL), avatar (PHOTO if present) into the form inputs
-- [ ] AC4 — Pre-filled fields are visually marked (architect picks: badge, color, "from vCard" hint)
-- [ ] AC5 — User can edit pre-filled fields before submit (no auto-save)
-- [ ] AC6 — Manual fill (no vCard upload) still works exactly as before
-- [ ] AC7 — Corrupt .vcf shows inline error; form stays usable
-- [ ] AC8 — PHOTO field: data URL → posted to `/api/avatar` (T50 flow); URL → set profile.avatar; absent → keep default random avatar (T48 flow)
-- [ ] AC9 — Mobile (iPhone Safari): file picker accepts .vcf; flow works on touch viewport
-- [ ] AC10 — **Native OS drag-and-drop drop zone**: dragging a .vcf from the OS file system onto the form triggers the same parse + populate flow as Method 1
-- [ ] AC11 — Drop zone shows visual cue on `dragenter` (architect picks: dashed border / overlay / etc.)
-- [ ] AC12 — Multi-platform drag-drop verified by tester: **macOS Finder drag**, **Windows Explorer drag**, **iOS Safari (iPhone) drag from Files/share-sheet**, **Android Chrome drag from Files**. Document any platforms where drag is unsupported — those fall back to Method 1 button (no broken UX)
-- [ ] AC13 — Non-.vcf drops rejected with inline error; form stays usable
-- [ ] AC14 — Drop zone keyboard-equivalent to upload button (a11y parity)
-- [ ] AC15 — `npm run build` succeeds; full vitest + playwright pass; **rule-pair (a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15 (client-facing UI change); **(c) STATIC_SHELL exempt** per #16 (no new route — confirm in commit)
-- [ ] AC16 — No regression: existing vCard *download* (ProfileSheet.downloadVCard) still works; the new *upload+drop* is the inverse direction, all three flows coexist
-
 ## Dependencies
 
 - **Requires:** existing ProfileEditor + ProfileSheet (Sprint 2 + Sprint 7); existing /api/avatar endpoint (T50)

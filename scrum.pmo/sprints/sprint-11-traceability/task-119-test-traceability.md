@@ -47,19 +47,6 @@
 
 Add test traceability: [test:uuid:] markers, trace-cli Pass 6, and chain validation.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `traceability-standard.md` updated to include the **test** node and the `[test:uuid:]` marker grammar
-- [ ] AC2 — trace-cli Pass 6 `parseTestUuidMarkers()` ships; emits `Test` objects linked to req/AC/task
-- [ ] AC3 — `validate()` reports `orphanTests` count; 0 after rollout (or matches the documented waiver allowlist)
-- [ ] AC4 — Every `test/vitest/*.test.ts` carries a file-level `[test:uuid:]` linking to ≥1 requirement (or a waiver)
-- [ ] AC5 — Every `test/e2e/*.spec.ts` carries a file-level `[test:uuid:]` linking to ≥1 requirement (or a waiver)
-- [ ] AC6 — `test-traceability.test.ts` asserts: every req has ≥1 test; every task AC has ≥1 covering test; `orphanTests` ≤ waiver count
-- [ ] AC7 — `npm run trace:check` (or equivalent) surfaces orphan tests and broken test→req links the same way it surfaces orphan UCs (T116)
-- [ ] AC8 — Architect adds `UC-testTraceabilityScan` + `UC-orphanTestValidation` to `s16-usecases.puml` (or a sibling), regenerates SVG, no broken puml
-- [ ] `npm run build` + full vitest + playwright pass; no regression; trace graph includes Test nodes
-- [ ] Version bump only if user-facing surface changes (test-infra only — likely no bump)
-
 ## Dependencies
 
 - **Requires:** T117 (trace-cli Pass 4 machinery; landed in 61d0253) · T116 (Pass 5 [impl:uuid:]; landed in 61d0253) · T85 (the standard to extend; impl-done)

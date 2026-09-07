@@ -34,13 +34,13 @@ ONE fail-loud detail primitive that EVERY render extends — an HTMLElement-not-
 
 ## Acceptance Criteria
 
-- [ ] EXTEND-PRIMITIVE: RbFileDetail + RbWebItemDetail extend RbDetailBase (not HTMLElement) — every detail render extends the ONE fail-loud primitive; an HTMLElement-based detail render cannot exist.
-- [ ] FAIL-LOUD-NOT-SILENT: a File/WebItem detail with bad/missing data FAILS LOUD (not raw-JSON / uuid-name / silent) on BOTH /trace and in-room.
-- [ ] ROOM DELEGATES: RoomView renders file/webitem preview via renderDetailForRef through the shared flow; the openFilePreview (852101d1) hand-paint fork is RETIRED — shared drawer/preview fixes reach in-room by construction (cures recurrence-root e4dafc536).
-- [ ] ★ GATE-FIRST (PO HARD condition): a /trace File + WebItem detail-render coverage gate EXISTS and is GREEN BEFORE Phase A migration lands — no refactor of Tron's main surface against an ungated path. (BUG18 @390 covers the room; /trace needs the equivalent FIRST.)
-- [ ] PHASED: Phase A = migrate the 2 stragglers (RbFileDetail, RbWebItemDetail) onto the primitive CROSS-PAGE FIRST; Phase B = RoomView delegates via renderDetailForRef.
-- [ ] STUB-MUST-FAIL: the fail-loud is proven NON-VACUOUS — a stub rendering bad data silently -> RED (bite), for File and WebItem, on /trace and in-room.
-- [ ] @390 REGRESSION GATE: real-WebKit @390 asserts File + WebItem detail render through the primitive (positive-control pairing: bad-data unit + clean unit); wired into ci:gates = BUG18-class permanent close.
+- [ ] **(by-construction)** Every File/WebItem detail-render component EXTENDS RbDetailBase (the r4011 fail-loud primitive), NEVER HTMLElement directly. A detail component extending HTMLElement (or otherwise not routing through RbDetailBase's fail-loud) => RED. The 2 stragglers RbFileDetail (d932447e) + RbWebItemDetail (2598da09/accc6a00) migrate to extend RbDetailBase.
+- [ ] **(fail-loud)** An unresolvable / missing ref in ANY detail render fails LOUD via RbDetailBase (a VISIBLE error), NEVER silent — no hand-paint, no permanent 'Loading...', no parent-collection fallback, no blank box. RoomView.openFilePreview's silent-fail (852101d1) is eliminated: it delegates, not hand-paints.
+- [ ] **(DRY)** In-room preview DELEGATES through the shared renderDetailForRef path (same primitive as /trace), NOT a forked hand-paint. This kills the RoomView preview-fork RECURRENCE ROOT (e4dafc536): a shared detail fix now reaches in-room by construction, so BUG18-class defects cannot recur via the fork.
+- [ ] **(gate-first)** ★ PO CONDITION: a /trace File/WebItem detail-render COVERAGE GATE must EXIST and PASS *before* PhaseA migration lands. Refactoring Tron's main surface against an UNGATED path = handing him a new regression. The coverage gate is the PRECONDITION for the migration, not a follow-up.
+- [ ] **(phased)** PHASED: PhaseA migrates the 2 cross-page stragglers (RbFileDetail/RbWebItemDetail -> extend RbDetailBase) FIRST; PhaseB makes the room delegate via renderDetailForRef. Order matters: converge the shared primitive before re-pointing the room at it.
+- [ ] **(gate)** STUB-MUST-FAIL (prove-the-prover): a synthetic detail component extending HTMLElement with an unresolvable ref => the convergence gate FLAGS it (RED); a component extending RbDetailBase with fail-loud => NOT flagged. A gate that cannot go RED on a real bypass certifies nothing.
+- [ ] **(verify)** @390 REGRESSION GATE (the deliverable that keeps BUG18-class CLOSED): clicking a FILE or WebItem in a room -> the FILE/WebItem detail renders (correct type-appropriate view), NOT the PARENT collection / uuid-named unit / silent blank; a missing ref shows fail-loud, not a silent wrong-surface. Real @390 device, asserts the RENDERED artifact (Arm-B: not a proxy).
 
 ## Subtasks
 

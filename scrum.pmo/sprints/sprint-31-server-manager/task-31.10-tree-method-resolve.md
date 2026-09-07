@@ -30,8 +30,8 @@ The traceability tree MUST resolve a UseCase to its OWN UC.model.method in EVERY
 
 ## Acceptance Criteria
 
-- [x] For a UseCase whose model.method is SET, the traceability tree resolves and displays THAT method (and its chain) in EVERY view — trace-mode AND non-trace / scenario-mode — never a sibling method on the same Class. Acceptance probe: R31.9 UC drawer.observePosition resolves to observePosition (e8097351), NOT onGrabBarPointer (R25.4), in non-trace/scenario views too.
-- [x] When UC.method is set, the client tree MUST NOT fall back to the Class's sibling-methods (the fetchAndRenderChildren path); the UC's own method resolution is authoritative in all query modes (the chainMethod attach is not gated to queryMode==='trace' alone). Architect owns the code fix.
+- [ ] **(functional)** For a UseCase whose model.method is SET, the traceability tree resolves and displays THAT method (and its chain) in EVERY view — trace-mode AND non-trace / scenario-mode — never a sibling method on the same Class. Acceptance probe: R31.9 UC drawer.observePosition resolves to observePosition (e8097351), NOT onGrabBarPointer (R25.4), in non-trace/scenario views too.
+- [ ] **(functional)** When UC.method is set, the client tree MUST NOT fall back to the Class's sibling-methods (the fetchAndRenderChildren path); the UC's own method resolution is authoritative in all query modes (the chainMethod attach is not gated to queryMode==='trace' alone). Architect owns the code fix.
 
 ## Subtasks
 

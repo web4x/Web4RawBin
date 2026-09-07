@@ -34,10 +34,10 @@ R-D2 (residual). Modelelement unit actions already EXIST via R33.9 actionsForCon
 
 ## Acceptance Criteria
 
-- [x] (functional) A class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} so setActions fires.
-- [x] (functional) Modelelement unit verbs (+ membership if a diagram is active, R34.4) appear in the action bar on class-select.
-- [x] (functional) Rides R33.9 actionsForContext + R33.7.4 (ride-existing; NO new verb/Method).
-- [x] (gate) GATE @390 real-WebKit: select a class in the tree -> its unit verbs (+ membership if a diagram is active) appear in the bar.
+- [ ] **(functional)** A class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} so setActions fires.
+- [ ] **(functional)** Modelelement unit verbs (+ membership if a diagram is active, R34.4) appear in the action bar on class-select.
+- [ ] **(functional)** Rides R33.9 actionsForContext + R33.7.4 (ride-existing; NO new verb/Method).
+- [ ] **(gate)** GATE @390 real-WebKit: select a class in the tree → its unit verbs (+ membership if a diagram is active) appear in the bar.
 
 ## Subtasks
 

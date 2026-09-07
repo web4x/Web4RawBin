@@ -34,11 +34,12 @@ A user never sees a bare method/class panel for a unit that has a shipped impl �
 
 ## Acceptance Criteria
 
-PARTIAL — 1 of 4 conditions DELIVERED (PO status-matrix 2026-08-31; mirrors req R40.71 matrix, SAME language so board+req cannot drift). In-Progress, NEVER Done till Tron.
-- [x] (1) METHOD SOURCE LINK — DELIVERED + verified @390 on v0.8.151 (expert serve-time derive sourceFile from impl.sourceFile forward edge); screenshots to Tron.
-- [ ] (2) METHOD FULL SIGNATURE — OPEN, SPLIT OUT to R40.74 35c9767f / T40.74 (req minted 2026-08-31): a DIFFERENT KIND of work — a render feature needing PARSED signature data (0/657 carry it, needs enrich FIRST), NOT this task's data-derivation. T40.71 no longer owns condition-2; tracked under T40.74.
-- [ ] (3) ~16 RESIDUAL methods with NO derivable impl — OPEN; to be MARKED 'source not available' (explicit), never left blank.
-- [ ] (4) CLASS details — OPEN; count = 78 (60 field-absent + 18 whose sourceFile wrongly points at a .scenario.json path; the 18 = data defect DEFERRED to R40.75 0d1394a6 pending Tron, NO task now). Class source-link fix BUILT v0.8.152 but deliberately NOT restarted = NOT landed (do NOT record as shipped).
+- [ ] **(user-visible@390)** On a 390px screen, opening a LIVE method's detail shows a '📄 <path>:<line>' source link — a screenshot shows the link present, matching an already-enriched method's panel. Today it is absent = the defect.
+- [ ] **(user-visible@390)** On 390px, a live method detail SHOWS the full signature line — visibility name(parameters):returnType — plus docs, per R36.3 AC-gate-390 (the authoritative AC). A screenshot shows the signature line present, matching an enriched method. Today it is absent (tester rendered @390: no signature/params/returnType/description) = the confirmed defect. NOTE: deriving sourceFile alone (the 📄 link) does NOT satisfy this — the signature must render too.
+- [ ] **(user-visible@390)** The detail shows a description body + populated sections, not just badge+name+uuid. Screenshot: the body is non-empty for a live method.
+- [ ] **(user-visible@390)** For the 328/344 methods whose implementation carries sourceFile, the link is DERIVED from impl.sourceFile (forward edge) and renders — a user never sees a bare panel for a method that has a shipped impl. Screenshot: such a method shows 📄 path:line.
+- [ ] **(measurable)** The count of Method/Class detail panels that render with NO source link AND NO description trends toward 0 for units that have a derivable source; the remaining (genuinely source-less) are explicitly marked, not blank.
+- [ ] **(partial-cannot-read-as-done)** R40.71 is satisfied ONLY when ALL FOUR conditions render @390; the v0.8.151 ship delivered 1 of 4 = PARTIAL, NOT done. (1) METHOD source-link — DELIVERED (v0.8.151, derive sourceFile from impl, 328/344, screenshot-verified @390). (2) METHOD full-signature render — OPEN, SPLIT to R40.74 (distinct-kind; 0/657 carry signature data). (3) ~16 residual methods (344 minus 328 derivable) with no impl carrying sourceFile — OPEN, still bare; must be explicitly MARKED, not blank. (4) CLASS detail — OPEN, 78 classes render no source link on served tree (PO-ruled: 60 absent + 18 mis-populated=R40.75); class source-link BUILT-AND-HELD (v0.8.152 committed NOT served); signature=R40.74; 18-data=R40.75. A board that reads the v0.8.151 ship as done is WRONG: 3 of 4 remain. Screenshot each condition @390.
 
 ## Subtasks
 

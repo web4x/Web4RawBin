@@ -47,17 +47,6 @@
 
 Represent traceability links as first-class scenario.json units with ln symlinks into the referenced instances, and render them in the generated MD/HTML views.
 
-## Acceptance Criteria
-
-- [ ] AC1 — `TraceabilityLink` class + `Unit` extension shipped; round-trip serialize/parse via `IOR.resolve()`
-- [ ] AC2 — Storage emits `ln` symlinks into BOTH endpoints' speaking-name dirs per architect's design; symlinks resolve (T131 file-browser symlink support already covers visibility)
-- [ ] AC3 — HTML+MD template registered; rendered view shows from / to / relation / timestamp; clicking from or to navigates to that endpoint's view (T127 nav)
-- [ ] AC4 — `IOR.resolve("traceabilityLink:<uuid>")` returns the link unit; trace-cli reports them as graph objects
-- [ ] AC5 — T128 migration extended to emit link units for every chain edge in existing markdown — orphan count for links = 0 (every chain reference in markdown has a link unit)
-- [ ] AC6 — `npm run trace:check` clean on the link-augmented graph
-- [ ] AC7 — `npm run build` succeeds; suite passes; rule-pair (a)+(b) per #15; (c) per #16 (no new route expected unless architect adds /links/<uuid>)
-- [ ] AC8 — At least one Playwright E2E walks: open a task view → click "up" link → view shows the link unit → click "to" endpoint → ends on the parent sprint or requirement
-
 ## Dependencies
 
 - **Requires:** T125 (foundation classes + IOR), T126 (template architecture — extends to an 8th class), T127 (IOR resolver + nav), T128 (migration emits link units as part of the migration pass)

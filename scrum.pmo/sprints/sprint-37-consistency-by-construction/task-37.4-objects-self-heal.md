@@ -37,9 +37,9 @@ R37.4 (build LAST). The pin and board objects VALIDATE on init/read: they reflec
 
 ## Acceptance Criteria
 
-- [ ] (functional) The pin/board objects VALIDATE on init/read -> either recompute to reflect reality, or REFUSE to run when drifted.
-- [ ] (functional) The objects NEVER return a silently-drifted value - always fail-loud or self-correct on read.
-- [ ] (gate) TEST EXERCISES AC-validate-on-init+AC-never-silent: construct a drifted pin/board object -> it recomputes to reality OR throws/refuses (never returns silently-wrong). Verify Impl.tests[] on disk before flip.
+- [ ] **(functional)** The pin/board objects VALIDATE on init/read -> either recompute to reflect reality, or REFUSE to run when drifted.
+- [ ] **(functional)** The objects NEVER return a silently-drifted value — always fail-loud or self-correct on read.
+- [ ] **(gate)** TEST EXERCISES AC-validate-on-init+AC-never-silent: construct a drifted pin/board object -> it recomputes to reality OR throws/refuses (never returns silently-wrong). Verify Impl.tests[] on disk before flip.
 
 ## Subtasks
 

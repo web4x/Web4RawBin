@@ -46,17 +46,17 @@ S30 diff/merge editor — R30.50 merge-toolbar optimization (Tron feature): chan
 
 ## Acceptance Criteria
 
-- [x] The toolbar composes '- N selected . X/Y open' (KEEP the open-conflict count per Tron) where N is the CURRENT change/conflict number navigated to (nav position).
-- [x] N live-updates as the user navigates changes up/down.
-- [x] The '✨ Apply All' button (relabelled from 'Apply All Non-Conflicting' per Tron ruling) opens a popup (automagic) offering 3 auto-resolve modes: 'Non-conflicting only' (existing applyAllNonConflicting - conflicts remain), 'All - Local wins', and 'All - Repo wins'.
-- [x] Mode 'All - Local wins': accept-all so CENTER matches the LEFT file (Local/left wins - resolves conflicts too, via applyAllFromSide).
-- [x] Mode 'All - Repo wins': accept-all so CENTER matches the RIGHT file (Repo/right wins - resolves conflicts too, via applyAllFromSide).
-- [x] [RESOLVED - Tron ruling] 3-MODE ADD (not replace): the 'Apply All' popup offers 'Non-conflicting only' (existing 91c452ae kept) + 'All-Local wins' + 'All-Repo wins'; button relabelled 'Apply All'.
-- [x] Save only actually SAVES when there are 0 open conflicts (all resolved).
-- [x] If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (and does not save).
-- [x] After a successful save, the Save button turns GREEN (saved indicator).
-- [x] On ANY subsequent change, the Save button returns to DEFAULT (unsaved indicator).
-- [ ] GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual.  [DET-3x GREEN ✓ r3050 522c34b01 v0.7.73, chain both-directions, served==gated; Tron VISUAL pending]
+- [ ] **(indicator)** The toolbar composes '- N selected . X/Y open' (KEEP the open-conflict count per Tron) where N is the CURRENT change/conflict number navigated to (nav position).
+- [ ] **(indicator)** N live-updates as the user navigates changes up/down.
+- [ ] **(applyall)** The '✨ Apply All' button (relabelled from 'Apply All Non-Conflicting' per Tron ruling) opens a popup (automagic) offering 3 auto-resolve modes: 'Non-conflicting only' (existing applyAllNonConflicting - conflicts remain), 'All - Local wins', and 'All - Repo wins'.
+- [ ] **(applyall)** Mode 'All - Local wins': accept-all so CENTER matches the LEFT file (Local/left wins - resolves conflicts too, via applyAllFromSide).
+- [ ] **(applyall)** Mode 'All - Repo wins': accept-all so CENTER matches the RIGHT file (Repo/right wins - resolves conflicts too, via applyAllFromSide).
+- [ ] **(applyall)** [RESOLVED - Tron ruling] 3-MODE ADD (not replace): the 'Apply All' popup offers 'Non-conflicting only' (existing 91c452ae kept) + 'All-Local wins' + 'All-Repo wins'; button relabelled 'Apply All'.
+- [ ] **(save)** Save only actually SAVES when there are 0 open conflicts (all resolved).
+- [ ] **(save)** If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (and does not save).
+- [ ] **(save)** After a successful save, the Save button turns GREEN (saved indicator).
+- [ ] **(save)** On ANY subsequent change, the Save button returns to DEFAULT (unsaved indicator).
+- [ ] **(gate)** GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual.
 
 ## Implementation
 

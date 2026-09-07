@@ -40,13 +40,13 @@ S30 diff/merge editor, R30.37 (Tron): an explicit per-change resolution model (g
 
 ## Acceptance Criteria
 
-- [x] (toggle) Each change shows a GREEN CHECKMARK labelled 'RESOLVED' (label/tooltip say 'RESOLVED' - NEVER 'commit'/'committed') next to up/down nav in the 3-Way Merge toolbar for the current change
-- [x] (toggle) OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED - the checkmark's fill visually distinguishes the two states (pixel-distinguishable)
-- [x] (toggle) Clicking the checkmark TOGGLES resolved<->unresolved; resolution is EXPLICIT via the checkmark, NOT auto-set by a merge action
-- [x] (toggle) ONE resolved-state per CHANGE: even when a change renders as TWO SVG blocks (R30.35 two-per-side), it is ONE change / ONE checkmark / ONE resolved-state - 2 blocks = VISUAL only, not 2 resolve targets
-- [x] (reset) Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (re-working un-resolves it)
-- [x] (count) The resolved state drives R30.36's open-count (open = unresolved): resolving via checkmark decrements it; an action resetting a resolved change increments it
-- [x] (verify) GATE: checkmark toggles resolved (outlined<->solid, pixel-distinguishable); an action resets to unresolved; the open-count tracks accordingly [GREEN DET-3x v0.7.55 08f2e05e1, Test 6d2b9f84 wired onto toggleResolved c86a104d + openChangeCount 8b6abf77]
+- [ ] **(toggle)** Each change shows a GREEN CHECKMARK labelled 'RESOLVED' (button/label/tooltip say 'RESOLVED' - NEVER 'commit'/'committed') next to the up/down nav in the 3-Way Merge toolbar for the current change.
+- [ ] **(toggle)** The checkmark REFLECTS the DERIVED resolved-state: SOLID-green when the center holds <=1 version (RESOLVED - 1 line=chosen, 0 lines=removed), OUTLINED-green when it holds 2 versions (UNRESOLVED - both present, undecided) - auto-updating from the center line-count. Pixel-distinguishable. Unresolved ONLY when 2 lines.
+- [ ] **(toggle)** The checkmark is a MANUAL OVERRIDE on top of the derived state: click to force-RESOLVE a still-2-line change (intentionally keep BOTH versions) or to re-open (force-unresolve) a 1-line change. Default resolution is DERIVED from the center line-count; the checkmark both INDICATES and OVERRIDES it - it is not the sole resolution mechanism.
+- [ ] **(toggle)** There is ONE resolved-state per CHANGE. Even when a change renders as TWO SVG blocks (the R30.35 two-per-side rendering), it is ONE change with ONE checkmark and ONE resolved-state - resolving/unresolving applies to the whole change, NOT per block. 2 blocks = VISUAL only, not 2 resolve targets.
+- [ ] **(reset)** Merge actions change the center line-count so the derived state updates automatically: 'x' -> 1 line -> resolved (+ jump to next); '>>'/'<<' -> re-derive (2 lines = unresolved, 1 line = resolved). A manual override persists until an action changes the line-count or the user toggles again.
+- [ ] **(count)** The resolved state drives R30.36's open-count (open = unresolved): resolving via checkmark decrements it, an action resetting a resolved change increments it.
+- [ ] **(verify)** GATE: checkmark toggles resolved (outlined<->solid, pixel-distinguishable); an action resets to unresolved; the open-count tracks accordingly. Client-facing -> version-bump.
 
 ## Implementation
 

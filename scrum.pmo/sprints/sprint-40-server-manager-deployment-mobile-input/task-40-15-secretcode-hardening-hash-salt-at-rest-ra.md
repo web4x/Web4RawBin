@@ -22,6 +22,9 @@ Deliver + verify requirement R40.15 (secretCode hardening — hash+salt at rest,
 
 ## Acceptance Criteria
 
-
+- [ ] **(hash-salt-at-rest)** secretCode is HASHED + SALTED at rest — never stored plaintext.
+- [ ] **(rate-limit-lockout)** Rate-limit / lockout on verify (defeats 4-digit brute-force).
+- [ ] **(never-logged)** secretCode is NEVER logged (any level).
+- [ ] **(second-factor-consider)** Consider a SECOND FACTOR for device-link (design decision — flag for architect).
 
 ## Subtasks

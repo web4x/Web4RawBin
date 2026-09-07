@@ -47,17 +47,6 @@
 
 Add the chain-link icon to generated MD views, linking each item to its sprints.json symlink (the speaking-name tree).
 
-## Acceptance Criteria
-
-- [ ] AC1 — UseCase template chain block renders `🔗 [Speaking Name](sprints.json/...)` for every cross-reference (every existing chain edge in the migrated Sprint-1 UseCase units)
-- [ ] AC2 — Links resolve through the `scenarios/sprints.json/` symlink tree to the target's speaking-name path (T131 file-browser symlink support already makes these navigable)
-- [ ] AC3 — Broken/missing target falls back to raw IOR text — no broken links in output
-- [ ] AC4 — Architect's scope decision documented in this file: UseCase-only, or extended to all 7 (Sprint/Task/Requirement/UseCase/Class/Method/Test)
-- [ ] AC5 — If scope extends, all 7 class templates render chain links consistently (uniform icon + path format)
-- [ ] AC6 — Visual: tester opens 3 sample views on `/md/scenarios/sprints.md/usecase/...` and confirms the icon + clickable link + correct target
-- [ ] AC7 — `npm run build` succeeds; full suite passes; **rule-pair (a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15 (T126 output served via /md/ = user-facing); **(c) STATIC_SHELL exempt** per #16 (template-only change, no new route — confirm in commit)
-- [ ] AC8 — No regression: existing T132 (HTML status template) + T133 (FSM rendering) + T134 (TraceLink view) all still render correctly
-
 ## Dependencies
 
 - **Requires:** T126 (templates + ViewGenerator), T131 (symlink visibility on /md/), T134 (TraceLink unit — chain edge source), T128.1 (migrated sample to render against)

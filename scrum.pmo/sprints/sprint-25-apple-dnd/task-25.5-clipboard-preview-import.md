@@ -39,12 +39,12 @@ Tron: on the drop area add a click/tap listener that asks 'Upload from clipboard
 
 ## Acceptance Criteria
 
-- [x] (listener) The drop area has a click/tap listener that opens the clipboard dialog
-- [x] (preview) BEFORE asking yes/no, the dialog previews the clipboard content: a type icon + a content preview (the user sees WHAT is in the clipboard)
-- [x] (confirm) The dialog asks 'Upload from clipboard?' (yes/no)
-- [x] (read) On yes, the clipboard is read via navigator.clipboard.read / readText and its MIME types are detected (same recognition as DnD)
-- [x] (route) Content is routed the same as drop-dispatcher: URLs -> WebItem units, images/bytes -> File, text -> file
-- [x] (cancel) On no, nothing is imported
+- [ ] **(listener)** The drop area has a click/tap listener that opens the clipboard dialog.
+- [ ] **(preview)** BEFORE asking yes/no, the dialog previews the clipboard content: a type icon + a content preview (the user sees WHAT is in the clipboard).
+- [ ] **(confirm)** The dialog asks 'Upload from clipboard?' (yes/no).
+- [ ] **(read)** On yes, the clipboard is read via navigator.clipboard.read / readText and its MIME types are detected (same recognition as DnD).
+- [ ] **(route)** Content is routed the same as drop-dispatcher: URLs -> WebItem units, images/bytes -> File, text -> file.
+- [ ] **(cancel)** On no, nothing is imported.
 
 ## Implementation
 

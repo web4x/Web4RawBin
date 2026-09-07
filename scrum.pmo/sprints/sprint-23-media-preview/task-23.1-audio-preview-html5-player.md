@@ -38,11 +38,12 @@ Tron: "MP3 files must play audio in the preview... the preview pane renders an H
 
 ## Acceptance Criteria
 
-- [x] Dropping/uploading an audio file into a room stores it and offers it in the preview
-- [x] The preview pane renders an HTML5 `<audio controls>` player for the file
-- [x] The player provides play/pause, seek, and volume controls
-- [x] Supported types: mp3, wav, ogg, m4a (correct MIME/`<source>` per extension)
-- [x] Verified live (headless) — an audio file in a room renders the player and is playable
+- [ ] **(ingest)** Dropping/uploading an audio file into a room stores it and offers it in the preview.
+- [ ] **(player)** The preview pane renders an HTML5 <audio controls> player for the file.
+- [ ] **(player)** The player provides play/pause, seek, and volume controls.
+- [ ] **(types)** Supported types: mp3, wav, ogg, m4a (correct MIME/<source> per extension).
+- [ ] **(verify)** Verified live (headless): an audio file in a room renders the player and is playable.
+- [ ] **(no-regress)** The audio player still RENDERS in the room-view DETAIL DRAWER (not only a standalone preview pane) and in EVERY context the drawer opens (room / trace / app), gated @390 REAL-DEVICE by PIXEL (a <audio> in the DOM != a visible player) DET-3x -- an empty box FAILS. [Backfilled 2026-08-08: this req shipped then REGRESSED to a blank box (R40.12); AC-5 was HEADLESS and never covered the room-view-drawer render, letting the empty box through. Device-caught-regression = missing AC.]
 
 ## Implementation
 

@@ -40,12 +40,12 @@ S30 diff/merge editor (R30.19, IMG_4518) — change highlights on the SOURCE pan
 
 ## Acceptance Criteria
 
-- [x] (render) renderCenterChangeBlocks ALSO renders colored rounded change-blocks on the LEFT (Local, a-lines) + RIGHT (Repository, b-lines) source panes — not only the CENTER Result pane
-- [x] (color) The source-pane block color MATCHES the center block + the connector ribbon for that hunk (shared CONFLICT_PALETTE / conflictColor) — blocks and ribbons match by construction (like R30.16)
-- [x] (sides) A left-only change (c.a.length>0, c.b.length===0) highlights a block in Local + Center, NOT Repository
-- [x] (sides) A right-only change (c.b.length>0, c.a.length===0) highlights a block in Repository + Center, NOT Local
-- [x] (sides) A both-sided change highlights a matching-color block in ALL 3 panes; the ribbon visibly connects the highlighted source block(s) to the highlighted center block
-- [x] (verify) Tron visual (IMG_4518): the changed source block is highlighted in its pane(s) in the same color as the center block + ribbon; DET-3x asserts the source-pane decorations exist per side
+- [ ] **(render)** renderCenterChangeBlocks ALSO renders colored rounded change-blocks on the LEFT (Local, a-lines) + RIGHT (Repository, b-lines) source panes - not only the CENTER Result pane.
+- [ ] **(color)** The source-pane block color MATCHES the center block + the connector ribbon for that hunk (shared CONFLICT_PALETTE / conflictColor) - blocks and ribbons match by construction (like R30.16).
+- [ ] **(sides)** A left-only change (c.a.length>0, c.b.length===0) highlights a block in Local + Center, NOT Repository.
+- [ ] **(sides)** A right-only change (c.b.length>0, c.a.length===0) highlights a block in Repository + Center, NOT Local.
+- [ ] **(sides)** A both-sided change highlights a matching-color block in ALL 3 panes; the ribbon visibly connects the highlighted source block(s) to the highlighted center block.
+- [ ] **(verify)** Tron visual (IMG_4518 case): the changed source block is highlighted in its pane(s) in the same color as the center block + ribbon; DET-3x asserts the source-pane decorations exist per side.
 
 ## Implementation
 

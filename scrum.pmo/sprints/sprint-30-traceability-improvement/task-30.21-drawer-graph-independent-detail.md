@@ -38,12 +38,12 @@ S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its sc
 
 ## Acceptance Criteria
 
-- [x] (fetch) A graph-independent unit resolver (RbDetailDrawer.resolveDetailUnit) uses this.graph.get(uuid) when present, else /api/ior fetch-fallback
-- [x] (types) ALL type-specific detail renders resolve through it: task/requirement/class/method/implementation/test/etc
-- [x] (chain) Chain-only units NOT in the graph (e.g. impl 7f15c149, real task 5665a0dd) render via the /api/ior fetch-fallback
-- [x] (regression) renderSprintDetail (R30.3) still works unchanged; the sprint detail (~5135 chars) is not affected
-- [x] (gate) The R30.20-drawer case-5 (SELECT node -> content) flips GREEN: selecting a task/class/impl node in scenario-view renders content
-- [x] (verify) Tron visual + DET-3x: select task/class/impl in scenario-view (no graph) -> content renders
+- [ ] **(fetch)** A graph-independent unit resolver (RbDetailDrawer.resolveDetailUnit) uses this.graph.get(uuid) when available ELSE fetches /api/ior (mirroring renderSprintDetail) - so a detail renders whether the graph is set (trace-page) or null (scenario-view).
+- [ ] **(types)** ALL type-specific detail renders resolve through it: task / requirement / class / method / implementation / usecase / test / file / webitem - each renders CONTENT (not the ~125-char empty) in scenario-view AND trace-page.
+- [ ] **(chain)** Chain-only units NOT in the graph (e.g. impl 7f15c149, real task 5665a0dd) render via the /api/ior fetch - no longer empty.
+- [ ] **(regression)** renderSprintDetail (R30.3) still works unchanged; the sprint detail (~5135 chars) is not affected.
+- [ ] **(gate)** The R30.20-drawer case-5 (SELECT node -> content) flips GREEN: selecting a task/class/impl node in scenario-view renders its detail content (was the RED baseline).
+- [ ] **(verify)** Tron visual + DET-3x: select task/class/impl in scenario-view (no graph) -> content renders; trace-page still renders; sprint unchanged. Client-facing -> shipped WITH a version-bump.
 
 ## Implementation
 

@@ -32,15 +32,6 @@
 
 Fix the recurring avatar bug: handle the decrypt-exception overwrite and rekey/re-encrypt the avatar.
 
-## Acceptance Criteria
-
-- [ ] AC1: decrypt EXCEPTION in `ensureAvatar` NEVER overwrites avatar.enc with a default (no data loss)
-- [ ] AC2: present-but-undecryptable avatar.enc is left intact + logged (recoverable)
-- [ ] AC3: on identity rekey, files/* (avatar.enc) are re-encrypted with the new key → stay decryptable
-- [ ] AC4: after rekey + reconnect, the user's real avatar still serves (no fallback)
-- [ ] AC5: no avatar.enc is destroyed across regen/redirect/reconnect cycles
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T91 (string-desync fix) — T109 completes R-A1

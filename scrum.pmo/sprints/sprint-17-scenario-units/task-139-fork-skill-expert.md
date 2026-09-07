@@ -55,16 +55,6 @@ the decision on:
   general expert responsibilities, adds skill-set focus + reading-list
   pointing at T125/T133/T134/T138 + planner+req SKILL.md (per T137)
 
-## Acceptance Criteria
-
-- [ ] AC1 — `~/.claude/agents/robbin-skill-expert/SKILL.md` exists, peer-reviewed by PO
-- [ ] AC2 — Agent boots in its assigned pane and reads its SKILL.md correctly (verified by tester)
-- [ ] AC3 — Agent can be addressed via `hiveMind send.enter robbin-skill-expert "<msg>"` and `otmux send <pane> "<msg>" Enter`
-- [ ] AC4 — Role registry / hiveMind knows the new agent (resolves name → pane correctly)
-- [ ] AC5 — Reading-list pointers (T125/T133/T134/T138/etc.) all resolve
-- [ ] AC6 — robbin-expert's SKILL.md updated to clarify that skill-set work is now skill-expert's domain (handoff documented)
-- [ ] AC7 — Rule-pair: SKILL.md authoring is docs-only — no version bump required (no client-served surface)
-
 ## Dependencies
 
 - **Requires:** T138 (the verb-set the new role owns); PO decision on timing+scope

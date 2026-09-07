@@ -90,30 +90,6 @@ directive in one quote.
 - Description becomes a tooltip / `<details>` reveal
 - `trace-cli` validator enforces the format going forward
 
-## Acceptance Criteria
-
-- [ ] AC1 — Format spec documented in `scrum.pmo/standards/traceability-standard.md`:
-  each requirement entry = line-1 NAME (3–5 words), Tron literal blockquote
-  (no dup), `[requirement:uuid:v4]`, forward link(s)
-- [ ] AC2 — S10–S17 `requirements.md` retro-cleaned: 0 NAME/description
-  duplicates; every entry has a NAME line; every uuid is real v4 (learning #17)
-- [ ] AC3 — T126 ViewGenerator templates render NAME on chain-link 🔗 anchors
-  (not UUID, not full description)
-- [ ] AC4 — Description renders as tooltip / hover-preview / `<details>`
-  reveal — visible on demand
-- [ ] AC5 — T141 chain-link helper updated to use NAME; existing 🔗 rendering
-  on migrated views shows speaky text
-- [ ] AC6 — `trace-cli` audit validates format (line-1 NAME present + no dup)
-  and reports compliance per requirement entry
-- [ ] AC7 — No regression on T141 click-through (still resolves to symlink
-  target post-T144)
-- [ ] AC8 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version"
-  bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as
-  the user-facing template change. (c) STATIC_SHELL: likely exempt — architect
-  to confirm
-- [ ] AC9 — All 4 roles committed work in this file (req audit + architect
-  design + expert impl + tester verify)
-
 ## Dependencies
 
 - **Requires:** T141 (chain-link helper to modify), T126 (template helpers), T143 (tree + every-element-a-link surface T146 sits on top of), T144 (🔗 click-through behavior T146 must not break), B7 captured ✓

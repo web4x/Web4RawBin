@@ -35,11 +35,11 @@ R40.1 (Tron-authorized S40). An ACTION that opens the Claude app or web page at 
 
 ## Acceptance Criteria
 
-- [ ] (visible-fireable) The action is visible AND fireable from the pane surface (the pane's own action affordance).
-- [ ] (resolve-chain) Firing resolves the SELECTED pane -> its agent -> its session id -> the RC deep link (claude.ai/code/<session-id>).
-- [ ] (app-else-web) Opens the Claude app if available, else the web page (app-if-available-else-web).
-- [ ] (right-agent) Opens the RIGHT agent's RC: firing on pane 0.1 must NOT open 0.0's RC (per-pane isolation, no cross-pane leak).
-- [ ] (device-gate) Verified @390 mobile REAL-WebKit: the action fires and opens the correct per-pane deep link.
+- [ ] **(visible-fireable)** The action is visible AND fireable from the pane surface (the pane's own action affordance).
+- [ ] **(resolve-chain)** Firing resolves the SELECTED pane -> its agent -> its session id -> the RC deep link (claude.ai/code/<session-id>).
+- [ ] **(app-else-web)** Opens the Claude app if available, else the web page (app-if-available-else-web).
+- [ ] **(right-agent)** Opens the RIGHT agent's RC: firing on pane 0.1 must NOT open 0.0's RC (per-pane isolation, no cross-pane leak).
+- [ ] **(device-gate)** Verified @390 mobile REAL-WebKit: the action fires and opens the correct per-pane deep link.
 
 ## Subtasks
 

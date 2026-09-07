@@ -37,15 +37,6 @@ Author Object.verb-style use-case PUML (Object=noun, verb=method) in
 carries a `uc:uuid` tag so the chain links for T101-T108 resolve to a concrete diagram
 element.
 
-## Acceptance Criteria
-
-- [ ] AC1: `diagrams/object-verb-usecases.puml` exists with Object=noun actors and verb=method use cases
-- [ ] AC2: Every use case carries a `uc:uuid` tag (v4) referenced by at least one task chain
-- [ ] AC3: Use cases cover the object.verb surface needed by T101-T108 (object model, routing, item view, list, detail/overview, browser)
-- [ ] AC4: An SVG render of the PUML is produced and checked in alongside the source
-- [ ] AC5: PlantUML source renders without syntax errors
-- [ ] `npm run build` + version bump
-
 ## Dependencies
 
 - **Requires:** T101 (object/verb names)

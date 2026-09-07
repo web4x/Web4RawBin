@@ -71,16 +71,6 @@ update their SKILL.md so future work flows through scenarios.
 - requirements.md becomes a generated view of all Requirement units owned by the Sprint
 - **Anchor** Tron quotes by capturing into scenario JSON, not just markdown
 
-## Acceptance Criteria
-
-- [ ] AC1 — Planner SKILL.md updated with a "scenario-unit workflow" section explaining read/write/walk/stand-up via scenarios (replaces hand-authored markdown)
-- [ ] AC2 — Planner learnings.md adds entry #19 (planner uses scenarios) — already captured in this stand-up; T137 confirms and refines
-- [ ] AC3 — req-eng SKILL.md updated with the equivalent scenario-unit workflow for requirement authoring
-- [ ] AC4 — A practical example: stand up one new task via the scenario-unit workflow (write `task:<uuid>.scenario.json` directly OR via Task verbs, regenerate planning.md, confirm the at-a-glance symbol and status check appear correctly)
-- [ ] AC5 — Both SKILL.md updates survive reboot (read on next conversation start)
-- [ ] AC6 — No regression: existing planning.md hand-edits still committable (we don't break the world during transition; T128.3 active-batch migration will replace those over time)
-- [ ] AC7 — rule-pair: SKILL.md changes are docs-only — no version bump required
-
 ## Dependencies
 
 - **Requires:** T125 (must understand the class model), T126 (must understand generated views), T133 (Task verbs for the new write path)

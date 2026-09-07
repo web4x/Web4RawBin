@@ -48,14 +48,6 @@ Tron 2026-05-27: "review the traceability chain: requirement-> task, use casees,
 classes (objects nouns), methods (verbs) and make sure i can trace back each method
 (verbs) to its original requirement."
 
-## Acceptance Criteria
-
-- [ ] AC1 — Chain documented req → task → use case → class → method end-to-end
-- [ ] AC2 — Every method maps to ≥1 requirement; orphans (method with no requirement) are reported
-- [ ] AC3 — The /trace browser reflects the complete chain (method nodes reachable from requirement roots)
-- [ ] AC4 — Matrix `scrum.pmo/traceability-matrix.md` updated; standard satisfied
-- [ ] `npm run build` succeeds; no regression
-
 ## Dependencies
 
 - **Requires:** T117 (UseCase as first-class PUML instances — needed for the UC link in the chain)

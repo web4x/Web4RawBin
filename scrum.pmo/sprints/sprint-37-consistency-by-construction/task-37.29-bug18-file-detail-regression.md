@@ -34,10 +34,10 @@ Keep BUG18 closed for good: rewire file-detail-on-click AND ship a @390 regressi
 
 ## Acceptance Criteria
 
-- [ ] REPRO CLOSED: in a room with Files, clicking a FILE renders that FILE's OWN detail in the drawer @390 — NOT the parent 'Files(N)' collection, NOT a raw uuid-named / unit-JSON view. (Bug's own AC.)
-- [ ] SURFACE/REWIRE: the file-detail-on-click resolution is corrected so a file ref resolves to the file unit's detail, not its parent collection (architect confirms exact component + CODE-vs-DATA on diagnosis; fix is a rewire, no fork).
-- [ ] NAVIGATION preserved (BUG18 2nd AC): from the file detail, the action NAVIGATES to BROWSE-FILE with the file HIGHLIGHTED, enabling the scenario Monaco editor.
-- [ ] ★ REGRESSION GATE @390 (THE keep-it-closed deliverable): a real-WebKit @390 test opens a file in a room and asserts the FILE's own detail renders; planted-defect (parent collection or uuid-name shown) = RED; wired into ci:gates so a third silent re-break is impossible. Tron device @390 confirms.
+- [ ] **(bug18/repro)** REPRO CLOSED: in a room with Files, clicking a FILE renders that FILEs OWN detail in the drawer @390 — NOT the parent Files(N) collection, NOT a raw uuid-named / unit-JSON view.
+- [ ] **(bug18/resolution)** SURFACE/REWIRE: the file-detail-on-click resolution is corrected so a file ref resolves to the file units detail, not its parent collection (rewire, no fork; architect confirms exact component + CODE-vs-DATA).
+- [ ] **(bug18/navigation)** NAVIGATION preserved: from the file detail, the action NAVIGATES to BROWSE-FILE with the file HIGHLIGHTED, enabling the scenario Monaco editor.
+- [ ] **(bug18/regression-gate)** REGRESSION GATE @390 (keep-it-closed): a real-WebKit @390 test opens a file in a room and asserts the FILEs own detail renders; planted-defect (parent collection or uuid-name) = RED; wired into ci:gates so a third silent re-break is impossible. Tron @390 confirms.
 
 ## Subtasks
 

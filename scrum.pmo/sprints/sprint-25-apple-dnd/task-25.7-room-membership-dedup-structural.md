@@ -43,13 +43,13 @@ Tron: user appears as 3 members in Heartspaces — must NEVER happen again. Stru
 
 ## Acceptance Criteria
 
-- [x] (a room-load) At room load, each persisted member's token is mapped through resolveToken and grouped by primary — room.members holds AT MOST ONE entry per resolved identity — GREEN-outcome via orphan self-heal on load (v0.7.1 75e09c155); NOTE: achieved via self-heal + DISPLAY-hide, not a hard structural load-drop
-- [ ] (b consolidate-evict) CONSOLIDATE evicts the absorbed profile from ALL rooms live (MEMBER_LEFT + corrected memberCount) — NOT verified by the v0.7.1 outcome gate
-- [ ] (c connect-redirect) A tombstoned CONNECT resolves to the PRIMARY (TOKEN_REDIRECT + addMember under primary) — NOT verified
-- [ ] (c immutable) redirectTo IMMUTABLE + restart-durable — ⚠ UNMET: tombstones 37fcb752 + 2703628c currently have redirectTo=NONE (lost); the lost-tombstone bug is not closed for these
-- [ ] (d idempotent) Room.addMember dedups on RESOLVED token (re-key not insert) — display-deduped via allMemberInfo, not verified at the structural addMember layer
-- [x] (invariant) memberCount + JOIN use allMemberInfo() (resolved + deduped) — GREEN: Heartspaces shows 1 Marcel DET-3x (tester 9d021d87f, full RED→GREEN)
-- [ ] (repair) One-time GATED migration collapses 3 Heartspaces Marcel → primary 8f74dfba + restores redirectTo on 37fcb752 + 2703628c — ⚠ NOT RUN: tombstones still redirectTo=none, no migration/dry-run commit found
+- [ ] **(room-load)** At room load, each persisted member's token is mapped through resolveToken and grouped by primary - room.members holds AT MOST ONE entry per resolved identity (not just one display path).
+- [ ] **(consolidate-evict)** CONSOLIDATE, after setting redirectTo, evicts the absorbed profile from ALL rooms - removing/re-keying members that resolve to the primary and broadcasting MEMBER_LEFT + corrected memberCount (live, not only on next load).
+- [ ] **(connect-redirect)** A tombstoned CONNECT (redirectTo set) resolves to the PRIMARY: sends TOKEN_REDIRECT and addMember UNDER the primary token - never a second member entry for the tombstone.
+- [ ] **(connect-redirect)** redirectTo is IMMUTABLE and restart-durable - every profile save preserves it; IDENTIFY on a redirected token redirects and never re-mints/clears it (fixes the lost-tombstone bug).
+- [ ] **(idempotent)** Room.addMember dedups on RESOLVED token - if a member already resolves to the same primary, RE-KEY that entry instead of inserting a second.
+- [ ] **(invariant)** memberCount and the JOIN output use allMemberInfo() (resolved + deduped), not the raw members map - so count and lists agree with the deduped identity set.
+- [ ] **(one-time-repair)** A one-time GATED migration (dry-run + count first, never silently drop a real member) collapses the 3 Heartspaces Marcel entries to primary 8f74dfba and restores redirectTo on 37fcb752 + 2703628c.
 
 ## Implementation
 

@@ -43,12 +43,13 @@ Tron directive (2026-07-20): PLAN a detailed CONCEPT (req + architect + planner)
 
 ## Acceptance Criteria
 
-- [ ] A coherent CONCEPT is captured (req) + designed (architect) — a plan, NOT code.
-- [ ] The concept defines the bar '|' / compartment '[]' duality (a bar expands into a compartment and back; one component, presentation attribute — not a fork).
-- [ ] WODA W|[O][D]|A and the 3-way editor [L]|[C]|[R] are shown as instances of the ONE model (differ only by the segment-descriptor array).
-- [ ] Portrait scrollable viewport + scroll-snap at compartment boundaries + bottom scroll-snap nav bar are specified.
-- [ ] Drawer = Details compartment: landscape [D] inline vs portrait bottom-drawer, IDENTICAL function, position-only (positioning != function invariant).
-- [ ] No implementation in this task — code is deferred to a later Tron-authorized build (facet-ACs decompose into atomic build-requirements then).
+- [ ] **(concept)** The concept defines the bar '|' / compartment '[]' duality: a bar is a thin strip of COLLAPSED content (What-bar = itemView icons; Actions-bar = object.verb no-parameter buttons; the diff changebar), a compartment is EXPANDED full content (What / Overview / Details; each editor); a bar EXPANDS into a compartment and a compartment COLLAPSES into a bar. This duality is the generalization.
+- [ ] **(concept)** The concept specifies the WODA layout W|[O][D]|A - What(bar, expandable) | Overview[O] + Details[D] compartments | Actions(bar) - with a bottom nav of 4 buttons: What / Overview / Details / Actions.
+- [ ] **(concept)** The concept shows the 3-way diff editor is an INSTANCE of the same model: [L]|[C]|[R] (left/center/right editors are compartments, framed by left/right changebars which are bars) with a bottom nav of 3 buttons Left / Center / Right; one bar/compartment machinery instantiates BOTH WODA and the editor.
+- [ ] **(concept)** The concept defines responsive behavior: landscape/16:9 shows all bars+compartments side-by-side; portrait uses a horizontally-scrollable viewport (~one compartment + inter-bar + a few chars of the next), freely scrollable left<->right WITH scroll-snap at each compartment boundary (editor snaps: LEFT '[]|[', CENTER ']|[]|[', RIGHT ']|[]').
+- [ ] **(concept)** The concept defines a bottom scroll-snap NAV bar that snaps the horizontal scroll to the LEFT edge of a compartment, with a button set that depends on the layout instance ({Left,Center,Right} for the editor; {What,Overview,Details,Actions} for WODA).
+- [ ] **(concept)** The concept establishes drawer = the Details compartment with the POSITIONING != FUNCTION invariant (Tron's law): landscape - the drawer BECOMES the inline [D] Details compartment; portrait - the drawer is the bottom drawer as today; the two positions have IDENTICAL function via ONE component, not two forks (same DRY root as the R31.4 /trace-detail-flow reuse). This is the crux facet.
+- [ ] **(concept)** Acceptance is a COHERENT CONCEPT (this captured model + the architect's component-architecture design of how bar<->compartment / scrollable viewport / scroll-snap / nav bar GENERALIZE, how the editor AND WODA both instantiate it, and how the drawer becomes the Details compartment in landscape with identical function via one component), NOT an implementation. Implementation is a LATER Tron-authorized step; each facet above then decomposes into atomic build-requirements.
 
 ## Implementation
 

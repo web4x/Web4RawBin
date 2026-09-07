@@ -88,19 +88,6 @@ atomic requirements is the rule for "every instance is reachable from a req"
 - Tree builder root-set = atomic requirements only
 - Chain audit confirms every test node has a path back to a requirement
 
-## Acceptance Criteria
-
-- [ ] AC1 — `TraceModel.walkDown(requirement)` follows the canonical 7-step order: req → task → usecase(s) → class → method → implementation → test(s); 1:N branches at usecase and test hops are walked correctly
-- [ ] AC1b — `Implementation.tests[]` IOR array surfaces in scenario index + `/api/trace` graph; 1:N cardinality enforced in model
-- [ ] AC2 — Tree builder for `/trace` produces ROOTS = atomic requirements only (no other types appear as roots)
-- [ ] AC3 — `scrum.pmo/standards/traceability-standard.md` documents the 7-step order + roots-are-requirements rule
-- [ ] AC4 — Sprint 17 chain documentation (planning.md / requirements.md) reflects the 7-step + test-as-final-node
-- [ ] AC5 — Chain audit (`trace-cli` or equivalent) confirms every test node is reachable from a requirement root via the canonical chain
-- [ ] AC6 — Generated MD views render the chain in canonical order
-- [ ] AC7 — No regression on T134/T143/T160/T161/T163/T165/T166
-- [ ] AC8 — `npm run build` succeeds; all existing tests pass
-- [ ] AC9 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in same commit-set; (c) STATIC_SHELL — architect confirms (likely exempt)
-
 ## Dependencies
 
 - **Requires:** T134 (TraceLink units), T160 (forward-only repopulation), T165/T166 (7-class tree surface), T143 (tree direction)

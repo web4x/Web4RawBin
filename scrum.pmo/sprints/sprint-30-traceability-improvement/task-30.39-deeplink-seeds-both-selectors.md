@@ -38,10 +38,11 @@ S30 diff/merge editor, R30.39 (Tron QA-USE): a ?repo deep-link only seeded one s
 
 ## Acceptance Criteria
 
-- [x] (seed) Opening the editor from a deep-link with ?repo=<key> seeds BOTH the left AND the right repo selectors to that repo on load - neither is left at the default (RawBin).
-- [x] (seed) The user does NOT have to set either selector manually after a ?repo deep-link; both reflect the URL's repo immediately.
-- [x] (security) The ?repo value is a KEY resolved via R30.6.7 RepoRegistry (no client absolute-path abuse); an unknown/absent key falls back to the default (rawbin) for BOTH selectors.
-- [x] (gate) GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=..&right=..&3way=1 -> both left and right selectors read 'oosh' on load, no manual setting; client-facing -> version-bump + atomic deploy (R30.28).
+- [ ] **(seed)** Opening the editor from a deep-link with ?repo=<key> seeds BOTH the left AND the right repo selectors to that repo on load - neither is left at the default (RawBin).
+- [ ] **(seed)** The user does NOT have to set either selector manually after a ?repo deep-link; both reflect the URL's repo immediately.
+- [ ] **(security)** The ?repo value is a KEY resolved via R30.6.7 RepoRegistry (no client absolute-path abuse); an unknown/absent key falls back to the default (rawbin) for BOTH selectors.
+- [ ] **(seed)** Preselecting a repo via ?repo=<key> is behaviorally IDENTICAL to a MANUAL selector change: the SAME downstream update path fires either way - the file-history selector updates AND all dependent state refresh, not merely the selector value being set. populateRepos must drive the same change/update flow a manual pick triggers (dispatch the change handler, not just assign sel.value).
+- [ ] **(gate)** GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=..&right=..&3way=1 -> both left and right selectors read 'oosh' on load, no manual setting; client-facing -> version-bump + atomic deploy (R30.28).
 
 ## Implementation
 

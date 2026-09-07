@@ -40,12 +40,12 @@ Measurement-surfaced debt (req baseline verify_r27_2_migration.py): the graph ca
 
 ## Acceptance Criteria
 
-- [x] (no-dangling) Every UseCase class / classes[] / method reference resolves to an existing unit - 0 dangling UC refs
-- [x] (no-orphan) Every Method unit is owned by a Class that lists it in methods[] - 0 orphan Methods
-- [x] (repair-dangling) The 12 dangling are repaired: the 10 dead-RbDetailView refs repointed to the live canonical RbDetailView, the 1 dead-method + 1 TODO-placeholder pruned
-- [x] (repair-orphan) The 51 orphan Methods triaged: attached to their owning Class OR pruned if truly dead - dry-run + count FIRST
-- [x] (ci-gate) trace:audit:strict (R24.5) FAILS on any dangling UC ref or orphan Method - recurrence prevented at the gate
-- [x] (verify) Post-cleanup re-measure: 0 dangling UC refs, 0 orphan Methods
+- [ ] **(invariant)** Every UseCase class / classes[] / method reference resolves to an existing unit - 0 dangling UC refs.
+- [ ] **(invariant)** Every Method unit is owned by a Class that lists it in methods[] - 0 UNINTENTIONAL orphan Methods. A Method carrying an explicit orphanByDesign marker whose impl has NO sourceFile is legitimately exempt (design-stage); that exempt set is currently EMPTY (all 51 have real source).
+- [ ] **(cleanup)** The 12 dangling are repaired: the 10 refs at the DEAD f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5 are repointed to the LIVE canonical RbDetailView f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07 (PO-ratified canonical; it holds those UCs methods by name); the dead Method ref fcf6dae1-69c7 + the literal string TODO-server-class are triaged (repoint OR remove) with a reason.
+- [ ] **(cleanup)** All 51 orphan Methods attach to their name-derived Class (resolver: live ownerIor Class -> UC.class of a using UC -> R27.2-canonical). All 51 carry impls with REAL sourceFiles, so 0 prune (deletes nothing). The 37 STALE orphanByDesign markers (marker asserts no-source but the impl HAS a sourceFile) are CLEARED as part of the repair. Dry-run+count FIRST; distinct Impl 434==434 (nothing deleted).
+- [ ] **(ci-gate)** trace:audit:strict (R24.5) FAILS on: (a) any dangling UC ref; (b) any UNINTENTIONAL orphan Method - METHOD-SCOPED = Method not in any Class.methods[] (+ orphan Impls), NOT the tools BROAD all-types unreachable-from-Requirement metric (=2207, benign: Tasks+TestCase/Device/Room/File that can NEVER be 0 - stays REPORTED-only, not hard-gated); (c) a LYING orphanByDesign marker (asserts no-source but a real sourceFile EXISTS). Attach-on-wire AUTO-CLEARS orphanByDesign when source appears. Exemption MARKER-KEYED (impl-with-no-sourceFile only).
+- [ ] **(verify)** Post-cleanup re-measure: 0 dangling UC refs, 0 orphan Methods.
 
 ## Implementation
 

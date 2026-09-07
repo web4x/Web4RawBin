@@ -34,11 +34,11 @@ GENERALIZE the S34 A2 resolver ensureFolderFileUnit -> ensureViewUnit(ior) so EV
 
 ## Acceptance Criteria
 
-- [x] (functional) EVERY item type rendered in a view resolves to a REAL ior:class:X unit on disk (MODEL_STORE) so Scenario (/scenario?ior) + Edit (scenarioEditorHref) both ALWAYS work, never dead/no-op. Generalizes ensureFolderFileUnit -> ensureViewUnit covering synthetic MOF folders (->Folder) + puml-src (->File/PumlArtifact).
-- [x] (functional) INV-A2-2: deterministic keyToUuid ('folder::'+ref / 'puml::'+path) = idempotent LAZY mint - fetch twice yields the SAME uuid, no dup on re-open.
-- [x] (security) INV-A2-3: units minted in MODEL_STORE ONLY; prod scenario/index NEVER touched.
-- [x] (functional) INV-A2-1: tree/mofChildren output BYTE-unchanged (only /api/ior + /scenario resolve to the new unit) - fork-A.
-- [x] (gate) GATE @390 real-WebKit: for EVERY item type, Scenario + Edit both resolve to a real unit (not dead) - DATA-HAVING sample per type: Folder=rawbin:ts, File=file:src/ts/server/server.ts, PumlArtifact=a real puml/ leaf (NOT a degenerate entity).
+- [ ] **(functional)** EVERY item type rendered in a view resolves to a REAL ior:class:X unit on disk (MODEL_STORE) so OScenario (/scenario?ior) + OEdit (scenarioEditorHref) both ALWAYS work, never dead/no-op. Generalizes ensureFolderFileUnit -> ensureViewUnit covering synthetic MOF folders (->Folder) + puml-src (->File/PumlArtifact).
+- [ ] **(functional)** INV-A2-2: deterministic keyToUuid ('folder::'+ref / 'puml::'+path) = idempotent LAZY mint — fetch twice yields the SAME uuid, no dup on re-open.
+- [ ] **(security)** INV-A2-3: units minted in MODEL_STORE ONLY; prod scenario/index NEVER touched.
+- [ ] **(functional)** INV-A2-1: tree/mofChildren output BYTE-unchanged (only /api/ior + /scenario resolve to the new unit) — fork-A.
+- [ ] **(gate)** GATE @390 real-WebKit: for EVERY item type, OScenario + OEdit both resolve to a real unit (not dead) — data-having sample per type: Folder=rawbin:ts, File=file:src/ts/server/server.ts, PumlArtifact=a real puml/ leaf (NOT a degenerate entity).
 
 ## Subtasks
 
