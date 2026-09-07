@@ -1,0 +1,82 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
+    "altId": "R40.107",
+    "name": "A migration must not mutate fields it was not asked to change — before/after differential asserts ONLY declared targets differ, fail-closed",
+    "description": "STANDING LAW: A MIGRATION MUST NOT MUTATE FIELDS IT WAS NOT ASKED TO CHANGE. Live instance (2026-09-06): the one-store migration (migrate-one-store.ts) was asked to RELOCATE units; it also silently BLANKED a member name ('Marcel Donges' -> '') and REWROTE joinedAt/createdAt on a LIVE room (3231db71) — fields never in its scope. Same failure shape as the store repoint that surfaced project:model. The cure is known + PROVEN: a DIFFERENTIAL that asserts ONLY the intended change. One step MORE GENERAL than 'member-name-must-survive' (a bug that only says do-not-blank-names would not catch the next variant): ANY migration/dedup run must prove, by a before/after differential, that ONLY its DECLARED target fields differ — everything else byte-identical — and FAIL CLOSED (refuse to write) on any out-of-scope change, and REFUSE TO RUN AT ALL until that assertion exists. Converts a one-off repair into a by-construction guard that makes the whole class impossible.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:48057b43-cb96-495e-a9e7-b35a834cc599"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "live-incident",
+      "instance": "one-store migration (migrate-one-store.ts) blanked a member name (Marcel Donges -> '') + rewrote joinedAt/createdAt on live room 3231db71 = fields out of its relocate mandate; quarantined (unclaimed staged, DO-NOT-COMMIT).",
+      "authorizedBy": "robbin-po",
+      "date": "2026-09-06",
+      "generalization": "minted ONE STEP MORE GENERAL than member-name-must-survive so it catches the NEXT variant, not just this one."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "TIER-A guard — by-construction (a SPEC not a build; makes the whole out-of-scope-mutation class impossible for the NEXT migration).",
+    "differentialDisciplineProven": "The before/after differential (assert ONLY the intended change) is PROVEN: it caught the project:model extra node (PAIR-2 byte-identity gate), and it is PROTECTING the 5-row repair right now (Bug 88df8e4e exactly-5 + R40.106 migration-transparent-differential). R40.107 generalizes it to EVERY migration/dedup.",
+    "crossRef": [
+      "ior:instance:206a28bc-08cb-47ba-bfcd-6b6503525ab3",
+      "ior:instance:88df8e4e-d6fa-4819-9edd-09e6b0529745",
+      "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+      "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Same hazard class as Bug 206a28bc (a name wrongly SET/LOST at a WRITE path — there the WebItem mint, here the migration). The live instance rides the R40.81 one-store migration. Generalizes the differential in R40.106 (containment repoint) + R40.81 apply-time ACs to the UNIVERSAL rule: no migration mutates out-of-scope fields.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-differential-only-declared-fields",
+        "group": "migration/differential",
+        "text": "A migration/dedup run asserts a BEFORE/AFTER DIFFERENTIAL where ONLY its DECLARED target fields differ. Any field NOT in the declared scope that changes => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test migration before/after differential",
+          "assertion": "the migration declares its target fields; before/after: only declared fields differ, all others byte-identical; any out-of-scope field change => RED"
+        },
+        "stubMustFail": "seed a migration that also touches an undeclared field -> RED"
+      },
+      {
+        "id": "AC-identity-provenance-byte-identical",
+        "group": "migration/identity",
+        "text": "IDENTITY fields (member name, uuid) and PROVENANCE timestamps (joinedAt, createdAt) are BYTE-IDENTICAL through the migration UNLESS explicitly targeted. A member name blanked, a uuid changed, or joinedAt/createdAt rewritten without explicit targeting => RED (the exact live instance: Marcel Donges -> '' + timestamps rewritten on room 3231db71).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test identity+provenance preserved",
+          "assertion": "member name / uuid / joinedAt / createdAt survive byte-identical unless declared-target; a silent blank/rewrite => RED"
+        },
+        "stubMustFail": "seed a relocate-migration that blanks a member name or rewrites joinedAt/createdAt -> RED"
+      },
+      {
+        "id": "AC-fail-closed-not-write",
+        "group": "migration/fail-closed",
+        "text": "On an out-of-scope change DETECTED, the run FAILS CLOSED — it REFUSES TO WRITE the mutation, rather than writing it and reporting after. Fail-safe is not enough; it must not persist the out-of-scope change AT ALL.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test fail-closed-on-out-of-scope",
+          "assertion": "an out-of-scope diff halts the run BEFORE writing (nothing persisted); a run that writes the out-of-scope change then flags it => RED"
+        },
+        "stubMustFail": "seed an out-of-scope change: the run must abort pre-write, not write-then-flag -> RED"
+      },
+      {
+        "id": "AC-refuses-without-the-assertion",
+        "group": "migration/refuse-lint",
+        "text": "The migration TOOL REFUSES TO RUN AT ALL until the differential assertion EXISTS — a migration with no scope-differential cannot execute (the assertion is a precondition, not an optional check).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "lint migration-requires-differential",
+          "assertion": "every migration/dedup entrypoint has a scope-differential assertion wired as a run precondition; a migration lacking it => RED (cannot run)"
+        },
+        "stubMustFail": "seed a migration entrypoint with no scope-differential -> RED (refuses to run)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

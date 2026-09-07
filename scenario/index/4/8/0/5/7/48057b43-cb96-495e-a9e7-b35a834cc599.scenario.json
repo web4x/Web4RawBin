@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "48057b43-cb96-495e-a9e7-b35a834cc599",
+    "name": "migration.assertOnlyDeclaredFieldsDiffer",
+    "description": "Every migration/dedup run asserts a before/after differential: only its declared target fields differ, identity (member name, uuid) + provenance (joinedAt, createdAt) byte-identical unless targeted, fail-closed on any out-of-scope change, and refuses to run without the assertion.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
+    "unitLinks": [],
+    "note": "class/method=null - architect wires the migration-differential harness (reuse PAIR-2 byte-identity shape) on build-go."
+  },
+  "ownerIor": "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2"
+}
