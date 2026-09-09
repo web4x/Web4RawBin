@@ -44,6 +44,7 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [x] 🏁 [Task 37.27: Sprint/task-name MIGRATION — strip embedded numbers to the single attribute, PHASED S37-first (R40.4-phase-2)](./task-37.27-sprint-task-name-migration.md)
 - [ ] ⏳ [Task 37.28: Truth-decay / no-freshness-invariant family — coordination root (6 per-class freshness guards + cross-cutting Arm-B/meta/prose-ungated)](./task-37-28-truth-decay-freshness-family.md)
 - [ ] ⏳ [Task 37.28.1: boot-state (sprint/version) freshness guard — state-removal OR currency-lint boot==HEAD](./task-37-28-1-boot-state.md)
+- [ ] ⏳ [Test-room creation is IMPOSSIBLE by construction — a FAILABLE guard asserts ZERO room/identity creations by test code outside the ONE recorded SystemTester room; + scoped-cleanup guard (never re-persist a bystander)](./test-room-creation-impossible-failable-guard.md)
 - [ ] ⏳ [Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard — DERIVE from single source, drop stored overrides](./task-37-28-2-derived-slot.md)
 - [ ] ⏳ [Task 37.28.3: deploy-instruction (DEPLOY-STATE.md) freshness guard — derive-from-branch-reality OR stamp+render-stale](./task-37-28-3-deploy-instruction.md)
 - [ ] ⏳ [Task 37.28.4: req-satisfaction freshness guard — DERIVE satisfied from a tracked covering task, never a stored flag](./task-37-28-4-req-satisfaction.md)

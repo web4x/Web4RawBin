@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "24284f6d-57eb-49cc-91d4-847ece5306ec",
+    "name": "Test-room creation is IMPOSSIBLE by construction — a FAILABLE guard asserts ZERO room/identity creations by test code outside the ONE recorded SystemTester room; + scoped-cleanup guard (never re-persist a bystander)",
+    "slug": "test-room-creation-impossible-failable-guard",
+    "description": "★★ TRON 2026-09-09, THIRD verbal correction on test-room spam ('the whole lobby is spammed by test rooms... create ONE test room and do ALL tests there!!!! remove all test rooms!!!'). The honour system has FAILED THREE TIMES => the guard is MANDATORY WORK, ranked TOP of the build queue (above the R40.106 link/remove/move/delete increments) per PO. [[scan-the-hazard-not-the-actors]]: the guard scans the dangerous OPERATION (room/identity CREATION by test code), not the actors — it COUNTS creations and asserts ZERO outside the ONE fixed SystemTester room whose uuid is RECORDED; stub-must-fail (add a creation -> RED). PLUS the scoped-cleanup guard (architect #3): a cleanup must NEVER re-persist a bystander room — STRUCTURAL, not instructional (my/PO's cleanup ORDER caused the 09-07 name/createdAt corruption precisely by re-persisting bystanders). Owner = EXPERT (build the guard) + TESTER (gate it + own the failable lint). Supersedes the honour-adjacent isolated-DATA-DIR approach (T100 59c964f9) — 'make it impossible by construction' is exactly S37 Consistency-by-Construction (CMM4 guard, not CMM2 vigilance).",
+    "intention": "Make test-room creation UNCONSTRUCTABLE outside the one recorded room, and cleanup structurally unable to re-persist a bystander — so 'make sure it never happens again' is enforced by a failable gate, not by remembering.",
+    "context": "Covers req 80ca8e83 (proper fix for room-flood; req STRENGTHENING 2026-09-09 with Tron's guard ACs — re-point if req mints new). crossRef T100 (data-dir = superseded honour-approach). Gate-integrity family (kin: R37.3 fail-loud guard, R37.34 axis-lints). Ranked TOP by PO on Tron's third-time-mandatory.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "PROJECTS from req 80ca8e83 (strengthening 2026-09-09, no hand-write per AXIS-2). The 4 Tron/PO-designed ACs: (1) GUARD-CREATION-IMPOSSIBLE — failable lint counts room/identity creations by test code, asserts ZERO outside the ONE recorded SystemTester-room uuid, stub-must-fail (add a creation -> RED); (2) SCOPED-CLEANUP-GUARD — a cleanup can NEVER re-persist a bystander room (structural); (3) DEBT-TRACKED — the manual cleanup running ahead of the guard is recorded + visible; (4) CLEANUP-ACCEPTANCE = re-verification that the 6 REAL rooms are untouched (names/createdAt/member counts), NOT the deletion count. Awaiting req's strengthen to lock the exact strings.",
+    "subtasks": "None yet (architect may split guard vs scoped-cleanup-guard at design).",
+    "status": "Planned",
+    "priority": "P0-TOP — Tron 2026-09-09 third-time MANDATORY, PO-ranked above the R40.106 increments; nothing in the build lane outranks it.",
+    "coveredRequirements": [
+      "ior:instance:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "remainingIssues": "STOOD UP Planned + ranked TOP (Tron third-time mandatory, 2026-09-09). ★ OPEN DEBT (visible, not implied, per PO): the TESTER is purging the lobby of test rooms BY DISCIPLINE right NOW because this guard does NOT exist yet — a manual cleanup running AHEAD of its guard is exactly the state that bit us on 09-07 (the cleanup that re-persisted bystanders and corrupted 4 names / 9 createdAt). This row makes that debt explicit until the guard lands. ★ CLEANUP ACCEPTANCE (board THIS, not the deletion count): tester reports its ENUMERATION to PO first, THEN the deletion, THEN a RE-VERIFICATION that the 6 REAL rooms are untouched (names, createdAt, member counts) = the acceptance. ★ NO HAND-DELETION of canonical units (PO #96.13). ★ AC strings project from req 80ca8e83 once strengthened; owner=expert(build)+tester(gate). Minted SERVED tree; flagged req to strengthen 80ca8e83 + reverse-wire.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-09"
+  },
+  "ownerIor": null
+}
