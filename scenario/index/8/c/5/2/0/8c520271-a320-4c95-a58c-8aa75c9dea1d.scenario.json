@@ -1,0 +1,89 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8c520271-a320-4c95-a58c-8aa75c9dea1d",
+    "altId": "R40.108",
+    "name": "A QA-Review row carries the served version its evidence was measured on — no version = not accept-ready, behind = stale-pending-remeasure",
+    "description": "PO order 2026-09-09 (confirm-or-mint): a QA-Review row must carry THE SERVED VERSION its evidence was measured on. A QA row's evidence is a stored, authoritative-looking artifact with NOTHING keeping it TRUE against the currently-served build = a truth-decay specimen (extends R37.25). NO version => NOT accept-ready (it cannot be a Tron-accept candidate). A version BEHIND the served build => auto-flagged STALE-PENDING-REMEASURE (the evidence decayed; re-measure on the served version before accept). MEASURED: 77 QA rows were carried as 'finished, awaiting Tron' with NO current evidence — 68 cite no version at all, 9 cite a stale version. The accept queue is 24, not 101.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:40f9a359-b131-44b7-a52b-c70c3e6b3754"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "po-order",
+      "orderedBy": "robbin-po (confirm-or-mint)",
+      "date": "2026-09-09",
+      "note": "77 QA rows carried finished-awaiting-Tron with NO current evidence (68 no version, 9 stale); accept queue is 24 not 101. A QA row's evidence is a truth-decay specimen (extends R37.25)."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "extendsRequirement": "ior:instance:fcc34aa1-84da-438c-942f-1c2c27efe61a",
+    "crossRef": [
+      "ior:instance:fcc34aa1-84da-438c-942f-1c2c27efe61a",
+      "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "NEW SPECIMEN of the R37.25 truth-decay family (a stored authoritative QA-evidence artifact with nothing keeping it fresh vs the served build) — extends R37.25 (the freshness meta-invariant already gates it; this adds the QA-evidence class + the 77-row audit + auto-flag). Feeds R40.10 (Tron renders his QA verdict) = only fresh-evidence rows reach his accept surface. Same never-make-the-customer-the-tester law (he must not accept a row on decayed evidence).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-qa-row-carries-served-version",
+        "group": "qa/evidence-version",
+        "text": "Every QA-Review row carries the SERVED VERSION its evidence was measured on (a served-version field on the row/task). The version is machine-readable + queryable.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:qa-evidence-version",
+          "assertion": "every QA-Review row has a served-version its evidence was measured on; a QA-Review row with no served-version => RED"
+        },
+        "stubMustFail": "PENDING: gate unbuilt; RED-proving stub on build"
+      },
+      {
+        "id": "AC-no-version-not-accept-ready",
+        "group": "qa/accept-gate",
+        "text": "NO version => NOT accept-ready: a QA-Review row with no served-version cannot be a Tron-accept candidate (excluded from the accept queue until it carries evidence).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:accept-ready-requires-version",
+          "assertion": "a QA-Review row in the accept queue with no served-version => RED (not accept-ready)"
+        },
+        "stubMustFail": "PENDING: gate unbuilt; RED-proving stub on build"
+      },
+      {
+        "id": "AC-version-behind-served-stale-pending-remeasure",
+        "group": "qa/decay-autoflag",
+        "text": "A row whose evidence-version is BEHIND the currently-served build => AUTO-FLAGGED stale-pending-remeasure (the evidence decayed; re-measure on the served version before accept). Derived at read (not a stored stale flag), same cure-priority as R37.25 (derive over revalidate).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:qa-evidence-freshness",
+          "assertion": "a QA-Review row whose served-version < the live served build is flagged stale-pending-remeasure; an un-flagged behind-version row treated as accept-ready => RED"
+        },
+        "stubMustFail": "PENDING: gate unbuilt; RED-proving stub on build"
+      },
+      {
+        "id": "AC-audit-the-77-no-current-evidence",
+        "group": "qa/backlog-audit",
+        "text": "The 77 QA rows carried as finished-awaiting-Tron with NO current evidence (68 no version + 9 stale) are AUDITED: each gets a served-version re-measure or is flagged stale-pending-remeasure; none is counted in the accept queue on no/stale evidence. Publish the count (accept-ready vs stale-pending), never silently drained.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "script:qa-accept-audit",
+          "assertion": "the accept-ready count == rows with fresh served-version evidence; a row counted accept-ready on no/stale evidence => RED; the excluded count is published not hidden"
+        },
+        "stubMustFail": "PENDING: gate unbuilt; RED-proving stub on build"
+      },
+      {
+        "id": "AC-failable-stub",
+        "group": "self-failability",
+        "text": "Stub-must-fail: seed a QA-Review row with NO version (or a version behind the served build) marked accept-ready -> RED. A gate that cannot RED on a no-evidence accept-ready row is inadmissible.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "ci:gates qa-evidence stub",
+          "assertion": "seeded no-version / stale-version accept-ready row observed RED before the gate counts as wired"
+        },
+        "stubMustFail": "PENDING: gate unbuilt; RED-proving stub on build"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
