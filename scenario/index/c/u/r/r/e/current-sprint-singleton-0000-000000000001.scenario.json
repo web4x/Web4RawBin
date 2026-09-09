@@ -18,7 +18,7 @@
       "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" }
     },
     "nextSprintName": "Sprint 37",
-    "nextBacklogOverride": "",
+    "nextBacklogOverride": "24284f6d-57eb-49cc-91d4-847ece5306ec",
     "lastCompletedUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
     "lastCompletedName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store (one-store ROOT closed v0.8.199, MODEL_STORE deleted ca0b4dd98) [R40.81]",
     "lastCompletedReqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
@@ -34,9 +34,9 @@
         "reqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
       },
       "nextBacklog": {
-        "taskUuid": "3dd05daa-d552-4ba2-9642-ae687446805a",
-        "taskName": "Task 37.20.2: a file drags as a FILE (its File unit) — first of the remaining slices under T37.20 (.2/.3/.4/.5/.6), then the natural CLASSES (WebItem/Email/Contact/Image/CalendarEntry)",
-        "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
+        "taskUuid": "24284f6d-57eb-49cc-91d4-847ece5306ec",
+        "taskName": "Test-room creation IMPOSSIBLE by construction — a FAILABLE guard (assert 0 room/identity creations by test code outside the ONE recorded SystemTester room, stub-must-fail) + scoped-cleanup guard [TOP of build queue, Tron 2026-09-09 third-time MANDATORY, above the R40.106 increments]",
+        "reqUuid": "80ca8e83-fb72-4e3d-874b-af17cd8c2dbf"
       }
     },
     "currentTaskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba"
