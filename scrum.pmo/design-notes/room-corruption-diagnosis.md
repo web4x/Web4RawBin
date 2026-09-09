@@ -80,3 +80,20 @@ Expert observed Heartspaces (6c04f959) load 6 members vs 7 on disk, missing 41ad
 **Guard #5 refinement (member-drop):** the persist-invariant must DISTINGUISH a benign consolidation-drop from a real loss — REFUSE a member-drop ONLY when the dropped member has NO redirectTo (a real lost member); ALLOW a drop when the dropped member HAS a redirectTo (consolidated). Final guard #5 = REFUSE if `(name non-empty→"")` OR `(createdAt moved on existing unit)` OR `(member dropped AND that member has no redirectTo)`.
 
 **Secondary (flag, non-blocking):** the per-user `profile.json` for 41ad88c4 is STALE vs `profiles.json` (redirect present in one, absent in the other) — a profile-store divergence. Which store is authoritative? The server loads `profiles.json`; the per-user copies drift. Worth a separate consistency check. Lesson: verify the store the CODE actually loads from, not the copy you happen to open.
+
+## ★ PROFILE-LESS MEMBERS (PO's ~17) — a DISTINCT hazard my dedup did NOT cover, + a guard-set TENSION
+My dedup analysis covered the REDIRECT/consolidation cases (benign — dropped member HAS a redirectTo, e.g. 41ad88c4→c09087ec). The profile-less members are a DIFFERENT class and were NOT covered. Measured:
+- **204 profile-less members across 49 rooms; 154 with a non-empty name.** Many are TEST identities (DropTest, PollTest, WebKitTester, E2E-Debug2/Gate-Test/Slow3G/Diff/webkit, User 810/477). But a REAL subset (≈ the tester's 17): **VE** (owner, VE's NightRoom), **Petra Sonneck** (Job Messe 2026), **Marcel Donges** (token c5163b82, owner — a profile-less Marcel token, distinct from c09087ec), **Marcel Donges Studio** (md safari pwa), **WKUpload**, **test merge** (Marcel Samsung's Room). ALL have `hasRedirect=false` → genuinely profile-less.
+- The LOAD path (Room.ts:352) DROPS profile-less disconnected members. So on the next load+persist of these rooms, these members VANISH FROM DISK = the live silent-drop hazard, and it is far wider than the 9-room incident.
+
+**Does the guard set protect them? PARTIALLY, and guard #5 alone is COUNTERPRODUCTIVE here:**
+- Guard #5 (refuse a member-drop when the dropped member has no redirectTo) would refuse to persist their loss → protects the DISK record. BUT the load ALREADY dropped them from `this.members`, so EVERY persist of such a room would try to drop them → guard #5 refuses → **the room becomes UN-SAVEABLE** (204 members across 49 rooms would block all their saves). Disk-safe but operationally broken.
+
+**The REAL fix = a LOAD-PATH guard (add to the set):**
+- **#6 Load must NOT silently drop a profile-less member that has a persisted name** — keep it (its persisted name + a fallback identity/avatar), never remove. Room.ts:352's drop cannot distinguish a real member (guest / never-created-profile) from a deleted-profile orphan → so it must NOT drop; show the member from its persisted data. THEN guard #5 is consistent (load keeps → persist keeps → no false refusal), and the real people (VE, Petra Sonneck, …) stay visible.
+- Net protection = #6 (load keeps them, live-visible) + #5 (persist can't drop a no-redirect member) together. #5 alone is not enough and, without #6, blocks saves.
+
+## Regen refuse-to-write guard — restoration status + WHO removed it
+- **NOT restored yet.** `scripts/regen-model.ts` still shows the 7-line deletion (UNSTAGED working-tree change).
+- **The removal was never COMMITTED** — it is a live working-tree edit, so git cannot attribute an author to it (no removal commit exists). The guard was ADDED by **robbin-expert in commit 111ece4b2 (2026-09-06)** ("regen-model CLI REFUSES under the active flip — by-construction"). Its removal is an uncommitted working-tree modification in this repo (same working state as the migration edits) — unattributable via git, i.e. done live, never recorded.
+- **To restore (guard #4):** path-limited `git checkout -- scripts/regen-model.ts` (reverts to HEAD, which HAS the guard) — but this is a SHARED tree with the expert's in-progress migrate-one-store.ts edits; sequence with the expert so it doesn't clobber in-flight work. Restoring it re-arms the refuse-under-flip protection.
