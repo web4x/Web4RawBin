@@ -79,32 +79,32 @@
         {
           "uuid": "96f54cc2-5897-475d-912e-5ff01078e44a",
           "name": "jonah.jala@indigitous.org Indigitous Hack26",
-          "shape": "CLEAN WebItem (email) — RESTORE (PO ruling: restore all 4)",
+          "shape": "CLEAN human email-subject name — RESTORE visibility, PROTECT the name (no re-derive; no-auto-rename ban)",
           "nameAction": "PROTECT — human email-subject displayName, no-auto-rename (PO); restore-only, name UNCHANGED"
         },
         {
           "uuid": "adf1a8c0-87c7-4264-be4f-1fbf99de5ba2",
           "name": "watch?v=D6XhtIfNiyo",
-          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — RESTORE (PO ruling: restore all 4)",
+          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — RESTORE + RE-DERIVE-NAME (our bug output)",
           "nameAction": "RE-DERIVE (announced) — bug-generated fragment, deriveName(url) proper name (PO, Bug 206a28bc AC5)"
         },
         {
           "uuid": "cf45d317-93db-434c-8a97-12b8b2865c8e",
           "name": "message:%3C...@geopod-ismtpd-49",
-          "shape": "BORDERLINE (email message-id scheme, possibly malformed) — RESTORE (PO ruling: restore all 4)",
+          "shape": "BORDERLINE (email message-id scheme, possibly malformed) — RESTORE + RE-DERIVE-NAME (our bug output)",
           "nameAction": "RE-DERIVE (announced) — bug-generated fragment, deriveName(url) proper name (PO, Bug 206a28bc AC5)"
         },
         {
           "uuid": "dc48165b-d944-42f2-917f-c78b79056699",
           "name": "watch?v=On8AxkeHYNE",
-          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — RESTORE (PO ruling: restore all 4)",
+          "shape": "BORDERLINE (bare YouTube query fragment, possibly malformed) — RESTORE + RE-DERIVE-NAME (our bug output)",
           "nameAction": "RE-DERIVE (announced) — bug-generated fragment, deriveName(url) proper name (PO, Bug 206a28bc AC5)"
         }
       ],
       "poRuling": "RESTORE ALL 4 (PO 2026-09-06). Reasoning: (1) his SAVED content — invisible is the bug; discarding 3 on his behalf = us discarding HIS data (a bigger act than a malformed row). (2) restoring gives him AGENCY — he disposes what he does not want himself via the REMOVE/DELETE he just ordered; beats a 3am judgement call on content I cannot evaluate. (3) data-hygiene on items he saved = req lane, NOT a model/shape question for Tron; waking him for 3 rows = the invented-gate failure. Junk 3f80f8c8 still DELETED; differential stays exactly-5 (1 delete + 4 restore).",
       "ac5Ruling": "PO: re-derive 3 bug-fragments (announced) + protect 96f54cc2 (human name). Restore-all-4 stands; junk 3f80f8c8 deleted."
     },
-    "malformationLead": "LIVE (DECISIVE MEASUREMENT landed — architect self-CORRECTED their legacy verdict + expert reproduced): NOT legacy. drop-dispatcher.ts:133 sets name = displayName || url.split(SLASH).pop() || link; for a YouTube URL drop with NO human displayName, name = \"watch?v=X\". deriveName (WebItem.ts:46) returns the fallback VERBATIM -> the class host+seg derivation NEVER runs. EXECUTED: deriveName(youtubeURL, \"watch?v=D6XhtIfNiyo\")=\"watch?v=D6XhtIfNiyo\" (LIVE BUG) vs deriveName(youtubeURL, undefined)=\"Youtube Watch\" (correct); both lines unchanged since v0.6.97. The architect earlier executed deriveName(url) WITHOUT the caller fallback arg = tested the WRONG path -> false-legacy, owned + reversed. VERDICT = LIVE NAMING BUG (valid url, bad name = R40.105 class-owns-name surface). ★ The 4 restore WebItems ALSO carry this bad name (their urls are VALID) -> the fix RE-DERIVES their names (deriveName(url)=\"Youtube Watch\"), not just restore. Named bug 206a28bc mints the fix. Measurement settled it, not seniority (mirror of the folder-drop conflict)."
+    "malformationLead": "CORRECTED — NOT legacy, it is LIVE (architect REVERSED itself, PO MISSED-SUMMARY 2026-09-09). The legacy verdict came from calling deriveName WITHOUT the caller fallback arg = wrong path. The FULL path reproduces watch?v=X LIVE: drop-dispatcher.ts:133 builds a pseudo-name from the URL last segment + passes it as fallback, so WebItem.deriveName returns it VERBATIM and the class own derivation never runs. FIX = DROP the pseudo-fallback (no human displayName -> pass nothing, let the class name itself) = R40.105 by DELETION. SHIPPED bug 206a28bc GREEN v0.8.211. RE-DERIVE 3 NOT 4: adf1a8c0/cf45d317/dc48165b (our bug output, repair); PROTECT 96f54cc2 (HUMAN email-subject displayName, no-auto-rename ban). RESTORE all 4 (visibility); RE-DERIVE-NAME only 3. ANNOUNCED."
   },
   "ownerIor": null
 }
