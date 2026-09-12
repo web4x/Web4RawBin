@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "7dc025f0-2e5d-42ee-83fd-dde5b322df19",
+    "name": "R40.107 CREATE-fix — room creation works again: GUARD#6 partial-write false-positive fixed (an ABSENT members field was read as an explicit drop-all, bricking CREATE_ROOM for a distinct-primary-no-redirect creator)",
+    "slug": "r40.107-createfix-guard6-partial-write-false-positive",
+    "description": "The CREATE-fix under R40.107 (a WRITE must not mutate fields it was not asked to change). BUG e73b2af8 (GUARD#6 partial-write false-positive): an ABSENT members field on CREATE_ROOM was read as an EXPLICIT drop-all, so GUARD#6 false-positived and BRICKED room creation for a distinct-primary-no-redirect creator. REPRO-CONFIRMED-PRE-FIX (both cases). FIXED v0.8.224 (38e6fa06b), architect-signed (b267c452a), gate (cb2f93968), chain-to-shipped 4 Test units (commit ebeb8940d). This is the actual 'room creation works again' outcome (Tron-verifiable) — distinct from the delete-protection arc (ddc37f95). Owner = expert (fixed) + tester (4 Test units) + architect (signed).",
+    "intention": "An absent members field means 'unchanged', never 'drop all' — so creating a room can never be bricked by a false partial-write positive.",
+    "context": "Covers R40.107 fe7788d7 (write-invariant / GUARD family). Fixes BUG e73b2af8. Artifacts: fix 38e6fa06b, architect-sign b267c452a, gate cb2f93968, 4 Test units ebeb8940d. Boarded scenario-first from those artifacts (PO pointer 2026-09-12); no prior covering task -> minted (not approximated). crossRef ddc37f95 (protection arc; 'room creation works' belongs HERE not there).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "PROJECTS from R40.107 fe7788d7 (no hand-write per AXIS-2). Proven @ v0.8.224: CREATE_ROOM SUCCEEDS for a distinct-primary-no-redirect creator (an absent members field is read as 'unchanged', NOT drop-all); GUARD#6 no longer false-positives on absent-members; chain-to-shipped 4 Test units (ebeb8940d); architect-signed (b267c452a) + gate (cb2f93968).",
+    "subtasks": "None.",
+    "status": "QA Review",
+    "servedVersion": "0.8.224",
+    "coveredRequirements": [
+      "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "waitingOn": "Tron QA accept — room creation works again on prod v0.8.224 (GUARD#6 false-positive fixed, CREATE_ROOM un-bricked); architect-signed + gated + 4 Test units; machine-verified, nothing waiting on us.",
+    "remainingIssues": "STOOD UP QA-Review = accept-ready (PO pointer 2026-09-12, boarded scenario-first from the artifacts). Fixes BUG e73b2af8 (GUARD#6 partial-write false-positive bricking CREATE_ROOM); FIXED v0.8.224 38e6fa06b, architect-sign b267c452a, gate cb2f93968, 4 Test units ebeb8940d. ★ This row OWNS the 'room creation works again' Tron-verifiable outcome — I reattributed it OFF the delete-protection arc ddc37f95 (which was mis-claiming it) to avoid double-attribution; ddc37f95 keeps its actual outcomes (bulk-delete-safe + protection-mark-survives-save). BUG e73b2af8 unit status reads REPRO-CONFIRMED-PRE-FIX -> flag its owner to advance it to fixed/verified (bug-status lane). Minted SERVED tree; flagged req to reverse-wire fe7788d7.tasks[] += this + confirm the 4 Test units chain. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-12"
+  },
+  "ownerIor": null
+}
