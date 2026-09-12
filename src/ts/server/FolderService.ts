@@ -176,4 +176,43 @@ export class FolderService {
     const relParent = path.relative(rootDir, parentAbsPath).split(path.sep).join('/'); // repo-relative parent for the unit's location field
     return FolderService.createPhysicalFolder({ parentAbsPath, name: clean, storeDir, location: `${relParent}/${clean}` });
   }
+
+  // ── R40.106 INC-4: LINK is the PRIMITIVE. Containment is a many-to-many EDGE set — a unit's presence in a folder IS
+  // an edge in the folder's children[] (an ior:instance ref), never a copy and never the unit's own field. linkIn/unlink
+  // are the TWO edge ops; MOVE composes from them (unlink+link, INC-5); a plain drop is a link (INC-4/6). These CENTRALISE
+  // the children[] read-modify-write that was duplicated across ~5 server sites (move-unit add/remove, folder-nest, upload).
+  // Pure file mutation on the Folder unit's shard (store layout); caller publishes via the returned location (FolderService
+  // stays publish-free). idempotent: linkIn a present edge = no-op (changed:false); unlink an absent edge = no-op. ── //
+  private static shardFile(storeDir: string, uuid: string): string {
+    return path.join(storeDir, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  }
+  private static asRef(unitRef: string): string { // normalise any ref/uuid → the canonical children[] edge form
+    const bare = String(unitRef || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
+    return `ior:instance:${bare}`;
+  }
+  // [impl:uuid:PENDING-req-mint] FolderService.linkIn — add ONE containment edge (folder.children[] += unitRef), idempotent.
+  static linkIn(storeDir: string, folderUuid: string, unitRef: string): { ok: boolean; changed?: boolean; location?: string; error?: string } {
+    const f = FolderService.shardFile(storeDir, String(folderUuid || '').replace(/^ior:instance:/, ''));
+    const ref = FolderService.asRef(unitRef);
+    try {
+      const j = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
+      j.model.children = Array.isArray(j.model.children) ? j.model.children : [];
+      if (j.model.children.includes(ref)) return { ok: true, changed: false, location: String(j.model.location || '') }; // idempotent — edge already present
+      j.model.children.push(ref);
+      fsSync.writeFileSync(f, JSON.stringify(j, null, 2) + '\n');
+      return { ok: true, changed: true, location: String(j.model.location || '') };
+    } catch (e) { return { ok: false, error: `linkIn-failed: ${(e as Error)?.message || e}` }; }
+  }
+  // [impl:uuid:PENDING-req-mint] FolderService.unlink — remove ONE containment edge (folder.children[] -= unitRef); unit + other edges survive.
+  static unlink(storeDir: string, folderUuid: string, unitRef: string): { ok: boolean; changed?: boolean; location?: string; error?: string } {
+    const f = FolderService.shardFile(storeDir, String(folderUuid || '').replace(/^ior:instance:/, ''));
+    const ref = FolderService.asRef(unitRef);
+    try {
+      const j = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
+      if (!Array.isArray(j.model.children) || !j.model.children.includes(ref)) return { ok: true, changed: false, location: String(j.model.location || '') }; // idempotent — edge absent
+      j.model.children = j.model.children.filter((c: string) => c !== ref);
+      fsSync.writeFileSync(f, JSON.stringify(j, null, 2) + '\n');
+      return { ok: true, changed: true, location: String(j.model.location || '') };
+    } catch (e) { return { ok: false, error: `unlink-failed: ${(e as Error)?.message || e}` }; }
+  }
 }
