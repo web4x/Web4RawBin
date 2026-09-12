@@ -3,9 +3,9 @@
   "model": {
     "uuid": "e73b2af8-1d14-4db3-ab8b-5a78fced4918",
     "name": "GUARD#6 partial-write false-positive bricks CREATE_ROOM for a distinct-primary-no-redirect creator (an ABSENT members field is read as an explicit drop-all)",
-    "description": "ARCHITECT-DIAGNOSED, code-grounded (robbin-architect, PO-approved routing, 2026-09-12; robbin-req verified the cited sites). CREATE_ROOM THROWS when the creator's member is a DISTINCT PRIMARY with NO redirect. ROOT: Room.persist() (Room.ts:394-403, impl Room.persistMembers R19.35 d5f0c2b4) writes room.json WITH members (creator=owner). Immediately after, server.ts:4805 calls writeRoomJson AGAIN with a PARTIAL object (updates id/name/ssh/state/chatHistory; OMITS members \u2014 and also files/visibility/mode). GUARD#6 (RoomKeys.ts:192-206, shipped for R40.107 / 58175f768) reads `data.members || [] = []` -> treats the ABSENT field as dropping ALL stored members -> for a stored member that is a distinct primary with no redirect it is `!benign` -> throws @4805 BEFORE ROOM_JOINED. The guard is preventing a real data-loss (the partial overwrite would drop members/files) but does so by BRICKING instead of PRESERVING. SEVERITY (corrected \u2014 NOT 'all creation broken'): established multi-profile creators are UNAFFECTED; prod mostly MASKS it (only 1 room created post-guard, 09-09, benign-resolved). \u2605 GATE CASE = ONBOARDING (PO): a brand-new SINGLE-PROFILE user's FIRST room via the REAL CREATE_ROOM onboarding path \u2014 every new person Tron invites hits a hard failure on their first action while existing users are fine and prod looks healthy (worst shape: invisible to those who work, fatal to those arriving). SEVERITY LABEL is PENDING tester's explicit ONBOARDING-repro confirmation: reproduces via onboarding -> 'new-user onboarding broken'; only in the seeded rig -> 'fresh-rig edge case'.",
+    "description": "ARCHITECT-DIAGNOSED, code-grounded (robbin-architect, PO-approved routing, 2026-09-12; robbin-req verified the cited sites). CREATE_ROOM THROWS when the creator's member is a DISTINCT PRIMARY with NO redirect. ROOT: Room.persist() (Room.ts:394-403, impl Room.persistMembers R19.35 d5f0c2b4) writes room.json WITH members (creator=owner). Immediately after, server.ts:4805 calls writeRoomJson AGAIN with a PARTIAL object (updates id/name/ssh/state/chatHistory; OMITS members \u2014 and also files/visibility/mode). GUARD#6 (RoomKeys.ts:192-206, shipped for R40.107 / 58175f768) reads `data.members || [] = []` -> treats the ABSENT field as dropping ALL stored members -> for a stored member that is a distinct primary with no redirect it is `!benign` -> throws @4805 BEFORE ROOM_JOINED. The guard is preventing a real data-loss (the partial overwrite would drop members/files) but does so by BRICKING instead of PRESERVING. \u2605 SEVERITY WIDENED (architect re-open 2026-09-12, node-read past a grep-silent-fail; robbin-req CODE-CONFIRMED the benign-logic): GUARD#6's benign-check is ALWAYS-FALSE for the @4805 EMPTY-members write \u2014 writtenTokens & writtenPrimaries are both empty, so benign = (prim!==st) && (false||false) = false for ANY stored member (redirect or not; only the `why` string differs, both throw). So it likely bricks ALL room creation since the guard went live at v0.8.212 (2026-09-12), NOT just onboarding. The '1 room post-guard' (SystemTester) was created 09-09 = PREDATES the live guard = NOT a counterexample (my earlier benign-resolved note was WRONG). \u2605 GATE CASE = ONBOARDING (PO): a brand-new SINGLE-PROFILE user's FIRST room via the REAL CREATE_ROOM onboarding path \u2014 every new person Tron invites hits a hard failure on their first action while existing users are fine and prod looks healthy (worst shape: invisible to those who work, fatal to those arriving). SEVERITY LABEL is PENDING tester's explicit ONBOARDING-repro confirmation: reproduces via onboarding -> 'new-user onboarding broken'; only in the seeded rig -> 'fresh-rig edge case'.",
     "fix": "BY-CONSTRUCTION (architect): writeRoomJson PARTIAL-MERGE \u2014 an ABSENT members field = PRESERVE stored (no-change); GUARD#6 scrutinizes a drop ONLY when members is EXPLICITLY provided (`members in data`, NOT `data.members || []`). Protects every partial caller regardless of resolver state. This EMBODIES R40.107's own principle: a write must not mutate fields it was not asked to change \u2014 an absent field was not asked to change. Alt-local (rejected as lossy): @4805 carry members, or remove @4805 (redundant since persist() wrote authoritative room.json, but @4805 also omits files/visibility/mode). Expert owns the fix; chain against the built fix.",
-    "severity": "conditional-brick \u2014 CREATE_ROOM throws only for a distinct-primary-no-redirect creator; gate case = new-user onboarding; label pending tester onboarding-repro confirm",
+    "severity": "HIGH/onboarding CONFIRMED (tester 2026-09-12, real onboarding path) \u2014 MAY ESCALATE to CRITICAL/universal. Case (a) new-user first-room CREATE_ROOM THROWS at GUARD#6: PROVEN on the isolated ship-bytes rig (blob 275580532, guard live) \u2014 brand-new single-profile user (token 2e97607b) -> 'GUARD#6 REFUSED room 30946ee2: member 2e97607b would be silently dropped \u2014 no redirect'. Mechanism is data-independent (empty-members @4805 write; benign always-false). Case (b) existing-redirect createRoom running now: if it ALSO refuses -> CRITICAL/universal (all room creation broken since v0.8.212 2026-09-12). PROD: repro FORBIDDEN (hard rule: no fresh test users on prod) -> prod evidence is OBSERVATIONAL only (PO checks any room createdAt > 2026-09-12T14:19).",
     "discoverySource": {
       "type": "architect-diagnosis",
       "diagnosedBy": "robbin-architect",
@@ -51,7 +51,14 @@
           "ref": "test @390 onboarding first-room CREATE_ROOM",
           "assertion": "a new single-profile user's first CREATE_ROOM through onboarding reaches ROOM_JOINED; a GUARD#6 throw on that path => RED"
         },
-        "stubMustFail": "seed a new single-profile onboarding first-room CREATE_ROOM that throws at GUARD#6 -> RED"
+        "stubMustFail": "seed a new single-profile onboarding first-room CREATE_ROOM that throws at GUARD#6 -> RED",
+        "reproStatus": {
+          "status": "REPRO-CONFIRMED-PRE-FIX",
+          "confirmedBy": "robbin-tester",
+          "date": "2026-09-12",
+          "evidence": "isolated ship-bytes rig (blob 275580532, GUARD#6 live): brand-new single-profile user (token 2e97607b, committed profile, never seen) first CREATE_ROOM via real WS path -> threw pre-ROOM_JOINED: 'GUARD#6 REFUSED room 30946ee2: member 2e97607b would be silently dropped \u2014 no redirect (distinct identity)'. AC3 GREEN = the fix makes this same path reach ROOM_JOINED.",
+          "prodNote": "PROD repro FORBIDDEN (hard rule: no fresh test users) \u2014 rig is the only safe surface; prod evidence is observational (createdAt) only."
+        }
       },
       {
         "id": "AC4-benign-dedup-drop-still-passes",
@@ -66,12 +73,12 @@
       },
       {
         "id": "AC5-tester-confirms-onboarding-repro-before-severity",
-        "group": "severity/repro-confirm",
-        "text": "SEVERITY IS NOT CALLED UNTIL the tester CONFIRMS the onboarding repro explicitly: reproduces through the real new-user onboarding path -> severity = 'new-user onboarding broken'; reproduces only in the seeded rig -> 'fresh-rig edge case'. Until confirmed the severity label stays UNVERIFIED (honest 3rd state), NOT assumed.",
+        "group": "severity/repro-confirm-BOTH-cases",
+        "text": "SEVERITY set by MEASUREMENT of two cases (architect widening 2026-09-12): (a) a NEW single-profile user's FIRST room via real onboarding CREATE_ROOM = \u2705 CONFIRMED THROWS (tester, rig blob 275580532, token 2e97607b, room 30946ee2) -> severity is AT LEAST HIGH/onboarding-broken; AND (b) an EXISTING-REDIRECT (multi-profile) user's createRoom (running now). If (b) ALSO refuses at GUARD#6 -> severity = CRITICAL/UNIVERSAL (all room creation broken since guard-live v0.8.212 2026-09-12; code predicts this \u2014 benign always-false for the empty write). If (b) PASSES -> severity stays HIGH/onboarding-only. PROD repro is FORBIDDEN (hard rule: no fresh test users on prod) \u2014 the rig is the only safe repro surface; PO cross-checks any prod room with createdAt > 2026-09-12T14:19 as OBSERVATIONAL corroboration only. (a) is measured; the CRITICAL-vs-HIGH escalation is UNVERIFIED until (b) lands.",
         "gateRef": {
           "kind": "manual-tester",
-          "ref": "tester onboarding-repro confirmation",
-          "assertion": "tester reports whether a real new-user onboarding first-room CREATE_ROOM throws pre-fix; the severity label is set from that measured result, not assumed"
+          "ref": "tester (a) onboarding + (b) existing-redirect createRoom + PO prod createdAt>09-12T14:19",
+          "assertion": "tester reports pre-fix throw/pass for BOTH a new-user first-room AND an existing-redirect createRoom; the CRITICAL-vs-HIGH label is set from (b)'s result, not assumed"
         },
         "stubMustFail": "n/a repro/severity-gating (owned by tester; label unverified until measured)"
       }
@@ -79,7 +86,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "widenedBy": {
+      "date": "2026-09-12",
+      "by": "robbin-architect (re-open) + robbin-req (code-confirmed)",
+      "note": "GUARD#6 benign-check is always-false for the empty-members @4805 write (verified in RoomKeys.ts:192-206: writtenTokens/writtenPrimaries empty -> benign=false for any stored member). Severity likely UNIVERSAL not onboarding-only; the 09-09 SystemTester room predates the 09-12 guard = not a counterexample. AC5 extended to test (a) onboarding + (b) existing-redirect; label from (b) + PO prod createdAt>09-12T14:19."
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
