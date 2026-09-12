@@ -5,9 +5,7 @@
     "name": "ProbeFolder-211376",
     "kind": "folder",
     "location": "roomcoll:909f1bd6-1f97-4542-b02b-242cfcc41f5e:files/ProbeFolder-211376",
-    "children": [
-      "ior:instance:8aa3a9d7-3680-479f-934e-bcfcb48b1d17"
-    ],
+    "children": [],
     "parent": null,
     "unitLinks": [
       "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/909f1bd6-1f97-4542-b02b-242cfcc41f5e/files/acc97876-f977-4b21-8e40-bd7a23cfc475.scenario.json"
