@@ -36,7 +36,8 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 fe6b4379** Task 37.4.2: CONTROLLER — one generic unitController — _Test: test:R37.11 slice-1 AC-2 mutation-seam bindin_
 - 🧪 **S40 95d74272** Task 40.6: deploymentRefs -> real typed OOP model (t — _Test: test:T40.11 AC-1(graph)/AC-2(crown)/AC-3(view_
 
-#### ⚠️ NOT READY — 3 (at QA-Review but evidence INCOMPLETE — NOT approvable)
+#### ⚠️ NOT READY — 4 (at QA-Review but evidence INCOMPLETE — NOT approvable)
+- 🧪 **S37 24284f6d** Test-room creation is IMPOSSIBLE by construction — a — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S37 257ab50f** Task 37.40: CalendarEntry is a natural CLASS — dropp — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S37 bc0302dd** Task 37.39: Image is a natural CLASS — dropping an i — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_

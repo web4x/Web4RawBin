@@ -2747,7 +2747,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // replaces the inline children[] read-modify-write that was duplicated across ~5 server sites. Behaviour-identical:
           // linkIn adds one edge to the target (idempotent); unlink removes one edge from the old parent (its re-derive publishes).
           if (targetIor) FolderService.linkIn(sdir, targetIor, movedUuid);
-          if (oldParent && oldParent !== targetIor) { const r = FolderService.unlink(sdir, oldParent, movedUuid); if (r.ok && r.location) publishUnitChanged('ior:class:Folder', r.location); }
+          if (oldParent && oldParent !== targetIor) { const r = FolderService.unlink(sdir, oldParent, movedUuid); if (r.changed && r.location) publishUnitChanged('ior:class:Folder', r.location); } // publish ONLY when the edge actually changed — no stray re-derive on a childless/no-op old-parent (strictly behaviour-identical)
           publishUnitChanged('ior:class:Folder', targetLoc); // target re-derives its direct children → R40.84 live-insert of the moved unit
           addLog(`[room] move-unit ${movedUuid.slice(0, 8)} → ${targetLoc} (room ${roomId.slice(0, 8)}, from ${oldParent ? oldParent.slice(13, 21) : 'root'})`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: movedUuid, action: 'reparented' }));
