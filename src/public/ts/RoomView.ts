@@ -61,6 +61,10 @@ export class RoomView {
     // T37.20 INC-3 (R40.104): the "Rename…" Command — the object sets its own USER displayName via the room rename route →
     // UnitController.apply (the ONE seam). displayName wins; originalName preserved server-side; uuid stable; live re-render.
     registerAction('rename', (c) => void this.openRename(c.ref));
+    // R40.106 INC-4 slice-3 (Tron: "a remove button on every file"): REMOVE = unlink THIS edge — detach the unit from its
+    // container via the server unlink-unit endpoint (FolderService.unlink + room.removeFileUnit). The unit SURVIVES in the
+    // index (recoverable / still linked elsewhere) — remove ≠ delete (delete = INC-7, red + confirm + destroy + 0-dangling).
+    registerAction('remove', (c) => void this.removeUnit(c.uuid));
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
@@ -435,6 +439,19 @@ export class RoomView {
       if (res?.ok) { this.chatSheet?.addMessage('system', 'System', `Renamed to ${nm}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }
       else this.chatSheet?.addMessage('system', 'System', `Rename failed: ${res?.error || '?'}`);
     } catch (e) { this.chatSheet?.addMessage('system', 'System', `Rename error: ${(e as Error)?.message || e}`); }
+  }
+
+  // R40.106 INC-4 slice-3: REMOVE = detach the unit from its container (server unlink-unit → FolderService.unlink of the
+  // parent-folder edge + room.removeFileUnit of the root membership). The unit SURVIVES in the index (recoverable / still
+  // linked elsewhere) — this is remove, NOT delete. Live re-render: the server publishes the room-files re-derive; ViewBus.notify mirrors it here.
+  private async removeUnit(uuid: string): Promise<void> {
+    const bare = String(uuid || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
+    if (!bare) return;
+    try {
+      const res = await fetch(`/api/room/${encodeURIComponent(this.roomId)}/unlink-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: bare, playerToken: this.client.playerToken }) }).then((r) => r.json());
+      if (res?.ok) { this.chatSheet?.addMessage('system', 'System', 'Removed'); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }
+      else this.chatSheet?.addMessage('system', 'System', `Remove failed: ${res?.error || '?'}`);
+    } catch (e) { this.chatSheet?.addMessage('system', 'System', `Remove error: ${(e as Error)?.message || e}`); }
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)

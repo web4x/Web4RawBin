@@ -2755,6 +2755,36 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
+    if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/unlink-unit')) { // R40.106 INC-4 slice-3: REMOVE = unlink THIS edge (detach from its container). The unit + all its OTHER edges SURVIVE in the index (git-recoverable) — this is NOT delete (that is INC-7: destroy unit + every ref).
+      const roomId = filepath.split('/')[3];
+      let ubody = '';
+      req.on('data', (chunk: Buffer) => { ubody += chunk; });
+      req.on('end', () => {
+        try {
+          const { unit, playerToken } = JSON.parse(ubody || '{}');
+          if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; } // same member-liveness gate as move-unit/add-folder
+          const room = roomManager.getRoom(roomId);
+          if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
+          const uuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
+          if (!/^[0-9a-fA-F-]{16,40}$/.test(uuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
+          const sdir = path.join(__dirname, '../../../scenario/index');
+          const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
+          const uf = shard(uuid);
+          if (!fsSync.existsSync(uf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
+          const uj = JSON.parse(fsSync.readFileSync(uf, 'utf-8'));
+          const parent = String(uj.model.parent || '');
+          // Unlink the containment EDGES: the parent-folder edge (if nested) + the room-root membership edge (fileUnits). Then
+          // detach the unit's up-pointer. The unit UNIT is untouched in the index — remove ≠ delete (edge-only, survives elsewhere).
+          if (parent.startsWith('ior:instance:')) { const r = FolderService.unlink(sdir, parent, uuid); if (r.changed && r.location) publishUnitChanged('ior:class:Folder', r.location); }
+          room.removeFileUnit(uuid);                                   // drop the room-root membership edge (persists the room)
+          uj.model.parent = null; fsSync.writeFileSync(uf, JSON.stringify(uj, null, 2) + '\n'); // detached; unit persists
+          publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files`);                   // room root re-derives → the node drops out live (R40.84), no reload
+          addLog(`[room] unlink-unit ${uuid.slice(0, 8)} (room ${roomId.slice(0, 8)}, from ${parent ? parent.slice(13, 21) : 'root'}) — detached, unit survives`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid, action: 'unlinked' }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'unlink-failed' })); }
+      });
+      return;
+    }
     if ((req.method === 'POST' || req.method === 'PUT') && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) { // SLICE-A: PUT = idempotent unit-JSON ingress; POST = native-file multipart edge (both hit this handler)
       const parts = filepath.split('/');
       const roomId = parts[3];
