@@ -47,6 +47,9 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // R40.106 INC-4 slice-3 (Tron: "a remove button on every file"): REMOVE = unlink this edge (detach from container); the
   // unit survives (recoverable / still linked elsewhere). Kind-generic over the movable file types — remove ≠ delete (INC-7).
   { verb: 'remove', label: '✕ Remove', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },
+  // R40.106 INC-7 DELETE = destroy the unit + unlink EVERY ref (vs remove = detach ONE edge, unit survives). RED/destructive
+  // (confirm in the handler); server refuses a keep-set-protected unit. Same type surface as remove; a 7th type = one line here.
+  { verb: 'delete', label: '🗑 Delete', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },
   // T37.20 INC-3 (R40.104): the "Rename…" action = the object sets its own USER displayName (wins over derivedName;
   // originalName preserved, never shown; uuid stable). Command dispatched to the room rename → UnitController.apply (the ONE
   // mutation seam, NO bespoke write). On files/natural classes (by type) AND folders (by class). OCP: a 7th class = one line here.

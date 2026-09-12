@@ -68,6 +68,7 @@ export class RoomView {
     // container via the server unlink-unit endpoint (FolderService.unlink + room.removeFileUnit). The unit SURVIVES in the
     // index (recoverable / still linked elsewhere) — remove ≠ delete (delete = INC-7, red + confirm + destroy + 0-dangling).
     registerAction('remove', (c) => void this.removeUnit(c.uuid));
+    registerAction('delete', (c) => void this.deleteUnit(c.uuid)); // R40.106 INC-7: destroy the unit + unlink every ref (RED confirm)
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
@@ -462,6 +463,20 @@ export class RoomView {
       if (res?.ok) { this.chatSheet?.addMessage('system', 'System', 'Removed'); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }
       else this.chatSheet?.addMessage('system', 'System', `Remove failed: ${res?.error || '?'}`);
     } catch (e) { this.chatSheet?.addMessage('system', 'System', `Remove error: ${(e as Error)?.message || e}`); }
+  }
+
+  // [impl:uuid:PENDING-req-mint] deleteUnit — R40.106 INC-7 DELETE: destroy the unit + unlink EVERY ref (vs removeUnit = detach ONE
+  // edge, unit survives). RED confirm (destructive; git-recoverable server-side via the pre-image only). POST /delete-unit →
+  // deleteUnitWithScan (pre-image / scan-footprint / keep-set exclude / 0-dangling / shared-blob-kept). A protected unit is refused.
+  private async deleteUnit(uuid: string): Promise<void> {
+    const bare = String(uuid || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
+    if (!bare) return;
+    if (!confirm('DELETE this permanently? It is removed everywhere and every link to it is unlinked. Recoverable only from a git pre-image.')) return;
+    try {
+      const res = await fetch(`/api/room/${encodeURIComponent(this.roomId)}/delete-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: bare, playerToken: this.client.playerToken }) }).then((r) => r.json());
+      if (res?.ok) { this.chatSheet?.addMessage('system', 'System', `Deleted — unlinked ${res.refsCleaned} ref(s); pre-image ${String(res.restoreSha || '').slice(0, 8)}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }
+      else this.chatSheet?.addMessage('system', 'System', `Delete refused: ${res?.error || '?'}`);
+    } catch (e) { this.chatSheet?.addMessage('system', 'System', `Delete error: ${(e as Error)?.message || e}`); }
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)

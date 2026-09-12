@@ -1038,6 +1038,72 @@ function ownerByToken(token: string): boolean {
   const puid = FeatureManager.profileUuidOf(token, userProfiles as unknown as Map<string, { redirectTo?: string }>);
   return loadProtectedIdentities().ids.includes(puid);
 }
+
+// [impl:uuid:PENDING-req-mint] deleteUnitWithScan — R40.106 INC-7 the ONE unit-delete (architect bar, universal-link-mechanism.md).
+// DESTROY the unit + unlink EVERY ref to it (distinct from unlink-unit = remove one edge, unit survives). Order: KEEP-SET
+// exclude (protection OVERRIDES, first+hard) → PRE-IMAGE verified-in-git BEFORE removal (git show HEAD==current bytes →
+// restore=HEAD; else COMMIT the footprint first; async push, never hang the click) → SCAN all units for exact refs to the
+// dead uuid (NOT a reverse-index) = the DECLARED FOOTPRINT {U + refs-to-U} → destroy U + unlink each ref (diff ⊆ footprint
+// by construction; a bystander is impossible = guard#5 declared-footprint, tester BITEs it) → shared .content blob KEPT
+// (removed only if no other unit references its contentHash) → 0-dangling re-scan. Idempotent (absent unit → ok, already gone).
+function deleteUnitWithScan(uuid: string, roomId: string): { ok: boolean; code?: number; error?: string; restoreSha?: string; refsCleaned?: number; danglingAfter?: number; blobAction?: string; published?: boolean } {
+  const sdir = path.join(__dirname, '../../../scenario/index');
+  const repoRoot = path.join(__dirname, '../../..');
+  const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
+  const uf = shard(uuid);
+  if (!fsSync.existsSync(uf)) return { ok: true, refsCleaned: 0, danglingAfter: 0, blobAction: 'unit-absent', published: false }; // idempotent — already gone
+  const uj = JSON.parse(fsSync.readFileSync(uf, 'utf-8'));
+  const um = (uj.model || {}) as Record<string, any>;
+  // KEEP-SET EXCLUDE (architect bar): a protected unit refuses delete — protection OVERRIDES the request, first + hard.
+  // protected = a HARD FIELD (model.protected) OR the unit's owner ∈ the R40.22 trusted protected-identity set (ownerByToken).
+  const ownerTok = String(um.uploaderToken || um.ownerToken || (uj.ownerIor ? String(uj.ownerIor).replace('ior:instance:', '').split('@')[0] : '') || '');
+  if (um.protected === true || (ownerTok && ownerByToken(ownerTok))) return { ok: false, code: 403, error: 'protected — delete refused (keep-set)' };
+  // SCAN: derive the referrer footprint by reading every unit (not a reverse-index). refEq = an EXACT ref to uuid (a ref
+  // value bare-equals uuid), so a prose field mentioning the uuid does NOT match — only genuine edges/refs.
+  const idx = new ScenarioIndex(sdir);
+  const refEq = (v: any): boolean => typeof v === 'string' && v.replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0] === uuid;
+  const referrers: { file: string; unit: any }[] = [];
+  for (const other of idx.list()) {
+    if (other === uuid) continue;
+    const of = shard(other); let oj: any; try { oj = JSON.parse(fsSync.readFileSync(of, 'utf-8')); } catch { continue; }
+    let hit = refEq(oj.ownerIor);
+    if (!hit) for (const val of Object.values((oj.model || {}) as Record<string, any>)) { if (Array.isArray(val) ? val.some(refEq) : refEq(val)) { hit = true; break; } }
+    if (hit) referrers.push({ file: of, unit: oj });
+  }
+  // PRE-IMAGE (VERIFIED, before removal): footprint = U + referrers. If HEAD already holds every current byte → restore=HEAD
+  // (no new commit); else COMMIT the footprint first (a dirty/fresh unit would otherwise delete IRRECOVERABLY). Push async.
+  const footprint = [uf, ...referrers.map(r => r.file)];
+  const rel = (f: string) => path.relative(repoRoot, f);
+  const gitOut = (args: string[]): string => { try { return execFileSync('git', args, { cwd: repoRoot, encoding: 'utf8' }); } catch (e: any) { return e && e.stdout != null ? String(e.stdout) : '__ERR__'; } };
+  let restoreSha = gitOut(['rev-parse', 'HEAD']).trim();
+  let dirty = false;
+  for (const f of footprint) { if (gitOut(['show', `HEAD:${rel(f)}`]) !== fsSync.readFileSync(f, 'utf-8')) { dirty = true; break; } }
+  if (dirty) {
+    try { execFileSync('git', ['add', '--', ...footprint.map(rel)], { cwd: repoRoot }); execFileSync('git', ['-c', 'commit.gpgsign=false', 'commit', '-q', '-m', `INC-7 pre-image before delete ${uuid} (footprint ${footprint.length})`, '--', ...footprint.map(rel)], { cwd: repoRoot }); restoreSha = gitOut(['rev-parse', 'HEAD']).trim(); } catch { /* pre-image best-effort; restore falls back to HEAD */ }
+  }
+  try { exec('git push origin hotfix/t40.1-checklist-band', { cwd: repoRoot }, () => { /* async recoverability push; never hangs the delete */ }); } catch { /* offline → local commit is the floor */ }
+  // APPLY: unlink every exact ref from each referrer (array filter / scalar → null), then destroy U. Only footprint files change.
+  let refsCleaned = 0;
+  for (const r of referrers) {
+    const m = (r.unit.model || {}) as Record<string, any>;
+    for (const [k, v] of Object.entries(m)) { if (Array.isArray(v)) { const nv = v.filter((x) => !refEq(x)); if (nv.length !== v.length) { m[k] = nv; refsCleaned += v.length - nv.length; } } else if (refEq(v)) { m[k] = null; refsCleaned++; } }
+    if (refEq(r.unit.ownerIor)) { r.unit.ownerIor = null; refsCleaned++; }
+    fsSync.writeFileSync(r.file, JSON.stringify(r.unit, null, 2) + '\n');
+  }
+  fsSync.rmSync(uf, { force: true });
+  // .content blob: KEEP if shared (another unit references the same contentHash) — else remove (no dangling-content).
+  let blobAction = 'none'; const chash = String(um.contentHash || ''); const cpath = String(um.contentPath || '');
+  if (cpath) {
+    let shared = false;
+    if (chash) for (const other of idx.list()) { if (other === uuid) continue; try { if (String((JSON.parse(fsSync.readFileSync(shard(other), 'utf-8')).model || {}).contentHash || '') === chash) { shared = true; break; } } catch { /* skip */ } }
+    if (shared) blobAction = 'kept-shared'; else { try { fsSync.rmSync(path.join(repoRoot, cpath), { force: true }); blobAction = 'removed'; } catch { blobAction = 'remove-failed'; } }
+  }
+  const room = roomManager.getRoom(roomId); if (room) room.removeFileUnit(uuid); // drop room-root membership edge
+  // 0-DANGLING re-scan (acceptance): no unit still holds an exact ref to the dead uuid.
+  const idx2 = new ScenarioIndex(sdir); let danglingAfter = 0;
+  for (const other of idx2.list()) { try { const oj = JSON.parse(fsSync.readFileSync(shard(other), 'utf-8')); if (refEq(oj.ownerIor)) danglingAfter++; for (const val of Object.values((oj.model || {}) as Record<string, any>)) { if (Array.isArray(val) ? val.some(refEq) : refEq(val)) danglingAfter++; } } catch { /* skip */ } }
+  return { ok: true, restoreSha, refsCleaned, danglingAfter, blobAction, published: true };
+}
 // R40.x SECURITY (RCE fix, architect design 5fd3dd034) — CLOSE the bare-public-uuid→owner hole: a protected-identity
 // owner determination via ownerByToken ALSO requires a CHALLENGE-AUTHENTICATED live session — the token must have a live
 // ws client that passed the ENROLLED-device signed challenge (verifyChallenge → authMethod='device-key'). Since the owner
@@ -2829,6 +2895,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[room] unlink-unit ${uuid.slice(0, 8)} (room ${roomId.slice(0, 8)}, from ${parent ? parent.slice(13, 21) : 'root'}) — detached (legacy full), unit survives`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid, action: 'unlinked' }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'unlink-failed' })); }
+      });
+      return;
+    }
+    // R40.106 INC-7 DELETE — DESTROY the unit + unlink EVERY ref (distinct from unlink-unit = remove one edge). Routes through
+    // deleteUnitWithScan (pre-image-verified / scan-footprint / keep-set exclude / 0-dangling / shared-blob-kept). Owner/member-gated.
+    if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/delete-unit')) {
+      const roomId = filepath.split('/')[3];
+      let dbody = '';
+      req.on('data', (chunk: Buffer) => { dbody += chunk; });
+      req.on('end', () => {
+        try {
+          const { unit, playerToken } = JSON.parse(dbody || '{}');
+          if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; }
+          const room = roomManager.getRoom(roomId);
+          if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
+          const uuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
+          if (!/^[0-9a-fA-F-]{16,40}$/.test(uuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
+          const del = deleteUnitWithScan(uuid, roomId);
+          if (!del.ok) { res.writeHead(del.code || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: del.error })); return; }
+          if (del.published) publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files`); // room root + affected folders re-derive live
+          addLog(`[room] delete-unit ${uuid.slice(0, 8)} (room ${roomId.slice(0, 8)}) — DESTROYED; pre-image=${String(del.restoreSha).slice(0, 8)}; unlinked ${del.refsCleaned} ref(s); dangling-after=${del.danglingAfter}; blob=${del.blobAction}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid, action: 'deleted', restoreSha: del.restoreSha, refsCleaned: del.refsCleaned, danglingAfter: del.danglingAfter, blob: del.blobAction }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'delete-failed' })); }
       });
       return;
     }
