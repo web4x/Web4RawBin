@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "c6d95512-ef73-473a-800e-c34a9057ec23",
+    "name": "bite-bystander.bin",
+    "contentPath": "index/c/6/d/9/5/c6d95512-ef73-473a-800e-c34a9057ec23.content",
+    "size": 51,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-12T17:36:40.053Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "909f1bd6-1f97-4542-b02b-242cfcc41f5e",
+    "contentHash": "6a741f705f02684a591dcae19c5400597e1c4c387a456a588921fbb31f3b5574",
+    "unitLinks": [
+      "content/6a741f705f02684a591dcae19c5400597e1c4c387a456a588921fbb31f3b5574.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/909f1bd6-1f97-4542-b02b-242cfcc41f5e/files/c6d95512-ef73-473a-800e-c34a9057ec23.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:909f1bd6-1f97-4542-b02b-242cfcc41f5e"
+}
