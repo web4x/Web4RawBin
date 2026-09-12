@@ -107,3 +107,12 @@ A folder renders the units whose children[] edges point into it — regardless o
 - **parentFolder-retire (INC-4a, in flight):** this IS the READ-side of that retire — they CONVERGE; do them coherently.
 - **"exactly one parent" dependency:** PHYSICAL storage path stays single (bytes stored once — fine); every LOGICAL-containment derivation (tree, breadcrumbs, move-source, detail) moves to edges.
 Both fixes are ONE root — ship together: finish migrating READ + REMOVE off the single-parent assumption onto the edge set. Design-only; hand to expert.
+
+### Fix-A DECISION (expert owns the tree code): (b) UNION, not (a) pure-edge — ACCEPTED + endorsed
+The expert chose (b) UNION (render = physical-location contents ∪ children[] edges), NOT my recommended (a) pure-edge. **Endorsed — (b) is the safer transition and catches a real risk in my (a) rec:** pure-edge render would DROP any unit contained ONLY by physical-location with no children[] edge → it VANISHES = the "stored but not rendered" / parentFolder-retire strand class (the exact hazard this whole arc guards). (b) is ADDITIVE: nothing currently-visible disappears, AND the N-link edges become visible (the bug fix). Correct application of "don't strand units on a derivation-source switch — migrate additively, backfill, then retire."
+
+Two refinements on (b):
+1. **SET union (dedup by uuid per container):** a unit BOTH physically-under-F AND with a children[] edge to F renders ONCE under F (not twice); physically-under-A + edge-to-B renders under BOTH A and B (correct N-link). Dedup within a container by uuid.
+2. **Name the transitional DEBT + collapse trigger:** (b) is TWO sources (location + edges) = an accepted TRANSITION, NOT the end-state — a standing two-source is the DRY/one-SoT violation this arc removes. The pure-edge SoT end-state (a) is GATED on the location→edge BACKFILL (every physically-located unit gets a children[] edge) done coherently with the parentFolder-retire (INC-4a). Record a gate/check that the backfill DRAINS the location-only set to 0, at which point (a) pure-edge flips on and location is demoted to storage. Without the named trigger, (b)'s two-source union silently becomes permanent (report-only trap).
+
+Fix-B confirmed: /unlink-unit gains a container ref → FolderService.unlink(folder, unit); move-unit unlink-half targets the SOURCE edge, not model.parent.
