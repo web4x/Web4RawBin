@@ -3,9 +3,9 @@
   "model": {
     "uuid": "e29dcae1-2327-48df-a3c5-41add257c624",
     "altId": "R19.85",
-    "name": "R19.85: Iframe pinch gesture SCALES the preview content, not just pans.",
-    "description": "BUG: pinch gesture in the preview iframe only PANS (translates) — it does not SCALE (zoom in/out). Pinch-out must make the content bigger; pinch-IN must make it smaller. FIX: the pinch gesture handler must apply CSS transform: scale() on the iframe content (or the iframe wrapper), not just translate. R19.81 captured the pinch-zoom requirement but the implementation only achieved pan. R19.85 re-asserts: pinch = SCALE, not pan. Both pinch-to-scale AND pan (single-finger drag) must coexist.",
-    "tronQuote": "> TRON: \"the pinch does not let me make the content of the preview make smaller in the iframe… only pan works. thats not enough.\"",
+    "name": "R19.85: Preview pinch gesture SCALES the content (shared RbPanZoom), not just pans.",
+    "description": "Pinch on a preview SCALES the content (zoom in/out), not just pans. BUILT REALITY (measured on served v0.8.214, tester 76-audit): the original @400px IFRAME pinch-zoom path was RETIRED at R21.9/v0.6.74 (content-preview.ts:5). ALL preview surfaces (room file details via RoomView + trace browser rb-detail-view + rb-file-detail) now share ONE pan/zoom path \u2014 RbPanZoom (src/public/ts/trace/pan-zoom.ts), driven from a 75vh rb-preview-pane; fillPreviewPane() is the single mime->content builder reused by every caller (DRY). Pinch (2-finger) SCALES via CSS transform (clamp+apply); single-finger drag PANS at all scales (R40.29 pointer-unified, impl 58a7c149); wheel and double-tap-to-2x also zoom; no snap-back on release. Zoom bounds: MAX=8; non-grow MIN=0.25; grow-mode floor GROW_MIN=0.02 (R33.7.1 INV-Z1 \u2014 repeated zoom-out GROWS the working canvas, bounded by the host MAX-CANVAS-PX safety cap, not a hard 0.25 floor). The capability HOLDS; only the earlier req specifics ('iframe', clamp 0.25-4x) had drifted and are corrected here.",
+    "tronQuote": "> TRON: \"the pinch does not let me make the content of the preview make smaller in the iframe\u2026 only pan works. thats not enough.\"",
     "tasks": [
       "ior:instance:1cbad4ef-1428-4594-9a48-b7892ab36f48"
     ],
@@ -16,7 +16,106 @@
     "refinementOf": "ior:instance:f5e7b9cd-3fb7-41b0-b9b4-fbdb419f234c",
     "refinementOfNote": "Refines R19.81 (pinch-zoom in iframe). R19.81 captured the requirement; implementation only achieved pan. R19.85 re-asserts: pinch MUST scale (CSS transform scale), not just translate. Both gestures coexist.",
     "functionalDone": true,
-    "functionalDoneNote": "R19.85 iframePinchZoom: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category — NOT a failure, NOT open champagne-debt. PO 2026-06-13."
+    "functionalDoneNote": "R19.85 iframePinchZoom: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category \u2014 NOT a failure, NOT open champagne-debt. PO 2026-06-13.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-pinch-scales-not-pans",
+        "group": "gesture/scale",
+        "text": "A 2-finger pinch SCALES the preview content (CSS transform scale via RbPanZoom clamp+apply) \u2014 NOT just translate. This is the R19.85 bug fix: pinch=SCALE, pan is a separate gesture.",
+        "gateRef": {
+          "kind": "component-gate",
+          "ref": "r371-zoom-gate.mjs",
+          "impl": "pan-zoom.ts RbPanZoom (setScale/zoomAbout, impl 301b71d4 / attach 58a7c149)",
+          "assertion": "driving the REAL RbPanZoom: a zoom changes scale (zoom-out<1 grows canvas, scale=1=whole); scale is not a no-op pan"
+        },
+        "satisfaction": {
+          "status": "SATISFIED-GREEN",
+          "servedVersion": "v0.8.214",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "RbPanZoom applies transform scale (pan-zoom.ts clamp:157 ns=max(floor,min(MAX,scale*factor)) + apply); r371-zoom-gate drives the real component and proves scale changes (not pan). Same shared class powers content-preview surfaces."
+        }
+      },
+      {
+        "id": "AC-shared-panzoom-not-iframe",
+        "group": "architecture/single-path",
+        "text": "ALL preview surfaces use the ONE shared RbPanZoom via content-preview.ts fillPreviewPane \u2014 the @400px iframe pinch-zoom path is RETIRED (R21.9/v0.6.74). No per-surface bespoke pinch handler.",
+        "gateRef": {
+          "kind": "code",
+          "ref": "content-preview.ts:5 header + rb-preview-pane import",
+          "assertion": "fillPreviewPane is the single mime->content builder; no iframe transform:scale pinch path remains"
+        },
+        "satisfaction": {
+          "status": "SATISFIED-GREEN",
+          "servedVersion": "v0.8.214",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "content-preview.ts header documents the R21.9 retirement + single RbPanZoom path; grep finds no surviving iframe pinch-scale handler."
+        }
+      },
+      {
+        "id": "AC-zoom-bounds-measured",
+        "group": "gesture/bounds",
+        "text": "Zoom bounds (measured, corrects the stale 0.25-4x): MAX=8; non-grow MIN=0.25; grow-mode floor GROW_MIN=0.02 \u2014 repeated zoom-out grows the working canvas (R33.7.1 INV-Z1), bounded by the host MAX-CANVAS-PX cap, not a hard 0.25 floor.",
+        "gateRef": {
+          "kind": "code",
+          "ref": "pan-zoom.ts:18 (MIN=0.25) :19 (GROW_MIN=0.02) :24 (MAX=8) :155-157 (clamp floor=growMode?GROW_MIN:MIN)",
+          "assertion": "clamp uses floor=growMode?0.02:0.25 and ceil MAX=8; NOT [0.25,4]"
+        },
+        "satisfaction": {
+          "status": "SATISFIED-GREEN",
+          "servedVersion": "v0.8.214",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "read from pan-zoom.ts source; note the file's own header comment '[1,8]' is itself stale vs code (MIN lowered to 0.25/0.02 at R33.7.1) \u2014 flagged."
+        }
+      },
+      {
+        "id": "AC-pan-coexists-no-snapback",
+        "group": "gesture/coexist",
+        "text": "Single-finger drag PANS at all scales and coexists with pinch-scale; no snap-back on release; double-tap resets/zooms to 2x.",
+        "gateRef": {
+          "kind": "code",
+          "ref": "pan-zoom.ts:83 (pan tx/ty) :150 (double-tap reset/zoomAbout 2); R40.29 pointer-unified pan impl 58a7c149",
+          "assertion": "pan applies at s<=1 and s>1; pinch and pan are distinct handlers; release does not reset scale"
+        },
+        "satisfaction": {
+          "status": "SATISFIED-GREEN",
+          "servedVersion": "v0.8.214",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "pan-zoom.ts pan path + R40.29 pointer-unified pan (r222-dblclick-zoom-gate covers double-tap)."
+        }
+      },
+      {
+        "id": "AC-device-pinch-unverified",
+        "group": "verify/device-physics",
+        "text": "A REAL 2-finger PINCH on a touch device is the ONE remaining un-mockable check. Headless is INCONCLUSIVE \u2014 synthetic touch events cannot reproduce true multi-touch physics. This is a Tron-DEVICE physics limit, NOT an unmocked coverage gap.",
+        "gateRef": {
+          "kind": "manual-device",
+          "ref": "Tron 2-finger pinch on touch device",
+          "assertion": "on a real touch device, a 2-finger pinch scales the preview (in/out) with pan coexisting"
+        },
+        "satisfaction": {
+          "status": "UNVERIFIED-DEVICE-PHYSICS",
+          "servedVersion": "v0.8.214",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "3rd honest state \u2014 not RED (feature works, code+component-gate green), not GREEN (headless cannot prove true multi-touch). Accept-ready pending Tron device confirm; do NOT make the customer the harness for the mockable parts (those are covered)."
+        }
+      }
+    ],
+    "builtReality": {
+      "status": "BUILT-AND-LIVE",
+      "servedVersion": "v0.8.214",
+      "note": "Pinch-scale SHIPPED via the shared RbPanZoom (pan-zoom.ts), all preview surfaces on the single fillPreviewPane path; iframe pinch path retired R21.9/v0.6.74. Bounds MAX=8 / MIN 0.25 non-grow / GROW_MIN 0.02 grow. Mockable behavior green (code + r371 component-gate); the ONE open AC is a real device 2-finger pinch (headless-inconclusive = device physics limit)."
+    },
+    "strengthenedBy": {
+      "date": "2026-09-12",
+      "by": "robbin-req",
+      "poDirective": "planner-routed from tester 76-audit (v0.8.214): req specifics drifted vs shipped RbPanZoom; strengthen-to-shipped (same pattern as 80ca8e83). NOT retire (capability holds), NOT accept-verbatim (specifics drifted).",
+      "note": "Measured built reality myself (measure-don't-relay): confirmed RbPanZoom + MAX=8 + MIN=0.25, and ADDED the grow-mode floor GROW_MIN=0.02 the relayed [0.25,8] missed (R33.7.1 INV-Z1). \u2605 CHECK-BEFORE-CREATE CATCH: the planner cited req b6ad2bdd, but that is the DELETED-DUP (supersededBy THIS canonical e29dcae1). Strengthened the CANONICAL here, not the dead dup. Recommended the covering task 3438e110 re-point dup->canonical + task-dedup vs 1cbad4ef (both cover this behavior)."
+    }
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

@@ -16,7 +16,12 @@
     "functionalDone": true,
     "functionalDoneNote": "R19.85 iframePinchZoom: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category \u2014 NOT a failure, NOT open champagne-debt. PO 2026-06-13.",
     "supersededBy": "ior:instance:e29dcae1-2327-48df-a3c5-41add257c624",
-    "supersededNote": "Redundant duplicate of R19.85 (e29dcae1). Same behavior (pinch-zoom scales). Deleted from active set."
+    "supersededNote": "Redundant duplicate of R19.85 (e29dcae1). Same behavior (pinch-zoom scales). Deleted from active set.",
+    "builtRealityRedirect": {
+      "date": "2026-09-12",
+      "by": "robbin-req",
+      "note": "DO NOT strengthen this unit \u2014 it is the DELETED-DUP (supersededBy e29dcae1). Built-reality strengthening for R19.85 pinch-scale (RbPanZoom, MAX=8/MIN 0.25/GROW_MIN 0.02, served v0.8.214) lives on the CANONICAL e29dcae1. Task 3438e110 currently covers THIS dup and should re-point to e29dcae1 (planner). The 'iframe 0.25-4x' specifics on this dup are the RETIRED path (R21.9/v0.6.74)."
+    }
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
