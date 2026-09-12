@@ -2699,7 +2699,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
           const folderUuid = unit.model.uuid;
           room.addFileUnit(folderUuid);                            // register in the room's units EXACTLY as a file (items-tree reads these)
-          if (parentUnitFile) { try { const pj = JSON.parse(fsSync.readFileSync(parentUnitFile, 'utf-8')); pj.model.children = Array.isArray(pj.model.children) ? pj.model.children : []; if (!pj.model.children.includes(`ior:instance:${folderUuid}`)) pj.model.children.push(`ior:instance:${folderUuid}`); fsSync.writeFileSync(parentUnitFile, JSON.stringify(pj, null, 2) + '\n'); } catch { /* parent children update best-effort */ } } // folder OWNS its children (model)
+          if (parentIor) FolderService.linkIn(path.join(__dirname, '../../../scenario/index'), parentIor, folderUuid); // R40.106 INC-5: ONE edge primitive — collapses the inline children[] RMW (parentIor set iff parentUnitFile, resolved above; behaviour-identical)
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid: folderUuid, name: cleanName, size: 0, mimeType: 'inode/directory' });
           publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files${nrel ? '/' + nrel : ''}`); // parent re-derives its direct children (live-insert, no reload)
           addLog(`[room] add-folder → unit ${folderUuid.slice(0, 8)} in scenario/index + symlink (room ${roomId.slice(0, 8)}, parent=${parentIor ? parentIor.slice(13, 21) : 'root'}) — folder-is-a-file`);
@@ -2901,15 +2901,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             // instantiates + renders AS its class (WebItem set its own ior above; File = fallback, already ior:class:File).
             if (jNat.ior !== 'ior:class:WebItem' && jNat.ior !== 'ior:class:File') { junit.ior = jNat.ior; (junit.model as any).kind = jNat.kind; jidx.put(jFileUuid, junit); }
             jroom.addFileUnit(jFileUuid);
-            if (jdrop.parentIor) { // mirror the folder-owns-children write (server.ts multipart branch) so a nested file renders inside the folder
-              try {
-                const jpUuid = jdrop.parentIor.replace('ior:instance:', '');
-                const jpf = path.join(jscenarioDir, ...jpUuid.slice(0, 5).split(''), `${jpUuid}.scenario.json`);
-                const jpj = JSON.parse(fsSync.readFileSync(jpf, 'utf-8'));
-                jpj.model.children = Array.isArray(jpj.model.children) ? jpj.model.children : [];
-                if (!jpj.model.children.includes(`ior:instance:${jFileUuid}`)) { jpj.model.children.push(`ior:instance:${jFileUuid}`); fsSync.writeFileSync(jpf, JSON.stringify(jpj, null, 2) + '\n'); }
-              } catch { /* best-effort (mirrors the multipart branch) */ }
-            }
+            if (jdrop.parentIor) FolderService.linkIn(jscenarioDir, jdrop.parentIor, jFileUuid); // R40.106 INC-5: ONE edge primitive — collapses the duplicated inline children[] RMW (behaviour-identical)
             publishUnitChanged('ior:class:Folder', jdrop.publishRef); // live-insert into the target node (folder or Files root)
             jroom.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid: jFileUuid, name: dec.name, size: dec.content.length, mimeType: dec.mimeType });
             captureUploadOutcome(_capId, 200, jNat.ior === 'ior:class:WebItem' ? 'success-webitem-unit' : 'success-file-unit');
@@ -3002,15 +2994,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (nat.ior !== 'ior:class:WebItem' && nat.ior !== 'ior:class:File') { (unit as any).ior = nat.ior; (unit.model as any).kind = nat.kind; idx.put(fileUuid, unit); }
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}${parentIor ? ' parent=' + parentIor.slice(13, 21) : ''}`);
           room.addFileUnit(fileUuid);
-          if (parentIor) { // R40.86: the folder OWNS its children (model.children[]) — add the file, MIRRORING the folder-nest path (server.ts:2580), so the folder's children-listing renders it (live via R40.84 + on reload)
-            try {
-              const pUuid = parentIor.replace('ior:instance:', '');
-              const pf = path.join(scenarioDir, ...pUuid.slice(0, 5).split(''), `${pUuid}.scenario.json`);
-              const pj = JSON.parse(fsSync.readFileSync(pf, 'utf-8'));
-              pj.model.children = Array.isArray(pj.model.children) ? pj.model.children : [];
-              if (!pj.model.children.includes(`ior:instance:${fileUuid}`)) { pj.model.children.push(`ior:instance:${fileUuid}`); fsSync.writeFileSync(pf, JSON.stringify(pj, null, 2) + '\n'); }
-            } catch { /* parent children update best-effort (mirrors 2580) */ }
-          }
+          if (parentIor) FolderService.linkIn(scenarioDir, parentIor, fileUuid); // R40.106 INC-5: the folder OWNS its children via the ONE edge primitive — collapses the inline children[] read-modify-write duplicated across create paths (behaviour-identical: idempotent push-if-absent, same 5-char shard path + JSON indent-2+\n)
           publishUnitChanged('ior:class:Folder', parentPublishRef); // R40.84/R40.86: re-derive the target node (the FOLDER when nested, else Files root) → live-insert the new file INSIDE, no full re-seed. ONE path for both add types.
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
           captureUploadOutcome(_capId, 200, nat.ior === 'ior:class:WebItem' ? 'success-webitem' : 'success-file'); // the CONTROL fires here too (a succeeding synthetic upload → diff vs a failing real one)
