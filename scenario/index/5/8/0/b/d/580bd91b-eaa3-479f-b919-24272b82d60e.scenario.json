@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "580bd91b-eaa3-479f-b919-24272b82d60e",
+    "name": "bite-U2-shared.bin",
+    "contentPath": "index/2/c/4/9/2/2c4921d3-ba99-4408-b98b-b7606ae8b5a4.content",
+    "contentHash": "3a29c05c85d240b584d74ef703b2c57ee12d00de413b997fe843968ded8fc85c",
+    "size": 47,
+    "mimeType": "application/octet-stream",
+    "roomUuid": "909f1bd6-1f97-4542-b02b-242cfcc41f5e",
+    "location": "roomcoll:909f1bd6-1f97-4542-b02b-242cfcc41f5e:files"
+  },
+  "ownerIor": "ior:instance:909f1bd6-1f97-4542-b02b-242cfcc41f5e"
+}
