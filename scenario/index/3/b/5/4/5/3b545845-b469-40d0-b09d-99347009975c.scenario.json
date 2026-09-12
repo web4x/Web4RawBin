@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3b545845-b469-40d0-b09d-99347009975c",
+    "name": "R40.106 root-edge remaining half (DEBT) — ROOT folder still derives directChildCount by LOCATION, not edges; the 2nd half of the two-source pattern INC-6 fixed only for nested",
+    "slug": "r40.106-root-edge-remaining-half-debt",
+    "description": "HONEST DEBT (PO 2026-09-12, boarded so it cannot hide) — INC-6 (ad93d384) flipped NESTED folders to single-source-off-edges, but ROOT still derives by LOCATION = the REMAINING HALF of the SAME two-source pattern. This is NOT correct-by-design and must NOT be mistaken for a deliberate asymmetry. The expert ANSWERED this rather than dodged it: design-notes/r40106-root-edge-remaining-half.md carries a drain-check + flags the files[] flat-registry DUAL-ROLE dependency to the architect — root is NOT a 1-line mirror of INC-6 (the flat-registry files[] serves two roles at root, so flipping root needs the architect's ruling first). Boarding it ALSO guards the nested single-source (INC-6) from silently regressing while root stays location-derived. Owner = architect (rule the files[] dual-role) -> expert (build root flip) -> tester (gate).",
+    "intention": "Root folder derives directChildCount from edges too — ONE source-of-truth for containment everywhere, not nested-edges + root-location.",
+    "context": "Covers R40.106 ff9ed585-a928 (root-half increment), UC 4062b06d, parent S40 8e8b32d6. Follows INC-6 ad93d384 (nested done). Design: design-notes/r40106-root-edge-remaining-half.md.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "PROJECTS from R40.106 ff9ed585 (root edge-single-source; no hand-write per AXIS-2). Root folder directChildCount + rendered children BOTH derive from children[] edges (same as nested post-INC-6); the files[] flat-registry dual-role resolved (architect ruling) so root is not a 2nd source; drain-check per the design note; nested single-source (INC-6) proven non-regressed.",
+    "subtasks": "None (root-half of R40.106).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208"
+    ],
+    "useCases": [
+      "ior:instance:4062b06d-2a38-4552-b3a7-5ef9458f50a0"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "STOOD UP Planned = boarded DEBT (PO 2026-09-12). ROOT derives directChildCount by LOCATION = the remaining half of the two-source pattern INC-6 (ad93d384) fixed for nested — NOT correct-by-design, NOT a deliberate asymmetry, NOT a 1-line mirror of INC-6. Architect must first rule the files[] flat-registry DUAL-ROLE dependency (flagged); then expert flips root to edges; then tester gates + proves nested (INC-6) non-regressed. Design + drain-check: design-notes/r40106-root-edge-remaining-half.md. Recorded so (a) nested single-source cannot silently regress while root stays location-derived, and (b) root-debt is never read as a deliberate design choice. Minted SERVED tree; flagged req to reverse-wire ff9ed585.tasks[] += this. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-12"
+  },
+  "ownerIor": null
+}

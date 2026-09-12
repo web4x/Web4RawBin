@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "ad93d384-22a3-49a9-87be-26bfc4296232",
+    "name": "R40.106 INC-6 — NESTED folder pure-edge flip: rendered children AND directChildCount both derive from children[] EDGES (single source); FIX-A location-union retired for nested",
+    "slug": "r40.106-inc6-nested-pure-edge-flip-single-source",
+    "description": "The pure-edge flip increment of R40.106. A NESTED folder now derives BOTH its rendered children AND its directChildCount from its children[] EDGES = ONE source of truth; the FIX-A location-union is RETIRED for nested via if(!selfFolder); ROOT unchanged (see the remaining-half debt 3b545845). Scope-B ruled on CORRECTNESS (PO): count-on-location while render-on-edges would DISAGREE the first time a true edge-only link exists = a chevron showing N over a folder rendering N+1. SHIPPED + GATED @ served v0.8.222 (8eb775663, pushed+tagged, architect 7-point bar PASS, tester GREEN). Owner = expert (built) + tester (gated) + architect (7-point bar).",
+    "intention": "For a nested folder, render and count are the SAME derivation off the edges — impossible for them to disagree (one source, not two).",
+    "context": "Covers R40.106 ff9ed585-a928, UC 4062b06d, parent S40 8e8b32d6. Sibling of LINK+REMOVE 6de13bb2 + INC-5 025ff2e8. R40.108 version-stamp: served v0.8.222. Root-half remaining = debt 3b545845.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "PROJECTS from R40.106 ff9ed585 (INC-6 nested pure-edge flip; no hand-write per AXIS-2). Proven @ v0.8.222 (architect 7-point bar): nested folder render + directChildCount BOTH from children[] edges (single source), FIX-A location-union retired for nested, root unchanged. Evidence: 110 folder renders BYTE-IDENTICAL pre/post flip (bar #2) · fresh strand 0 across ALL nested types measured AT the flip (probe now carries folder coverage + a FAILABLE control) · edge-only unit renders under its folder · no-double count==1 · remove-here-not-there · location-hygiene · root byte-identical.",
+    "subtasks": "None (INC-6 slice of R40.106).",
+    "status": "QA Review",
+    "servedVersion": "0.8.222",
+    "coveredRequirements": [
+      "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208"
+    ],
+    "useCases": [
+      "ior:instance:4062b06d-2a38-4552-b3a7-5ef9458f50a0"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "waitingOn": "Tron QA accept — ACCEPT-READY, nested pure-edge flip GREEN @ served v0.8.222 (architect 7-point bar PASS, 110 renders byte-identical, fresh strand 0); machine-verified, nothing waiting on us.",
+    "remainingIssues": "STOOD UP QA-Review = accept-ready (PO 2026-09-12, built-reality, commit 8eb775663 pushed+tagged). ★★ DELTA WITH SCOPE — RECORD BOTH + THE ARC BREAKDOWN (do NOT record the arc as 'negative delta achieved' bare): INC-6 SOURCE = server.ts +11/-3 = NET +8 POSITIVE (~5 comment lines + the new edge-based count fn); it is a derivation SIMPLIFICATION that removes a whole SOURCE OF TRUTH, not lines. ARC TOTAL = INC-5(-16) + INC-6(+8) = NET -8. PO set the negative-lines rule; INC-6 did NOT meet it on lines, it met the INTENT (one source instead of two) and PO accepted the trade EXPLICITLY. [[net-negative-churn-at-protected-granularity]] — the metric is source-of-truth-count, not line-count. ★ R40.108: servedVersion 0.8.222. ★ REMAINING R40.106: root-edge-remaining-half debt 3b545845 (root still derives by LOCATION), then MOVE + DELETE (INC-7). Minted SERVED tree; flagged req to reverse-wire ff9ed585.tasks[] += this. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-12"
+  },
+  "ownerIor": null
+}
