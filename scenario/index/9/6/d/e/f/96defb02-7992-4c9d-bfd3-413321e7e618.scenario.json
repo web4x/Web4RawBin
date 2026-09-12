@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "96defb02-7992-4c9d-bfd3-413321e7e618",
+    "name": "test:createRoom.bothCreatorShapesReachRoomJoined",
+    "description": "AC3 (both creators succeed): a real end-to-end WS CREATE_ROOM reaches ROOM_JOINED for BOTH (ii) a new distinct single-profile creator (rig 6a440ff3 -> ROOM_JOINED 6b42a2ab) AND (iii) a redirect/consolidated creator (dc531b63 -> ROOM_JOINED 8f316093) \u2014 both were silent GUARD#6 throws pre-fix. Gate test/visual/r40107-createroom-onboarding-fix-gate.mjs (tester-owned, cb2f93968; failable: asserts ROOM_JOINED not silence/ERROR). GREEN @ served v0.8.224. TESTER owns this gate + wires its [test:uuid] marker.",
+    "sourceFile": "ior:file:test/visual/r40107-createroom-onboarding-fix-gate.mjs",
+    "implementations": [],
+    "status": "pass",
+    "servedVersion": "0.8.224",
+    "coversBug": "ior:instance:e73b2af8-1d14-4db3-ab8b-5a78fced4918",
+    "coversAC": "AC3-onboarding-first-room-succeeds",
+    "chainNote": "Chain-to-shipped (architect SIGNED v0.8.224 38e6fa06b, signoff b267c452a). Test unit minted by robbin-req; the [test:uuid:96defb02-7992-4c9d-bfd3-413321e7e618] marker is wired into the gate by its owner (tester=onboarding gate, expert=room-persist-invariant gate).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e73b2af8-1d14-4db3-ab8b-5a78fced4918"
+}

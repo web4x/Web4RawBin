@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "54447550-be80-4287-bcf3-d4fdccdcb017",
+    "name": "test:writeRoomJson.partialWritePreservesMembers",
+    "description": "AC1 (partial-preserves): a members-OMITTED write (explicitMembers=false) is NOT refused \u2014 writeRoomJson preserves stored members on omit. Gate assertion check-room-persist-invariant.ts:64-66 (the partial-write case 'c'): assertRoomPersistInvariant(stored, room([...]), 'r', false) must NOT throw; if it does => RED (the false-positive that bricked every CREATE_ROOM is back). GREEN @ served v0.8.224.",
+    "sourceFile": "ior:file:scripts/check-room-persist-invariant.ts",
+    "implementations": [],
+    "status": "pass",
+    "servedVersion": "0.8.224",
+    "coversBug": "ior:instance:e73b2af8-1d14-4db3-ab8b-5a78fced4918",
+    "coversAC": "AC1-partial-write-preserves-stored-members",
+    "chainNote": "Chain-to-shipped (architect SIGNED v0.8.224 38e6fa06b, signoff b267c452a). Test unit minted by robbin-req; the [test:uuid:54447550-be80-4287-bcf3-d4fdccdcb017] marker is wired into the gate by its owner (tester=onboarding gate, expert=room-persist-invariant gate).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e73b2af8-1d14-4db3-ab8b-5a78fced4918"
+}

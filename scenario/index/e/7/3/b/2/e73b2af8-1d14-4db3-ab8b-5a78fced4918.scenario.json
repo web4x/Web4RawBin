@@ -85,7 +85,12 @@
     ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tests": [],
+    "tests": [
+      "ior:instance:54447550-be80-4287-bcf3-d4fdccdcb017",
+      "ior:instance:b41ff2f9-c430-4d86-94b1-e63fab268644",
+      "ior:instance:96defb02-7992-4c9d-bfd3-413321e7e618",
+      "ior:instance:ea69bf13-e7f9-4938-8634-eaedaaf4b5ad"
+    ],
     "unitLinks": [],
     "widenedBy": {
       "date": "2026-09-12",

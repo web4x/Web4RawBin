@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b41ff2f9-c430-4d86-94b1-e63fab268644",
+    "name": "test:assertRoomPersistInvariant.explicitDropStillRefuses",
+    "description": "AC2 (teeth): an EXPLICIT members write (explicitMembers=true) dropping a distinct-no-redirect member STILL throws \u2014 the fix narrows GUARD#6 to `members in data`, it does NOT disable it. Gate check-room-persist-invariant.ts:61 (!throws on distinct-abcd drop) + :67 stub-must-fail teeth. A distinct-no-redirect explicit drop that PASSES => RED. GREEN @ served v0.8.224.",
+    "sourceFile": "ior:file:scripts/check-room-persist-invariant.ts",
+    "implementations": [],
+    "status": "pass",
+    "servedVersion": "0.8.224",
+    "coversBug": "ior:instance:e73b2af8-1d14-4db3-ab8b-5a78fced4918",
+    "coversAC": "AC2-explicit-distinct-primary-drop-still-refuses",
+    "chainNote": "Chain-to-shipped (architect SIGNED v0.8.224 38e6fa06b, signoff b267c452a). Test unit minted by robbin-req; the [test:uuid:b41ff2f9-c430-4d86-94b1-e63fab268644] marker is wired into the gate by its owner (tester=onboarding gate, expert=room-persist-invariant gate).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e73b2af8-1d14-4db3-ab8b-5a78fced4918"
+}
