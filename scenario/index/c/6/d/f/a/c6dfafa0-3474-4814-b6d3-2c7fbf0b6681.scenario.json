@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "c6dfafa0-3474-4814-b6d3-2c7fbf0b6681",
+    "name": "inc3-live-orig.bin",
+    "contentPath": "index/c/6/d/f/a/c6dfafa0-3474-4814-b6d3-2c7fbf0b6681.content",
+    "size": 16,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-07T17:57:29.685Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "9614ea49-5337-45c4-ad75-c1eda0de4330",
+    "contentHash": "1d20d9cd63d62328ffb5fff85ad90c500de26010b90d9fdfad41e9f42327cb7c",
+    "unitLinks": [
+      "content/1d20d9cd63d62328ffb5fff85ad90c500de26010b90d9fdfad41e9f42327cb7c.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/9614ea49-5337-45c4-ad75-c1eda0de4330/files/c6dfafa0-3474-4814-b6d3-2c7fbf0b6681.scenario.json"
+    ],
+    "displayName": "INC3 LIVE Renamed 9614",
+    "originalName": "inc3-live-orig.bin"
+  },
+  "ownerIor": "ior:instance:9614ea49-5337-45c4-ad75-c1eda0de4330"
+}

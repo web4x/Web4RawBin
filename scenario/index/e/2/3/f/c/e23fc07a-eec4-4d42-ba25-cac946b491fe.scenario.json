@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "e23fc07a-eec4-4d42-ba25-cac946b491fe",
+    "name": "inc3-live-orig.bin",
+    "contentPath": "index/e/2/3/f/c/e23fc07a-eec4-4d42-ba25-cac946b491fe.content",
+    "size": 16,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-07T17:59:20.388Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "797671c7-3c1b-4741-92ee-f82a8a5bde85",
+    "contentHash": "8fe52b93568abaf1c4b96e627f9a9155139a986673f51efb43e0a785e21c227a",
+    "unitLinks": [
+      "content/8fe52b93568abaf1c4b96e627f9a9155139a986673f51efb43e0a785e21c227a.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/797671c7-3c1b-4741-92ee-f82a8a5bde85/files/e23fc07a-eec4-4d42-ba25-cac946b491fe.scenario.json"
+    ],
+    "displayName": "INC3 LIVE Renamed 7976",
+    "originalName": "inc3-live-orig.bin"
+  },
+  "ownerIor": "ior:instance:797671c7-3c1b-4741-92ee-f82a8a5bde85"
+}

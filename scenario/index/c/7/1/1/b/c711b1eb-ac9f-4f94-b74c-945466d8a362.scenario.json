@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "c711b1eb-ac9f-4f94-b74c-945466d8a362",
+    "name": "dndtail-drop-0dd1d509.bin",
+    "contentPath": "index/c/7/1/1/b/c711b1eb-ac9f-4f94-b74c-945466d8a362.content",
+    "size": 204800,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-07T18:48:38.359Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "0dd1d509-a274-4524-a238-1a7722650e25",
+    "contentHash": "77aeae433b71f1f5f2de6cbb1e76a99f1a908e001274aeaf75b9c9050d09f692",
+    "unitLinks": [
+      "content/77aeae433b71f1f5f2de6cbb1e76a99f1a908e001274aeaf75b9c9050d09f692.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/0dd1d509-a274-4524-a238-1a7722650e25/files/c711b1eb-ac9f-4f94-b74c-945466d8a362.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:0dd1d509-a274-4524-a238-1a7722650e25"
+}

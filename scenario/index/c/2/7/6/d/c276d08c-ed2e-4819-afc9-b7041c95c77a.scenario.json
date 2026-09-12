@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "c276d08c-ed2e-4819-afc9-b7041c95c77a",
+    "name": "inc3-orig-r3.bin",
+    "contentPath": "index/c/2/7/6/d/c276d08c-ed2e-4819-afc9-b7041c95c77a.content",
+    "size": 21,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-07T17:55:53.090Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "72d70cd9-96fc-48de-8a12-c924fd14967c",
+    "contentHash": "d20076032a652a2a71e6de9615574f3d7c638d07d9c065f287113baeefd16ace",
+    "unitLinks": [
+      "content/d20076032a652a2a71e6de9615574f3d7c638d07d9c065f287113baeefd16ace.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/72d70cd9-96fc-48de-8a12-c924fd14967c/files/c276d08c-ed2e-4819-afc9-b7041c95c77a.scenario.json"
+    ],
+    "displayName": "INC3 Renamed r3 72d7",
+    "originalName": "inc3-orig-r3.bin"
+  },
+  "ownerIor": "ior:instance:72d70cd9-96fc-48de-8a12-c924fd14967c"
+}
