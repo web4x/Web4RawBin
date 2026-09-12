@@ -1,0 +1,23 @@
+R40.106 INC-7 (MOVE+DELETE) RED BASELINE — captured @SERVED v0.8.222, 2026-09-12, BEFORE INC-7 deploy.
+Instrument: test/visual/r40106-inc7-delete-baseline-gate.mjs (re-run post-INC-7 for the GREEN differential).
+MEASURED (confirmed, NOT inherited — PO said don't inherit; my numbers differ from the relayed "2 dangling / 8 orphans"):
+
+(1) DANGLING files[] refs (room references it; unit /api/ior = null) = 4
+    - LIVE-REAL = 1: 6332b98c  ref-by room 3231db71 (Tron's Marcel dnd test room, real-owned/kept)  ← the T34.3 remove-index-not-links class
+    - test-debris = 3: 65fe738d / d5711c61 / 473de57a  ref-by the fixed test room 909f1bd6 (my element-delete gate leftovers)
+
+(2) ORPHANS (location-bearing unit whose room roomcoll:<id> no longer resolves = parentFolder→deleted-room debris) = 48
+    - types: mostly Folder, some File + 1 Image; rooms gone = the 72 test rooms deleted 09-09 (deleteRoom removed the room dirs but LEFT the child units' scenario/index units with stale locations)
+    - this IS the persistent evidence that deleteRoom did not fully remove (no-op class): the child units survive orphaned
+    - (expert relayed "8 WebItems"; I measure 48 units all-types → confirm-not-inherit; the 8 may be a WebItem-only subset)
+
+(3) deleteRoom NO-OP — proven 09-07 (removeRoom returns false for unloaded rooms + the canonical scenario/index unit survives).
+    The 48 orphans + 4 dangling ARE the live persistent evidence. No fresh destructive call: 0 expendable rooms remain
+    (all test rooms deleted 09-09); will NOT risk the ONE fixed room 909f1bd6.
+
+(4) T34.3 accepted-Done-but-HALF-FALSE: /api/model/element/delete removes the index unit but LEAVES the room files[] link.
+    The LIVE-REAL dangling 6332b98c@3231db71 is exactly this class (removes-index, not-links).
+
+POST-INC-7 GREEN ACCEPTANCE (re-run the same gate + the standing set):
+    - dangling-real = 0, orphans = 0 (or membership-filtered real=0), + deleteRoom VERIFIED GONE (canonical unit /api/ior null after delete), + NO live member deleted (membership-filter — phantom-4 discipline protecting real data)
+    - PLUS the standing four unmoved (render-shows / remove-here≠there / no-double count==1 / DRAG byte-identical streak) + link cycle e2e + scope-B count==rendered
