@@ -50,6 +50,18 @@ roomViol.forEach(r => console.log(`  ★ ${r.f}: ${r.n}× .createRoom(`));
 console.log(`IDENTITY-MINT violations (rawbin-player-id set to a non-SystemTester value): ${idViol.length}`);
 idViol.forEach(r => console.log(`  ★ ${r.f}: ${r.val}`));
 
-const green = roomViol.length === 0 && idViol.length === 0;
-console.log(`\nVERDICT: ${green ? 'GREEN — every gate reuses the ONE fixed room + ONE identity; zero test-room/identity creation' : `RED — ${roomViol.length} gate(s) still mint rooms (migration debt: switch them to reuse ${FIXED8})`}`);
-process.exit(green ? 0 : 1);
+// ── RATCHET (PO Option B, 2026-09-12): grandfather the current violations as a baseline that can only go DOWN.
+//    RED only if the count RISES above baseline (a NEW createRoom / identity-mint) — no fleet outage day-one, but a
+//    4th flood cannot land. NEVER raise these numbers: if the count rises the fix is to migrate, never to re-baseline.
+//    TOUCH-IT-FIX-IT: any gate file you edit must migrate to reuse ${FIXED8} as part of that edit → converges to 0.
+//    When ROOM_BASELINE reaches 0, flip both to 0 (baseline disappears) — the guard becomes plain 'zero test-room creation'.
+const ROOM_BASELINE = 52;      // grandfathered .createRoom() calls @2026-09-12 (32 files). RATCHET-DOWN ONLY.
+const IDENTITY_BASELINE = 0;   // hardcoded foreign-identity mints — already zero, so any is a NEW violation.
+const overRoom = totalRoomCreates - ROOM_BASELINE;
+const overId = idViol.length - IDENTITY_BASELINE;
+const red = overRoom > 0 || overId > 0;
+console.log(`\nRATCHET: room-create ${totalRoomCreates}/${ROOM_BASELINE} baseline · identity-mint ${idViol.length}/${IDENTITY_BASELINE} baseline`);
+if (red) console.log(`VERDICT: RED — a NEW test-room/identity creation landed ABOVE baseline (${overRoom > 0 ? '+' + overRoom + ' createRoom' : ''}${overId > 0 ? ' +' + overId + ' identity-mint' : ''}). MIGRATE it to reuse ${FIXED8} — do NOT raise the baseline.`);
+else if (totalRoomCreates < ROOM_BASELINE) console.log(`VERDICT: GREEN — migration progress! Ratchet DOWN: set ROOM_BASELINE=${totalRoomCreates} (never up).`);
+else console.log(`VERDICT: GREEN — at baseline (grandfathered); no new test-room/identity creation. Touch-it-fix-it converges the ${ROOM_BASELINE} → 0.`);
+process.exit(red ? 1 : 0);
