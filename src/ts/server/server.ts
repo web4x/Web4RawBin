@@ -1203,7 +1203,16 @@ function sweepEnumerated(uuidList: string[], opts: { dryRun: boolean; setSha: st
   if (authSha !== computedSha) return { ok: false, code: 403, error: `setSha MISMATCH — authorized ${authSha.slice(0, 12)}… ≠ computed ${computedSha.slice(0, 12)}… ; the reviewed set is not this set`, computedSha, set };
   // PHASE 1 (dry, NO deletion): run the SAME guards on every unit via deleteUnitWithScan dryRun. ANY refusal → ABORT, 0 deletions.
   const refused: { uuid: string; reason: string }[] = [];
-  for (const u of set) { const r = deleteUnitWithScan(u, '', { dryRun: true }); if (r.wouldRefuse) refused.push({ uuid: u, reason: r.reason || r.error || 'refused' }); }
+  for (const u of set) {
+    // ★ ORPHAN-ONLY TRIPWIRE (architect v0.8.229, phase-1 of THIS op ONLY — deliberately NOT in the generic deleteUnitWithScan
+    // guard, which deleteRoomComposite relies on to destroy room-linked units). sweepEnumerated passes roomId='' → the scan
+    // unlinks the room-unit files[] edge on DISK but the LIVE in-memory room.fileUnits Set is NOT dropped (getRoom('') no-op),
+    // so a room-linked unit would leave a transient in-memory membership until reload. The sweep is for ORPHANS: refuse a
+    // room-fileUnits member, naming the room (a room-linked unit must go via the room delete path with its real roomId). Fail-closed.
+    const rm = roomManager.allRooms().find((r) => r.fileUnits?.has(u));
+    if (rm) { refused.push({ uuid: u, reason: `room-linked (member of room ${rm.id.slice(0, 8)} fileUnits) — sweep is ORPHAN-only; use the room delete path with its real roomId` }); continue; }
+    const r = deleteUnitWithScan(u, '', { dryRun: true }); if (r.wouldRefuse) refused.push({ uuid: u, reason: r.reason || r.error || 'refused' });
+  }
   if (refused.length) { addLog(`[sweepEnumerated] PHASE-1 ABORT: ${refused.length} refused — 0 deletions (the set is wrong, re-derive)`); return { ok: false, code: 403, error: `phase-1 ABORT: ${refused.length} unit(s) would be refused — deleted NOTHING (re-derive the set, never skip-and-continue)`, computedSha, set, phase: 1, refused }; }
   if (opts.dryRun) return { ok: true, computedSha, set, phase: 1, wouldDelete: set.length }; // dry-run = phase-1 all-clear + printed set
   // PHASE 2 (only reached if phase-1 all-clear): real per-unit delete (each pre-images its footprint to committed git BEFORE removal).

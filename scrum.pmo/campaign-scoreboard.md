@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 262** — Done **98** · QA-Review **64** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 95** (262 = 98+64+3+95)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 91**
+- **TOTAL S30++ tasks: 263** — Done **98** · QA-Review **64** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 96** (263 = 98+64+3+96)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 92**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 55 | 1 | 22 | 0 | 32 |
-| S40 | 87 | 0 | 25 | 0 | 60 |
+| S40 | 88 | 0 | 25 | 0 | 61 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 19 · build 60
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 19 · build 61
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -90,6 +90,7 @@
 | S40 | 71334df3 | In Progress | two-key | Task 40.55: Boots may not name a sprint/version divergin |
 | S40 | 7193c129 | Planned | marker | Task 40.78: Add-folder ALSO inside a room Files collection ( |
 | S40 | 724fa12b | Planned | build | Task 40.43: trace:audit orphan backlog DRAINED via delta |
+| S40 | 740f8996 | In Progress | build | R40.106 INC-7 DELETE-PROTECTION (in flight) — a delete reall |
 | S40 | 755a7be4 | Planned | build | Task 40.40: Every unit type is DECLARED indexed / alt-in |
 | S40 | 7cbc4241 | Planned | build | Task 40.35: deploymentRefs model inversion — the minted  |
 | S40 | 800fa79d | Planned | marker | Task 40.70: Add-folder/add-diagram is MVC-live in the tree + |
