@@ -13,6 +13,7 @@ import { readFileSync } from 'node:fs';
 // The gates that must NEVER silently fall out of ci:gates:raw. Add R40.106 gates here as they land.
 const REQUIRED = [
   'check:gates-wired',                  // self-guard: the meta-gate cannot be silently dropped either
+  'check:gates-not-blind',              // companion meta-gate: no gate may use NUL-blind plain grep on source
   'check:room-persist-invariant',       // R40.107 #1/#2/#5/#6 — room identity/persist invariants
   'check:parentfolder-not-containment', // R40.106 INC-4a — containment is the edge, never parentFolder
   'check:test-room-single-source',      // test-room ratchet (tester)
