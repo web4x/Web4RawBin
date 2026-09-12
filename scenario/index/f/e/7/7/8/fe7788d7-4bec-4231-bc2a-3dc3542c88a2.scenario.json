@@ -3,8 +3,8 @@
   "model": {
     "uuid": "fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
     "altId": "R40.107",
-    "name": "A WRITE must not mutate fields it was not asked to change (migration, handler, re-persist) — before/after differential asserts ONLY declared targets differ, fail-closed",
-    "description": "STANDING LAW: A WRITE (migration, dedup, handler, re-persist — ANY code that persists) MUST NOT MUTATE FIELDS IT WAS NOT ASKED TO CHANGE. CORRECTED live instance (2026-09-06, architect-measured — the earlier attribution to migrate-one-store.ts was WRONG): migrate-one-store.ts is EXONERATED (byte-identical copy, writeFileSync + skip-if-exists, NEVER overwrites — cannot blank a name or reset a timestamp). The REAL chain: Room.persistMembers (Room.ts:401) writes name:m.name, so a member whose PROFILE was DELETED persists with an EMPTY name; plus joinedAt:Date.now() churn + createdAt reconstruction; and the LOAD path additionally DROPS profile-less members. TRIGGER: the PO test-room/profile cleanup ORDER deleted profiles and caused a bystander room to re-persist. The room re-persist was NOT a migration at all, yet mutated fields nobody asked it to -> the law covers ANY WRITE. One step MORE GENERAL than member-name-must-survive; the cure is the PROVEN differential (assert ONLY the intended change), now a precondition on every write.",
+    "name": "A WRITE must not mutate fields it was not asked to change (migration, handler, re-persist) \u2014 before/after differential asserts ONLY declared targets differ, fail-closed",
+    "description": "STANDING LAW: A WRITE (migration, dedup, handler, re-persist \u2014 ANY code that persists) MUST NOT MUTATE FIELDS IT WAS NOT ASKED TO CHANGE. CORRECTED live instance (2026-09-06, architect-measured \u2014 the earlier attribution to migrate-one-store.ts was WRONG): migrate-one-store.ts is EXONERATED (byte-identical copy, writeFileSync + skip-if-exists, NEVER overwrites \u2014 cannot blank a name or reset a timestamp). The REAL chain: Room.persistMembers (Room.ts:401) writes name:m.name, so a member whose PROFILE was DELETED persists with an EMPTY name; plus joinedAt:Date.now() churn + createdAt reconstruction; and the LOAD path additionally DROPS profile-less members. TRIGGER: the PO test-room/profile cleanup ORDER deleted profiles and caused a bystander room to re-persist. The room re-persist was NOT a migration at all, yet mutated fields nobody asked it to -> the law covers ANY WRITE. One step MORE GENERAL than member-name-must-survive; the cure is the PROVEN differential (assert ONLY the intended change), now a precondition on every write.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
@@ -23,7 +23,7 @@
       "date": "2026-09-06"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "queuePriority": "TIER-A guard — by-construction (a SPEC not a build; makes the whole out-of-scope-mutation class impossible for the NEXT migration).",
+    "queuePriority": "TIER-A guard \u2014 by-construction (a SPEC not a build; makes the whole out-of-scope-mutation class impossible for the NEXT migration).",
     "differentialDisciplineProven": "The before/after differential (assert ONLY the intended change) is PROVEN: it caught the project:model extra node (PAIR-2 byte-identity gate), and it is PROTECTING the 5-row repair right now (Bug 88df8e4e exactly-5 + R40.106 migration-transparent-differential). R40.107 generalizes it to EVERY migration/dedup.",
     "crossRef": [
       "ior:instance:206a28bc-08cb-47ba-bfcd-6b6503525ab3",
@@ -32,7 +32,7 @@
       "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
     ],
-    "crossRefNote": "Same hazard class as Bug 206a28bc (a name wrongly SET/LOST at a WRITE path — there the WebItem mint, here the migration). The live instance rides the R40.81 one-store migration. Generalizes the differential in R40.106 (containment repoint) + R40.81 apply-time ACs to the UNIVERSAL rule: no migration mutates out-of-scope fields.",
+    "crossRefNote": "Same hazard class as Bug 206a28bc (a name wrongly SET/LOST at a WRITE path \u2014 there the WebItem mint, here the migration). The live instance rides the R40.81 one-store migration. Generalizes the differential in R40.106 (containment repoint) + R40.81 apply-time ACs to the UNIVERSAL rule: no migration mutates out-of-scope fields.",
     "acceptanceCriteria": [
       {
         "id": "AC-differential-only-declared-fields",
@@ -59,7 +59,7 @@
       {
         "id": "AC-fail-closed-not-write",
         "group": "migration/fail-closed",
-        "text": "On an out-of-scope change DETECTED, the run FAILS CLOSED — it REFUSES TO WRITE the mutation, rather than writing it and reporting after. Fail-safe is not enough; it must not persist the out-of-scope change AT ALL.",
+        "text": "On an out-of-scope change DETECTED, the run FAILS CLOSED \u2014 it REFUSES TO WRITE the mutation, rather than writing it and reporting after. Fail-safe is not enough; it must not persist the out-of-scope change AT ALL.",
         "gateRef": {
           "kind": "test",
           "ref": "test fail-closed-on-out-of-scope",
@@ -70,16 +70,28 @@
       {
         "id": "AC-refuses-without-the-assertion",
         "group": "migration/refuse-lint",
-        "text": "The WRITE tool/handler REFUSES TO RUN AT ALL until the differential assertion EXISTS — a write with no scope-differential cannot execute (the assertion is a precondition, not an optional check).",
+        "text": "The WRITE tool/handler REFUSES TO RUN AT ALL until the differential assertion EXISTS \u2014 a write with no scope-differential cannot execute (the assertion is a precondition, not an optional check).",
         "gateRef": {
           "kind": "lint",
           "ref": "lint migration-requires-differential",
           "assertion": "every migration/dedup entrypoint has a scope-differential assertion wired as a run precondition; a migration lacking it => RED (cannot run)"
         },
         "stubMustFail": "seed a migration entrypoint with no scope-differential -> RED (refuses to run)"
+      },
+      {
+        "id": "AC-preserve-unknown-stored-field",
+        "group": "preserve/carry-forward-unknown",
+        "text": "A re-persist PRESERVES every stored field the write does not model \u2014 an ARBITRARY (unmodeled) stored field SURVIVES a re-persist, not just model.protected. This is the CONSTRUCTIVE twin of the don't-mutate law: Room.persist() rebuilds the unit by enumerating owned fields and silently DROPS any stored key it doesn't model (Tron's ACTIVE rooms LOST their keep-marks on re-persist). FIX at the ONE chokepoint: carry forward every stored key the write does not set. \u2605 DISCRIMINATION: fixes the CLASS, not one field \u2014 'enumerate + add protected' is a FALSE fix that leaves the class lossy; the arbitrary-field canary must catch it.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "mark-durability canary (tester)",
+          "impl": "RoomKeys.ts preserveUnknownStoredFields [impl:uuid:87cc9eba-c85a-4db1-b4e1-8b8d74f6b715]",
+          "assertion": "an ARBITRARY stored field survives a re-persist; a re-persist that drops an unmodeled stored field => RED; a fix that preserves only 'protected' but drops an arbitrary field => RED (class not field)"
+        },
+        "stubMustFail": "seed a re-persist that drops an arbitrary unmodeled stored field (or a fix that only carries 'protected') -> RED"
       }
     ],
-    "relatedHazardRecommended": "★ REAL HAZARD the architect surfaced (RECOMMENDED to PO, not minted — governance): IDENTITY COUPLED TO PROFILE EXISTENCE. A member name derives from its profile via m.name, so deleting the profile blanks the name, and the load path DROPS profile-less members. That is a distinct defect (member identity/name must SURVIVE profile deletion; a profile-less member must not lose its name or be dropped). R40.107 is the LAW (no out-of-scope write); the identity-coupling is the specific INSTANCE defect. Recommend a bug on PO go; blast-radius measurement pending."
+    "relatedHazardRecommended": "\u2605 REAL HAZARD the architect surfaced (RECOMMENDED to PO, not minted \u2014 governance): IDENTITY COUPLED TO PROFILE EXISTENCE. A member name derives from its profile via m.name, so deleting the profile blanks the name, and the load path DROPS profile-less members. That is a distinct defect (member identity/name must SURVIVE profile deletion; a profile-less member must not lose its name or be dropped). R40.107 is the LAW (no out-of-scope write); the identity-coupling is the specific INSTANCE defect. Recommend a bug on PO go; blast-radius measurement pending."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

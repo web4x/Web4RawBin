@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4be791e3-3e01-4c23-85a9-48a6a2979ef3",
+    "name": "sweepEnumerated(uuidList, {dryRun, setSha}) \u2014 sanctioned list-driven sweep orchestrator over deleteUnitWithScan",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 1184,
+    "servedVersion": "0.8.228",
+    "tests": [],
+    "unitLinks": [],
+    "coversRequirement": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+    "coversAC": "AC-sanctioned-sweep-op-list-not-filter",
+    "description": "R40.106 step-2 sanctioned sweep op (architect b5493b1df, sanctioned-sweep-op.md). List-not-filter, two-phase fail-closed, mandatory setSha. Orchestrator over existing per-unit deleteUnitWithScan (NOT a new bulk primitive). Gate: sweep-op bites.",
+    "chainNote": "Traceability-debt closure (PO-directed 2026-09-12, #126 retroactive: shipped code carried [impl:uuid:PENDING-req-mint]). Real uuid minted by robbin-req; the EXPERT replaces PENDING-req-mint with 4be791e3-3e01-4c23-85a9-48a6a2979ef3 in the code marker; chain closes to Test via the tester's existing gate."
+  },
+  "ownerIor": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "87cc9eba-c85a-4db1-b4e1-8b8d74f6b715",
+    "name": "preserveUnknownStoredFields(stored, data): void \u2014 carry forward every stored key the write does not set",
+    "sourceFile": "src/ts/server/RoomKeys.ts",
+    "sourceLine": 212,
+    "servedVersion": "0.8.226",
+    "tests": [],
+    "unitLinks": [],
+    "coversRequirement": "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
+    "coversAC": "AC-preserve-unknown-stored-field",
+    "description": "R40.107 v0.8.226 PRESERVE-UNKNOWN (merge-over-stored). Fixes the CLASS (keep-marks were dying on every re-persist). Pure (no fs), unit-testable. Gate: mark-durability canary.",
+    "chainNote": "Traceability-debt closure (PO-directed 2026-09-12, #126 retroactive: shipped code carried [impl:uuid:PENDING-req-mint]). Real uuid minted by robbin-req; the EXPERT replaces PENDING-req-mint with 87cc9eba-c85a-4db1-b4e1-8b8d74f6b715 in the code marker; chain closes to Test via the tester's existing gate."
+  },
+  "ownerIor": "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2"
+}

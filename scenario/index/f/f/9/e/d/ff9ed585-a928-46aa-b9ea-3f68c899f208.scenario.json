@@ -148,6 +148,30 @@
           "assertion": "(a) ~6893 edge-based + the 25 redundant: 0 render delta on retire, else RED; (b) the 5 invisible: exactly 4-restore-to-room-3231db71 + 1-junk-delete, per-uuid; 0-delta on a real one OR any change to the 25 or a 6th => RED"
         },
         "stubMustFail": "(a) seed a transparency unit (or one of the 25) changing render on retire -> RED; (b) seed a real invisible left unrendered, OR the junk restored, OR a 6th unit touched -> RED"
+      },
+      {
+        "id": "AC-sanctioned-sweep-op-list-not-filter",
+        "group": "sweep/sanctioned-op",
+        "text": "The ONLY code-checking bulk-delete path (sweepEnumerated, an ORCHESTRATOR over per-unit deleteUnitWithScan) takes an EXPLICIT ENUMERATED uuid LIST, NEVER a filter/predicate \u2014 a predicate-driven bulk delete IS the dangerous primitive (once it exists someone calls it with a wider predicate). TWO-PHASE fail-closed: phase-1 dry-run ALL \u2192 if ANY would-refuse, ABORT and delete NOTHING (a refusal means the SET is wrong \u2192 re-derive, never skip-and-continue = unreviewed partial destruction). SET-SHA MANDATORY: authorize by setSha == sha256(sorted unique list); refuse on missing/empty/\u2260 (an omittable authorization is not an authorization). Print the set + setSha in BOTH modes (reviewed set == executed set).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "sweep-op bites (tester)",
+          "impl": "server.ts sweepEnumerated [impl:uuid:4be791e3-3e01-4c23-85a9-48a6a2979ef3]",
+          "assertion": "list-not-filter / phase-1-any-refuse-aborts-ALL / setSha-mandatory-and-matched / set+sha-printed-both-modes; a predicate-driven bulk delete, a skip-and-continue partial destruction, or a missing/mismatched setSha => RED"
+        },
+        "stubMustFail": "seed a filter/predicate-driven bulk delete OR a skip-and-continue-on-refuse OR an omittable/mismatched setSha -> RED"
+      },
+      {
+        "id": "AC-real-owner-brace-discriminates",
+        "group": "sweep/real-owner-protection",
+        "text": "A unit owned by a COMMITTED REAL account (e.g. Tron's 26 committed profiles) is REFUSED on the bulk/sweep path \u2014 protection lives in the ACTING CODE (evaluated per unit on the !explicitOwner path), NOT in gate-convention that a new caller could bypass. \u2605 DISCRIMINATION (the half that matters): an EPHEMERAL-owned unit is NOT refused \u2014 a brace that refuses EVERYTHING is a FALSE fix a naive AC would accept. The brace must let ephemeral-owned units through AND refuse committed-real-account-owned ones.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "real-owner brace bite (tester)",
+          "impl": "isOwnerKnownRealAccount [impl:uuid:604efff6-02c0-405d-9afa-f7d917f105fc] (sweep-op path)",
+          "assertion": "a committed-real-account-owned unit is refused on the bulk path AND an ephemeral-owned one is NOT refused; a brace that refuses everything (no discrimination) OR lets a committed-profile unit through => RED"
+        },
+        "stubMustFail": "seed (a) a committed-profile-owned unit deleted on the bulk path, OR (b) a refuses-EVERYTHING brace (ephemeral-owned also refused) -> RED"
       }
     ],
     "architectRuling": "Architect 39bc3a10f (design-notes/universal-link-mechanism.md): LINK is the PRIMITIVE (drop=add-edge); MOVE is DERIVED = unlink(source)+link(target); containment = many-to-many edge set; parentFolder singular retired; R40.86 reparent body retired -> re-expressed as composition (extends R40.106).",

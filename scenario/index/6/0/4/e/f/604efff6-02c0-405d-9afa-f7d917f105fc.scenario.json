@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "604efff6-02c0-405d-9afa-f7d917f105fc",
+    "name": "isOwnerKnownRealAccount \u2014 the sweep real-owner brace (committed-profile owner refused on the bulk path)",
+    "sourceFile": "src/ts/server/(sweep-op sign path \u2014 held; expert wires the marker when the sweep code lands)",
+    "sourceLine": 0,
+    "servedVersion": "0.8.227",
+    "tests": [],
+    "unitLinks": [],
+    "coversRequirement": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+    "coversAC": "AC-real-owner-brace-discriminates",
+    "description": "R40.106 sweep protection: Tron's 26 committed profiles were UNPROTECTED in the bulk path; protection moved from gate-convention INTO the acting code (per-unit evaluate on !explicitOwner). \u2605 Code lives in the HELD sweep-op sign path (architect holds those gates) \u2014 I did NOT read/touch it; grounded in PO spec + the sweepEnumerated comment reference. Expert wires [impl:uuid] when the sweep code lands. Gate: real-owner brace bite (discrimination).",
+    "chainNote": "Traceability-debt closure (PO-directed 2026-09-12, #126 retroactive: shipped code carried [impl:uuid:PENDING-req-mint]). Real uuid minted by robbin-req; the EXPERT replaces PENDING-req-mint with 604efff6-02c0-405d-9afa-f7d917f105fc in the code marker; chain closes to Test via the tester's existing gate."
+  },
+  "ownerIor": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208"
+}
