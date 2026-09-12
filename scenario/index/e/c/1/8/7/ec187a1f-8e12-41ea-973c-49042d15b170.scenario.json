@@ -6,6 +6,8 @@
     "slug": "drawer-resize-grab-handle-height-drag",
     "description": "Replace translateY swipe-dismiss on grab handle with real height-drag. touchStart on .drawer-handle captures startY+startHeight. touchMove clamps [120, 95vh]. touchEnd < 120 = close. Off-handle swipe-dismiss preserved.",
     "status": "QA Review",
+    "supersededBy": "ior:instance:b9deaf57-0e85-44a4-be94-3aa68f914c67",
+    "supersededReason": "SUBSUMED (dedup, 76-audit 2026-09-12) — drawer-resize is DELIVERED (rb-detail-drawer.ts live @ v0.8.211) and canonicalized under b9deaf57 (T-drawer-drag-resize 4c19b50f already supersededBy b9deaf57; this orphan T-drawer-resize was a stale 3rd duplicate = the traceability-DRY defect the graph exists to prevent). One canonical drawer-resize task, not three. Closed by measurement (feature live + a canonical owner exists), no build.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:62e1b2e1-8715-47e4-9fdb-8b882d0f42dc"
