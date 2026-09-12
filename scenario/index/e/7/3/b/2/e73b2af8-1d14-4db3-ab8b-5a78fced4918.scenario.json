@@ -1,0 +1,85 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "e73b2af8-1d14-4db3-ab8b-5a78fced4918",
+    "name": "GUARD#6 partial-write false-positive bricks CREATE_ROOM for a distinct-primary-no-redirect creator (an ABSENT members field is read as an explicit drop-all)",
+    "description": "ARCHITECT-DIAGNOSED, code-grounded (robbin-architect, PO-approved routing, 2026-09-12; robbin-req verified the cited sites). CREATE_ROOM THROWS when the creator's member is a DISTINCT PRIMARY with NO redirect. ROOT: Room.persist() (Room.ts:394-403, impl Room.persistMembers R19.35 d5f0c2b4) writes room.json WITH members (creator=owner). Immediately after, server.ts:4805 calls writeRoomJson AGAIN with a PARTIAL object (updates id/name/ssh/state/chatHistory; OMITS members \u2014 and also files/visibility/mode). GUARD#6 (RoomKeys.ts:192-206, shipped for R40.107 / 58175f768) reads `data.members || [] = []` -> treats the ABSENT field as dropping ALL stored members -> for a stored member that is a distinct primary with no redirect it is `!benign` -> throws @4805 BEFORE ROOM_JOINED. The guard is preventing a real data-loss (the partial overwrite would drop members/files) but does so by BRICKING instead of PRESERVING. SEVERITY (corrected \u2014 NOT 'all creation broken'): established multi-profile creators are UNAFFECTED; prod mostly MASKS it (only 1 room created post-guard, 09-09, benign-resolved). \u2605 GATE CASE = ONBOARDING (PO): a brand-new SINGLE-PROFILE user's FIRST room via the REAL CREATE_ROOM onboarding path \u2014 every new person Tron invites hits a hard failure on their first action while existing users are fine and prod looks healthy (worst shape: invisible to those who work, fatal to those arriving). SEVERITY LABEL is PENDING tester's explicit ONBOARDING-repro confirmation: reproduces via onboarding -> 'new-user onboarding broken'; only in the seeded rig -> 'fresh-rig edge case'.",
+    "fix": "BY-CONSTRUCTION (architect): writeRoomJson PARTIAL-MERGE \u2014 an ABSENT members field = PRESERVE stored (no-change); GUARD#6 scrutinizes a drop ONLY when members is EXPLICITLY provided (`members in data`, NOT `data.members || []`). Protects every partial caller regardless of resolver state. This EMBODIES R40.107's own principle: a write must not mutate fields it was not asked to change \u2014 an absent field was not asked to change. Alt-local (rejected as lossy): @4805 carry members, or remove @4805 (redundant since persist() wrote authoritative room.json, but @4805 also omits files/visibility/mode). Expert owns the fix; chain against the built fix.",
+    "severity": "conditional-brick \u2014 CREATE_ROOM throws only for a distinct-primary-no-redirect creator; gate case = new-user onboarding; label pending tester onboarding-repro confirm",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "routedVia": "robbin-po (PO-approved routing)",
+      "date": "2026-09-12",
+      "codeSites": "server.ts:4805 (partial writeRoomJson) / RoomKeys.ts:192-206 GUARD#6 (R40.107, 58175f768) / Room.ts:394-403 Room.persist writes members (d5f0c2b4)",
+      "verifiedBy": "robbin-req (read all three sites; confirmed partial write omits members + GUARD#6 uses data.members||[])"
+    },
+    "crossRef": [
+      "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
+      "ior:instance:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf"
+    ],
+    "crossRefNote": "The defect is in GUARD#6, shipped for R40.107 (fe7788d7 'a WRITE must not mutate fields it was not asked to change') and gated by 80ca8e83 AC-2 (room-persist-invariant / check:room-persist-invariant). The fix RESTORES R40.107's own principle (absent field = not-asked-to-change = preserve), so the guard stops firing on partial writes while keeping its teeth on explicit drops. Related to the identity-coupled-to-profile hazard family.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC1-partial-write-preserves-stored-members",
+        "group": "fix/partial-merge",
+        "text": "A PARTIAL write with NO members field PRESERVES the stored members (no-change) \u2014 writeRoomJson merges, it does not treat absent-members as drop-all. BITE: a @4805-shaped partial write (no members field) leaves the stored member(s) intact in room.json.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test partial-write preserves members (@4805-shaped)",
+          "assertion": "after a partial writeRoomJson without a members field, room.json still contains the previously-stored members byte-for-byte; a partial write that drops/omits stored members => RED"
+        },
+        "stubMustFail": "seed a partial write (no members field) that results in stored members being dropped -> RED"
+      },
+      {
+        "id": "AC2-explicit-distinct-primary-drop-still-refuses",
+        "group": "guard/keeps-teeth",
+        "text": "GUARD#6 KEEPS ITS TEETH: an EXPLICIT members-array that drops a distinct-primary-no-redirect member STILL refuses (throws). The fix narrows the guard to `members in data`, it does NOT disable it.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test explicit distinct-primary drop refused",
+          "assertion": "an explicit members array omitting a stored distinct-primary-no-redirect member => GUARD#6 throws (refuses); if it passes => RED"
+        },
+        "stubMustFail": "seed an explicit members-array dropping a distinct-primary-no-redirect member that PASSES -> RED"
+      },
+      {
+        "id": "AC3-onboarding-first-room-succeeds",
+        "group": "repro/onboarding-GATE",
+        "text": "\u2605 THE GATE CASE (architect+PO sharpen): a BRAND-NEW SINGLE-PROFILE user's FIRST room via the REAL onboarding CREATE_ROOM path SUCCEEDS end-to-end (ROOM_JOINED emitted, no GUARD#6 throw). MUST be exercised through the actual user onboarding path, NOT a seeded fresh env \u2014 the by-construction fix satisfies BOTH rig and onboarding; if it passes only the rig it is INCOMPLETE.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test @390 onboarding first-room CREATE_ROOM",
+          "assertion": "a new single-profile user's first CREATE_ROOM through onboarding reaches ROOM_JOINED; a GUARD#6 throw on that path => RED"
+        },
+        "stubMustFail": "seed a new single-profile onboarding first-room CREATE_ROOM that throws at GUARD#6 -> RED"
+      },
+      {
+        "id": "AC4-benign-dedup-drop-still-passes",
+        "group": "guard/no-regression",
+        "text": "The benign-dedup path is UNCHANGED: an explicit members-array where a stub is dropped but its primary is present STILL PASSES (no brick) \u2014 the fix must not over-correct into letting real drops through, nor into refusing benign ones.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test benign dedup drop passes",
+          "assertion": "an explicit members array dropping a stub whose primary is present => passes (no throw); a benign dedup that now refuses => RED"
+        },
+        "stubMustFail": "seed a benign dedup (stub dropped, primary present) that is refused -> RED"
+      },
+      {
+        "id": "AC5-tester-confirms-onboarding-repro-before-severity",
+        "group": "severity/repro-confirm",
+        "text": "SEVERITY IS NOT CALLED UNTIL the tester CONFIRMS the onboarding repro explicitly: reproduces through the real new-user onboarding path -> severity = 'new-user onboarding broken'; reproduces only in the seeded rig -> 'fresh-rig edge case'. Until confirmed the severity label stays UNVERIFIED (honest 3rd state), NOT assumed.",
+        "gateRef": {
+          "kind": "manual-tester",
+          "ref": "tester onboarding-repro confirmation",
+          "assertion": "tester reports whether a real new-user onboarding first-room CREATE_ROOM throws pre-fix; the severity label is set from that measured result, not assumed"
+        },
+        "stubMustFail": "n/a repro/severity-gating (owned by tester; label unverified until measured)"
+      }
+    ],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
