@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "83cdc2a0-021c-4175-922e-05230fd58869",
+    "name": "bite-warmup.bin",
+    "contentPath": "index/8/3/c/d/c/83cdc2a0-021c-4175-922e-05230fd58869.content",
+    "size": 48,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-12T17:24:12.157Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "909f1bd6-1f97-4542-b02b-242cfcc41f5e",
+    "contentHash": "8bfe9b084f7e16e342cc7715f10bfca515e1671ea164ac871834baeacaf8bbbf",
+    "unitLinks": [
+      "content/8bfe9b084f7e16e342cc7715f10bfca515e1671ea164ac871834baeacaf8bbbf.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/909f1bd6-1f97-4542-b02b-242cfcc41f5e/files/83cdc2a0-021c-4175-922e-05230fd58869.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:909f1bd6-1f97-4542-b02b-242cfcc41f5e"
+}
