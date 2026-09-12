@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "4ed59094-5374-464e-a4b3-b05de5383757",
+    "name": "bite-Utest.bin",
+    "contentPath": "index/4/e/d/5/9/4ed59094-5374-464e-a4b3-b05de5383757.content",
+    "size": 47,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-12T17:24:18.127Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "909f1bd6-1f97-4542-b02b-242cfcc41f5e",
+    "contentHash": "484434ba8eb40fb260da7b3193da84ea7c2d0998d74addd1ebabd4ae41451426",
+    "unitLinks": [
+      "content/484434ba8eb40fb260da7b3193da84ea7c2d0998d74addd1ebabd4ae41451426.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/909f1bd6-1f97-4542-b02b-242cfcc41f5e/files/4ed59094-5374-464e-a4b3-b05de5383757.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:909f1bd6-1f97-4542-b02b-242cfcc41f5e"
+}
