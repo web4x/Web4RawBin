@@ -17,8 +17,10 @@ const ALLOWED = new Set([
 ]);
 const fail = (m: string): never => { console.error(`✗ ${m}`); process.exit(1); };
 
-// every src (non-test) file that mentions parentFolder
-const out = execSync(`grep -rl "parentFolder" src --include='*.ts' || true`, { encoding: 'utf8' }).trim();
+// every src (non-test) file that mentions parentFolder. -a is MANDATORY: server.ts carries a NUL byte, so PLAIN grep
+// silently SKIPS the biggest server file (a future stray reader there would ESCAPE this gate = false green — tester
+// near-miss 2026-09-12). -a forces binary-as-text so NUL-byte files are scanned. (git grep is the other NUL-immune option.)
+const out = execSync(`grep -ral "parentFolder" src --include='*.ts' || true`, { encoding: 'utf8' }).trim();
 const files = out ? out.split('\n').map((f) => f.replace(/^\.\//, '')).filter((f) => !/\.test\.ts$/.test(f)) : [];
 const stray = files.filter((f) => !ALLOWED.has(f));
 
