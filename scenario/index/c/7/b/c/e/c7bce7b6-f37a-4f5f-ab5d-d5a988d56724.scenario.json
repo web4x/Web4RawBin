@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Folder",
+  "model": {
+    "uuid": "c7bce7b6-f37a-4f5f-ab5d-d5a988d56724",
+    "name": "ScopeDel-841395",
+    "kind": "folder",
+    "location": "roomcoll:909f1bd6-1f97-4542-b02b-242cfcc41f5e:files/ScopeDel-841395",
+    "children": [
+      "ior:instance:043c7f87-5a5a-47c3-9cdc-27535b3b3c23"
+    ],
+    "parent": null,
+    "unitLinks": [
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/909f1bd6-1f97-4542-b02b-242cfcc41f5e/files/c7bce7b6-f37a-4f5f-ab5d-d5a988d56724.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:909f1bd6-1f97-4542-b02b-242cfcc41f5e"
+}
