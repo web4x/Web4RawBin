@@ -1064,12 +1064,12 @@ function isOwnerKnownRealAccount(token: string): boolean {
 // dead uuid (NOT a reverse-index) = the DECLARED FOOTPRINT {U + refs-to-U} → destroy U + unlink each ref (diff ⊆ footprint
 // by construction; a bystander is impossible = guard#5 declared-footprint, tester BITEs it) → shared .content blob KEPT
 // (removed only if no other unit references its contentHash) → 0-dangling re-scan. Idempotent (absent unit → ok, already gone).
-function deleteUnitWithScan(uuid: string, roomId: string, opts?: { explicitOwner?: boolean }): { ok: boolean; code?: number; error?: string; restoreSha?: string; refsCleaned?: number; danglingAfter?: number; blobAction?: string; published?: boolean } {
+function deleteUnitWithScan(uuid: string, roomId: string, opts?: { explicitOwner?: boolean; dryRun?: boolean }): { ok: boolean; code?: number; error?: string; restoreSha?: string; refsCleaned?: number; danglingAfter?: number; blobAction?: string; published?: boolean; wouldRefuse?: boolean; reason?: string } {
   const sdir = path.join(__dirname, '../../../scenario/index');
   const repoRoot = path.join(__dirname, '../../..');
   const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
   const uf = shard(uuid);
-  if (!fsSync.existsSync(uf)) return { ok: true, refsCleaned: 0, danglingAfter: 0, blobAction: 'unit-absent', published: false }; // idempotent — already gone
+  if (!fsSync.existsSync(uf)) return { ok: true, refsCleaned: 0, danglingAfter: 0, blobAction: 'unit-absent', published: false, wouldRefuse: false }; // idempotent — already gone
   const uj = JSON.parse(fsSync.readFileSync(uf, 'utf-8'));
   const um = (uj.model || {}) as Record<string, any>;
   // KEEP-SET EXCLUDE (architect bar): a protected unit refuses delete — protection OVERRIDES the request, first + hard.
@@ -1081,7 +1081,14 @@ function deleteUnitWithScan(uuid: string, roomId: string, opts?: { explicitOwner
   // auth-set — the gap was that this lived in gate-selection convention, not the acting code). An EXPLICIT owner act
   // (opts.explicitOwner — e.g. deleteRoomComposite) may reach a real-owned-but-UNMARKED unit (else the owner is locked out of
   // their own system). The mark is the deliberate two-step; the owner-identity + real-account roster are the bulk-safety layer.
-  if (um.protected === true || (!opts?.explicitOwner && ownerTok && (ownerByToken(ownerTok) || isOwnerKnownRealAccount(ownerTok)))) return { ok: false, code: 403, error: 'protected — delete refused (keep-set)' };
+  const keepRefused = um.protected === true || (!opts?.explicitOwner && ownerTok && (ownerByToken(ownerTok) || isOwnerKnownRealAccount(ownerTok)));
+  if (keepRefused) {
+    const reason = um.protected === true ? 'model.protected (unmark first)' : (ownerByToken(ownerTok) ? 'real-owned: auth-trust identity (keep-set)' : 'real-owned: committed profile (keep-set)');
+    return { ok: false, code: 403, error: 'protected — delete refused (keep-set)', wouldRefuse: true, reason }; // same for dryRun + real run — the guard verdict IS the dry-run answer (single-sourced)
+  }
+  // R40.106 step-2 dryRun: the guards passed → this unit WOULD delete. Stop here for a dry-run — evaluate ONLY, no scan/pre-image/removal.
+  // (Single-source: the sanctioned sweep op's phase-1 pre-check runs the SAME guard code the real delete runs, so a dry-run can never bless what the run would refuse.)
+  if (opts?.dryRun) return { ok: true, wouldRefuse: false };
   // SCAN: derive the referrer footprint by reading every unit (not a reverse-index). refEq = an EXACT ref to uuid (a ref
   // value bare-equals uuid), so a prose field mentioning the uuid does NOT match — only genuine edges/refs.
   const idx = new ScenarioIndex(sdir);
@@ -1172,6 +1179,39 @@ function deleteRoomComposite(roomId: string): { ok: boolean; code?: number; erro
   }
   const rr = deleteUnitWithScan(roomId, roomId, { explicitOwner: true }); // destroy the canonical Room unit (pre-image + scan-unlink + 0-dangling); idempotent if already gone
   return { ok: true, exclusiveDestroyed, sharedUnlinked, roomUnitGone: !fsSync.existsSync(rf), danglingAfter: rr.danglingAfter, restoreSha: rr.restoreSha };
+}
+
+// [impl:uuid:PENDING-req-mint] sweepEnumerated — R40.106 step-2 the SANCTIONED SWEEP OP (architect b5493b1df, sanctioned-sweep-op.md).
+// The ONLY code-checking path to delete orphans — an ORCHESTRATOR over the EXISTING per-unit deleteUnitWithScan, NOT a new
+// bulk primitive. ⛔ takes an EXPLICIT enumerated uuid LIST, NEVER a filter (a predicate-driven bulk delete IS the dangerous
+// primitive: once it exists someone calls it with a wider predicate). SELECTION stays outside (reviewable); this op only ACTS.
+// Every unit traverses deleteUnitWithScan on the !explicitOwner path → model.protected + ownerByToken + isOwnerKnownRealAccount
+// ALL evaluate per unit (the FINDING-2 brace protects this op for free). TWO-PHASE fail-closed: phase-1 dryRun ALL → if ANY
+// would-refuse, ABORT + delete NOTHING (a refusal means THE SET IS WRONG → re-derive, never skip-and-continue = partial
+// destruction nobody reviewed); phase-2 (only if phase-1 all-clear) real delete (pre-image + scan-unlink + 0-dangling each).
+// SET-SHA MANDATORY: authorize-by-setSha-not-description — refuse on missing/empty OR ≠ sha256(sorted unique list); an
+// omittable authorization is not an authorization. PRINT the set + setSha in BOTH modes (reviewed set == executed set).
+function sweepEnumerated(uuidList: string[], opts: { dryRun: boolean; setSha: string }): { ok: boolean; code?: number; error?: string; computedSha: string; set: string[]; phase?: number; refused?: { uuid: string; reason: string }[]; deleted?: number; failed?: unknown[]; restoreShas?: (string | undefined)[]; danglingAfter?: number; wouldDelete?: number } {
+  const set = [...new Set((uuidList || []).map((u) => String(u).replace(/^ior:instance:/, '').split('@')[0].trim()).filter(Boolean))].sort();
+  const computedSha = crypto.createHash('sha256').update(set.join('\n')).digest('hex');
+  const mode = opts.dryRun ? 'DRY-RUN' : 'RUN';
+  addLog(`[sweepEnumerated] mode=${mode} setSha=${computedSha} count=${set.length}`); // PRINT the set + sha in BOTH modes (reviewed==executed)
+  for (const u of set) addLog(`  [sweep-set] ${u}`);
+  // SET-SHA gate — MANDATORY, never default-proceed
+  const authSha = String(opts.setSha || '').trim();
+  if (!authSha) return { ok: false, code: 400, error: 'setSha REQUIRED — the authorization must NAME a setSha, never a description; a missing/empty setSha refuses (an omittable authorization is not an authorization)', computedSha, set };
+  if (authSha !== computedSha) return { ok: false, code: 403, error: `setSha MISMATCH — authorized ${authSha.slice(0, 12)}… ≠ computed ${computedSha.slice(0, 12)}… ; the reviewed set is not this set`, computedSha, set };
+  // PHASE 1 (dry, NO deletion): run the SAME guards on every unit via deleteUnitWithScan dryRun. ANY refusal → ABORT, 0 deletions.
+  const refused: { uuid: string; reason: string }[] = [];
+  for (const u of set) { const r = deleteUnitWithScan(u, '', { dryRun: true }); if (r.wouldRefuse) refused.push({ uuid: u, reason: r.reason || r.error || 'refused' }); }
+  if (refused.length) { addLog(`[sweepEnumerated] PHASE-1 ABORT: ${refused.length} refused — 0 deletions (the set is wrong, re-derive)`); return { ok: false, code: 403, error: `phase-1 ABORT: ${refused.length} unit(s) would be refused — deleted NOTHING (re-derive the set, never skip-and-continue)`, computedSha, set, phase: 1, refused }; }
+  if (opts.dryRun) return { ok: true, computedSha, set, phase: 1, wouldDelete: set.length }; // dry-run = phase-1 all-clear + printed set
+  // PHASE 2 (only reached if phase-1 all-clear): real per-unit delete (each pre-images its footprint to committed git BEFORE removal).
+  const results = set.map((u) => ({ uuid: u, ...deleteUnitWithScan(u, '') }));
+  const failed = results.filter((r) => !r.ok);
+  const danglingAfter = results.reduce((n, r) => n + (r.danglingAfter || 0), 0);
+  addLog(`[sweepEnumerated] PHASE-2 done: deleted ${results.length - failed.length}/${set.length}, dangling-after=${danglingAfter}, failed=${failed.length}`);
+  return { ok: failed.length === 0, computedSha, set, phase: 2, deleted: results.length - failed.length, failed, restoreShas: results.map((r) => r.restoreSha), danglingAfter };
 }
 // R40.x SECURITY (RCE fix, architect design 5fd3dd034) — CLOSE the bare-public-uuid→owner hole: a protected-identity
 // owner determination via ownerByToken ALSO requires a CHALLENGE-AUTHENTICATED live session — the token must have a live
@@ -2987,6 +3027,27 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[room] delete-unit ${uuid.slice(0, 8)} (room ${roomId.slice(0, 8)}) — DESTROYED; pre-image=${String(del.restoreSha).slice(0, 8)}; unlinked ${del.refsCleaned} ref(s); dangling-after=${del.danglingAfter}; blob=${del.blobAction}`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid, action: 'deleted', restoreSha: del.restoreSha, refsCleaned: del.refsCleaned, danglingAfter: del.danglingAfter, blob: del.blobAction }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'delete-failed' })); }
+      });
+      return;
+    }
+    // R40.106 step-2: the SANCTIONED SWEEP OP endpoint (architect b5493b1df). AUTHED product-path over sweepEnumerated —
+    // NO new bulk primitive (list-driven), every unit through deleteUnitWithScan !explicitOwner (all 3 guards evaluate),
+    // two-phase fail-closed, SET-SHA MANDATORY. Auth = the STRONGEST gate (real owner AND a device-key challenge —
+    // stronger than a single delete, for a batch destructive op). Nothing runs against a set until a matching setSha is given.
+    if (req.method === 'POST' && filepath === '/api/sweep-enumerated') {
+      let sbody = '';
+      req.on('data', (chunk: Buffer) => { sbody += chunk; });
+      req.on('end', () => {
+        try {
+          const { uuids, setSha, dryRun, playerToken } = JSON.parse(sbody || '{}');
+          const tok = String(playerToken || '');
+          if (!tok || !tokenToClient.has(tok)) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; }
+          if (!(ownerByToken(tok) && hasDeviceKeyAuth(tok))) { res.writeHead(403, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'sweep requires an owner device-key challenge-authed session' })); return; } // strongest gate; NOT a service-token/bypass
+          if (!Array.isArray(uuids)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'uuids[] required (explicit enumerated list, never a filter)' })); return; }
+          const r = sweepEnumerated(uuids as string[], { dryRun: !!dryRun, setSha: String(setSha || '') });
+          if (r.ok && r.phase === 2 && (r.deleted || 0) > 0) publishUnitChanged('ior:class:Folder', 'roomcoll:*:files'); // live re-derive after real deletions
+          res.writeHead(r.ok ? 200 : (r.code || 500), { 'Content-Type': 'application/json' }); res.end(JSON.stringify(r));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'sweep-failed' })); }
       });
       return;
     }
