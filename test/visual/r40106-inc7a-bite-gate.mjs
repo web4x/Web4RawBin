@@ -4,7 +4,8 @@
 // FIVE bites, each with the stub-must-fail proof; the tests own their cleanup (nothing left).
 import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import https from 'node:https';
@@ -32,17 +33,19 @@ try {
   const jpost = (p, d) => page.request.post(`${BASE}${p}`, { headers: { 'content-type': 'application/json' }, data: d }).then(async r => ({ status: r.status(), body: await r.json().catch(() => ({})) }));
   const upload = async (tag) => { const B = '----bite'; const body = Buffer.concat([Buffer.from(`--${B}\r\nContent-Disposition: form-data; name="playerToken"\r\n\r\n${SYS}\r\n--${B}\r\nContent-Disposition: form-data; name="file"; filename="bite-${tag}.bin"\r\nContent-Type: application/octet-stream\r\n\r\n`, 'utf8'), Buffer.from('bite-' + tag + '-' + randomUUID()), Buffer.from(`\r\n--${B}--\r\n`, 'utf8')]); const r = await page.request.post(`${BASE}/api/room/${ROOM}/upload`, { headers: { 'content-type': `multipart/form-data; boundary=${B}` }, data: body }); return (await r.json().catch(() => ({}))).uuid || ''; };
   const del = (u) => jpost(`/api/room/${ROOM}/delete-unit`, { unit: u, playerToken: SYS });
+  // waitLanded: upload + confirm the unit's shard actually LANDS on disk (absorbs transient write-slowness); fail loud if it never persists.
+  const waitLanded = async (tag) => { const u = await upload(tag); if (u && await waitShard(u)) return u; throw new Error(`upload '${tag}' (uuid=${u || 'NONE'}) never persisted — real upload-path defect, escalate`); };
 
-  // ── MINT throwaways in 909f1bd6 ──
-  const Utest = await upload('Utest'); const B = await upload('bystander'); const Uprot = await upload('Uprot');
+  // ── MINT throwaways in 909f1bd6 (each confirmed LANDED on disk before proceeding) ──
+  const Utest = await waitLanded('Utest'); const B = await waitLanded('bystander'); const Uprot = await waitLanded('Uprot');
   clean.push(Utest, B, Uprot);
-  await waitShard(Utest); await waitShard(B); await waitShard(Uprot); // poll until the async unit writes land on disk
   const folderR = `BiteRefHolder-${String(Date.now()).slice(-6)}`;
   await jpost(`/api/room/${ROOM}/folder`, { name: folderR, nestedPath: '', playerToken: SYS });
   await jpost(`/api/room/${ROOM}/link-unit`, { unit: Utest, target: `folder:roomcoll:${ROOM}:files/${folderR}`, playerToken: SYS }); // R = ref-holder
   // U2 = synthetic unit sharing Utest's contentHash (2-units-1-blob not constructible via upload due to dedup → mint it)
   const utj = JSON.parse(readFileSync(shard(Utest), 'utf8')); const U2 = randomUUID();
   const u2unit = { ior: 'ior:class:File', model: { uuid: U2, name: 'bite-U2-shared.bin', contentPath: utj.model.contentPath, contentHash: utj.model.contentHash, size: utj.model.size, mimeType: utj.model.mimeType, roomUuid: ROOM, location: `roomcoll:${ROOM}:files` }, ownerIor: `ior:instance:${ROOM}` };
+  mkdirSync(dirname(shard(U2)), { recursive: true }); // writeFileSync does NOT create the shard dir; a fresh random uuid may hit a nonexistent prefix path
   writeFileSync(shard(U2), JSON.stringify(u2unit, null, 2)); clean.push(U2); await sleep(800);
   R.setup = (await resolves(Utest)) && (await resolves(B)) && (await resolves(U2)) && (await resolves(Uprot));
 
@@ -57,13 +60,15 @@ try {
   // ── snapshot bystander B (bite 2) + delete Utest (ref-held + shares blob w/ U2) → bites 2,3,4 ──
   const bBefore = readFileSync(shard(B), 'utf8');
   const dU = await del(Utest); await sleep(1000);
-  R.danglingAfter = dU.body.danglingAfter; R.restoreSha = dU.body.restoreSha; R.blobAction = dU.body.blobAction;
+  R.danglingAfter = dU.body.danglingAfter; R.restoreSha = dU.body.restoreSha; R.blobAction = dU.body.blob; // server response field is 'blob' (server.ts:2919), not 'blobAction'
   const bAfter = existsSync(shard(B)) ? readFileSync(shard(B), 'utf8') : '';
   R.b2_bystander = dU.status === 200 && bBefore === bAfter && (await resolves(B));
   P(`(2) bystander byte-identical after delete = ${R.b2_bystander}`, R.b2_bystander);
   // (3) shared blob KEPT + U2 still resolves (U2 references Utest's contentHash)
-  R.b3_kept = (await resolves(U2)) && existsSync(`${REPO}/${String(utj.model.contentPath || '').replace(/^index\//, 'scenario/index/')}`);
-  P(`(3) shared blob KEPT + U2 resolves = ${R.b3_kept} (blobAction=${R.blobAction})`, R.b3_kept);
+  // failable-by-construction: assert the server took the KEPT-SHARED branch (blob=='kept-shared', not 'removed'/'none') AND the blob file survives AND U2 resolves.
+  // (server.ts:1099 removes the blob for a NON-shared delete → if sharing were mis-detected, blob would be 'removed' + file gone → RED)
+  R.b3_kept = (await resolves(U2)) && existsSync(`${REPO}/${String(utj.model.contentPath || '').replace(/^index\//, 'scenario/index/')}`) && R.blobAction === 'kept-shared';
+  P(`(3) shared blob KEPT (blob==kept-shared) + U2 resolves = ${R.b3_kept} (blobAction=${R.blobAction})`, R.b3_kept);
   // (4) danglingAfter==0 + restoreSha + RESTORE ACTUALLY re-creates Utest (verify, do not trust the sha)
   R.b4_dangling0 = R.danglingAfter === 0; R.b4_sha = !!R.restoreSha;
   let restored = false;
