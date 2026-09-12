@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 260** — Done **98** · QA-Review **63** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 94** (260 = 98+63+3+94)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 90**
+- **TOTAL S30++ tasks: 262** — Done **98** · QA-Review **64** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 95** (262 = 98+64+3+95)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 91**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 55 | 1 | 22 | 0 | 32 |
-| S40 | 85 | 0 | 24 | 0 | 59 |
+| S40 | 87 | 0 | 25 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 19 · build 59
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 19 · build 60
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -76,6 +76,7 @@
 | S40 | 2e831ffd | In Progress | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
 | S40 | 311df491 | Planned | marker | Task 40.93: Room-folder physical create routes through the O |
 | S40 | 38609d01 | Planned | marker | Task 40.50: Sprints render descending (latest on top) in |
+| S40 | 3b545845 | Planned | build | R40.106 root-edge remaining half (DEBT) — ROOT folder still  |
 | S40 | 45ae067e | Planned | build | Task 40.72: Dangling tree links expand to EMPTY @390 — a use |
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
