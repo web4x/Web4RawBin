@@ -81,13 +81,13 @@ export class DropDispatcher {
   // T37.20 .4 — an IN-APP UNIT dropped onto a folder: the unit already EXISTS, so it is RE-PARENTED (moved), not re-ingested.
   // The unit refs come from the ONE contract (DndContract.resolveDragUnit at the drop target) — this method does NOT resolve
   // the buffer itself (no second reader). Server re-parents (sets parent + folder.children) + publishUnitChanged → R40.84 live-insert.
-  async reparentUnitsIntoContainer(units: string[], targetFolderRef: string): Promise<void> {
+  async reparentUnitsIntoContainer(units: string[], targetFolderRef: string, source?: string): Promise<void> {
     const { roomId, token } = this.dropContext(); // SAME room context as acceptDropIntoContainer / dispatch
     if (!roomId || !token) { this.statusCb?.('error', 'No room context for folder drop'); return; }
     for (const u of units) {
       const uuid = String(u).replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0]; // bare unit uuid
       if (!uuid) continue;
-      await fetch(`/api/room/${encodeURIComponent(roomId)}/move-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: uuid, target: targetFolderRef, playerToken: token }) })
+      await fetch(`/api/room/${encodeURIComponent(roomId)}/move-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: uuid, target: targetFolderRef, source, playerToken: token }) }) // R40.106 FIX-B: `source` = the container moved FROM (per-edge unlink); undefined for drag → server falls back to model.parent (byte-identical)
         .then((r) => r.json()).catch(() => null);
     }
   }

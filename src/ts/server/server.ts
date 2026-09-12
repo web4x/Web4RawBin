@@ -2741,7 +2741,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('data', (chunk: Buffer) => { mbody += chunk; });
       req.on('end', () => {
         try {
-          const { unit, target, playerToken } = JSON.parse(mbody || '{}');
+          const { unit, target, source, playerToken } = JSON.parse(mbody || '{}'); // R40.106 FIX-B: optional `source` = the container moved FROM (per-edge); absent → model.parent (byte-identical for physical/drag moves).
           if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; } // same member-liveness gate as add-folder/upload
           const room = roomManager.getRoom(roomId);
           if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
@@ -2759,8 +2759,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const targetIor: string | null = dc.parentIor;
           const targetLoc = dc.folderLocation || `roomcoll:${roomId}:files`;
           const name = String(mj.model.name || movedUuid.slice(0, 8));
-          const oldParent = String(mj.model.parent || '');
-          // RE-PARENT the moved unit: parent + location follow the target (folder OR root). The object moves itself; both-sides children stay consistent.
+          // R40.106 FIX-B: the SOURCE edge to unlink = the container moved FROM (if the client threaded it) resolved via the ONE
+          // resolver, ELSE model.parent (the single physical parent — byte-identical for physical/drag moves where source==parent).
+          // Fixes the same single-parent bug lurking in move: an N-link moved from folder B unlinks B's edge, not model.parent.
+          const oldParent = (source != null && String(source) !== '') ? (resolveDropContainer(String(source), roomId, idx).parentIor || '') : String(mj.model.parent || '');
           mj.model.parent = targetIor; mj.model.location = `${targetLoc}/${name}`;
           fsSync.writeFileSync(mf, JSON.stringify(mj, null, 2) + '\n');
           room.addFileUnit(movedUuid); // idempotent — ensure it is a registered room unit (items-tree reads room.fileUnits)
@@ -2782,7 +2784,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('data', (chunk: Buffer) => { ubody += chunk; });
       req.on('end', () => {
         try {
-          const { unit, playerToken } = JSON.parse(ubody || '{}');
+          const { unit, container, playerToken } = JSON.parse(ubody || '{}'); // R40.106 FIX-B: `container` = the folder the user is removing FROM (per-edge). Absent → legacy full-detach.
           if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; } // same member-liveness gate as move-unit/add-folder
           const room = roomManager.getRoom(roomId);
           if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
@@ -2794,13 +2796,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!fsSync.existsSync(uf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
           const uj = JSON.parse(fsSync.readFileSync(uf, 'utf-8'));
           const parent = String(uj.model.parent || '');
-          // Unlink the containment EDGES: the parent-folder edge (if nested) + the room-root membership edge (fileUnits). Then
-          // detach the unit's up-pointer. The unit UNIT is untouched in the index — remove ≠ delete (edge-only, survives elsewhere).
+          if (container != null && String(container) !== '') {
+            // R40.106 FIX-B PER-EDGE REMOVE: the model is N:M now — remove ONLY the edge for THIS container (the folder the
+            // user is removing FROM), so remove-here does NOT remove-there. The primitive FolderService.unlink already takes the
+            // container ref (slice-3's handler TRUNCATED it — the recurring bypass shape); honour it via the ONE resolver.
+            const idx2 = new ScenarioIndex(sdir);
+            const dc = resolveDropContainer(String(container), roomId, idx2);
+            if (dc.parentIor) { // a specific folder edge
+              const r = FolderService.unlink(sdir, dc.parentIor, uuid); if (r.changed && r.location) publishUnitChanged('ior:class:Folder', r.location);
+              if (parent === dc.parentIor) { uj.model.parent = null; uj.model.location = null; fsSync.writeFileSync(uf, JSON.stringify(uj, null, 2) + '\n'); } // removed the PHYSICAL edge → detach up-pointer AND clear the now-stale location (data-hygiene: a removed unit must stop matching a location scan / poisoning the drain-check); else (a link edge) the unit stays physically → location UNTOUCHED
+              addLog(`[room] unlink-unit ${uuid.slice(0, 8)} from container ${dc.parentIor.slice(13, 21)} (room ${roomId.slice(0, 8)}) — PER-EDGE; unit + other edges + root survive`);
+            } else { // container resolved to the room ROOT → drop only root membership; folder edges survive
+              room.removeFileUnit(uuid); publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files`);
+              addLog(`[room] unlink-unit ${uuid.slice(0, 8)} from ROOT (room ${roomId.slice(0, 8)}) — PER-EDGE; folder edges survive`);
+            }
+            res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid, action: 'unlinked', container: dc.parentIor || 'root' })); return;
+          }
+          // LEGACY (no container): full detach — the parent-folder edge + the room-root membership edge + the up-pointer. Kept
+          // for callers that do not yet thread the viewing folder; a single-container unit removes identically to slice-3.
           if (parent.startsWith('ior:instance:')) { const r = FolderService.unlink(sdir, parent, uuid); if (r.changed && r.location) publishUnitChanged('ior:class:Folder', r.location); }
           room.removeFileUnit(uuid);                                   // drop the room-root membership edge (persists the room)
-          uj.model.parent = null; fsSync.writeFileSync(uf, JSON.stringify(uj, null, 2) + '\n'); // detached; unit persists
+          uj.model.parent = null; uj.model.location = null; fsSync.writeFileSync(uf, JSON.stringify(uj, null, 2) + '\n'); // detached; unit persists — CLEAR the stale location too (R40.106 data-hygiene: a removed unit must not keep a location that a scan/drain-check would mis-count, the tester's stale-leftover finding)
           publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files`);                   // room root re-derives → the node drops out live (R40.84), no reload
-          addLog(`[room] unlink-unit ${uuid.slice(0, 8)} (room ${roomId.slice(0, 8)}, from ${parent ? parent.slice(13, 21) : 'root'}) — detached, unit survives`);
+          addLog(`[room] unlink-unit ${uuid.slice(0, 8)} (room ${roomId.slice(0, 8)}, from ${parent ? parent.slice(13, 21) : 'root'}) — detached (legacy full), unit survives`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid, action: 'unlinked' }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'unlink-failed' })); }
       });

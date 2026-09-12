@@ -9,13 +9,17 @@ the debt is visible with a measurable exit, not remembered in a commit message (
 Render **purely from `children[]` edges** (logical containment); demote physical `location` to a storage detail (where the
 bytes live, single). `view = f(edges)`, same as board = f(units) (R37.2/3). Retire `location`/`parent` as render inputs.
 
-## WHY NOT NOW — measured baseline (served v0.8.218, 2026-09-12)
-Flipping to pure-edges TODAY would VANISH any unit contained only by physical-location with no `children[]` edge. Measured
-(scripts/scratch containment differential over scenario/index):
-- **FOLDER-NESTED strand = 4** ← the REAL disappearance risk (units inside a sub-folder by location, absent from that
-  folder's `children[]`). THIS is the number that must drain to **0**.
-- root-container "strand" = 53 — NOT a real strand: room-root membership renders via `room.fileUnits`, not a folder edge, so
-  pure-edges keeps them. (Recorded so the 4-vs-57 distinction is explicit and not re-litigated.)
+## CORRECTED baseline — real live strand = 0 (served v0.8.219, 2026-09-12; supersedes the initial 4)
+Initial differential (no membership filter) counted **4** folder-nested location-only units + 53 root-level. BOTH over-counted:
+- The **53 root-level** survive via `room.fileUnits` (not a folder edge) → never at risk under pure-edges.
+- The **4 folder-nested** are **NON-MEMBER removed units with a STALE `model.location`** — slice-3/4 gate leftovers in the
+  TEST room `909f1bd6` (LinkA-1828675, RemoveTgt-1731528/1733494/1733665), reconciled with the tester. They matched the
+  scan only because the initial differential had **no membership filter** and because `unlink-unit` left a stale location.
+- **★ MEMBER-FILTERED (real live) folder-nested strand = 0.** No real unit on Tron's tree was ever at disappearance risk.
+CONSEQUENCE: the drain-check is ALREADY at target for live data → the pure-edge end-state is reachable IMMEDIATELY after FIX-B.
+TWO corrections shipped so it stays honest: (a) FIX-B `unlink-unit` now CLEARS `model.location` on physical removal (no more
+stale-location leftovers poisoning the scan); (b) the drain-check MUST apply a MEMBERSHIP filter (count only units in a room's
+`files[]`), else it "drains" units that are already gone.
 
 ## THE BACKFILL (gates the flip)
 Give every physically-located room unit a `children[]` edge from its containing folder (a one-pass migration, coherent with

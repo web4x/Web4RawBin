@@ -283,7 +283,11 @@ export class RoomView {
         const ref = item.getAttribute('ref') || '';
         if ((type === 'file' || type === 'url' || type === 'webitem') && ref.startsWith('file:')) {
           e.stopPropagation();
-          this.openFilePreview(ref.replace('file:', ''));
+          // R40.106 FIX-B: capture the VIEWING folder (the tree node this item is shown UNDER) so a later Remove targets
+          // THIS container's edge (per-edge remove of an N-link), not model.parent. The enclosing folder node's ref, else root.
+          const folderEl = item.parentElement?.closest('rb-object-item');
+          const container = folderEl?.getAttribute('ref') || `roomcoll:${this.roomId}:files`;
+          this.openFilePreview(ref.replace('file:', ''), container);
         }
       });
     }
@@ -414,7 +418,7 @@ export class RoomView {
       item.data = { ref: t.ref, type: 'folder', title: t.name };
       item.style.pointerEvents = 'none'; // the item RENDERS; the row wrapper captures the tap (avoid the item's own nav/toggle)
       row.appendChild(item);
-      row.addEventListener('click', () => { close(); const place = mode === 'link' ? dropDispatcher.linkUnitInto([bare], t.ref) : dropDispatcher.reparentUnitsIntoContainer([bare], t.ref); void place.then(() => { this.chatSheet?.addMessage('system', 'System', `${mode === 'link' ? 'Linked into' : 'Moved to'} ${t.name}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }); });
+      row.addEventListener('click', () => { close(); const src = (document.getElementById('room-file-preview') as HTMLElement | null)?.getAttribute('data-remove-container') || undefined; const place = mode === 'link' ? dropDispatcher.linkUnitInto([bare], t.ref) : dropDispatcher.reparentUnitsIntoContainer([bare], t.ref, src); void place.then(() => { this.chatSheet?.addMessage('system', 'System', `${mode === 'link' ? 'Linked into' : 'Moved to'} ${t.name}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }); }); // R40.106 FIX-B: move passes the VIEWING folder as source (per-edge unlink); link ignores it (additive)
       sheet.appendChild(row);
     }
     const cancel = document.createElement('button');
@@ -450,16 +454,21 @@ export class RoomView {
   private async removeUnit(uuid: string): Promise<void> {
     const bare = String(uuid || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
     if (!bare) return;
+    // R40.106 FIX-B: the VIEWING folder captured at open (data-remove-container) → per-edge remove (unlink THIS container's
+    // edge only; the unit + its other folder edges + root survive). Absent → server legacy full-detach (single-container unit).
+    const container = (document.getElementById('room-file-preview') as HTMLElement | null)?.getAttribute('data-remove-container') || undefined;
     try {
-      const res = await fetch(`/api/room/${encodeURIComponent(this.roomId)}/unlink-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: bare, playerToken: this.client.playerToken }) }).then((r) => r.json());
+      const res = await fetch(`/api/room/${encodeURIComponent(this.roomId)}/unlink-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: bare, container, playerToken: this.client.playerToken }) }).then((r) => r.json());
       if (res?.ok) { this.chatSheet?.addMessage('system', 'System', 'Removed'); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }
       else this.chatSheet?.addMessage('system', 'System', `Remove failed: ${res?.error || '?'}`);
     } catch (e) { this.chatSheet?.addMessage('system', 'System', `Remove error: ${(e as Error)?.message || e}`); }
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)
-  private async openFilePreview(uuid: string): Promise<void> {
+  private async openFilePreview(uuid: string, viewingContainer?: string): Promise<void> {
     const drawer = document.getElementById('room-file-preview') as any;
+    // R40.106 FIX-B: stamp the VIEWING folder on the drawer so the Remove Command can unlink THIS container's edge (per-edge).
+    if (drawer) { if (viewingContainer) drawer.setAttribute('data-remove-container', viewingContainer); else drawer.removeAttribute('data-remove-container'); }
     if (!drawer) return;
     try {
       const resp = await fetch(`/api/ior/ior:instance:${uuid}`);
