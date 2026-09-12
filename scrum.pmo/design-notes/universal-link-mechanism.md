@@ -83,3 +83,27 @@ This becomes **INC-4a (the parentFolder repoint)**, gated on the differential, s
 - **Differential (b) FIX, announced:** the 5 invisible WebItems — 4 restored to room `3231db71`'s fileUnits (invisible→visible), 1 junk deleted. NOT 0-delta; DOCUMENTS the intended change for Tron's approval. Treat as its own announced working-robustness backlog item that INC-4a delivers.
 
 ★ The retire is also SIMPLER than first framed: parentFolder here is room-membership (redundant with fileUnits), not a folder `children[]` edge — so "backfill children[] edges" was wrong; the only reconciliation needed is adding the 5 orphans to room `3231db71`'s fileUnits.
+
+## ★ SLICE-4 GAP: derivation + removal still assume ONE parent (the N-link's read/remove half) — design (2026-09-12)
+Tester (v0.8.216, 55115a6c3): the link EDGE is correct in data (F's uuid in BOTH containers' children[], resolves ONCE, not a copy) but the tree derives children by LOCATION → an N-linked unit does NOT render under the folder it was linked into. + unlink-unit takes only {unit} (no container) → per-container remove is impossible. ONE ROOT: the model became a many-to-many EDGE SET (children[]), but READ (tree=by-location) and REMOVE (unlink=by-single-parent) still use the single-valued location/parent, which can express only ONE container. Data-right / render-absent is the "stored but not rendered" class; remove-here==remove-there.
+
+### Pattern (from the book — not invented)
+- **Single Source of Truth:** the children[] edge set is the AUTHORITATIVE containment relation. `location`/`parent` are a DENORMALIZED cache of the FORMER 1:1 containment — stale/insufficient under N:M (one value can't hold N memberships = a classic update anomaly).
+- **Derive the view from the authoritative relation (edges), not the denormalized field** — "view = f(edges)", the SAME generated-view discipline as R37.2/R37.3 (board = f(units)). A folder's contents = the units whose edge set includes it (its children[] / reverse-lookup), a graph adjacency read, NOT a location group-by.
+- **The EDGE is the addressable identity for removal:** unlink targets the (container, unit) pair, not unit.parent. `FolderService.unlink(folderUuid, unitRef)` ALREADY takes the container — the /unlink-unit HANDLER just truncates it.
+- **Normalization:** single-FK (location) → association-as-SoT (edge set) eliminates the anomaly.
+
+### Fix A — derivation (render): tree contents from the EDGE SET, not location
+A folder renders the units whose children[] edges point into it — regardless of physical location. ★ CRUX the expert must decide: the room tree mixes PHYSICAL dirs (createPhysicalFolder) with LOGICAL children[] edges. SEPARATE the concerns — **physical location = where bytes live (stays SINGLE, a storage detail); logical containment = which folders show the unit (N, the edge set, the RENDER source).** Option (a) render PURELY from children[] edges, demote physical location to storage-only (cleanest, one SoT); Option (b) UNION physical-dir contents with logical children[] edges (less disruptive, two sources). **Recommend (a)** — one SoT for the render; physical path stops driving the tree.
+
+### Fix B — removal (edge-targeted): /unlink-unit honors a container ref
+/unlink-unit must accept a CONTAINER/parent ref and pass it to FolderService.unlink(container, unit) (primitive already supports it). Remove-here removes THE edge in THIS container; other edges + unit survive. Client remove Command must send the folder-context (which folder the user removes it FROM). ★ SAME bug lurks in MOVE: move-unit's unlink-half must unlink the SOURCE container edge specifically (not the single parent) — else move of an N-linked unit unlinks the wrong/only edge. Verify/fix move's unlink-source too.
+
+### Blast radius (honest — surfaces assuming single location/parent)
+- **Room file TREE render:** CHANGES (Fix A) — the main change; derive from edges.
+- **unlink-unit handler + remove Command client:** CHANGES (Fix B) — carry + honor the container ref.
+- **move-unit unlink-source:** CHANGES/VERIFY — unlink the SOURCE container edge, not the single parent.
+- **breadcrumbs / "contained in" / detail location:** an N-linked unit has N parents → show N paths OR the context path (degrade to the folder navigated-from); never assume one canonical parent.
+- **parentFolder-retire (INC-4a, in flight):** this IS the READ-side of that retire — they CONVERGE; do them coherently.
+- **"exactly one parent" dependency:** PHYSICAL storage path stays single (bytes stored once — fine); every LOGICAL-containment derivation (tree, breadcrumbs, move-source, detail) moves to edges.
+Both fixes are ONE root — ship together: finish migrating READ + REMOVE off the single-parent assumption onto the edge set. Design-only; hand to expert.
