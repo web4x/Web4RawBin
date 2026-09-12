@@ -6,7 +6,9 @@
     "sourceFile": "src/ts/server/(sweep-op sign path \u2014 held; expert wires the marker when the sweep code lands)",
     "sourceLine": 0,
     "servedVersion": "0.8.227",
-    "tests": [],
+    "tests": [
+      "ior:instance:614e5e7a-7f58-4f3a-9f1b-caeb905c9b81"
+    ],
     "unitLinks": [],
     "coversRequirement": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
     "coversAC": "AC-real-owner-brace-discriminates",

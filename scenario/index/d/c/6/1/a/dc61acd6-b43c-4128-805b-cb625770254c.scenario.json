@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "dc61acd6-b43c-4128-805b-cb625770254c",
+    "name": "test:sweepEnumerated.listNotFilterTwoPhaseSetSha",
+    "description": "Closes R40.106 AC-sanctioned-sweep-op-list-not-filter via Impl 4be791e3 (sweepEnumerated). Gate = the tester's 'sweep-op bites' (list-not-filter / phase-1-any-refuse-aborts-ALL / setSha-mandatory-and-matched / print-both-modes). \u2605 Gate lives in the sweep-op sign path (not in my local test/visual view) \u2014 grounded in the expert's assertion + the AC; EXPERT confirms the exact gate filename when wiring the [test:uuid] marker. GREEN @ v0.8.228 per expert (signs: sweep 54978124d).",
+    "sourceFile": "ior:file:test/visual/(sweep-op bites gate \u2014 in the sweep-op sign path, expert-owned; exact filename to confirm on wire)",
+    "implementations": [
+      "ior:instance:4be791e3-3e01-4c23-85a9-48a6a2979ef3"
+    ],
+    "status": "pass",
+    "servedVersion": "0.8.228",
+    "coversRequirement": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+    "coversAC": "AC-sanctioned-sweep-op-list-not-filter",
+    "gateVerifiedLocally": false,
+    "chainNote": "Chain-to-shipped close (expert wired markers fa78938e8, comment-only, signs stand). Test unit by robbin-req; the [test:uuid:dc61acd6-b43c-4128-805b-cb625770254c] marker is wired into the gate by the tester/expert (gate owner).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4be791e3-3e01-4c23-85a9-48a6a2979ef3"
+}

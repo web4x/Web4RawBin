@@ -6,7 +6,9 @@
     "sourceFile": "src/ts/server/RoomKeys.ts",
     "sourceLine": 212,
     "servedVersion": "0.8.226",
-    "tests": [],
+    "tests": [
+      "ior:instance:d86c0e42-aa98-402a-95e0-29af2ba4e742"
+    ],
     "unitLinks": [],
     "coversRequirement": "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
     "coversAC": "AC-preserve-unknown-stored-field",

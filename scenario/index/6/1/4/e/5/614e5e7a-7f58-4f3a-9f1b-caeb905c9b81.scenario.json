@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "614e5e7a-7f58-4f3a-9f1b-caeb905c9b81",
+    "name": "test:realOwnerBrace.committedRefusedEphemeralAllowed",
+    "description": "Closes R40.106 AC-real-owner-brace-discriminates via Impl 604efff6 (isOwnerKnownRealAccount). Gate r40107-realowner-brace-bite-gate.mjs (failable): a committed-real-account-owned unit is REFUSED on the bulk path AND an ephemeral-owned one is NOT refused (the discrimination half); a refuse-everything brace OR a committed-profile unit passing => RED. GREEN @ v0.8.227.",
+    "sourceFile": "ior:file:test/visual/r40107-realowner-brace-bite-gate.mjs",
+    "implementations": [
+      "ior:instance:604efff6-02c0-405d-9afa-f7d917f105fc"
+    ],
+    "status": "pass",
+    "servedVersion": "0.8.227",
+    "coversRequirement": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+    "coversAC": "AC-real-owner-brace-discriminates",
+    "gateVerifiedLocally": true,
+    "chainNote": "Chain-to-shipped close (expert wired markers fa78938e8, comment-only, signs stand). Test unit by robbin-req; the [test:uuid:614e5e7a-7f58-4f3a-9f1b-caeb905c9b81] marker is wired into the gate by the tester/expert (gate owner).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:604efff6-02c0-405d-9afa-f7d917f105fc"
+}

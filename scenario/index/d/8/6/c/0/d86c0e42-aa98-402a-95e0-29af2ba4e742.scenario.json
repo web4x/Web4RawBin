@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d86c0e42-aa98-402a-95e0-29af2ba4e742",
+    "name": "test:roomPersist.arbitraryStoredFieldSurvivesRepersist",
+    "description": "Closes R40.107 AC-preserve-unknown-stored-field via Impl 87cc9eba (preserveUnknownStoredFields). Gate r40107-mark-durability-canary-gate.mjs (failable): an ARBITRARY unmodeled stored field survives a re-persist; a re-persist that drops it => RED, and a fix that preserves only 'protected' (class-not-field false fix) => RED. GREEN @ v0.8.226.",
+    "sourceFile": "ior:file:test/visual/r40107-mark-durability-canary-gate.mjs",
+    "implementations": [
+      "ior:instance:87cc9eba-c85a-4db1-b4e1-8b8d74f6b715"
+    ],
+    "status": "pass",
+    "servedVersion": "0.8.226",
+    "coversRequirement": "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
+    "coversAC": "AC-preserve-unknown-stored-field",
+    "gateVerifiedLocally": true,
+    "chainNote": "Chain-to-shipped close (expert wired markers fa78938e8, comment-only, signs stand). Test unit by robbin-req; the [test:uuid:d86c0e42-aa98-402a-95e0-29af2ba4e742] marker is wired into the gate by the tester/expert (gate owner).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:87cc9eba-c85a-4db1-b4e1-8b8d74f6b715"
+}

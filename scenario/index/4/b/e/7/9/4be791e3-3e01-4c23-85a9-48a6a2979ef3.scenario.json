@@ -6,7 +6,9 @@
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 1184,
     "servedVersion": "0.8.228",
-    "tests": [],
+    "tests": [
+      "ior:instance:dc61acd6-b43c-4128-805b-cb625770254c"
+    ],
     "unitLinks": [],
     "coversRequirement": "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
     "coversAC": "AC-sanctioned-sweep-op-list-not-filter",
