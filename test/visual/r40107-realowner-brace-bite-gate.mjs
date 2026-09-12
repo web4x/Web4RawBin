@@ -1,3 +1,4 @@
+// [test:uuid:614e5e7a-7f58-4f3a-9f1b-caeb905c9b81] R40.106 AC-real-owner-brace-discriminates — real-owner brace bite (covers Impl 604efff6 isOwnerKnownRealAccount)
 // FAILABLE BITE for the FINDING-2 real-owner brace (architect design 6173ff732): a bulk delete (!explicitOwner) of a unit
 // owned by a KNOWN REAL ACCOUNT (committed profile) must be REFUSED 403; an ephemeral-owned unit must still delete (200)
 // = the predicate DISCRIMINATES (not blanket-refuse). Stops the protection regressing to convention.

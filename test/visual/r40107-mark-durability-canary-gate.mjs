@@ -1,3 +1,4 @@
+// [test:uuid:d86c0e42-aa98-402a-95e0-29af2ba4e742] R40.107 AC-preserve-unknown-stored-field — mark-durability canary (covers Impl 87cc9eba preserveUnknownStoredFields)
 // v0.8.226 CANARY bite (PO class-not-instance): a re-persist that PROVABLY fires (room rename takes effect) must PRESERVE
 // model.protected AND an ARBITRARY unmodeled stored field (canary). preserve-unknown merge → both survive; an
 // enumerate-protected instance-fix → canary DIES → RED. Failable-both-ways: the rename proves the rebuild fired (so a

@@ -1,3 +1,4 @@
+// [test:uuid:dc61acd6-b43c-4128-805b-cb625770254c] R40.106 AC-sanctioned-sweep-op-list-not-filter — sweep-op + orphan-only-tripwire bites (covers Impl 4be791e3 sweepEnumerated)
 // COMMITTED sweep-op/tripwire bite gate — RUNS ON THE ISOLATED SCRATCH-WORKTREE RIG (git worktree + additive EOF export of the fns, boots server.ts in-process). Signed: step-2 54978124d + tripwire 95a38d1f0. See anchor. Not a prod/standalone gate — needs the rig harness setup.
 // (i) HARNESS: drive sweepEnumerated (a)-(e) IN-PROCESS on the real shipped fns (imported via the ONE additive EOF export).
 // Logic-tested==logic-shipped is proven by the architect's whole-file diff (must be exactly the one export line).
