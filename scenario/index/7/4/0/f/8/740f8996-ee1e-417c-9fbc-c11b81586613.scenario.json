@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "740f8996-ee1e-417c-9fbc-c11b81586613",
+    "name": "R40.106 INC-7 DELETE-PROTECTION (in flight) — a delete really removes (verify-GONE + stays-gone) AND never destroys a protected unit; sanctioned list-driven sweep + orphan-only tripwire",
+    "slug": "r40.106-inc7-delete-protection-arc",
+    "description": "The DELETE increment of R40.106 + its protection sub-arc (crossRef R40.107 persist-invariant). Ran as INCIDENT-RESPONSE (protecting Tron's live data while building real delete), now boarded scenario-first so the pin can answer 'what is being driven'. THE ARC (each shipped ALONE + gated + attributable): v0.8.225 deleteRoom COMPOSITE verify-GONE + deleted-flag resurrection fix + 6 keep-marks (architect-signed on the FIRING; first real prod deleteRoom proven GONE + STAYS-GONE) · v0.8.226 PRESERVE-UNKNOWN merge-over-stored (keep-marks were silently wiped on EVERY re-persist -> Tron's ACTIVE rooms lost protection because they are in use; fixed the CLASS not the field; canary bite green) · v0.8.227 sweep REAL-OWNER brace (Tron's 26 committed profiles were UNPROTECTED on the bulk-delete path; protection had lived in gate-CONVENTION not the acting code -> now by construction, RED->GREEN both halves, architect-signed) · v0.8.228 SANCTIONED sweep op (list-not-filter, two-phase fail-closed, MANDATORY setSha; sign pending bites) · v0.8.229 ORPHAN-ONLY tripwire (in flight). Owner = expert (built) + tester (gates) + architect (signs each firing). This is the CURRENT in-flight work (pin points here).",
+    "intention": "Delete removes from the index + all links (verify-GONE, stays-gone) and CANNOT destroy a protected unit — protection by construction in the acting code, not by gate-convention.",
+    "context": "Covers R40.106 ff9ed585-a928 (delete increment), UC 4062b06d; protection crossRef R40.107 (persist-invariant). parent S40 8e8b32d6. req is minting the impl units for increments (2)v0.8.226 / (3)v0.8.227 / (4)v0.8.228 — WIRE tasks->impl when the uuids land. R40.108 version-stamp below.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "PROJECTS from R40.106 ff9ed585 (INC-7 delete + protection; no hand-write per AXIS-2). Delete really removes (verify-GONE + stays-gone, proven first real prod deleteRoom @225); protection by CONSTRUCTION in the acting code (keep-mark durability @226 preserve-unknown, real-owner brace @227 protecting Tron's 26 profiles, sanctioned list-driven two-phase fail-closed sweep @228, orphan-only tripwire @229); each increment architect-signed on firing + tester-gated. ★ INC-7 BASELINE stays RED (honest) until the 34 orphans have an AUTHED removal path — never a green bought by bypassing the guards.",
+    "subtasks": "None (the 5 increments run as versioned sub-steps; req mints impl units for 226/227/228).",
+    "status": "In Progress",
+    "servedVersion": "0.8.227 (last architect-signed); 0.8.228 sign-pending; 0.8.229 in-flight",
+    "coveredRequirements": [
+      "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208"
+    ],
+    "useCases": [
+      "ior:instance:4062b06d-2a38-4552-b3a7-5ef9458f50a0"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "STOOD UP In-Progress = the CURRENT in-flight arc (pin points here; boarded 2026-09-12 on PO board-sync + pin-re-point). ★ SHIPPED + SIGNED (accept-ready-shipped, credited here; split into per-increment accept-ready rows on request): 225 composite-delete verify-GONE + resurrection-fix + 6 keep-marks (architect-signed firing, first real prod deleteRoom GONE+STAYS-GONE) · 226 preserve-unknown keep-mark durability (canary-bite green; req impl unit pending->wire) · 227 sweep real-owner brace, Tron's 26 profiles now protected by construction, RED->GREEN both halves architect-signed (req impl unit pending->wire). ★ IN-FLIGHT: 228 sanctioned sweep op (list-not-filter, two-phase fail-closed, MANDATORY setSha; SIGN PENDING bites; req impl unit->wire) · 229 orphan-only tripwire (in flight). ★★ OPEN/HONEST (PO: do NOT let dissolve): (a) 34 ORPHANS stay TRACKED-AND-INERT — only Tron's identity+device-key can run the sanctioned op; PO will NOT make him our janitor; EXIT = his option via banked setSha 51ef7d17 (PO anchor #96.24). (b) INC-7 BASELINE stays RED with the DOCUMENTED cause (orphans awaiting an authed path) — an HONEST red, NEVER a green bought by bypassing our guards. (c) 2 LOW follow-ups: owner-facing UNMARK op (code honours protected=false but nothing user-facing writes it) + non-git roomDir BACKUP (a SECRET STORE — roomDir holds the room SSH private key). Minted SERVED tree; flagged req to reverse-wire ff9ed585.tasks[] + wire the 226/227/228 impl units. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-12"
+  },
+  "ownerIor": null
+}

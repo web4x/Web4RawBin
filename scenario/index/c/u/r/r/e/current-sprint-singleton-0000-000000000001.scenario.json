@@ -2,31 +2,32 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 37.20: ONE shared DnD drop contract — a drop RESOLVES to a scenario UNIT of a CLASS; the class is INSTANTIATED and the OBJECT stores+renders ITSELF (no 'shapes', no mime/format switch) [R37.20, promoted after R40.81 one-store root closed v0.8.199]",
+    "name": "Current: R40.106 INC-7 DELETE-PROTECTION (in flight) — a delete really removes (verify-GONE + stays-gone) AND never destroys a protected unit; sanctioned list-driven sweep + orphan-only tripwire [R40.106, Sprint 40]",
     "chain": {
-      "req": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
-      "uc": "",
+      "req": "ff9ed585-a928-46aa-b9ea-3f68c899f208",
+      "uc": "4062b06d-2a38-4552-b3a7-5ef9458f50a0",
       "class": "",
       "method": "",
       "impl": "",
       "test": ""
     },
-    "activeHop": 1,
-    "sprintName": "Sprint 37",
-    "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario UNIT; drop resolves to a CLASS instance that renders itself (no per-mime/format switch)",
+    "activeHop": 4,
+    "sprintName": "Sprint 40",
+    "taskName": "R40.106 INC-7 DELETE-PROTECTION (in flight) — deletes really remove + never destroy a protected unit; sanctioned sweep (228 sign-pending) + orphan tripwire (229 in flight); shipped 225 composite-delete / 226 preserve-unknown / 227 real-owner-brace",
     "hopStates": {
-      "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" }
+      "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-12" },
+      "impl": { "status": "in-progress", "owner": "robbin-expert", "updatedAt": "2026-09-12" }
     },
-    "nextSprintName": "Sprint 37",
-    "nextBacklogOverride": "",
+    "nextSprintName": "Sprint 40",
+    "nextBacklogOverride": "3b545845-b469-40d0-b09d-99347009975c",
     "lastCompletedUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
     "lastCompletedName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store (one-store ROOT closed v0.8.199, MODEL_STORE deleted ca0b4dd98) [R40.81]",
     "lastCompletedReqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
     "slots": {
       "current": {
-        "taskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
-        "taskName": "Task 37.20: ONE shared DnD drop contract — a drop resolves to a scenario UNIT of a CLASS that is instantiated + renders itself (no mime/format switch)",
-        "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
+        "taskUuid": "740f8996-ee1e-417c-9fbc-c11b81586613",
+        "taskName": "R40.106 INC-7 DELETE-PROTECTION (in flight) — delete really removes + never destroys a protected unit; sanctioned sweep + orphan tripwire (225-229). INC-7 baseline honestly RED until the 34 orphans have an authed removal path.",
+        "reqUuid": "ff9ed585-a928-46aa-b9ea-3f68c899f208"
       },
       "lastCompleted": {
         "taskUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
@@ -34,12 +35,12 @@
         "reqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
       },
       "nextBacklog": {
-        "taskUuid": "",
-        "taskName": "NEXT BUILD ARC = R40.106 delete (INC-7 scan-unlink: really removes from index + all links + zero dangling) — the guard shipped GREEN @ v0.8.212 so it no longer tops the queue; delete is the guard-first-then-delete convergence that makes canonical room removal first-class gated. (override cleared; derives from live status.)",
-        "reqUuid": "ff9ed585"
+        "taskUuid": "3b545845-b469-40d0-b09d-99347009975c",
+        "taskName": "R40.106 root-edge remaining-half (DEBT) — ROOT still derives directChildCount by LOCATION; architect must rule the files[] flat-registry dual-role first. (Also remaining: R40.106 MOVE.)",
+        "reqUuid": "ff9ed585-a928-46aa-b9ea-3f68c899f208"
       }
     },
-    "currentTaskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba"
+    "currentTaskUuid": "740f8996-ee1e-417c-9fbc-c11b81586613"
   },
   "ownerIor": null
 }
