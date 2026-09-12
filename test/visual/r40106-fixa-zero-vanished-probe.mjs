@@ -54,7 +54,29 @@ if (!liveReal.length) console.log(`    (none — no LIVE real-room unit is folde
 console.log(`\n  removed/stale-location leftovers (NOT a disappearance — non-members, correctly not rendered) = ${removedLeftover.length}:`);
 for (const a of removedLeftover) console.log(`    ${a.uuid.slice(0,8)} ${a.loc.replace('roomcoll:','')} member=${a.isMember} testRoom=${a.testRoom}`);
 
+// ── FOLDER STRAND (PO 2026-09-12: folders were the BLIND SPOT — a location-only child FOLDER (nested under a parent
+//    folder by location, ABSENT from that parent's children[] edge) would ALSO vanish on the pure-edge flip, taking its
+//    contents unreachable. The old probe `continue`d past folders = the gate-blindness class. Fold it in PERMANENTLY. ──
+// predicate: a Folder nested UNDER ANOTHER folder whose parent's children[] does NOT contain it = location-only-no-edge.
+const folderAtRiskP = (uuid, loc) => { if (!loc.includes(':files/')) return false; const containing = loc.slice(0, loc.lastIndexOf('/')); if (containing.endsWith(':files')) return false; const parent = folderByLoc.get(containing); return !(parent && parent.children.has(uuid)); };
+const folderAtRisk = [];
+for (const [loc, folder] of folderByLoc) { if (folderAtRiskP(folder.uuid, loc)) { const roomId = (loc.match(/roomcoll:([^:]+):/) || [])[1] || ''; folderAtRisk.push({ uuid: folder.uuid, loc, testRoom: roomId.startsWith('909f1bd6') }); } }
+const folderLiveReal = folderAtRisk.filter(a => !a.testRoom);
+console.log(`\n  FOLDER STRAND (nested child folders): total-nested-folders=${[...folderByLoc.keys()].filter(l => l.includes(':files/') && !l.slice(0, l.lastIndexOf('/')).endsWith(':files')).length} | location-only-no-edge = ${folderAtRisk.length} [live-real=${folderLiveReal.length}, test-room=${folderAtRisk.filter(a=>a.testRoom).length}]`);
+for (const a of folderLiveReal) console.log(`    ★ LIVE-REAL child folder ${a.uuid.slice(0,8)} ${a.loc.replace('roomcoll:','')} = location-only, WOULD VANISH on flip → REPORT`);
+if (!folderLiveReal.length) console.log(`    (none — every nested child folder carries its parent children[] edge → 0 folder disappearance risk)`);
+
+// ── FAILABLE CONTROL (PO: prove the folder-detection is NOT blind — a synthetic location-only child folder MUST read at-risk=1) ──
+const CTRL_PARENT = 'roomcoll:__ctrl__:files/P', CTRL_CHILD = 'ctrl-loconly-folder', CTRL_LOC = 'roomcoll:__ctrl__:files/P/C';
+folderByLoc.set(CTRL_PARENT, { uuid: 'ctrl-parent', children: new Set() });   // a parent with NO edge to the synthetic child
+const ctrlDetected = folderAtRiskP(CTRL_CHILD, CTRL_LOC);                       // same predicate the real scan uses
+folderByLoc.delete(CTRL_PARENT);
+console.log(`  FAILABLE control: synthetic location-only child folder → at-risk=${ctrlDetected ? 1 : 0} (want 1) ${ctrlDetected ? '✓ folder-detection sees folders' : '★ BLIND — the probe would miss a vanishing folder'}`);
+
 console.log(`\n  ★ RECONCILE-WITH-EXPERT: my strand count=${atRisk.length} matches the boarded baseline of 4, BUT all ${removedLeftover.length} are NON-MEMBER removed units w/ stale location (mostly test room 909f1bd6) — NOT live legacy data. Confirm the expert's baseline-4 are THESE (→ strand is stale-location cleanup, real-data risk=0) or DIFFERENT real units (→ send uuids).`);
-const green = allRealRender; // GREEN = zero LIVE real-room units vanish (removed-stale-location units are not disappearances)
-console.log(green ? `\n★ 0-VANISHED = GREEN @v${served} — ${liveReal.length} live real-room folder-nested location-only unit(s); all render (0 real disappearance). The 4 count-matching units are removed test leftovers with a stale location, NOT vanished data. + stale-location-after-unlink observation for the expert.` : `\n★ RED @v${served} — a LIVE real-room unit does NOT render = disappearance. REPORT IMMEDIATELY.`);
+// GREEN = zero LIVE real-room FILES vanish AND zero LIVE real-room nested FOLDERS location-only AND the failable control fires.
+const green = allRealRender && folderLiveReal.length === 0 && ctrlDetected;
+console.log(green
+  ? `\n★ 0-VANISHED = GREEN @v${served} — FILES: ${liveReal.length} live-real location-only (all render); FOLDERS: ${folderLiveReal.length} live-real nested location-only; failable control fires (at-risk=1). Real-data disappearance risk (files AND folders) = 0. Test-room/removed-stale-location leftovers are not disappearances.`
+  : `\n★ RED @v${served} — ${!ctrlDetected ? 'FAILABLE CONTROL DID NOT FIRE (folder-detection blind — instrument broken)' : (folderLiveReal.length ? 'a LIVE real-room CHILD FOLDER is location-only = WOULD VANISH on flip' : 'a LIVE real-room FILE does not render = disappearance')}. REPORT IMMEDIATELY.`);
 process.exit(green ? 0 : 1);
