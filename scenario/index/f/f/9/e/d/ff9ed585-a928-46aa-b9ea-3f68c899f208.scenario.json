@@ -8,7 +8,9 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [
       "ior:instance:6de13bb2-2ee5-4f41-9a1f-a5fd335b3f30",
-      "ior:instance:025ff2e8-34f3-4d04-9193-5bc2b0bdce1c"
+      "ior:instance:025ff2e8-34f3-4d04-9193-5bc2b0bdce1c",
+      "ior:instance:ad93d384-22a3-49a9-87be-26bfc4296232",
+      "ior:instance:3b545845-b469-40d0-b09d-99347009975c"
     ],
     "tests": [],
     "useCases": [
