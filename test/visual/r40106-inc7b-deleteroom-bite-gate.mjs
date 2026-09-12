@@ -78,7 +78,10 @@ try {
   // stub-must-fail: unmark model.protected AND (guard against owner-identity protection) neutralize owner → proceeds
   const pj2 = readUnit(uP); delete pj2.model.protected; pj2.model.uploaderToken = ''; pj2.model.ownerToken = ''; pj2.ownerIor = `ior:instance:${P}`; writeFileSync(shard(uP), JSON.stringify(pj2, null, 2)); await sleep(600);
   st.send({ type: 'DELETE_ROOM', roomId: P });
-  let pGone = false; for (let t = 0; t < 12; t++) { await sleep(600); if (!(await resolves(P)) && !(await resolves(uP))) { pGone = true; break; } }
+  await sleep(4000); // settle full teardown, then assert gone AND stays-gone (resurrection window)
+  const pg1 = !(await resolves(P)) && !(await resolves(uP));
+  await sleep(3000);
+  const pGone = pg1 && !(await resolves(P)) && !(await resolves(uP));
   R.b3 = refuse && pGone;
   console.log(`  ${R.b3 ? 'PASS' : '★RED '} (3) protected-contents: REFUSED(P+uP survive)=${refuse} | STUB unmark→proceeds GONE=${pGone}`);
 
@@ -86,8 +89,12 @@ try {
   const R4 = await createRoom(st, '7b-R4-exclusive');
   const e1 = await upload(R4, 'excl-a'); const e2 = await upload(R4, 'excl-b'); await waitShard(e1); await waitShard(e2);
   R.b4_setup = R4 && (await resolves(e1)) && (await resolves(e2));
-  st.send({ type: 'DELETE_ROOM', roomId: R4 }); await sleep(2800);
-  const e1g = !(await resolves(e1)), e2g = !(await resolves(e2)), roomGone = !(await resolves(R4)) && !existsSync(shard(R4));
+  st.send({ type: 'DELETE_ROOM', roomId: R4 });
+  await sleep(4000); // WAIT for the full teardown to settle (broadcast ROOM_DELETED + removeRoom) — resurrection fired DURING teardown pre-fix
+  const gone1 = !(await resolves(R4)) && !existsSync(shard(R4));
+  await sleep(3000); // resurrection window — assert it STAYS gone (the deleted-flag fix)
+  const staysGone = !(await resolves(R4)) && !existsSync(shard(R4));
+  const e1g = !(await resolves(e1)), e2g = !(await resolves(e2)), roomGone = gone1 && staysGone;
   const dangling = refsToRoom(R4);
   R.b4_clean = R.b4_setup && e1g && e2g && roomGone && dangling === 0;
   // restore: git pre-image (deleteUnitWithScan committed it) → git show → write → resolves
@@ -95,7 +102,7 @@ try {
   try { sha = execFileSync('git', ['log', '-1', '--format=%H', '--', relShard(R4)], { cwd: WT, encoding: 'utf8' }).trim(); } catch {}
   if (sha) { try { const content = execFileSync('git', ['show', `${sha}:${relShard(R4)}`], { cwd: WT }); writeFileSync(shard(R4), content); await sleep(700); restored = await resolves(R4); } catch (e) { R.b4_err = String(e.message).slice(0, 80); } }
   R.b4 = R.b4_clean && !!sha && restored;
-  console.log(`  ${R.b4 ? 'PASS' : '★RED '} (4) exclusive-only: units GONE=${e1g && e2g} + room GONE=${roomGone} + 0-dangling(refs=${dangling}) + pre-image RESTORES /api/ior=${restored}${R.b4_err ? ' err=' + R.b4_err : ''}`);
+  console.log(`  ${R.b4 ? 'PASS' : '★RED '} (4) exclusive-only: units GONE=${e1g && e2g} + room GONE&STAYS-gone(post-teardown)=${roomGone} + 0-dangling(refs=${dangling}) + pre-image RESTORES /api/ior=${restored}${R.b4_err ? ' err=' + R.b4_err : ''}`);
 
   R.pass = R.b1 && R.b2 && R.b3 && R.b4;
 } catch (e) { R.error = String(e.message || e); R.pass = false; }
