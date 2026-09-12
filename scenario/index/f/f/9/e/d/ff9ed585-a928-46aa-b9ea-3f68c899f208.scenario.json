@@ -7,7 +7,8 @@
     "description": "Tron design statement 2026-09-06 (verbatim): 'one DND for all folders as dropTargets everywhere. dropping something in either places a link to the centralized storage scenario unit always... no matter if file, image, task, modelElement or whatever oop object. we also need a remove button on every file in the action bar and a delete button that is red and really removes from the index and removes all links... (dangerous)'. THE MODEL: (1) EVERY FOLDER EVERYWHERE is a drop target via ONE contract, no per-surface variants (room files / model tree / diagrams / traceability). (2) A DROP places a LINK to the ONE centralized storage unit \u2014 ALWAYS, never a copy \u2014 for ANY OOP object (file/image/task/modelElement/requirement/whatever). One unit, many links = identity by reference (same law as the one-store root R40.81). (3) REMOVE (on every file in the action bar) unlinks THIS link only; the unit + its other links survive. (4) DELETE (RED, DANGEROUS) really removes the unit FROM THE INDEX and removes ALL its links everywhere.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [
-      "ior:instance:6de13bb2-2ee5-4f41-9a1f-a5fd335b3f30"
+      "ior:instance:6de13bb2-2ee5-4f41-9a1f-a5fd335b3f30",
+      "ior:instance:025ff2e8-34f3-4d04-9193-5bc2b0bdce1c"
     ],
     "tests": [],
     "useCases": [
