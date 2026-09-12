@@ -1039,6 +1039,24 @@ function ownerByToken(token: string): boolean {
   return loadProtectedIdentities().ids.includes(puid);
 }
 
+// [impl:uuid:PENDING-req-mint] isOwnerKnownRealAccount — R40.106 FINDING-2 sweep real-owner brace (architect 6173ff732).
+// The BULK-delete (!explicitOwner) real-account protection, BY-CONSTRUCTION in the acting code — not gate-selection
+// convention (the a16262b8 shape: a protection the acting code does not implement protects nothing). A COMMITTED profile
+// (profileCommitted===true) marks a REAL account; source = the in-memory userProfiles map, loaded once from data/profiles.json
+// and kept live = memoized (no per-unit file read). FULL-token match via Map.get (a prefix compare in a SAFETY predicate would
+// read a real owner as unprotected on a collision). Resolve the token through the redirectTo tombstone chain first, so a
+// consolidated real account's OLD token stays protected. ★ SEPARATE from the AUTH-TRUST set (protected-owner-identities.json /
+// ownerByToken / FeatureManager allowedUsers — all UNCHANGED): this reads the real-account ROSTER only, never widening
+// auth-trust → a committed profile is delete-protected WITHOUT being granted owner-level access (no privilege escalation).
+function isOwnerKnownRealAccount(token: string): boolean {
+  if (!token) return false;
+  const committed = (t: string): boolean => userProfiles.get(t)?.profileCommitted === true;
+  if (committed(token)) return true;                       // the token itself is a committed real account
+  let t = token; const seen = new Set<string>();           // else follow the redirectTo tombstone chain to the primary
+  while (userProfiles.get(t)?.redirectTo && !seen.has(t)) { seen.add(t); t = userProfiles.get(t)!.redirectTo!; }
+  return committed(t);                                     // a tombstone whose PRIMARY is a committed real account stays protected
+}
+
 // [impl:uuid:PENDING-req-mint] deleteUnitWithScan — R40.106 INC-7 the ONE unit-delete (architect bar, universal-link-mechanism.md).
 // DESTROY the unit + unlink EVERY ref to it (distinct from unlink-unit = remove one edge, unit survives). Order: KEEP-SET
 // exclude (protection OVERRIDES, first+hard) → PRE-IMAGE verified-in-git BEFORE removal (git show HEAD==current bytes →
@@ -1058,10 +1076,12 @@ function deleteUnitWithScan(uuid: string, roomId: string, opts?: { explicitOwner
   // protected = a HARD FIELD (model.protected) OR the unit's owner ∈ the R40.22 trusted protected-identity set (ownerByToken).
   const ownerTok = String(um.uploaderToken || um.ownerToken || (uj.ownerIor ? String(uj.ownerIor).replace('ior:instance:', '').split('@')[0] : '') || '');
   // KEEP-SET (PO two-layer ruling): model.protected ALWAYS refuses (the explicit mark blocks even a deliberate act — unmark first).
-  // owner∈protected-identity refuses ONLY on the NON-explicit path (a sweep/bulk delete never touches a real-owned unit); an
-  // EXPLICIT owner act (opts.explicitOwner — e.g. deleteRoomComposite) may reach a real-owned-but-UNMARKED unit (else the owner
-  // is locked out of their own system). The mark is the deliberate two-step; owner-identity is the bulk-safety layer.
-  if (um.protected === true || (!opts?.explicitOwner && ownerTok && ownerByToken(ownerTok))) return { ok: false, code: 403, error: 'protected — delete refused (keep-set)' };
+  // The NON-explicit (bulk/sweep) path ALSO refuses a real-owned unit — owner ∈ auth-trust set (ownerByToken) OR owner is a
+  // committed real account (isOwnerKnownRealAccount, FINDING-2: protects Tron's 26 committed profiles, not just the 1-identity
+  // auth-set — the gap was that this lived in gate-selection convention, not the acting code). An EXPLICIT owner act
+  // (opts.explicitOwner — e.g. deleteRoomComposite) may reach a real-owned-but-UNMARKED unit (else the owner is locked out of
+  // their own system). The mark is the deliberate two-step; the owner-identity + real-account roster are the bulk-safety layer.
+  if (um.protected === true || (!opts?.explicitOwner && ownerTok && (ownerByToken(ownerTok) || isOwnerKnownRealAccount(ownerTok)))) return { ok: false, code: 403, error: 'protected — delete refused (keep-set)' };
   // SCAN: derive the referrer footprint by reading every unit (not a reverse-index). refEq = an EXACT ref to uuid (a ref
   // value bare-equals uuid), so a prose field mentioning the uuid does NOT match — only genuine edges/refs.
   const idx = new ScenarioIndex(sdir);
