@@ -101,11 +101,18 @@
         "joinedAt": 1788693405564
       },
       {
+        "ior": "ior:instance:8d24401a-c33b-4c4e-aa58-082075b362a8",
+        "name": "Krista Kim",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1788815204732
+      },
+      {
         "ior": "ior:instance:5e5471fe-b4aa-4081-9492-d2dad17b6a17",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1788693405564
+        "joinedAt": 1789213181430
       }
     ],
     "files": [

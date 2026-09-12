@@ -37,13 +37,6 @@
         "joinedAt": 1788693405566
       },
       {
-        "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
-        "name": "Marcel Donges",
-        "role": "member",
-        "status": "offline",
-        "joinedAt": 1788693405566
-      },
-      {
         "ior": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6",
         "name": "Marcel Donges",
         "role": "member",
@@ -51,8 +44,8 @@
         "joinedAt": 1788693405566
       },
       {
-        "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
-        "name": "",
+        "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+        "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
         "joinedAt": 1788693405566
@@ -62,7 +55,7 @@
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1788693405566
+        "joinedAt": 1789213181432
       }
     ],
     "files": [

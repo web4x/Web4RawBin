@@ -65,15 +65,15 @@
         "joinedAt": 1788693405563
       },
       {
-        "ior": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6",
-        "name": "Marcel Donges",
+        "ior": "ior:instance:8d9be587-c45e-4ff4-bc03-7d809f1e4b7e",
+        "name": "Amos Donges",
         "role": "member",
         "status": "offline",
         "joinedAt": 1788693405563
       },
       {
-        "ior": "ior:instance:8d9be587-c45e-4ff4-bc03-7d809f1e4b7e",
-        "name": "Amos Donges",
+        "ior": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6",
+        "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
         "joinedAt": 1788693405563
@@ -86,18 +86,11 @@
         "joinedAt": 1788693405563
       },
       {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
-        "role": "owner",
-        "status": "offline",
-        "joinedAt": 1788693405563
-      },
-      {
         "ior": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22",
         "name": "",
         "role": "member",
         "status": "online",
-        "joinedAt": 1788693405563
+        "joinedAt": 1789213181428
       }
     ],
     "files": [
