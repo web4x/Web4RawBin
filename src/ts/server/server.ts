@@ -1461,15 +1461,36 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
   // R40.86: a folder's hasChildren counts DIRECT children of BOTH kinds (folder + file) by location, so a folder holding only files shows a chevron.
   const directChildCount = (prefix: string): number => units.filter((x) => { const l = typeof x.m.location === 'string' ? (x.m.location as string) : ''; const cd = l ? l.slice(0, l.lastIndexOf('/')) : rootPrefix; return cd === prefix; }).length;
   const kids: Array<Record<string, unknown>> = [];
+  const emitted = new Set<string>(); // R40.106 FIX-A: track emitted unit uuids for the edge-union DEDUP below (render ONCE)
   for (const x of units) {
     if (x.ior === 'ior:class:Folder') {
       const loc = String(x.m.location || '');
       if (loc.startsWith(currentPrefix + '/') && !loc.slice(currentPrefix.length + 1).includes('/')) { // a DIRECT child folder of the current node (by model location)
         const cc = directChildCount(loc); // R40.86: folders + files under it → chevron even if it holds only files
         kids.push({ uuid: loc, type: 'collection', name: String(x.m.displayName || x.m.name || loc.slice(loc.lastIndexOf('/') + 1)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' }); // R40.104: displayName WINS (user rename), else derived/original name
+        emitted.add(x.u);
       }
     } else if (isDirectChildOfNode(x.m, nodeRef, currentPrefix, rootPrefix)) { // R40.86: a File is emitted where it is NESTED — inside its folder (byLoc/byParent), EXCLUDED from root when parented, ONCE. Legacy no-location files still emit at root (containingDir==rootPrefix).
       kids.push({ uuid: x.u, type: (x.ior.split(':')[2] || 'File'), name: String(x.m.displayName || x.m.name || x.u.slice(0, 8)), hasChildren: false, size: Number(x.m.size) || 0 }); // R40.104: displayName WINS
+      emitted.add(x.u);
+    }
+  }
+  // R40.106 FIX-A (UNION, PO+architect measured-decider: differential DIRTY=54 → union not pure-edges): a unit is ALSO a
+  // child of THIS folder if the folder's children[] EDGE set holds it — the N-link LOGICAL containment source (a link adds
+  // an edge, never touching the unit's location/parent), UNIONed with the location/parent render above (the PHYSICAL source),
+  // DEDUPED by uuid (already-emitted → skip, so a unit both located-under-F and edge-in-F renders ONCE — no double-render).
+  // Root (nrel='' → selfFolder=null) has no children[] edges (membership = room.fileUnits) → root render UNCHANGED.
+  // (TRANSITION: two sources by design; the pure-edge SoT end-state is boarded behind a location→edge backfill drain — INC-4a.)
+  if (selfFolder) {
+    const edges = Array.isArray((selfFolder.model as Record<string, unknown>).children) ? (selfFolder.model as Record<string, unknown>).children as any[] : [];
+    for (const eref of edges) {
+      const eu = String(eref).replace('ior:instance:', '').split('@')[0];
+      if (!eu || emitted.has(eu)) continue; // dedup — already rendered by location/parent
+      const lu = idx.get(eu); if (!lu) continue;
+      const lm = (lu.model || {}) as Record<string, unknown>;
+      if (lu.ior === 'ior:class:Folder') { const lloc = String(lm.location || `${currentPrefix}/${String(lm.name || eu.slice(0, 8))}`); const cc = directChildCount(lloc); kids.push({ uuid: lloc, type: 'collection', name: String(lm.displayName || lm.name || eu.slice(0, 8)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' }); }
+      else kids.push({ uuid: eu, type: (lu.ior.split(':')[2] || 'File'), name: String(lm.displayName || lm.name || eu.slice(0, 8)), hasChildren: false, size: Number(lm.size) || 0 });
+      emitted.add(eu);
     }
   }
   return kids;
