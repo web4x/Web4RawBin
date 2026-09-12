@@ -6,16 +6,105 @@
     "description": "> TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.",
     "tronQuote": "> TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.",
     "tasks": [
-      "ior:instance:59c964f9-15c1-4d67-8c65-7a26b2e702cd"
+      "ior:instance:59c964f9-15c1-4d67-8c65-7a26b2e702cd",
+      "ior:instance:24284f6d-57eb-49cc-91d4-847ece5306ec"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "Incident fix — one-shot, no ongoing UC (room-flood prod-pollution)",
+    "orphanReason": "Incident fix \u2014 one-shot, no ongoing UC (room-flood prod-pollution)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
     "sourceLine": 43,
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
     "unitLinks": [],
-    "orphanRationale": "Incident fix — one-shot prod-pollution fix"
+    "orphanRationale": "Incident fix \u2014 one-shot prod-pollution fix",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-guard-creation-impossible",
+        "group": "guard/creation-impossible",
+        "text": "A FAILABLE lint counts room/identity creations by test code and asserts ZERO outside the ONE recorded SystemTester room (uuid 909f1bd6). stub-must-fail: add a createRoom outside the fixed room -> RED. Ratchet baseline never increases; touch-it-fix-it converges toward zero.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:test-room-single-source",
+          "impl": "test/visual/r-test-room-single-source-lint.mjs",
+          "assertion": "room/identity creations outside fixed room 909f1bd6 counted; above-baseline creation => RED; ratchet 52/52 room-create + 0/0 identity-mint at baseline"
+        },
+        "satisfaction": {
+          "status": "SATISFIED-GREEN",
+          "servedVersion": "v0.8.212",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "lint VERDICT GREEN \u2014 at baseline (52/52 room-create grandfathered, 0/0 identity-mint); fixed room 909f1bd6, identity ce981242"
+        }
+      },
+      {
+        "id": "AC-scoped-cleanup-never-repersist-bystander",
+        "group": "guard/scoped-cleanup",
+        "text": "A cleanup can NEVER re-persist a bystander room \u2014 STRUCTURAL, not instructional. Writing a room must refuse to blank a member name, move an immutable createdAt, or silently drop a distinct-identity member (the exact 2026-09-07 corruption class). This is the R40.107 room-persist invariant.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:room-persist-invariant",
+          "impl": "scripts/check-room-persist-invariant.ts",
+          "assertion": "GUARD#5 refuses name-blank + createdAt-move; GUARD#6 refuses silent distinct-identity drop (both directions); legit saves pass"
+        },
+        "satisfaction": {
+          "status": "SATISFIED-GREEN",
+          "servedVersion": "v0.8.212",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "R40.107 room-persist invariant GREEN \u2014 #5 refuses name-blank + createdAt-move; #1/#2 preserve identity; #6 allows stub-consolidation + refuses distinct-identity drop"
+        }
+      },
+      {
+        "id": "AC-debt-tracked-visible",
+        "group": "guard/debt-visibility",
+        "text": "Any manual cleanup running AHEAD of the guard is RECORDED and visible (not implied) until the guard lands \u2014 a manual cleanup ahead of its guard is the 2026-09-07 corruption state and must be surfaced as open debt, never silent.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "task 24284f6d OPEN DEBT record",
+          "assertion": "the ahead-of-guard manual cleanup is written on the task row as explicit debt, not implied"
+        },
+        "satisfaction": {
+          "status": "SATISFIED",
+          "servedVersion": "v0.8.212",
+          "measuredBy": "robbin-req",
+          "date": "2026-09-12",
+          "evidence": "task 24284f6d.remainingIssues carries the OPEN DEBT + CLEANUP-ACCEPTANCE + CONVERGENCE record explicitly (PO-visible)"
+        }
+      },
+      {
+        "id": "AC-cleanup-acceptance-real-rooms-untouched",
+        "group": "guard/cleanup-acceptance",
+        "text": "Cleanup acceptance = a RE-VERIFICATION that the REAL rooms are untouched (names, createdAt, member counts) after the test-room purge \u2014 NOT the deletion count. Enumeration reported first, then deletion, then re-verify delta=0 on the real rooms.",
+        "gateRef": {
+          "kind": "manual-acceptance",
+          "ref": "tester enumeration->deletion->re-verify",
+          "assertion": "post-purge, the real rooms' names/createdAt/member-counts are byte-unchanged (delta=0); acceptance is the re-verify, not the count"
+        },
+        "satisfaction": {
+          "status": "SATISFIED-MANUAL",
+          "servedVersion": "v0.8.212",
+          "measuredBy": "robbin-tester (cited)",
+          "date": "2026-09-09",
+          "evidence": "MISSED-SUMMARY 2026-09-09: 72 test rooms deleted + verified null on live surface; 45 real rooms delta=0; fixed room 909f1bd6 is the only gate room. Manual acceptance (tester-owned); re-run on any future purge."
+        }
+      }
+    ],
+    "strengthenedBy": {
+      "date": "2026-09-12",
+      "by": "robbin-req",
+      "tronQuote": "the whole lobby is spammed by test rooms... create ONE test room and do ALL tests there!!!! remove all test rooms!!! (Tron 2026-09-09, THIRD verbal correction \u2014 honour system failed 3x => guard MANDATORY)",
+      "poDirective": "PO 2026-09-12: verify + re-point the test-room guard to BUILT reality (shipped as tester's ratchet lint, wired into ci:gates) rather than leaving it topping a queue it no longer needs.",
+      "note": "4 Tron/PO-designed ACs promoted UP from task 24284f6d prose to this canonical req (single-source, AXIS-2 no-hand-write); reverse-wired guard task into tasks[]. T100 (59c964f9 isolated-data-dir) retained as the SUPERSEDED honour-approach. Both guard ACs measured SATISFIED-GREEN at v0.8.212 (check:test-room-single-source + check:room-persist-invariant).",
+      "supersedes": {
+        "task": "ior:instance:59c964f9-15c1-4d67-8c65-7a26b2e702cd",
+        "reason": "isolated-data-dir was the honour-adjacent CMM2 approach; 'impossible by construction' (CMM4 failable guard) supersedes it"
+      }
+    },
+    "builtReality": {
+      "status": "BUILT-AND-LIVE",
+      "servedVersion": "v0.8.212",
+      "note": "Guard SHIPPED as the tester ratchet lint (check:test-room-single-source, 52/52 grandfathered baseline) + the R40.107 room-persist invariant (check:room-persist-invariant). BOTH GREEN at v0.8.212. NOT pending build \u2014 the covering task 24284f6d (Planned/P0-TOP) should move to QA-Review/Done on this evidence (planner/tester call; robbin-req recommends). No longer tops the build queue."
+    }
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }
