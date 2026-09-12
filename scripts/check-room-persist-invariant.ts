@@ -9,7 +9,7 @@
  *   #2:      createdAt + each member's original joinedAt are preserved across re-persist.
  * stub-must-fail: remove guard #5 (the throws) -> the two BITE assertions stop throwing -> this gate exits 1 (RED).
  */
-import { preserveRoomIdentity, assertRoomPersistInvariant, setGuardResolveToken, type RoomJsonData } from '../src/ts/server/RoomKeys.js';
+import { preserveRoomIdentity, assertRoomPersistInvariant, preserveUnknownStoredFields, setGuardResolveToken, type RoomJsonData } from '../src/ts/server/RoomKeys.js';
 
 const fail = (m: string): never => { console.error(`✗ ${m}`); process.exit(1); };
 const throws = (fn: () => void): boolean => { try { fn(); return false; } catch { return true; } };
@@ -69,4 +69,33 @@ if (!throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090', '
 setGuardResolveToken(null); // restore uninjected default (drop-check skipped → no brick)
 if (throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090']), 'r'))) fail('#6: with NO resolver injected, the drop-check must be SKIPPED (never brick an unclassifiable save).');
 
-console.log('✓ R40.107 room-persist invariant: #5 refuses name-blank + createdAt-move; #1/#2 preserve identity; #6 allows stub-consolidation + refuses distinct-identity drop (both directions); legit saves pass.');
+// --- v0.8.226 PRESERVE-UNKNOWN (merge-over-stored) — the CLASS fix, proven BOTH directions ---
+// CANARY (class, not instance): an ARBITRARY unmodeled stored field survives the rebuild. Room.persist() enumerates
+// owned fields, so it drops anything it doesn't model — model.protected died here on Tron's ACTIVE rooms. stub-must-fail:
+// remove preserveUnknownStoredFields → the field is dropped → RED. A narrow "add protected into the rebuild" fix FAILS
+// this arbitrary-field canary (it would preserve protected but not arbitraryFutureField) — that is the point.
+{
+  const s = mk({}) as Record<string, unknown>; s.protected = true; s.arbitraryFutureField = 'survive-me';
+  const d = mk({}); // a Room.persist rebuild models NEITHER protected NOR the arbitrary field
+  preserveUnknownStoredFields(s as RoomJsonData, d);
+  if ((d as unknown as Record<string, unknown>).protected !== true) fail('PRESERVE-UNKNOWN: model.protected DROPPED by the rebuild — keep-marks die on re-persist (the no-sweep-lift blocker).');
+  if ((d as unknown as Record<string, unknown>).arbitraryFutureField !== 'survive-me') fail('PRESERVE-UNKNOWN CANARY: an ARBITRARY unmodeled stored field was DROPPED — this is the FALSE narrow fix (only protected preserved); the class stays lossy.');
+}
+// EXPLICIT-UNSET (the mirror hazard — PO): merge-over-stored must NOT make removal impossible. An EXPLICIT value in
+// the write WINS over stored — so an unmark that sets protected=false is HONORED, NEVER resurrected to true (owner can
+// always unmark-then-delete; no lockout). Unmark by OMISSION cannot clear a mark by design → unmark MUST set the key explicitly.
+{
+  const s = mk({}) as Record<string, unknown>; s.protected = true;
+  const d = mk({}) as unknown as Record<string, unknown>; d.protected = false; // explicit unmark
+  preserveUnknownStoredFields(s as RoomJsonData, d as unknown as RoomJsonData);
+  if (d.protected !== false) fail('EXPLICIT-UNSET: an explicit protected=false was RESURRECTED to true — owner cannot unmark → deleteRoom LOCKOUT (the mirror hazard).');
+}
+// DURABILITY (the fix's purpose): stored protected=true + a write that OMITS it → survives true (the mark does not die on re-persist).
+{
+  const s = mk({}) as Record<string, unknown>; s.protected = true;
+  const d = mk({}); // omits protected (Room.persist rebuild)
+  preserveUnknownStoredFields(s as RoomJsonData, d);
+  if ((d as unknown as Record<string, unknown>).protected !== true) fail('PRESERVE-UNKNOWN durability: an omitted protected was not carried forward — the mark would die on re-persist.');
+}
+
+console.log('✓ R40.107 room-persist invariant: #5 refuses name-blank + createdAt-move; #1/#2 preserve identity; #6 allows stub-consolidation + refuses distinct-identity drop; PRESERVE-UNKNOWN carries arbitrary unmodeled fields (canary) yet honors an explicit unset (no lockout); legit saves pass.');

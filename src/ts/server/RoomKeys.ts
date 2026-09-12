@@ -209,12 +209,28 @@ export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: Ro
   }
 }
 
+// [impl:uuid:PENDING-req-mint] roomPersist.preserveUnknownStoredFields — R40.107 v0.8.226 PRESERVE-UNKNOWN (merge-over-stored).
+// Room.persist() rebuilds the room unit by ENUMERATING the object's owned fields (writeRoomJson unit = {...data}) →
+// it silently DROPS every stored field the Room object does not model: model.protected today (Tron's ACTIVE rooms
+// LOST their keep-marks on the next re-persist — protection failed where most needed), the Nth field tomorrow.
+// FIX at the ONE chokepoint: carry forward EVERY stored key the write does not set, so an unmodeled field SURVIVES.
+// ⛔ NOT "enumerate + add protected" — that fixes ONE field and leaves the CLASS lossy; the class canary (an ARBITRARY
+// stored field survives a re-persist) is designed to catch exactly that false fix. LAW: a partial write must never be
+// treated as a complete one — same defect shape as GUARD#6 reading an absent field as intent. Pure (no fs) → unit-testable.
+export function preserveUnknownStoredFields(stored: RoomJsonData | null, data: RoomJsonData): void {
+  if (!stored) return; // first-ever persist: nothing stored to carry forward
+  for (const k of Object.keys(stored)) {
+    if (!(k in data)) (data as Record<string, unknown>)[k] = (stored as Record<string, unknown>)[k]; // owned fields (in data) WIN; only unmodeled stored fields are carried
+  }
+}
+
 export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonData): void {
   const stored = readRoomJson(userToken, roomId);   // R40.107: read-before-write for the identity guards
   const explicitMembers = 'members' in data;        // PARTIAL-WRITE: a caller (server.ts:4805 after Room.persist() wrote members) may OMIT members — that is NOT "drop all"
   preserveRoomIdentity(stored, data);               // #1/#2 — preserve non-empty name + createdAt/joinedAt
   if (!explicitMembers && stored && Array.isArray(stored.members)) data.members = stored.members; // PARTIAL: preserve stored members wholesale (non-destructive) — the omit must not persist as a drop
   assertRoomPersistInvariant(stored, data, roomId, explicitMembers); // #5 always; #6 member-drop ONLY on an explicit members write (never on ||[])
+  preserveUnknownStoredFields(stored, data);        // v0.8.226 PRESERVE-UNKNOWN: merge-over-stored so model.protected + any unmodeled stored field survives the rebuild (marks died here on re-persist)
   const roomDir = getRoomDir(userToken, roomId, { mint: true });   // WRITE
   mkdirSafe(roomDir);
   const roomJsonPath = path.join(roomDir, 'room.json');
