@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "ddc37f95-a868-4948-832b-729cfd8b13a6",
+    "name": "Your rooms and profiles are safe — room creation works on prod, a bulk delete cannot reach your rooms (all 26 committed accounts protected by construction), and a protection mark survives a save",
+    "slug": "rooms-profiles-protected-by-construction",
+    "description": "ONE arc-level ACCEPT row for the R40.106/R40.107 protection work, written in TRON'S TERMS — what he can independently verify, NOT the internals we built (PO ruling 2026-09-12: do not split into per-increment rows; a count is a pointer not a finding). THREE things he can check: (1) ROOM CREATION WORKS again on prod (measured); (2) his ROOMS CANNOT BE REACHED BY A BULK DELETE — all 26 committed accounts protected BY CONSTRUCTION in the acting code, not by gate-convention; (3) a PROTECTION MARK now SURVIVES A SAVE (it was silently wiped on every re-persist, so his ACTIVE rooms had lost protection precisely because they are in use). The internals are the EVIDENCE behind this row, not the row.",
+    "intention": "Tron can trust that using his rooms does not strip their protection, and no sweep can delete what is his.",
+    "context": "Covers R40.107 fe7788d7 (a WRITE must not mutate fields it was not asked to change / persist-invariant); crossRef R40.106 delete arc 740f8996. parent S40. The DELETE itself (removes-really + orphans) is the SEPARATE in-flight arc 740f8996 (INC-7, baseline honestly RED) — NOT this row. req minting impl units for the protection increments -> wire on uuid-land.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "PROJECTS from R40.107 fe7788d7 (protection; no hand-write per AXIS-2). TRON-VERIFIABLE outcomes (the row): (1) room creation works on prod (measured); (2) a bulk delete cannot reach his rooms — 26 committed accounts protected by construction; (3) a protection mark survives a save. EVIDENCE (the internals, not the row): v0.8.225 deleteRoom composite verify-GONE + resurrection-fix + 6 keep-marks (architect-signed firing) · v0.8.226 preserve-unknown merge-over-stored, keep-mark durability (canary bite green) · v0.8.227 sweep real-owner brace, RED->GREEN both halves (architect-signed).",
+    "subtasks": "None (one arc-level accept row; internals credited inside).",
+    "status": "QA Review",
+    "servedVersion": "0.8.227",
+    "coveredRequirements": [
+      "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "waitingOn": "Tron QA accept — 3 outcomes he can verify on prod v0.8.227: room creation works, his 26 accounts safe from bulk delete, protection mark survives a save; machine-verified + architect-signed, nothing waiting on us.",
+    "remainingIssues": "STOOD UP QA-Review = accept-ready (PO board-sync 2026-09-12), ONE arc-level accept row in Tron's terms — NOT split into 3 per-increment rows (splitting raises the count without adding anything Tron can independently verify; internal protections are not features he sees). EVIDENCE behind the row: 225 composite-delete (signed) / 226 preserve-unknown keep-mark-durability (canary-green, req impl unit->wire) / 227 real-owner brace protecting Tron's 26 profiles by-construction (RED->GREEN both halves, signed, req impl unit->wire). ★ The DELETE arc itself (verify-GONE + 228 sanctioned-op sign-pending + 229 tripwire in-flight + 34 orphans tracked-inert + INC-7 baseline honestly RED) is the SEPARATE in-flight row 740f8996 (pin current), NOT this accept row. Accept count 30->31. Minted SERVED tree; flagged req to reverse-wire fe7788d7.tasks[] + wire the 226/227 impl units. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-12"
+  },
+  "ownerIor": null
+}
