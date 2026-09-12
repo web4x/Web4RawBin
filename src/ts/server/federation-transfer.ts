@@ -86,7 +86,9 @@ export class Transfer {
       if (this.ctx.index.get(bare)) return `ior:instance:${bare}`;      // already local → relink
       return federatedIor(bare, originHost, this.ctx.selfHost);         // stays remote → federated @host (lazy)
     };
-    if (Array.isArray(m.children)) m.children = m.children.map(rewrite);
+    if (Array.isArray(m.children)) m.children = m.children.map(rewrite);   // children[] = the containment EDGES (the real truth)
+    // R40.106 INC-4a: parentFolder is inert PROVENANCE (retired as a containment source) — we still rewrite its ref so
+    // it stays valid on import, but containment resolves from children[]/fileUnits edges above, never from this field.
     if (m.parentFolder) m.parentFolder = rewrite(String(m.parentFolder));
     return { ...unit, model: m };
   }

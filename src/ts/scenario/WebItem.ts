@@ -119,6 +119,9 @@ export function createWebItemUnit(idx: ScenarioIndex, input: WebItemInput, publi
       badge: deriveBadge(scheme),
       mimeType: 'text/uri-list',
       roomUuid: input.roomUuid || '',   // mirrors File — the content endpoint's auth resolves the room from this
+      // R40.106 INC-4a: parentFolder is RETIRED as a containment source — it is inert PROVENANCE only. The unit's
+      // real containment is the EDGE (the room's fileUnits / a folder's children[] holding this uuid), never this
+      // field. Kept for back-compat/provenance; NEVER read to resolve containment or render (check-parentfolder-not-containment enforces).
       parentFolder: input.parentFolder || (input.roomUuid ? `ior:instance:${input.roomUuid}` : null),
       // R25.2/v0.6.91: forward reference to the source artifact (e.g. the .eml a message: WebItem came from)
       children: input.relatedFile ? [`ior:instance:${input.relatedFile}`] : [],
