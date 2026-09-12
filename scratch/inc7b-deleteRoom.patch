@@ -1,0 +1,88 @@
+diff --git a/src/ts/server/server.ts b/src/ts/server/server.ts
+index aad3e73e8..275580532 100644
+--- a/src/ts/server/server.ts
++++ b/src/ts/server/server.ts
+@@ -1046,7 +1046,7 @@ function ownerByToken(token: string): boolean {
+ // dead uuid (NOT a reverse-index) = the DECLARED FOOTPRINT {U + refs-to-U} → destroy U + unlink each ref (diff ⊆ footprint
+ // by construction; a bystander is impossible = guard#5 declared-footprint, tester BITEs it) → shared .content blob KEPT
+ // (removed only if no other unit references its contentHash) → 0-dangling re-scan. Idempotent (absent unit → ok, already gone).
+-function deleteUnitWithScan(uuid: string, roomId: string): { ok: boolean; code?: number; error?: string; restoreSha?: string; refsCleaned?: number; danglingAfter?: number; blobAction?: string; published?: boolean } {
++function deleteUnitWithScan(uuid: string, roomId: string, opts?: { explicitOwner?: boolean }): { ok: boolean; code?: number; error?: string; restoreSha?: string; refsCleaned?: number; danglingAfter?: number; blobAction?: string; published?: boolean } {
+   const sdir = path.join(__dirname, '../../../scenario/index');
+   const repoRoot = path.join(__dirname, '../../..');
+   const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
+@@ -1057,7 +1057,11 @@ function deleteUnitWithScan(uuid: string, roomId: string): { ok: boolean; code?:
+   // KEEP-SET EXCLUDE (architect bar): a protected unit refuses delete — protection OVERRIDES the request, first + hard.
+   // protected = a HARD FIELD (model.protected) OR the unit's owner ∈ the R40.22 trusted protected-identity set (ownerByToken).
+   const ownerTok = String(um.uploaderToken || um.ownerToken || (uj.ownerIor ? String(uj.ownerIor).replace('ior:instance:', '').split('@')[0] : '') || '');
+-  if (um.protected === true || (ownerTok && ownerByToken(ownerTok))) return { ok: false, code: 403, error: 'protected — delete refused (keep-set)' };
++  // KEEP-SET (PO two-layer ruling): model.protected ALWAYS refuses (the explicit mark blocks even a deliberate act — unmark first).
++  // owner∈protected-identity refuses ONLY on the NON-explicit path (a sweep/bulk delete never touches a real-owned unit); an
++  // EXPLICIT owner act (opts.explicitOwner — e.g. deleteRoomComposite) may reach a real-owned-but-UNMARKED unit (else the owner
++  // is locked out of their own system). The mark is the deliberate two-step; owner-identity is the bulk-safety layer.
++  if (um.protected === true || (!opts?.explicitOwner && ownerTok && ownerByToken(ownerTok))) return { ok: false, code: 403, error: 'protected — delete refused (keep-set)' };
+   // SCAN: derive the referrer footprint by reading every unit (not a reverse-index). refEq = an EXACT ref to uuid (a ref
+   // value bare-equals uuid), so a prose field mentioning the uuid does NOT match — only genuine edges/refs.
+   const idx = new ScenarioIndex(sdir);
+@@ -1104,6 +1108,51 @@ function deleteUnitWithScan(uuid: string, roomId: string): { ok: boolean; code?:
+   for (const other of idx2.list()) { try { const oj = JSON.parse(fsSync.readFileSync(shard(other), 'utf-8')); if (refEq(oj.ownerIor)) danglingAfter++; for (const val of Object.values((oj.model || {}) as Record<string, any>)) { if (Array.isArray(val) ? val.some(refEq) : refEq(val)) danglingAfter++; } } catch { /* skip */ } }
+   return { ok: true, restoreSha, refsCleaned, danglingAfter, blobAction, published: true };
+ }
++// [impl:uuid:PENDING-req-mint] deleteRoomComposite — R40.106 INC-7b: destroy a room's containment closure BOUNDED BY SHARING,
++// then the canonical Room unit, so the room is ACTUALLY GONE (/api/ior stops resolving — the old DELETE_ROOM rmSync'd the
++// per-user roomDir but LEFT scenario/index/<roomId> + its file units = the no-op bug). Architect bar: keep-set-refuse a
++// protected room (SAME rule as deleteUnitWithScan) → per fileUnit: EXCLUSIVE to R (roomsWithFile<=1) = destroy via
++// deleteUnitWithScan (pre-imaged + scan-unlink + 0-dangling each); SHARED (in another room) = UNLINK R's edge ONLY (the unit
++// + its /api/ior SURVIVE) → destroy the Room unit via deleteUnitWithScan. Reuses the INC-7a machinery (no 2nd delete path).
++function deleteRoomComposite(roomId: string): { ok: boolean; code?: number; error?: string; exclusiveDestroyed?: number; sharedUnlinked?: number; roomUnitGone?: boolean; danglingAfter?: number; restoreSha?: string } {
++  const sdir = path.join(__dirname, '../../../scenario/index');
++  const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
++  const bareRef = (r: string) => String(r || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
++  const readUnit = (u: string): any => { try { return JSON.parse(fsSync.readFileSync(shard(u), 'utf-8')); } catch { return null; } };
++  const rf = shard(roomId);
++  // (1) ROOM keep-set-refuse (PO two-layer ruling): an EXPLICIT owner deleteRoom refuses ONLY on model.protected — NOT
++  // owner∈protected-identity. Owner-identity protects against BULK/SWEEP selection only; a DELIBERATE named deleteRoom of a
++  // real-owned UNMARKED room is ALLOWED (else the owner is locked out of their own system). A KEEP MARK blocks even the
++  // deliberate act → unmark-then-delete (intended friction). DO NOT add an owner-identity refuse HERE (architect 921729e11 / PO).
++  if (fsSync.existsSync(rf)) { const rm = (readUnit(roomId)?.model || {}) as Record<string, any>; if (rm.protected === true) return { ok: false, code: 403, error: 'protected room — delete refused (unmark first)' }; }
++  const room = roomManager.getRoom(roomId);
++  // (2) FULL ROOM CLOSURE (architect NON-NEGOTIABLE): INC-6 made nested containment EDGE-based → a unit linked into a FOLDER is
++  // legitimately NOT in fileUnits; roomsWithFile would read a unit shared into ANOTHER room's FOLDER as EXCLUSIVE and DESTROY it.
++  // So the delete LOOP + the shared-check use the transitive CLOSURE (fileUnits + each Folder's children[]), never fileUnits.
++  const closureOf = (r: { fileUnits: Set<string> }): Set<string> => {
++    const out = new Set<string>([...r.fileUnits]); const q = [...out];
++    while (q.length) { const u = q.pop()!; const j = readUnit(u); if (j && j.ior === 'ior:class:Folder') for (const c of (j.model?.children || [])) { const b = bareRef(c); if (!out.has(b)) { out.add(b); q.push(b); } } }
++    return out;
++  };
++  const closure = room ? closureOf(room) : new Set<string>();
++  // (4) PROTECTED-CONTENTS REFUSE (architect, from the a16262b8 orphan incident): BEFORE any destruction, if the closure holds
++  // ANY protected unit (model.protected OR protected-identity owner) → REFUSE naming it (unmark/move first) — NOT survive-orphan
++  // (an orphaned-invisible evidence unit is exactly how the incident happened). Same two-step as a protected room.
++  const prot: string[] = [];
++  for (const u of closure) { const j = readUnit(u); if (!j) continue; const m = (j.model || {}) as Record<string, any>; const ot = String(m.uploaderToken || m.ownerToken || (j.ownerIor ? bareRef(String(j.ownerIor)) : '') || ''); if (m.protected === true || (ot && ownerByToken(ot))) prot.push(u.slice(0, 8)); }
++  if (prot.length) return { ok: false, code: 403, error: `protected contents [${prot.join(',')}] — unmark or move them first` };
++  // EXCLUSIVE iff no OTHER room's closure contains u (roomsWithClosure<=1); else SHARED → unlink R's edges ONLY, unit survives.
++  const otherClosures = roomManager.allRooms().filter(r => r.id !== roomId).map(closureOf);
++  const inOtherRoom = (u: string) => otherClosures.some(s => s.has(u));
++  let exclusiveDestroyed = 0, sharedUnlinked = 0;
++  for (const u of closure) {
++    if (u === roomId) continue; // the Room unit is destroyed last
++    if (!inOtherRoom(u)) { const r = deleteUnitWithScan(u, roomId, { explicitOwner: true }); if (r.ok && r.blobAction !== 'unit-absent') exclusiveDestroyed++; } // EXCLUSIVE → destroy (pre-imaged inside)
++    else { room?.removeFileUnit(u); sharedUnlinked++; } // SHARED → strip R's ROOT membership ONLY (architect 0dfd00ed6): an R-EXCLUSIVE folder holding u is destroyed anyway (u's edge-via-it vanishes with the folder, u survives); a SHARED folder must KEEP u (it is NOT R's to unlink — a blanket unlink would vanish u from the other room's folder view = the doubly-shared bug)
++  }
++  const rr = deleteUnitWithScan(roomId, roomId, { explicitOwner: true }); // destroy the canonical Room unit (pre-image + scan-unlink + 0-dangling); idempotent if already gone
++  return { ok: true, exclusiveDestroyed, sharedUnlinked, roomUnitGone: !fsSync.existsSync(rf), danglingAfter: rr.danglingAfter, restoreSha: rr.restoreSha };
++}
+ // R40.x SECURITY (RCE fix, architect design 5fd3dd034) — CLOSE the bare-public-uuid→owner hole: a protected-identity
+ // owner determination via ownerByToken ALSO requires a CHALLENGE-AUTHENTICATED live session — the token must have a live
+ // ws client that passed the ENROLLED-device signed challenge (verifyChallenge → authMethod='device-key'). Since the owner
+@@ -4889,6 +4938,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
+       const deleterToken = [...wsClients].find(c => c.id === clientId)?.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+       const isOwner = delRoom.creatorToken ? (delRoom.creatorToken === deleterToken) : (delRoom.getCreatorId() === deleterToken);
+       if (!isOwner) { send({ type: MSG.ERROR, message: 'Only the room owner can delete it' }); break; }
++      const comp = deleteRoomComposite(msg.roomId); // R40.106 INC-7b: destroy the containment closure + canonical Room unit BEFORE teardown → ACTUALLY GONE (was a no-op: rmSync left the canonical unit)
++      if (!comp.ok) { send({ type: MSG.ERROR, message: comp.error || 'Room delete refused' }); break; } // protected room → refuse (keep-set)
++      addLog(`[room] deleteRoomComposite ${msg.roomId.slice(0,8)}: exclusive-destroyed=${comp.exclusiveDestroyed} shared-unlinked=${comp.sharedUnlinked} roomUnitGone=${comp.roomUnitGone} dangling-after=${comp.danglingAfter} restore-sha=${String(comp.restoreSha).slice(0,8)}`);
+       delRoom.broadcast({ type: MSG.ROOM_DELETED, roomId: msg.roomId, reason: 'Room deleted by owner' });
+       roomManager.removeRoom(msg.roomId);
+       if (delRoom.creatorToken) {
