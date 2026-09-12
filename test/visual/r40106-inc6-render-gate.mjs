@@ -51,12 +51,25 @@ try {
   R.renderShows_control = !bRender.includes(Gother);                  // failable: an unlinked file does NOT appear
   R.a1 = R.renderShows && R.renderShows_control;
 
-  // ── (2) REMOVE-HERE≠THERE: link F→A too, then unlink from A → gone from A edge, STILL in B edge ──
+  // ── (2) REMOVE-HERE≠THERE: link F→A too, then unlink from A via FIX-B `container` (per-edge) → gone from A edge, STILL in B ──
   await link(F, A.loc); await sleep(1200);
-  await jpost(`/api/room/${ROOM}/unlink-unit`, { unit: F, parent: `ior:instance:${A.uuid}`, playerToken: SYS }); await sleep(1200);
+  const fLocBeforeRm = String((await iorUnit(F))?.location || '');    // F is a LINK edge in A (physical location = root) — hygiene control below
+  await jpost(`/api/room/${ROOM}/unlink-unit`, { unit: F, container: `folder:${A.loc}`, playerToken: SYS }); await sleep(1200); // FIX-B param = container (was `parent`, ignored → legacy full-detach)
   const aEdges = await folderEdges(A.uuid), bEdges = await folderEdges(B.uuid);
   R.removedFromA = !aEdges.includes(F); R.survivesInB = bEdges.includes(F); R.fResolves = !!(await iorUnit(F));
   R.a2 = R.removedFromA && R.survivesInB && R.fResolves;              // failable both ways: removed here (A) AND survives there (B)
+  const fLocAfterRm = String((await iorUnit(F))?.location || '');     // removing a LINK edge must NOT touch F's (root) location
+  R.linkRemoveKeepsLocation = fLocBeforeRm === fLocAfterRm;           // hygiene control: non-physical remove leaves location intact
+
+  // ── (5) LOCATION-HYGIENE (my finding, FIX-B): removing the PHYSICAL container edge CLEARS the now-stale model.location ──
+  const Hn = 'i6H', H = await upload(Hn, A.loc);                       // H physically in A → H.location under A
+  await sleep(1000);
+  const hLocBefore = String((await iorUnit(H))?.location || '');
+  await jpost(`/api/room/${ROOM}/unlink-unit`, { unit: H, container: `folder:${A.loc}`, playerToken: SYS }); await sleep(1200);
+  const hLocAfter = String((await iorUnit(H))?.location || '');
+  const folderSeg = A.loc.split('/').pop();
+  R.hLocClearedOnPhysicalRemove = new RegExp(folderSeg).test(hLocBefore) && !new RegExp(folderSeg).test(hLocAfter); // was under A, now cleared
+  R.a5 = R.hLocClearedOnPhysicalRemove && R.linkRemoveKeepsLocation;  // failable both ways: physical-remove CLEARS, link-remove KEEPS
 
   // ── (3) NO-DOUBLE-RENDER (COUNT): a unit in C by BOTH location AND an edge into C must render EXACTLY ONCE ──
   const D = await upload('D', C.loc);         // D.location = C (physical)
@@ -71,10 +84,11 @@ finally { await browser.close(); }
 
 console.log(`=== R40.106 INC-6 PRE-BUILT gate — SERVED v${served}, fixed room 909f1bd6 ===`);
 console.log(`  (1) RENDER-SHOWS: edgeInB=${R.edgeInB} render-shows-F=${R.renderShows} control(unlinked-not-shown)=${R.renderShows_control} => ${R.a1 ? 'GREEN' : 'RED (baseline pre-INC-6 — location-only render)'}`);
-console.log(`  (2) REMOVE-HERE≠THERE: removed-from-A=${R.removedFromA} survives-in-B=${R.survivesInB} resolves=${R.fResolves} => ${R.a2 ? 'GREEN' : 'RED (baseline pre-INC-6 — unlink ignores per-edge parent)'}`);
+console.log(`  (2) REMOVE-HERE≠THERE (FIX-B per-edge, container=): removed-from-A=${R.removedFromA} survives-in-B=${R.survivesInB} resolves=${R.fResolves} => ${R.a2 ? 'GREEN' : 'RED'}`);
 console.log(`  (3) NO-DOUBLE-RENDER: D reachable by location+edge into C renders count=${R.dCount} (want exactly 1) => ${R.a3 ? 'GREEN' : 'RED'}  [COUNT not presence — guards the union backfill]`);
-console.log(`  (4) DRAG-STILL-MOVES: see r40106-inc4-move-rewire-gate (hardened GREEN @v0.8.217).`);
+console.log(`  (5) LOCATION-HYGIENE: physical-remove clears location=${R.hLocClearedOnPhysicalRemove} + link-remove KEEPS location (control)=${R.linkRemoveKeepsLocation} => ${R.a5 ? 'GREEN' : 'RED'}`);
+console.log(`  (4) DRAG-STILL-MOVES: see r40106-inc4-move-rewire-gate (re-run separately on 219).`);
 if (R.error) console.log('  ERROR:', R.error);
-const green = R.a1 && R.a2 && R.a3;
+const green = R.a1 && R.a2 && R.a3 && R.a5;
 console.log(green ? `\n★ INC-6 VERDICT: GREEN @v${served} — render-shows, remove-here≠there, no-double-render all hold.` : `\n★ INC-6 PRE-BUILD @v${served}: (1)=${R.a1?'G':'R'} (2)=${R.a2?'G':'R'} (3)=${R.a3?'G':'R'} — (1)+(2) are the expected RED-BASELINE until INC-6 deploys; (3) guards the union branch now. Re-run on INC-6 deploy → expect all GREEN.`);
 process.exit(green ? 0 : 1);
