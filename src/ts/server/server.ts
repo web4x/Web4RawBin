@@ -2785,6 +2785,38 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
+    if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/link-unit')) { // R40.106 INC-4 slice-4: LINK = add ONE containment edge to the target (FolderService.linkIn only). The SOURCE edge STAYS → the unit is now in BOTH (Tron "a drop places a link ALWAYS" — genuine N-link). NOT move (move-unit unlinks the source); NOT a copy (never touches the unit's bytes). Additive "Link here" affordance; drag=move is UNCHANGED until Tron rules Q1.
+      const roomId = filepath.split('/')[3];
+      let libody = '';
+      req.on('data', (chunk: Buffer) => { libody += chunk; });
+      req.on('end', () => {
+        try {
+          const { unit, target, playerToken } = JSON.parse(libody || '{}');
+          if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; } // same member-liveness gate as move-unit/unlink-unit
+          const room = roomManager.getRoom(roomId);
+          if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
+          const linkedUuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
+          if (!/^[0-9a-fA-F-]{16,40}$/.test(linkedUuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
+          const sdir = path.join(__dirname, '../../../scenario/index');
+          const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
+          const lf = shard(linkedUuid);
+          if (!fsSync.existsSync(lf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
+          // Resolve the TARGET via the ONE resolver (uuid OR roomcoll-location) — the SAME destination resolution move-unit/upload use (resolveDropContainer), NOT a second resolver. null parentIor = Files root (a link to root is a no-op edge; membership already ensures render there).
+          const idx = new ScenarioIndex(sdir);
+          const dc = resolveDropContainer(String(target || ''), roomId, idx);
+          const targetIor: string | null = dc.parentIor;
+          const targetLoc = dc.folderLocation || `roomcoll:${roomId}:files`;
+          // LINK = add ONE edge to the target; the source edge (parent + room membership) is UNTOUCHED → the unit is in BOTH (N-link).
+          // Deliberately NO unlink, NO model.parent change, NO removeFileUnit — that distinguishes link (this route) from move (move-unit).
+          if (targetIor) { const r = FolderService.linkIn(sdir, targetIor, linkedUuid); if (!r.ok) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: r.error || 'link-failed' })); return; } }
+          room.addFileUnit(linkedUuid); // idempotent — ensure it is a registered room unit (items-tree reads room.fileUnits); NOT a move, membership is additive
+          publishUnitChanged('ior:class:Folder', targetLoc); // target re-derives its direct children → R40.84 live-insert of the newly-linked unit (source node UNCHANGED — still shows it)
+          addLog(`[room] link-unit ${linkedUuid.slice(0, 8)} → ${targetLoc} (room ${roomId.slice(0, 8)}) — linked (source edge KEPT, N-link)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: linkedUuid, action: 'linked' }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'link-failed' })); }
+      });
+      return;
+    }
     if ((req.method === 'POST' || req.method === 'PUT') && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) { // SLICE-A: PUT = idempotent unit-JSON ingress; POST = native-file multipart edge (both hit this handler)
       const parts = filepath.split('/');
       const roomId = parts[3];

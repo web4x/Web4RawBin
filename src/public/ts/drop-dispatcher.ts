@@ -92,6 +92,20 @@ export class DropDispatcher {
     }
   }
 
+  // R40.106 INC-4 slice-4 — LINK an in-app unit into a container: add ONE edge to the target, KEEP the source (N-link).
+  // Sibling of reparentUnitsIntoContainer differing ONLY in the endpoint (link-unit = linkIn only, no unlink). Same ONE
+  // contract for the refs, same room context. (INC-5/6 will collapse the duplicated body — slice-4 is additive by design.)
+  async linkUnitInto(units: string[], targetFolderRef: string): Promise<void> {
+    const { roomId, token } = this.dropContext();
+    if (!roomId || !token) { this.statusCb?.('error', 'No room context for link'); return; }
+    for (const u of units) {
+      const uuid = String(u).replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0]; // bare unit uuid
+      if (!uuid) continue;
+      await fetch(`/api/room/${encodeURIComponent(roomId)}/link-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: uuid, target: targetFolderRef, playerToken: token }) })
+        .then((r) => r.json()).catch(() => null);
+    }
+  }
+
   // SLICE-A: uploadWithProgress DELETED — its ONLY distinct reason (progress) is now the onProgress PARAM on saveFileUnit → UnitTransport.putByUuid.
 
   // [impl:uuid:971bdde0-004b-4896-bc8c-4570832f6304] DropDispatcher.routeUnknown

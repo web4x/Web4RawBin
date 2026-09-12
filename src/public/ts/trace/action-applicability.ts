@@ -37,6 +37,10 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // (registerAction('move', …) in RoomView); the picker renders folders by REUSING rb-object-item (the tree's Folder render),
   // NOT a bespoke list. Applies to the movable room unit kinds (File + the natural classes + WebItem). OCP: a 7th class = one type here.
   { verb: 'move', label: '📁 Move…', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },
+  // R40.106 INC-4 slice-4 (Tron: "a drop places a link ALWAYS"): the explicit "Link here…" affordance — place the unit in
+  // ANOTHER folder while it STAYS where it is (N-link, source edge kept). The ADDITIVE gesture (drag stays MOVE until Tron
+  // rules the drag=link fork). Same kind-generic surface as move/remove; ends in the link-only /link-unit edge op.
+  { verb: 'link', label: '🔗 Link here…', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },
   // R40.106 INC-4 slice-3 (Tron: "a remove button on every file"): REMOVE = unlink this edge (detach from container); the
   // unit survives (recoverable / still linked elsewhere). Kind-generic over the movable file types — remove ≠ delete (INC-7).
   { verb: 'remove', label: '✕ Remove', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },

@@ -57,7 +57,10 @@ export class RoomView {
     // T37.20 INC-2: the explicit "Move…" affordance = a Command on the ONE registry (INC-1). Its picker reuses rb-object-item
     // (the tree's Folder render, NOT a bespoke list) and ends in the SAME dropDispatcher.reparentUnitsIntoContainer → move-unit
     // that the drag affordance uses (two affordances, ONE mechanism). Registered once here; arrow captures this RoomView.
-    registerAction('move', (c) => void this.openMovePicker(c.uuid));
+    registerAction('move', (c) => void this.openPlacePicker(c.uuid, 'move'));
+    // R40.106 INC-4 slice-4 (Tron: "a drop places a link ALWAYS"): the additive "Link here…" Command — reuses the SAME
+    // picker as move (DRY), differing ONLY in the link-only endpoint (source edge KEPT → N-link). Drag stays MOVE.
+    registerAction('link', (c) => void this.openPlacePicker(c.uuid, 'link'));
     // T37.20 INC-3 (R40.104): the "Rename…" Command — the object sets its own USER displayName via the room rename route →
     // UnitController.apply (the ONE seam). displayName wins; originalName preserved server-side; uuid stable; live re-render.
     registerAction('rename', (c) => void this.openRename(c.ref));
@@ -388,7 +391,7 @@ export class RoomView {
   // affordances, ONE mechanism — DRY). The picker RENDERS folders by REUSING rb-object-item (the tree's Folder render), never
   // a bespoke list; the item's own click is disabled (pointerEvents:none) so the row wrapper drives the move. OCP: a 3rd
   // affordance or a 7th movable class needs 0 edits here — only its registerAction/decl.
-  private async openMovePicker(unitRef: string): Promise<void> {
+  private async openPlacePicker(unitRef: string, mode: 'move' | 'link' = 'move'): Promise<void> { // R40.106 slice-4: ONE picker, two placements — move (unlink+link) vs link (link-only, source kept)
     const bare = String(unitRef || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
     if (!bare) return;
     let folders: Array<{ ref: string; name: string }> = [];
@@ -401,7 +404,7 @@ export class RoomView {
     ov.setAttribute('style', 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center');
     const sheet = document.createElement('div');
     sheet.setAttribute('style', 'background:#161b22;color:#e6edf3;width:100%;max-width:520px;max-height:70vh;overflow:auto;border-radius:12px 12px 0 0;padding:12px 12px max(env(safe-area-inset-bottom),12px);font:14px system-ui,sans-serif');
-    sheet.innerHTML = '<div style="font-weight:600;margin:2px 4px 10px">Move to…</div>';
+    sheet.innerHTML = `<div style="font-weight:600;margin:2px 4px 10px">${mode === 'link' ? 'Link into… (stays here too)' : 'Move to…'}</div>`;
     const close = (): void => ov.remove();
     const targets: Array<{ ref: string; name: string }> = [{ ref: `roomcoll:${this.roomId}:files`, name: 'Files (root)' }, ...folders];
     for (const t of targets) {
@@ -411,7 +414,7 @@ export class RoomView {
       item.data = { ref: t.ref, type: 'folder', title: t.name };
       item.style.pointerEvents = 'none'; // the item RENDERS; the row wrapper captures the tap (avoid the item's own nav/toggle)
       row.appendChild(item);
-      row.addEventListener('click', () => { close(); void dropDispatcher.reparentUnitsIntoContainer([bare], t.ref).then(() => { this.chatSheet?.addMessage('system', 'System', `Moved to ${t.name}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }); });
+      row.addEventListener('click', () => { close(); const place = mode === 'link' ? dropDispatcher.linkUnitInto([bare], t.ref) : dropDispatcher.reparentUnitsIntoContainer([bare], t.ref); void place.then(() => { this.chatSheet?.addMessage('system', 'System', `${mode === 'link' ? 'Linked into' : 'Moved to'} ${t.name}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }); });
       sheet.appendChild(row);
     }
     const cancel = document.createElement('button');
