@@ -170,7 +170,7 @@ export function preserveRoomIdentity(stored: RoomJsonData | null, data: RoomJson
 // The last line of defence: REFUSE (throw) any room write that would still destroy identity — a stored non-empty
 // member name going empty, or createdAt moving on an existing unit — EVEN IF #1/#2 regressed. A destructive
 // identity write cannot land. Pure (no fs) → the drift-injection BITE test calls it directly. Add to ci:gates.
-export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: RoomJsonData, roomId: string): void {
+export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: RoomJsonData, roomId: string, explicitMembers = true): void {
   if (!stored) return;
   const storedByIor = new Map<string, NonNullable<RoomJsonData['members']>[number]>();
   for (const s of stored.members || []) storedByIor.set(String(s.ior), s);
@@ -189,7 +189,10 @@ export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: Ro
   // BENIGN consolidation — it HAS a redirect (resolves to a different primary) AND that primary is STILL represented
   // among the written members. A distinct identity (no redirect) vanishing, or one whose primary also vanished, is a
   // REAL silent drop → refuse. Benign dedup (stub dropped, primary present) PASSES → no brick. Skipped if no resolver injected.
-  if (guardResolveToken) {
+  // ★ PARTIAL-WRITE FIX (all CREATE_ROOM broken since v0.8.212): run the drop-detection ONLY on an EXPLICIT members write —
+  // a caller that OMITS members (e.g. server.ts:4805 after Room.persist() already wrote them) is a partial update, NOT "drop all";
+  // reading data.members||[]=[] as a full drop false-refused every new-room create (writeRoomJson preserves stored members on omit).
+  if (guardResolveToken && explicitMembers) {
     const writtenTokens = new Set((data.members || []).map((m) => bareTok(m.ior)));
     const writtenPrimaries = new Set([...writtenTokens].map((t) => guardResolveToken!(t)));
     for (const s of stored.members || []) {
@@ -208,8 +211,10 @@ export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: Ro
 
 export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonData): void {
   const stored = readRoomJson(userToken, roomId);   // R40.107: read-before-write for the identity guards
+  const explicitMembers = 'members' in data;        // PARTIAL-WRITE: a caller (server.ts:4805 after Room.persist() wrote members) may OMIT members — that is NOT "drop all"
   preserveRoomIdentity(stored, data);               // #1/#2 — preserve non-empty name + createdAt/joinedAt
-  assertRoomPersistInvariant(stored, data, roomId); // #5  — refuse any residual destructive identity write (BITE)
+  if (!explicitMembers && stored && Array.isArray(stored.members)) data.members = stored.members; // PARTIAL: preserve stored members wholesale (non-destructive) — the omit must not persist as a drop
+  assertRoomPersistInvariant(stored, data, roomId, explicitMembers); // #5 always; #6 member-drop ONLY on an explicit members write (never on ||[])
   const roomDir = getRoomDir(userToken, roomId, { mint: true });   // WRITE
   mkdirSafe(roomDir);
   const roomJsonPath = path.join(roomDir, 'room.json');

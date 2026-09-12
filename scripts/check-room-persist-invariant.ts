@@ -61,6 +61,11 @@ if (throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090', 'd
 if (!throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090', 'stub-8f74']), 'r'))) fail('#6 BITE: dropping a DISTINCT no-redirect member (distinct-abcd) was NOT refused — a real silent identity drop could persist.');
 // (b2) drop the stub AND its primary together → REFUSED (identity fully vanished)
 if (!throws(() => assertRoomPersistInvariant(storedRoom, room(['distinct-abcd']), 'r'))) fail('#6 BITE: dropping a stub whose primary ALSO vanished was NOT refused.');
+// (c) PARTIAL-WRITE FIX (all CREATE_ROOM broke since v0.8.212): a members-OMITTED write (explicitMembers=false) must NOT be
+// read as "drop all" — writeRoomJson preserves stored members on omit, so #6 runs ONLY on an explicit members write.
+if (throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090', 'stub-8f74']), 'r', false))) fail('#6 PARTIAL-WRITE: a members-omitted (explicitMembers=false) write was REFUSED — the false-positive that bricked every CREATE_ROOM is back.');
+// stub-must-fail teeth: the SAME drop shape as an EXPLICIT members write (explicitMembers=true) STILL refuses (remove the explicitMembers guard → the partial case above would refuse → RED).
+if (!throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090', 'stub-8f74']), 'r', true))) fail('#6 EXPLICIT teeth: the same distinct-drop as an EXPLICIT write must STILL refuse — the drop-detection lost its teeth.');
 setGuardResolveToken(null); // restore uninjected default (drop-check skipped → no brick)
 if (throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090']), 'r'))) fail('#6: with NO resolver injected, the drop-check must be SKIPPED (never brick an unclassifiable save).');
 
