@@ -74,7 +74,7 @@ import { MSG } from '../shared/MessageTypes.js';
 import { detailScalarFields } from '../shared/detail-fields.js';
 import { createUserHome, getUserHomeDir, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { initStorageMap, REKEY_APPLIED, homeKeyFor } from './storage-id.js';
-import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
+import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir, setGuardResolveToken } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
@@ -685,6 +685,9 @@ console.log(`[boot] storage-rekey: REKEY_APPLIED=${REKEY_APPLIED}`);
 Room.resolveToken = (token: string) => userProfiles.get(token)?.redirectTo || token;
 // v0.7.1 (R25.7): let room-load dedup detect orphan members (token whose profile was deleted) and self-heal.
 Room.profileExists = (token: string) => userProfiles.has(token);
+// R40.107 guard #6: inject the CHAINED redirect resolver (follow redirectTo to the true primary) into RoomKeys so the
+// persist-invariant can tell a benign consolidation (stub whose primary is present) from a real silent identity drop.
+setGuardResolveToken((token: string) => { let c = token; const seen = new Set<string>(); while (userProfiles.get(c)?.redirectTo && !seen.has(c)) { seen.add(c); c = userProfiles.get(c)!.redirectTo!; } return c; });
 
 // [impl:uuid:6b459f04-e326-4f8a-b375-ddb33f2d4ffb] R25.7 redirectTombstoneToPrimary — resolve a connecting (possibly tombstoned)
 // token to its PRIMARY. IDENTIFY uses this to redirect a consolidated token → primary (TOKEN_REDIRECT),

@@ -142,6 +142,14 @@ export interface RoomJsonData {
 // class of loss impossible by construction: #1 read-before-write preserves a non-empty stored name; #2 keeps
 // createdAt + each member's original joinedAt immutable across re-saves; #5 REFUSES (throws) any write that would
 // still blank a name or move createdAt — the persist-invariant BITE (a destructive identity write cannot land).
+// R40.107 guard #6 (identity-aware member-drop) needs to resolve a member token to its PRIMARY. RoomKeys cannot import
+// Room (Room imports RoomKeys → circular), so server.ts INJECTS the same chained redirect resolver it builds for
+// Room.resolveToken. Until injected (tests/default), it is null and the drop-check is SKIPPED — never refuse a drop
+// we cannot classify (that would brick saving, the "#5 alone bricks 49 rooms" hazard). A test injects it to exercise #6.
+let guardResolveToken: ((token: string) => string) | null = null;
+export function setGuardResolveToken(fn: ((token: string) => string) | null): void { guardResolveToken = fn; }
+const bareTok = (ior: string): string => String(ior || '').replace('ior:instance:', '').split('@')[0];
+
 // [impl:uuid:PENDING-req-mint] roomPersistIdentity.preserve — R40.107 guards #1 (non-destructive name) + #2 (immutable timestamps).
 // Read-before-write reconciliation: never downgrade a stored non-empty member name to "", and carry createdAt +
 // each member's original joinedAt forward unchanged. Mutates `data` in place. Pure (no fs) → directly unit-testable.
@@ -176,6 +184,25 @@ export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: Ro
   if (typeof stored.createdAt === 'number' && stored.createdAt > 0 && typeof data.createdAt === 'number' && data.createdAt !== stored.createdAt) {
     const msg = `[writeRoomJson GUARD#5] REFUSED room ${roomId}: createdAt would move ${stored.createdAt}→${data.createdAt} (immutable)`;
     console.error(msg); throw new Error(msg);
+  }
+  // #6 IDENTITY-AWARE MEMBER-DROP (pairs with #5): a stored member missing from the write is REFUSED unless it is a
+  // BENIGN consolidation — it HAS a redirect (resolves to a different primary) AND that primary is STILL represented
+  // among the written members. A distinct identity (no redirect) vanishing, or one whose primary also vanished, is a
+  // REAL silent drop → refuse. Benign dedup (stub dropped, primary present) PASSES → no brick. Skipped if no resolver injected.
+  if (guardResolveToken) {
+    const writtenTokens = new Set((data.members || []).map((m) => bareTok(m.ior)));
+    const writtenPrimaries = new Set([...writtenTokens].map((t) => guardResolveToken!(t)));
+    for (const s of stored.members || []) {
+      const st = bareTok(s.ior);
+      if (writtenTokens.has(st)) continue;                       // still present → fine
+      const prim = guardResolveToken(st);
+      const benign = prim !== st && (writtenTokens.has(prim) || writtenPrimaries.has(prim)); // has redirect AND primary present
+      if (!benign) {
+        const why = prim === st ? 'no redirect (distinct identity)' : `primary ${prim.slice(0, 8)} absent from room`;
+        const msg = `[writeRoomJson GUARD#6] REFUSED room ${roomId}: member ${st.slice(0, 8)} would be silently dropped — ${why}`;
+        console.error(msg); throw new Error(msg);
+      }
+    }
   }
 }
 

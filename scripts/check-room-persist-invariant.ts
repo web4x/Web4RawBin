@@ -9,7 +9,7 @@
  *   #2:      createdAt + each member's original joinedAt are preserved across re-persist.
  * stub-must-fail: remove guard #5 (the throws) -> the two BITE assertions stop throwing -> this gate exits 1 (RED).
  */
-import { preserveRoomIdentity, assertRoomPersistInvariant, type RoomJsonData } from '../src/ts/server/RoomKeys.js';
+import { preserveRoomIdentity, assertRoomPersistInvariant, setGuardResolveToken, type RoomJsonData } from '../src/ts/server/RoomKeys.js';
 
 const fail = (m: string): never => { console.error(`✗ ${m}`); process.exit(1); };
 const throws = (fn: () => void): boolean => { try { fn(); return false; } catch { return true; } };
@@ -50,4 +50,18 @@ const d3 = mk({ members: [{ ior: 'ior:instance:c09087ec', name: '' }] });
 preserveRoomIdentity(stored, d3);
 if (throws(() => assertRoomPersistInvariant(stored, d3, 'r'))) fail('#1+#5: after #1 restores the name, #5 wrongly still refused (the common profile-less save must succeed, not be blocked).');
 
-console.log('✓ R40.107 room-persist invariant: #5 refuses name-blank + createdAt-move; #1/#2 preserve identity; legit saves pass.');
+// --- #6 IDENTITY-AWARE MEMBER-DROP — failable BOTH directions (inject a resolver: stub → primary) ---
+setGuardResolveToken((t) => (t === 'stub-8f74' ? 'primary-c090' : t)); // stub-8f74 redirects to primary-c090; others are their own primary
+const M = (ior: string, name = 'x') => ({ ior: `ior:instance:${ior}`, name });
+const room = (iors: string[]): RoomJsonData => ({ ownerToken: 'o', isPrivate: false, roomKey: '', state: 'active', createdAt: 100, sshKeysGenerated: false, sshPublicKey: '', chatHistory: [], members: iors.map((i) => M(i)) });
+const storedRoom = room(['primary-c090', 'stub-8f74', 'distinct-abcd']);
+// (a) drop the STUB whose primary (primary-c090) is still present → ALLOWED (benign consolidation, no brick)
+if (throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090', 'distinct-abcd']), 'r'))) fail('#6: dropping a redirect STUB whose primary is present was REFUSED — this bricks legitimate consolidation (the 49-room hazard).');
+// (b) drop a DISTINCT identity with no redirect → REFUSED (real silent drop)
+if (!throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090', 'stub-8f74']), 'r'))) fail('#6 BITE: dropping a DISTINCT no-redirect member (distinct-abcd) was NOT refused — a real silent identity drop could persist.');
+// (b2) drop the stub AND its primary together → REFUSED (identity fully vanished)
+if (!throws(() => assertRoomPersistInvariant(storedRoom, room(['distinct-abcd']), 'r'))) fail('#6 BITE: dropping a stub whose primary ALSO vanished was NOT refused.');
+setGuardResolveToken(null); // restore uninjected default (drop-check skipped → no brick)
+if (throws(() => assertRoomPersistInvariant(storedRoom, room(['primary-c090']), 'r'))) fail('#6: with NO resolver injected, the drop-check must be SKIPPED (never brick an unclassifiable save).');
+
+console.log('✓ R40.107 room-persist invariant: #5 refuses name-blank + createdAt-move; #1/#2 preserve identity; #6 allows stub-consolidation + refuses distinct-identity drop (both directions); legit saves pass.');
