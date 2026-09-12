@@ -1039,7 +1039,7 @@ function ownerByToken(token: string): boolean {
   return loadProtectedIdentities().ids.includes(puid);
 }
 
-// [impl:uuid:PENDING-req-mint] isOwnerKnownRealAccount — R40.106 FINDING-2 sweep real-owner brace (architect 6173ff732).
+// [impl:uuid:604efff6-02c0-405d-9afa-f7d917f105fc] isOwnerKnownRealAccount — R40.106 FINDING-2 sweep real-owner brace (architect 6173ff732).
 // The BULK-delete (!explicitOwner) real-account protection, BY-CONSTRUCTION in the acting code — not gate-selection
 // convention (the a16262b8 shape: a protection the acting code does not implement protects nothing). A COMMITTED profile
 // (profileCommitted===true) marks a REAL account; source = the in-memory userProfiles map, loaded once from data/profiles.json
@@ -1181,7 +1181,7 @@ function deleteRoomComposite(roomId: string): { ok: boolean; code?: number; erro
   return { ok: true, exclusiveDestroyed, sharedUnlinked, roomUnitGone: !fsSync.existsSync(rf), danglingAfter: rr.danglingAfter, restoreSha: rr.restoreSha };
 }
 
-// [impl:uuid:PENDING-req-mint] sweepEnumerated — R40.106 step-2 the SANCTIONED SWEEP OP (architect b5493b1df, sanctioned-sweep-op.md).
+// [impl:uuid:4be791e3-3e01-4c23-85a9-48a6a2979ef3] sweepEnumerated — R40.106 step-2 the SANCTIONED SWEEP OP (architect b5493b1df, sanctioned-sweep-op.md).
 // The ONLY code-checking path to delete orphans — an ORCHESTRATOR over the EXISTING per-unit deleteUnitWithScan, NOT a new
 // bulk primitive. ⛔ takes an EXPLICIT enumerated uuid LIST, NEVER a filter (a predicate-driven bulk delete IS the dangerous
 // primitive: once it exists someone calls it with a wider predicate). SELECTION stays outside (reviewable); this op only ACTS.

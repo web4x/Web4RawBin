@@ -209,7 +209,7 @@ export function assertRoomPersistInvariant(stored: RoomJsonData | null, data: Ro
   }
 }
 
-// [impl:uuid:PENDING-req-mint] roomPersist.preserveUnknownStoredFields — R40.107 v0.8.226 PRESERVE-UNKNOWN (merge-over-stored).
+// [impl:uuid:87cc9eba-c85a-4db1-b4e1-8b8d74f6b715] roomPersist.preserveUnknownStoredFields — R40.107 v0.8.226 PRESERVE-UNKNOWN (merge-over-stored).
 // Room.persist() rebuilds the room unit by ENUMERATING the object's owned fields (writeRoomJson unit = {...data}) →
 // it silently DROPS every stored field the Room object does not model: model.protected today (Tron's ACTIVE rooms
 // LOST their keep-marks on the next re-persist — protection failed where most needed), the Nth field tomorrow.
