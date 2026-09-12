@@ -1,5 +1,25 @@
+diff --git a/src/ts/server/Room.ts b/src/ts/server/Room.ts
+index 2dfe79a64..2e660762a 100644
+--- a/src/ts/server/Room.ts
++++ b/src/ts/server/Room.ts
+@@ -100,6 +100,7 @@ export class Room {
+ 
+   members: Map<string, RoomMember> = new Map();
+   fileUnits: Set<string> = new Set();
++  deleted = false; // R40.106 INC-7b: set true at DELETE_ROOM start → persist() early-returns so teardown (member-leave / removeRoom) cannot RE-CREATE the scenario Room unit the composite just deleted (bite-3/4 resurrection root, architect diagnosis)
+ 
+   // Room.resolveToken — collapse consolidated (redirectTo) members to PRIMARY.
+   // server.ts injects the profile redirect resolver at startup; default identity (no profiles in tests).
+@@ -385,6 +386,7 @@ export class Room {
+   // --- Persistence ---
+ 
+   private persist(): void {
++    if (this.deleted) return; // R40.106 INC-7b: a deleted room NEVER re-persists — else a teardown persist resurrects the composite-deleted scenario unit (order-independent guard)
+     // T99: legacy data/rooms write REMOVED — rooms persist ONLY to the per-user/UUID dir.
+     if (this.creatorToken) {
+       try {
 diff --git a/src/ts/server/server.ts b/src/ts/server/server.ts
-index aad3e73e8..275580532 100644
+index aad3e73e8..88f049756 100644
 --- a/src/ts/server/server.ts
 +++ b/src/ts/server/server.ts
 @@ -1046,7 +1046,7 @@ function ownerByToken(token: string): boolean {
@@ -76,10 +96,11 @@ index aad3e73e8..275580532 100644
  // R40.x SECURITY (RCE fix, architect design 5fd3dd034) — CLOSE the bare-public-uuid→owner hole: a protected-identity
  // owner determination via ownerByToken ALSO requires a CHALLENGE-AUTHENTICATED live session — the token must have a live
  // ws client that passed the ENROLLED-device signed challenge (verifyChallenge → authMethod='device-key'). Since the owner
-@@ -4889,6 +4938,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
+@@ -4889,6 +4938,10 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
        const deleterToken = [...wsClients].find(c => c.id === clientId)?.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
        const isOwner = delRoom.creatorToken ? (delRoom.creatorToken === deleterToken) : (delRoom.getCreatorId() === deleterToken);
        if (!isOwner) { send({ type: MSG.ERROR, message: 'Only the room owner can delete it' }); break; }
++      delRoom.deleted = true; // R40.106 INC-7b: STOP all further persists on this room BEFORE composite/teardown — else member-leave/removeRoom re-persist RESURRECTS the scenario unit the composite deletes (bite-3/4 root; architect deleted-flag fix)
 +      const comp = deleteRoomComposite(msg.roomId); // R40.106 INC-7b: destroy the containment closure + canonical Room unit BEFORE teardown → ACTUALLY GONE (was a no-op: rmSync left the canonical unit)
 +      if (!comp.ok) { send({ type: MSG.ERROR, message: comp.error || 'Room delete refused' }); break; } // protected room → refuse (keep-set)
 +      addLog(`[room] deleteRoomComposite ${msg.roomId.slice(0,8)}: exclusive-destroyed=${comp.exclusiveDestroyed} shared-unlinked=${comp.sharedUnlinked} roomUnitGone=${comp.roomUnitGone} dangling-after=${comp.danglingAfter} restore-sha=${String(comp.restoreSha).slice(0,8)}`);
