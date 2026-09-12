@@ -4,7 +4,7 @@
     "uuid": "dc61acd6-b43c-4128-805b-cb625770254c",
     "name": "test:sweepEnumerated.listNotFilterTwoPhaseSetSha",
     "description": "Closes R40.106 AC-sanctioned-sweep-op-list-not-filter via Impl 4be791e3 (sweepEnumerated). Gate = the tester's 'sweep-op bites' (list-not-filter / phase-1-any-refuse-aborts-ALL / setSha-mandatory-and-matched / print-both-modes). \u2605 Gate lives in the sweep-op sign path (not in my local test/visual view) \u2014 grounded in the expert's assertion + the AC; EXPERT confirms the exact gate filename when wiring the [test:uuid] marker. GREEN @ v0.8.228 per expert (signs: sweep 54978124d).",
-    "sourceFile": "ior:file:test/visual/(sweep-op bites gate \u2014 in the sweep-op sign path, expert-owned; exact filename to confirm on wire)",
+    "sourceFile": "ior:file:PENDING \u2014 sweep-op-bites gate NOT yet committed (lives in the TESTER scratch-worktree rig, git grep test/=0); tester to commit/name it as a test/visual file OR fold the bites into r40106-inc7-sweep-dryrun-gate.mjs",
     "implementations": [
       "ior:instance:4be791e3-3e01-4c23-85a9-48a6a2979ef3"
     ],
@@ -14,7 +14,14 @@
     "coversAC": "AC-sanctioned-sweep-op-list-not-filter",
     "gateVerifiedLocally": false,
     "chainNote": "Chain-to-shipped close (expert wired markers fa78938e8, comment-only, signs stand). Test unit by robbin-req; the [test:uuid:dc61acd6-b43c-4128-805b-cb625770254c] marker is wired into the gate by the tester/expert (gate owner).",
-    "unitLinks": []
+    "unitLinks": [],
+    "blockingDependency": {
+      "who": "robbin-tester",
+      "what": "commit + name the sweep-op BITES gate (list-not-filter / setSha-mismatch / phase-1-abort / room-linked) as a committed test/visual file",
+      "why": "the step-2+tripwire sweep bites were fired from the tester scratch-rig (isolated-rig pattern like 7a/7b), never committed; this Test cannot pin a committed sourceFile until then",
+      "status": "expert pinged tester + will relay the filename; robbin-req patches sourceFile on relay",
+      "note": "until committed, site-2 chain (sweepEnumerated 4be791e3 -> Test dc61acd6) closes to a RIG-ONLY gate = incomplete; rig-green per expert (sign 54978124d) but not in-tree verifiable"
+    }
   },
   "ownerIor": "ior:instance:4be791e3-3e01-4c23-85a9-48a6a2979ef3"
 }
