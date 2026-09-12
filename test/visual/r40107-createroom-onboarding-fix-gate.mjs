@@ -1,3 +1,4 @@
+// [test:uuid:96defb02-7992-4c9d-bfd3-413321e7e618] test:createRoom.bothCreatorShapesReachRoomJoined — Bug e73b2af8 AC3 (new-distinct 6a440ff3->6b42a2ab + redirect dc531b63->8f316093 both ROOM_JOINED @v0.8.224)
 // v0.8.224 CREATE-fix co-verify: the EXACT 2 cases proven broken pre-fix must now SUCCEED (ROOM_JOINED). End-to-end WS CREATE_ROOM.
 import WebSocket from 'ws'; import { readFileSync } from 'node:fs'; import { randomUUID } from 'node:crypto';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED='0';
