@@ -1194,3 +1194,14 @@
   - [ ] **(migration/fail-closed)** On an out-of-scope change DETECTED, the run FAILS CLOSED — it REFUSES TO WRITE the mutation, rather than writing it and reporting after. Fail-safe is not enough; it must not persist the out-of-scope change AT ALL.
   - [ ] **(migration/refuse-lint)** The WRITE tool/handler REFUSES TO RUN AT ALL until the differential assertion EXISTS — a write with no scope-differential cannot execute (the assertion is a precondition, not an optional check).
   -> migration.assertOnlyDeclaredFieldsDiffer [uc:uuid:48057b43-cb96-495e-a9e7-b35a834cc599]
+
+- [ ] **R40.108 — A QA-Review row carries the served version its evidence was measured on — no version = not accept-ready, behind = stale-pending-remeasure**
+  [requirement:uuid:8c520271-a320-4c95-a58c-8aa75c9dea1d]
+  PO order 2026-09-09 (confirm-or-mint): a QA-Review row must carry THE SERVED VERSION its evidence was measured on. A QA row's evidence is a stored, authoritative-looking artifact with NOTHING keeping it TRUE against the currently-served build = a truth-decay specimen (extends R37.25). NO version => NOT accept-ready (it cannot be a Tron-accept candidate). A version BEHIND the served build => auto-flagged STALE-PENDING-REMEASURE (the evidence decayed; re-measure on the served version before accept). MEASURED: 77 QA rows were carried as 'finished, awaiting Tron' with NO current evidence — 68 cite no version at all, 9 cite a stale version. The accept queue is 24, not 101.
+  **Acceptance criteria:**
+  - [ ] **(qa/evidence-version)** Every QA-Review row carries the SERVED VERSION its evidence was measured on (a served-version field on the row/task). The version is machine-readable + queryable.
+  - [ ] **(qa/accept-gate)** NO version => NOT accept-ready: a QA-Review row with no served-version cannot be a Tron-accept candidate (excluded from the accept queue until it carries evidence).
+  - [ ] **(qa/decay-autoflag)** A row whose evidence-version is BEHIND the currently-served build => AUTO-FLAGGED stale-pending-remeasure (the evidence decayed; re-measure on the served version before accept). Derived at read (not a stored stale flag), same cure-priority as R37.25 (derive over revalidate).
+  - [ ] **(qa/backlog-audit)** The 77 QA rows carried as finished-awaiting-Tron with NO current evidence (68 no version + 9 stale) are AUDITED: each gets a served-version re-measure or is flagged stale-pending-remeasure; none is counted in the accept queue on no/stale evidence. Publish the count (accept-ready vs stale-pending), never silently drained.
+  - [ ] **(self-failability)** Stub-must-fail: seed a QA-Review row with NO version (or a version behind the served build) marked accept-ready -> RED. A gate that cannot RED on a no-evidence accept-ready row is inadmissible.
+  -> qaRow.carriesServedEvidenceVersion [uc:uuid:40f9a359-b131-44b7-a52b-c70c3e6b3754]
