@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "025ff2e8-34f3-4d04-9193-5bc2b0bdce1c",
+    "name": "R40.106 INC-5 — the 3 duplicated create-path children[] RMW bodies DELETED into the ONE FolderService.linkIn (DRY collapse, pure refactor)",
+    "slug": "r40.106-inc5-dry-collapse-folderservice-linkin",
+    "description": "The DRY-collapse increment of R40.106 (One DnD; identity-by-reference). The 3 duplicated create-path children[] read-modify-write bodies (multipart-upload-into-folder, federation-import, add-folder-nest) were DELETED into the ONE FolderService.linkIn — the object owns the edge-write, no per-path duplicate. A PURE REFACTOR: the expected shape was that NOTHING moves, and nothing did. SHIPPED + GATED + architect-backstopped @ served v0.8.221 (568c4fd81, pushed+tagged). Owner = expert (built) + tester (gated) + architect (backstop PASS).",
+    "intention": "One canonical edge-write (FolderService.linkIn) owns the children[] mutation; the 3 create-paths call it, not their own copies — the traceability-DRY the graph exists to enforce.",
+    "context": "Covers R40.106 ff9ed585-a928, UC 4062b06d, parent S40 8e8b32d6. Sibling of the LINK+REMOVE row 6de13bb2. R40.108 version-stamp: served v0.8.221.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "PROJECTS from R40.106 ff9ed585 (INC-5 DRY-collapse; no hand-write per AXIS-2). Pure refactor, expected shape = NOTHING moves. Proven @ v0.8.221: the 3 create-path RMW bodies collapsed into ONE FolderService.linkIn; all 6 assertions GREEN (render-shows / remove-here-not-there / no-double count==1 / Tron's DRAG byte-consistent DET-3x = 7-deploy streak, move-unit confirmed untouched / location-hygiene / link-cycle-end-to-end) PLUS all 3 collapsed create-paths individually verified (multipart-upload-into-folder, federation-import, add-folder-nest) — a file/folder created into a folder still lands with its edge exactly as before.",
+    "subtasks": "None (INC-5 slice of R40.106).",
+    "status": "QA Review",
+    "servedVersion": "0.8.221",
+    "coveredRequirements": [
+      "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208"
+    ],
+    "useCases": [
+      "ior:instance:4062b06d-2a38-4552-b3a7-5ef9458f50a0"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "waitingOn": "Tron QA accept — ACCEPT-READY, pure-refactor DRY collapse GREEN @ served v0.8.221 (6 assertions + 3 create-paths, architect-backstopped); machine-verified, nothing waiting on us.",
+    "remainingIssues": "STOOD UP QA-Review = accept-ready (PO 2026-09-12, built-reality, commit 568c4fd81 pushed+tagged). ★★ DELTA WITH SCOPE — RECORD BOTH NUMBERS (this arc has TWICE been bitten by a true number reading as its own opposite): SOURCE = -16 lines (server.ts +3/-19) = REAL deletion, nothing shimmed or feature-flagged (PO verified the source delta HIMSELF at the commit); REPO = +342 lines = includes the GENERATED bundle committed ATOMICALLY so served==committed==HEAD. Do NOT let the headline read as 'a removal added 342 lines' — the removal is -16 source; the +342 is the atomic build artifact. [[net-negative-churn-at-protected-granularity]]. ★ PURE REFACTOR: expected shape = nothing moves, nothing did (6 assertions + 3 create-paths all GREEN). ★ R40.108: servedVersion 0.8.221. ★ REMAINING on R40.106: INC-6 pure-edge flip (next, prepped) -> then MOVE + DELETE (INC-7 scan-unlink, next arc). Minted SERVED tree; flagged req to reverse-wire ff9ed585.tasks[] += this. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-12"
+  },
+  "ownerIor": null
+}
