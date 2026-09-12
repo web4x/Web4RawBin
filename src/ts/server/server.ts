@@ -2737,15 +2737,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const dc = resolveDropContainer(String(target || ''), roomId, idx);
           const targetIor: string | null = dc.parentIor;
           const targetLoc = dc.folderLocation || `roomcoll:${roomId}:files`;
-          const targetFolderFile = targetIor ? shard(targetIor.replace('ior:instance:', '')) : '';
           const name = String(mj.model.name || movedUuid.slice(0, 8));
           const oldParent = String(mj.model.parent || '');
           // RE-PARENT the moved unit: parent + location follow the target (folder OR root). The object moves itself; both-sides children stay consistent.
           mj.model.parent = targetIor; mj.model.location = `${targetLoc}/${name}`;
           fsSync.writeFileSync(mf, JSON.stringify(mj, null, 2) + '\n');
           room.addFileUnit(movedUuid); // idempotent — ensure it is a registered room unit (items-tree reads room.fileUnits)
-          if (targetFolderFile) { try { const tj = JSON.parse(fsSync.readFileSync(targetFolderFile, 'utf-8')); tj.model.children = Array.isArray(tj.model.children) ? tj.model.children : []; if (!tj.model.children.includes(`ior:instance:${movedUuid}`)) tj.model.children.push(`ior:instance:${movedUuid}`); fsSync.writeFileSync(targetFolderFile, JSON.stringify(tj, null, 2) + '\n'); } catch { /* target children best-effort */ } }
-          if (oldParent && oldParent !== targetIor) { try { const of = shard(oldParent.replace('ior:instance:', '')); const oj = JSON.parse(fsSync.readFileSync(of, 'utf-8')); if (Array.isArray(oj.model.children)) { oj.model.children = oj.model.children.filter((c: string) => c !== `ior:instance:${movedUuid}`); fsSync.writeFileSync(of, JSON.stringify(oj, null, 2) + '\n'); publishUnitChanged('ior:class:Folder', String(oj.model.location || '')); } } catch { /* old-parent detach best-effort (no double-appearance) */ } }
+          // R40.106 INC-4: MOVE = unlink(old) + link(target) via the ONE edge primitive (FolderService.linkIn/unlink) —
+          // replaces the inline children[] read-modify-write that was duplicated across ~5 server sites. Behaviour-identical:
+          // linkIn adds one edge to the target (idempotent); unlink removes one edge from the old parent (its re-derive publishes).
+          if (targetIor) FolderService.linkIn(sdir, targetIor, movedUuid);
+          if (oldParent && oldParent !== targetIor) { const r = FolderService.unlink(sdir, oldParent, movedUuid); if (r.ok && r.location) publishUnitChanged('ior:class:Folder', r.location); }
           publishUnitChanged('ior:class:Folder', targetLoc); // target re-derives its direct children → R40.84 live-insert of the moved unit
           addLog(`[room] move-unit ${movedUuid.slice(0, 8)} → ${targetLoc} (room ${roomId.slice(0, 8)}, from ${oldParent ? oldParent.slice(13, 21) : 'root'})`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: movedUuid, action: 'reparented' }));
