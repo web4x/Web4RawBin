@@ -4,9 +4,11 @@
     "uuid": "ff9ed585-a928-46aa-b9ea-3f68c899f208",
     "altId": "R40.106",
     "name": "One DnD: every folder is a drop target, a drop places a LINK to the one stored unit; REMOVE unlinks, DELETE (red) removes the unit + all links",
-    "description": "Tron design statement 2026-09-06 (verbatim): 'one DND for all folders as dropTargets everywhere. dropping something in either places a link to the centralized storage scenario unit always... no matter if file, image, task, modelElement or whatever oop object. we also need a remove button on every file in the action bar and a delete button that is red and really removes from the index and removes all links... (dangerous)'. THE MODEL: (1) EVERY FOLDER EVERYWHERE is a drop target via ONE contract, no per-surface variants (room files / model tree / diagrams / traceability). (2) A DROP places a LINK to the ONE centralized storage unit — ALWAYS, never a copy — for ANY OOP object (file/image/task/modelElement/requirement/whatever). One unit, many links = identity by reference (same law as the one-store root R40.81). (3) REMOVE (on every file in the action bar) unlinks THIS link only; the unit + its other links survive. (4) DELETE (RED, DANGEROUS) really removes the unit FROM THE INDEX and removes ALL its links everywhere.",
+    "description": "Tron design statement 2026-09-06 (verbatim): 'one DND for all folders as dropTargets everywhere. dropping something in either places a link to the centralized storage scenario unit always... no matter if file, image, task, modelElement or whatever oop object. we also need a remove button on every file in the action bar and a delete button that is red and really removes from the index and removes all links... (dangerous)'. THE MODEL: (1) EVERY FOLDER EVERYWHERE is a drop target via ONE contract, no per-surface variants (room files / model tree / diagrams / traceability). (2) A DROP places a LINK to the ONE centralized storage unit \u2014 ALWAYS, never a copy \u2014 for ANY OOP object (file/image/task/modelElement/requirement/whatever). One unit, many links = identity by reference (same law as the one-store root R40.81). (3) REMOVE (on every file in the action bar) unlinks THIS link only; the unit + its other links survive. (4) DELETE (RED, DANGEROUS) really removes the unit FROM THE INDEX and removes ALL its links everywhere.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6de13bb2-2ee5-4f41-9a1f-a5fd335b3f30"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:4062b06d-2a38-4552-b3a7-5ef9458f50a0"
@@ -37,7 +39,7 @@
       {
         "id": "AC-drop-any-kind-creates-a-link-not-copy",
         "group": "drop/link",
-        "text": "LINK is the PRIMITIVE (=drop, Tron 'places a link ALWAYS'): a drop ADDS ONE EDGE (a container children[] ref) — never a copy, and it NEVER mutates the unit body. A unit in N containers = N edges. ASSERT: after 2 drops of the same unit into 2 folders, the same uuid appears in both + the unit body is BYTE-IDENTICAL (0 new stored units).",
+        "text": "LINK is the PRIMITIVE (=drop, Tron 'places a link ALWAYS'): a drop ADDS ONE EDGE (a container children[] ref) \u2014 never a copy, and it NEVER mutates the unit body. A unit in N containers = N edges. ASSERT: after 2 drops of the same unit into 2 folders, the same uuid appears in both + the unit body is BYTE-IDENTICAL (0 new stored units).",
         "gateRef": {
           "kind": "test",
           "ref": "link-primitive edge-count",
@@ -92,7 +94,7 @@
       {
         "id": "AC-every-folder-everywhere-one-contract",
         "group": "fleet/one-contract",
-        "text": "EVERY folder EVERYWHERE is a drop target via the ONE shared drop contract (R37.20) — NO per-surface variants: room files, /model tree, diagrams, traceability all use the same contract for drop/link/remove/delete.",
+        "text": "EVERY folder EVERYWHERE is a drop target via the ONE shared drop contract (R37.20) \u2014 NO per-surface variants: room files, /model tree, diagrams, traceability all use the same contract for drop/link/remove/delete.",
         "gateRef": {
           "kind": "test",
           "ref": "lint fleet-wide drop-target (ties R37.20 AC-shared-contract)",
@@ -103,7 +105,7 @@
       {
         "id": "AC-registered-per-class-zero-central-switch",
         "group": "dry/open-closed",
-        "text": "Drop-as-link + remove + delete are registered PER CLASS, so a NEW object kind gains ALL of it with ZERO central-switch edits — both open-set and closed-set lints stay 0 (no if/switch enumerating object kinds for drop/link/remove/delete).",
+        "text": "Drop-as-link + remove + delete are registered PER CLASS, so a NEW object kind gains ALL of it with ZERO central-switch edits \u2014 both open-set and closed-set lints stay 0 (no if/switch enumerating object kinds for drop/link/remove/delete).",
         "gateRef": {
           "kind": "test",
           "ref": "lint no-central-switch (drop/link/remove/delete)",
@@ -114,7 +116,7 @@
       {
         "id": "AC-containment-is-edges-not-parentfolder",
         "group": "containment/edges",
-        "text": "Containment is the many-to-many EDGE set (container children[] refs) — the SINGLE truth. parentFolder (singular) is RETIRED as a containment source; containment DERIVES from edges, never from a singular parentFolder field.",
+        "text": "Containment is the many-to-many EDGE set (container children[] refs) \u2014 the SINGLE truth. parentFolder (singular) is RETIRED as a containment source; containment DERIVES from edges, never from a singular parentFolder field.",
         "gateRef": {
           "kind": "test",
           "ref": "lint containment-from-edges",
@@ -136,7 +138,7 @@
       {
         "id": "AC-containment-migration-transparent-differential",
         "group": "migration/two-differentials",
-        "text": "SAFE TRANSITION, TWO DIFFERENTIALS (architect CORRECTED render-measurement 9a0be1577 — all 30 parentFolder targets are ROOMS, membership markers, not sub-folder pointers): (a) TRANSPARENCY 0-delta on the ~6893 edge-based units AND the 25 redundant-parentFolder units (parentFolder==own room + already in files[] -> render at root CORRECTLY; retire changes NOTHING); any delta on these => RED. (b) FIX differential on the 5 units (parentFolder=room 3231db71 but NOT in its files[] = INVISIBLE): 4 restored to room 3231db71 fileUnits (invisible->visible) + 1 junk (about:blank#blocked) DELETED; per-uuid; a 0-delta on a real invisible OR a change to any of the 25 OR a 6th unit => RED. parentFolder retired only after both pass; git pre-image first. (CORRECTED from the earlier 25+5 assumption — the 25 are NOT a defect.)",
+        "text": "SAFE TRANSITION, TWO DIFFERENTIALS (architect CORRECTED render-measurement 9a0be1577 \u2014 all 30 parentFolder targets are ROOMS, membership markers, not sub-folder pointers): (a) TRANSPARENCY 0-delta on the ~6893 edge-based units AND the 25 redundant-parentFolder units (parentFolder==own room + already in files[] -> render at root CORRECTLY; retire changes NOTHING); any delta on these => RED. (b) FIX differential on the 5 units (parentFolder=room 3231db71 but NOT in its files[] = INVISIBLE): 4 restored to room 3231db71 fileUnits (invisible->visible) + 1 junk (about:blank#blocked) DELETED; per-uuid; a 0-delta on a real invisible OR a change to any of the 25 OR a 6th unit => RED. parentFolder retired only after both pass; git pre-image first. (CORRECTED from the earlier 25+5 assumption \u2014 the 25 are NOT a defect.)",
         "gateRef": {
           "kind": "test",
           "ref": "two-differential (transparency 6893 + fix 30)",
