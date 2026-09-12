@@ -6,6 +6,7 @@
     "slug": "move-remove-identity-to-device-enroll",
     "description": "Move the red Remove-Local-Identity button + handler (ProfileEditor L68/L154 impl 25884b0c) to DeviceEnrollDialog. Same logic, different host component. Remove from ProfileEditor gate-mode template.",
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — ACCEPT-READY, tester GREEN on served v0.8.214 (76-audit): 'Remove Local Identity' (id de-remove-identity) re-homed to DeviceEnrollDialog.ts:41 (+ removeLocalIdentity impl); ProfileEditor.ts = 0 refs = cleanly re-homed as claimed. Machine-verified, nothing waiting on us.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:bd9bb433-8955-4788-a785-d8add91897cb"

@@ -6,6 +6,7 @@
     "slug": "iframe-pinch-zoom-scale-preview-content",
     "description": "Wrap iframe in .preview-zoom-container with touch-action:none. 2-touch → capture initialPinchDist, compute scale = currentScale * (newDist/initialDist), clamp [0.25,4], apply transform:scale on iframe. No snap-back. Single-touch pan preserved.",
     "status": "QA Review",
+    "waitingOn": "⚠ REQUIREMENT-DRIFT (tester-measured on served v0.8.214, 76-audit) — NOT accept-verbatim. The CAPABILITY holds (pinch-zoom the preview) but the row's SPECIFICS drifted: the 'IFRAME pinch-zoom' path was RETIRED at R21.9/v0.6.74 (content-preview.ts:5) -> ALL preview surfaces now use RbPanZoom (not an iframe); bounds read [0.25, 8] (RbPanZoom MIN=0.25 matches the floor; MAX=8) not '0.25-4x'. Flagged req to UPDATE the covering req b6ad2bdd to built reality (RbPanZoom, MIN 0.25, confirm MAX). Closing AC = a real 2-finger PINCH device-touch check (headless-INCONCLUSIVE). Distinct closure class: not stale-false (feature works), not retire (capability exists), not subsume (same task, re-implemented) = capability-holds/req-specifics-drifted.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:b6ad2bdd-f0f4-4b53-a711-46fed46dfc06"
