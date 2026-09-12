@@ -49,13 +49,29 @@ try {
     const appearances = (has(afterRoot, F) ? 1 : 0) + (has(folderChildren, F) ? 1 : 0);
     const noDouble = appearances === 1;                                  // no double-appearance / no orphan
     const zeroFetch = (fedFetches.length - fedBefore) === 0;              // (3) local edge move triggers NO federation/proxy fetch
-    // (2) NATIVE file dropped on the folder NESTS inside it (upload with parent=folderLoc)
-    const B2 = '----nn'; const G = await page.request.post(`${BASE}/api/room/${ROOM}/upload`, { headers: { 'content-type': `multipart/form-data; boundary=${B2}` }, data: Buffer.concat([Buffer.from(`--${B2}\r\nContent-Disposition: form-data; name="playerToken"\r\n\r\n${SYS}\r\n--${B2}\r\nContent-Disposition: form-data; name="parent"\r\n\r\n${folderLoc}\r\n--${B2}\r\nContent-Disposition: form-data; name="file"; filename="nn-${process.pid}-${i}.bin"\r\nContent-Type: application/octet-stream\r\n\r\n`, 'utf8'), Buffer.from('native-nest-' + i), Buffer.from(`\r\n--${B2}--\r\n`, 'utf8')]) }).then(r => r.json()).then(j => j.uuid || '').catch(() => '');
+    // (2) NATIVE file dropped on the folder NESTS inside it (upload with parent=folderLoc). HARDENED (instrument):
+    //   old check `!!G && has(children(folderLoc),G) && !has(children(rootRef),G)` FALSE-RED'd on a working product —
+    //   the inline `.then(j=>j.uuid||'').catch(()=>'')` swallowed a raced empty uuid → !!G tripped. FIX: obtain the uuid
+    //   RELIABLY (surface a real upload failure, never silent), and assert the nest from DATA — the file's OWN location —
+    //   not the race-prone location-derived tree (same lesson as the additive-link data-side resolution).
+    const B2 = '----nn';
+    const gResp = await page.request.post(`${BASE}/api/room/${ROOM}/upload`, { headers: { 'content-type': `multipart/form-data; boundary=${B2}` }, data: Buffer.concat([Buffer.from(`--${B2}\r\nContent-Disposition: form-data; name="playerToken"\r\n\r\n${SYS}\r\n--${B2}\r\nContent-Disposition: form-data; name="parent"\r\n\r\n${folderLoc}\r\n--${B2}\r\nContent-Disposition: form-data; name="file"; filename="nn-${process.pid}-${i}.bin"\r\nContent-Type: application/octet-stream\r\n\r\n`, 'utf8'), Buffer.from('native-nest-' + process.pid + '-' + i), Buffer.from(`\r\n--${B2}--\r\n`, 'utf8')]) });
+    const G = (await gResp.json().catch(() => ({}))).uuid || '';
+    const nativeUploadOk = gResp.status() === 200 && !!G;                 // a real upload failure is surfaced, NOT read as not-nested
+    await sleep(1500);
+    const gLoc = nativeUploadOk ? String((await getModel(G)).location || '') : '';
+    const nestedByData = new RegExp(folderName).test(gLoc);              // data-side: the file's OWN location is under the folder (no tree-derive race)
+    // FAILABLE-BOTH-WAYS control: a file uploaded to ROOT (no parent) MUST read NOT-nested — if it read nested, the predicate can't fail.
+    const B3 = '----nc';
+    const cResp = await page.request.post(`${BASE}/api/room/${ROOM}/upload`, { headers: { 'content-type': `multipart/form-data; boundary=${B3}` }, data: Buffer.concat([Buffer.from(`--${B3}\r\nContent-Disposition: form-data; name="playerToken"\r\n\r\n${SYS}\r\n--${B3}\r\nContent-Disposition: form-data; name="file"; filename="nc-${process.pid}-${i}.bin"\r\nContent-Type: application/octet-stream\r\n\r\n`, 'utf8'), Buffer.from('nest-control-' + process.pid + '-' + i), Buffer.from(`\r\n--${B3}--\r\n`, 'utf8')]) });
+    const ctrl = (await cResp.json().catch(() => ({}))).uuid || '';
     await sleep(1200);
-    const nativeNests = !!G && has(await children(folderLoc), G) && !has(await children(rootRef), G);
+    const ctrlLoc = ctrl ? String((await getModel(ctrl)).location || '') : '';
+    const controlNotNested = !new RegExp(folderName).test(ctrlLoc);      // root file → predicate correctly FALSE = the check CAN go RED
+    const nativeNests = nativeUploadOk && nestedByData && controlNotNested; // GREEN needs nested→true AND a root control→false (failable both ways)
     const pass = mv.status() === 200 && inRootBefore && inTarget && goneFromRoot && noDouble && zeroFetch && nativeNests;
     runs.push({ i, F: F.slice(0, 8), pass });
-    console.log(`run ${i}: F=${F.slice(0,8)} mv=${mv.status()} | (1)in-target=${inTarget}+gone-root=${goneFromRoot} no-double=${noDouble} (3)zero-fetch=${zeroFetch} (2)native-nests=${nativeNests} (4)renderable=${inTarget} => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`run ${i}: F=${F.slice(0,8)} mv=${mv.status()} | (1)in-target=${inTarget}+gone-root=${goneFromRoot} no-double=${noDouble} (3)zero-fetch=${zeroFetch} (2)native-nests=${nativeNests}[upOk=${nativeUploadOk} nestedByData=${nestedByData} ctrl-not-nested=${controlNotNested}] (4)renderable=${inTarget} => ${pass ? 'GREEN' : 'RED'}`);
     await page.request.post(`${BASE}/api/room/${ROOM}/move-unit`, { headers: { 'content-type': 'application/json' }, data: { unit: F, target: rootRef, playerToken: SYS } }); // cleanup: back to root
   }
 } finally { await browser.close(); }
