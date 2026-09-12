@@ -29,6 +29,11 @@ Give every physically-located room unit a `children[]` edge from its containing 
 When the drain-check reads **0 folder-nested location-only units**, pure-edge render goes on + `location` demotes to storage.
 Until then the UNION stands. A standing >0 with no active drain = the two-source cache rotting → re-raise.
 
+★ DRAIN-CHECK = REUSE the tester's COMMITTED membership-filter probe (`r40106-fixa-zero-vanished-probe`), do NOT fork a second
+scan. Only a LIVE room MEMBER (a unit in a room's `files[]`) counts as at-risk — a removed unit with a stale `model.location`
+must NOT re-derive as a disappearance risk. That un-filtered miss is exactly what produced the phantom "4" and nearly sent us
+to the wrong render model. One filter, from the one committed probe, and the phantom cannot come back.
+
 ## OWNERS / NEXT
 - Backfill migration + drain-check gate: expert, with the parentFolder-retire (INC-4a) work.
 - Formalize as a sprint task: flag to robbin-planner/req to mint the R40.106-endstate task (this note = the durable board + baseline until then).
