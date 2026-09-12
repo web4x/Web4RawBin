@@ -5,9 +5,7 @@
     "name": "BiteRefHolder-151272",
     "kind": "folder",
     "location": "roomcoll:909f1bd6-1f97-4542-b02b-242cfcc41f5e:files/BiteRefHolder-151272",
-    "children": [
-      "ior:instance:7a6d866c-b1c8-428b-920e-a9f23aa5c01f"
-    ],
+    "children": [],
     "parent": null,
     "unitLinks": [
       "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/909f1bd6-1f97-4542-b02b-242cfcc41f5e/files/f8857dac-4f70-427f-9013-14870cac73d4.scenario.json"
