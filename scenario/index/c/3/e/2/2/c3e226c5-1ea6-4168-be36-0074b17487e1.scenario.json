@@ -16,7 +16,8 @@
     ],
     "kind": "image",
     "parent": null,
-    "location": "roomcoll:a16262b8-337c-41b5-b2c8-1a298efa7b6c:files/uuid=0CE65624-9F99-4E6D-944D-0A4D3CB3FCE4&code=001&library=1&type=1&mode=1&loc=true&cap=true.jpeg"
+    "location": "roomcoll:a16262b8-337c-41b5-b2c8-1a298efa7b6c:files/uuid=0CE65624-9F99-4E6D-944D-0A4D3CB3FCE4&code=001&library=1&type=1&mode=1&loc=true&cap=true.jpeg",
+    "protected": true
   },
   "ownerIor": "ior:instance:a16262b8-337c-41b5-b2c8-1a298efa7b6c"
 }

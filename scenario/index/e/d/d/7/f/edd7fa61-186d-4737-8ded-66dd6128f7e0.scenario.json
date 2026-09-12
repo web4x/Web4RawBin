@@ -37,7 +37,8 @@
     "sourceFile": "scenario/index/e/d/d/7/f/edd7fa61-186d-4737-8ded-66dd6128f7e0.scenario.json",
     "unitLinks": [
       "sprints.json/rooms/c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6/edd7fa61-186d-4737-8ded-66dd6128f7e0.json"
-    ]
+    ],
+    "protected": true
   },
   "ownerIor": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6"
 }

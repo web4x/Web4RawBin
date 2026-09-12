@@ -100,6 +100,7 @@ export class Room {
 
   members: Map<string, RoomMember> = new Map();
   fileUnits: Set<string> = new Set();
+  deleted = false; // R40.106 INC-7b: set true at DELETE_ROOM start → persist() early-returns so teardown (member-leave / removeRoom) cannot RE-CREATE the scenario Room unit the composite just deleted (bite-3/4 resurrection root, architect diagnosis)
 
   // Room.resolveToken — collapse consolidated (redirectTo) members to PRIMARY.
   // server.ts injects the profile redirect resolver at startup; default identity (no profiles in tests).
@@ -385,6 +386,7 @@ export class Room {
   // --- Persistence ---
 
   private persist(): void {
+    if (this.deleted) return; // R40.106 INC-7b: a deleted room NEVER re-persists — else a teardown persist resurrects the composite-deleted scenario unit (order-independent guard)
     // T99: legacy data/rooms write REMOVED — rooms persist ONLY to the per-user/UUID dir.
     if (this.creatorToken) {
       try {

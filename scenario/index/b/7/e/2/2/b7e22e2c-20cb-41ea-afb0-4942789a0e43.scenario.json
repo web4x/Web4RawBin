@@ -10,6 +10,7 @@
     "collectionKind": "files",
     "virtual": true,
     "parent": null,
-    "children": []
+    "children": [],
+    "protected": true
   }
 }
