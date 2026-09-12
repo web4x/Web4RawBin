@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Folder",
+  "model": {
+    "uuid": "ecb7d598-2995-4d87-9a4b-ada05ad9b127",
+    "name": "BiteRefHolder-463451",
+    "kind": "folder",
+    "location": "roomcoll:909f1bd6-1f97-4542-b02b-242cfcc41f5e:files/BiteRefHolder-463451",
+    "children": [
+      "ior:instance:71d59006-0b1d-4307-b152-e470e7d19d39"
+    ],
+    "parent": null,
+    "unitLinks": [
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/909f1bd6-1f97-4542-b02b-242cfcc41f5e/files/ecb7d598-2995-4d87-9a4b-ada05ad9b127.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:909f1bd6-1f97-4542-b02b-242cfcc41f5e"
+}
