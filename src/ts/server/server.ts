@@ -1459,10 +1459,18 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
   const selfFolder = nrel ? roomFolderByLocation(rmodel, currentPrefix, idx) : null;
   const nodeRef = selfFolder ? `ior:instance:${String(selfFolder.model.uuid)}` : '';
   // R40.86: a folder's hasChildren counts DIRECT children of BOTH kinds (folder + file) by location, so a folder holding only files shows a chevron.
-  const directChildCount = (prefix: string): number => units.filter((x) => { const l = typeof x.m.location === 'string' ? (x.m.location as string) : ''; const cd = l ? l.slice(0, l.lastIndexOf('/')) : rootPrefix; return cd === prefix; }).length;
+  // R40.106 INC-6 (scope B, architect bar #3): a folder's direct-child COUNT derives from its children[] EDGES — the SAME
+  // source as the nested render below — NOT location. So count==render holds when a true edge-only N-link is added (a link
+  // touches only the edge, never location); location-based counting would leave the chevron at N while the folder renders
+  // N+1 = the R37.3 view-disagreement (count is part of the view, must derive from the edge set the children render from).
+  const directChildCount = (folderLoc: string): number => { const fu = units.find((x) => x.ior === 'ior:class:Folder' && String(x.m.location || '') === folderLoc); const ch = fu ? (fu.m as Record<string, unknown>).children : null; return Array.isArray(ch) ? ch.length : 0; };
   const kids: Array<Record<string, unknown>> = [];
-  const emitted = new Set<string>(); // R40.106 FIX-A: track emitted unit uuids for the edge-union DEDUP below (render ONCE)
-  for (const x of units) {
+  const emitted = new Set<string>(); // R40.106 FIX-A→INC-6: at root this still tracks emitted uuids; nested no longer location-emits (edge loop is the sole source)
+  // R40.106 INC-6 (pure-edge, architect bar #4): LOCATION-based emission is ROOT-ONLY now — root membership = room.fileUnits
+  // (no children[] edge set), so top-level items still derive by location. A NESTED folder (selfFolder set) renders PURELY
+  // from its children[] EDGES (the edge loop below) — the FIX-A location∪edge union retires to a single edge source for
+  // nested (strand=0 IS the drain-check that the two-source debt is paid). if(!selfFolder) gates ONLY the nested path → root byte-identical.
+  if (!selfFolder) for (const x of units) {
     if (x.ior === 'ior:class:Folder') {
       const loc = String(x.m.location || '');
       if (loc.startsWith(currentPrefix + '/') && !loc.slice(currentPrefix.length + 1).includes('/')) { // a DIRECT child folder of the current node (by model location)
