@@ -12,3 +12,17 @@ The 6 units (disk): `8a11f62d mv-1711524-1.bin · ced85458 mv-1711524-2.bin · 9
 
 ## GATE CONSTRAINT for the fix (PO, both directions — AC4 "never empty" passed while WRONG because a wrong answer is non-empty)
 The new gate MUST assert: (1) the rendered label === model.name WHEN a name exists; (2) the uuid-fallback fires ONLY on genuine absence of name. A one-directional "never empty" cannot catch a fallback firing wrongly.
+
+## CLIENT LOCUS PINNED + FIX SPEC (measured)
+The caller feeds File.renderSelf a NARROWER name source than every other type — a name-vs-title asymmetry:
+- IMAGE/other path (rb-object-item.ts:228): `rawName = getAttribute('name') || getAttribute('title') || '(untitled)'` — resolves name OR title.
+- FILE path (rb-object-item.ts:239): `new File({ uuid, name: this.getAttribute('name') || '' })` — reads ONLY `name`, NOT title.
+- The client/tree delivers the display name via `title` for many nodes (rb-trace-tree.ts:255 `title: child.name`; RoomView picker :419 `title: t.name`; a conditional title→name copy at rb-trace-tree.ts:510 runs for some nodes but MISSES these 6). So a File node whose name arrived via `title` (no name-copy) → `getAttribute('name')===''` → File.renderSelf → `displayName()` → uuid. Image survives on title alone; File does NOT → File-render-path-specific, exactly the discriminator.
+
+### FIX (caller resolves name consistently; File class + displayName UNCHANGED — the caller/adapter does DOM resolution, File takes the model = MVC-clean):
+`rb-object-item.ts:239` → `new File({ uuid, name: this.getAttribute('name') || this.getAttribute('title') || '' }).renderSelf()` — feed File the SAME resolved name the image path uses (name||title). Then a name-via-title File renders its name; the uuid-fallback (File.displayName) fires ONLY when BOTH name and title are genuinely absent. NOT a mask: it makes File's name-resolution match the system convention (name||title) that File uniquely broke. file.ts UNTOUCHED (Tron). No server/snapshot change (snapshot already carries the name).
+
+### GATE (both directions — PO):
+- Seed the 6 (or a fresh moved File with model.name + title-delivered): assert rendered label === model.name (NOT the uuid). 
+- Assert uuid-fallback fires ONLY on genuine absence: a File with neither name nor title → uuid (the only uuid case).
+- stub-must-fail: revert the :239 fix (name-only) → the moved/title-fed File renders uuid → RED. (The old AC4 'never empty' passed while wrong — this gate is directional: label===name when name exists.)
