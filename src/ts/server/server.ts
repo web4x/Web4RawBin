@@ -183,6 +183,9 @@ const LOG_LEVEL = envVars['LOG_LEVEL'] || 'info';
 const MAX_ROOMS = parseInt(envVars['MAX_ROOMS'] || '100');
 const IS_PRODUCTION = envVars['NODE_ENV'] === 'production' || process.env.NODE_ENV === 'production';
 const BASE_DOMAIN = envVars['BASE_DOMAIN'] || '';
+// Sprint 41: this server's canonical origin for the class-composed fully-qualified IOR (ior:class:<Class>:rest:<origin>/scenario/<uuid>).
+// Empty when BASE_DOMAIN is unset (dev/test) → createFileUnit skips selfIor (legacy bare create, zero-migration); set in prod → new File/Folder units mint the fully-qualified form.
+const SELF_ORIGIN = BASE_DOMAIN ? `https://${BASE_DOMAIN}:${HTTPS_PORT}` : '';
 const PUBLIC_DIR = path.join(__dirname, '../../public');
 const SELF_SIGNED_DIR = path.join(__dirname, '.certs');
 const LE_DOMAIN = envVars['LE_DOMAIN'] || 'home.donges.it';
@@ -2908,7 +2911,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!dir.ok) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: dir.error })); return; }
           let unit: any;
           try {
-            unit = createFileUnit(idx, { kind: 'folder', name: cleanName, location: `roomcoll:${roomId}:files/${nrel ? nrel + '/' : ''}${cleanName}`, parent: parentIor, roomUuid: roomId, uploaderToken: creatorToken, fsKey }, publishUnitChanged); // THE ONE become-a-room-unit path (same as a file)
+            unit = createFileUnit(idx, { kind: 'folder', name: cleanName, origin: SELF_ORIGIN, location: `roomcoll:${roomId}:files/${nrel ? nrel + '/' : ''}${cleanName}`, parent: parentIor, roomUuid: roomId, uploaderToken: creatorToken, fsKey }, publishUnitChanged); // THE ONE become-a-room-unit path (same as a file)
           } catch (e: any) {
             try { fsSync.rmdirSync(dir.absPath!); } catch { /* both-or-neither: undo the owner's mkdir if the mint failed */ }
             res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: `mint-failed: ${e?.message || e}` })); return;
@@ -3155,7 +3158,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               }
             }
             const jdrop = resolveDropContainer(jparentRef, roomId, jidx); // room-root default; folder ref → nest
-            if (!junit) junit = createFileUnit(jidx, { name: dec.name, content: dec.content, mimeType: dec.mimeType, uploaderToken: jpt, fsKey: homeKeyFor(jpt, { mint: true }), roomUuid: roomId, uuid: dec.uuid, ...(jdrop.parentIor ? { parent: jdrop.parentIor, location: `${jdrop.folderLocation}/${dec.name}` } : {}) }, publishUnitChanged); // uuid=dec.uuid → idempotent-by-uuid; sha256 dedup makes a re-send a no-op
+            if (!junit) junit = createFileUnit(jidx, { name: dec.name, origin: SELF_ORIGIN, content: dec.content, mimeType: dec.mimeType, uploaderToken: jpt, fsKey: homeKeyFor(jpt, { mint: true }), roomUuid: roomId, uuid: dec.uuid, ...(jdrop.parentIor ? { parent: jdrop.parentIor, location: `${jdrop.folderLocation}/${dec.name}` } : {}) }, publishUnitChanged); // uuid=dec.uuid → idempotent-by-uuid; sha256 dedup makes a re-send a no-op
             const jFileUuid = (junit.model as any).uuid;
             // T37.20 DEFECT-2: stamp the natural class the Factory chose (Image/Email/Contact/CalendarEntry) so the unit
             // instantiates + renders AS its class (WebItem set its own ior above; File = fallback, already ior:class:File).
@@ -3247,7 +3250,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const dropc = resolveDropContainer(parentRef, roomId, idx); // R40.86 unification: ONE resolver — room-root is the DEFAULT container (no caller-side if(parentRef)else fork); folder ref → nest, anything else → root
           const parentIor = dropc.parentIor; const parentPublishRef = dropc.publishRef;
           if (parentRef && !parentIor) addLog(`[upload] parent ${parentRef.slice(0, 24)} not a room folder in ${roomId.slice(0, 8)} → file lands at Files root`);
-          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId, ...(parentIor ? { parent: parentIor, location: `${dropc.folderLocation}/${fileName}` } : {}) }, publishUnitChanged); // R40.86: parent+location when the container is a folder; room-root → neither (behaviour-preserving vs R40.85). STILL ONE createFileUnit — no double-mint.
+          if (!unit) unit = createFileUnit(idx, { name: fileName, origin: SELF_ORIGIN, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId, ...(parentIor ? { parent: parentIor, location: `${dropc.folderLocation}/${fileName}` } : {}) }, publishUnitChanged); // R40.86: parent+location when the container is a folder; room-root → neither (behaviour-preserving vs R40.85). STILL ONE createFileUnit — no double-mint.
           const fileUuid = (unit.model as any).uuid;
           // T37.20 DEFECT-2: stamp the natural class the Factory chose (Image/Email/Contact/CalendarEntry) so the unit
           // instantiates + renders AS its class (WebItem set its own ior above; File = fallback, already ior:class:File).
