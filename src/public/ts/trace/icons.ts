@@ -48,7 +48,6 @@ export const TRACE_ICONS: Record<string, string> = {
   'mof-project': svg('<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>'),
 };
 
-// [impl:uuid:199105f8-6fe9-40c5-a580-8b8a524e7909] FILE_TOKEN_ICONS token→SVG adapter.
 // Sprint 41 T41.1 (inc-4 adapter) — the THIN VIEW adapter for the /model unit tree: maps a File's SEMANTIC icon TOKEN
 // (File.renderSelf().iconToken — what the file IS) → an SVG glyph (how it looks HERE), consistent with the SVG siblings.
 // The File class owns the category; this map owns the glyph. Every FileIconToken has an entry (total → never blank).
@@ -62,3 +61,10 @@ export const FILE_TOKEN_ICONS: Record<FileIconToken, string> = {
   data: svg('<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>'),
   generic: svg('<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>'),
 };
+
+// [impl:uuid:199105f8-6fe9-40c5-a580-8b8a524e7909] fileIconGlyph — the /model VIEW adapter as BEHAVIOUR (not a raw const
+// table a caller could index past the guarantee): token IN → SVG glyph OUT, unknown → the 'generic' glyph, NEVER blank.
+// Surface-side ONLY (the glyph never touches the File Model — File owns the category token; the adapter owns the glyph).
+export function fileIconGlyph(token: FileIconToken): string {
+  return FILE_TOKEN_ICONS[token] || FILE_TOKEN_ICONS.generic;
+}

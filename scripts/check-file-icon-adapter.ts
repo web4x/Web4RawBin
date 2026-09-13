@@ -5,7 +5,7 @@
  * that it is a glyph adapter (SVG), not the model. A missing token = a blank icon on Tron's tree = a regression.
  * stub-must-fail: drop a token entry / return '' → this gate exits 1 (RED).
  */
-import { FILE_TOKEN_ICONS } from '../src/public/ts/trace/icons.js';
+import { FILE_TOKEN_ICONS, fileIconGlyph } from '../src/public/ts/trace/icons.js';
 
 const fail = (m: string): never => { console.error(`✗ ${m}`); process.exit(1); };
 // The File vocabulary (must match src/ts/scenario/file.ts FileIconToken) — the adapter must cover EVERY category.
@@ -20,4 +20,9 @@ for (const token of VOCAB) {
 const keys = Object.keys(FILE_TOKEN_ICONS).sort();
 if (keys.join(',') !== [...VOCAB].sort().join(',')) fail(`FILE_TOKEN_ICONS keys [${keys}] must equal the File vocabulary [${[...VOCAB].sort()}] exactly (no gaps, no drift).`);
 
-console.log(`✓ Sprint 41 T41.1 inc-4 adapter: FILE_TOKEN_ICONS is total over {${VOCAB.join(',')}} — every category → a non-empty SVG (never blank), no drift.`);
+// fileIconGlyph() is the BEHAVIOUR that OWNS the never-blank guarantee (a raw map lets a caller index past it): token
+// in → SVG out, and an out-of-vocabulary token → the 'generic' glyph, NEVER blank/undefined.
+for (const token of VOCAB) { const g = fileIconGlyph(token); if (!g || !/^<svg/.test(g)) fail(`fileIconGlyph('${token}') must return an SVG.`); }
+if (fileIconGlyph('nonsense-token' as never) !== FILE_TOKEN_ICONS.generic) fail('fileIconGlyph(unknown) must fall back to the generic glyph — never blank (the guarantee a raw map cannot make).');
+
+console.log(`✓ Sprint 41 T41.1 inc-4 adapter: fileIconGlyph() owns token→SVG over {${VOCAB.join(',')}} + unknown→generic (never blank); FILE_TOKEN_ICONS total, no drift.`);

@@ -27,7 +27,7 @@
  */
 import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
-import { TRACE_ICONS, FILE_TOKEN_ICONS } from './icons.js';
+import { TRACE_ICONS, fileIconGlyph } from './icons.js';
 import { File } from '../../../ts/scenario/file.js'; // Sprint 41 T41.1 inc-4b: ask the File object to render itself
 import { selectionModel } from './selection-model.js';
 import { dropDispatcher } from '../drop-dispatcher.js'; // T26.2: application/rb-federated-ref builder
@@ -237,7 +237,7 @@ export class RbObjectItem extends HTMLElement {
     let icon: string;
     if (type === 'file') {
       const vm = new File({ uuid, name: this.getAttribute('name') || '' }).renderSelf();
-      icon = FILE_TOKEN_ICONS[vm.iconToken];
+      icon = fileIconGlyph(vm.iconToken); // adapter maps the File's token → SVG (never blank); glyph stays surface-side
       name = vm.name; // uuid fallback, never an empty label
     } else {
       icon = TRACE_ICONS[type] || '•';

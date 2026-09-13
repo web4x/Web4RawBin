@@ -18,6 +18,6 @@ if (!('image' in FILE_TOKEN_ICONS) || !('generic' in FILE_TOKEN_ICONS)) fail('FI
 const src = readFileSync(new URL('../src/public/ts/trace/rb-object-item.ts', import.meta.url), 'utf-8');
 if (!/type === 'file'/.test(src)) fail('rb-object-item must special-case file-type to ask the File object.');
 if (!/new File\(/.test(src) || !/\.renderSelf\(\)/.test(src)) fail('rb-object-item must ask File.renderSelf() for a file node (ask-the-object).');
-if (!/FILE_TOKEN_ICONS\[/.test(src)) fail('rb-object-item must map the File token via FILE_TOKEN_ICONS (the /model glyph adapter).');
+if (!/fileIconGlyph\(/.test(src)) fail('rb-object-item must map the File token via fileIconGlyph() (the /model glyph adapter METHOD, not a raw map index).');
 
 console.log('✓ Sprint 41 T41.1 inc-4b (wiring lock): rb-object-item asks File.renderSelf → FILE_TOKEN_ICONS for file nodes; TRACE_ICONS.file deleted (no dormant map). RENDER proved separately by screenshot.');
