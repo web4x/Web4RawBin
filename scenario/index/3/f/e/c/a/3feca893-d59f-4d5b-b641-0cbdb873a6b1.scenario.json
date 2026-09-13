@@ -14,6 +14,10 @@
       "ior:instance:aa84b7eb-7688-4a43-8ce7-029e8f137911",
       "ior:instance:1c68c169-d599-4a9c-96f0-9302c1f1c8ad"
     ],
-    "unitLinks": []
+    "unitLinks": [],
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006"
+    ],
+    "memberOf": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db"
   }
 }

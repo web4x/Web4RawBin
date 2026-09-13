@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "model": {
+    "uuid": "112166ee-964f-4b05-a077-29fe0f78b40a",
+    "name": "File.displayName",
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "description": "Returns the File's display name (computes the FileViewModel.name). file.ts:57 (private helper of renderSelf). Distinct file.ts method (verified vs the view-model name field per architect).",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006"
+    ],
+    "memberOf": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "derivedFrom": "file.ts (TsToModel; the metamodel REFERENCES this chain Method, no parallel UmlMethod unit per architect ruling)",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

@@ -13,6 +13,10 @@
     "tests": [
       "ior:instance:f22f164f-8c18-4819-9be7-cde87cbc39d5"
     ],
-    "unitLinks": []
+    "unitLinks": [],
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006"
+    ],
+    "memberOf": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db"
   }
 }

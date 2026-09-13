@@ -13,7 +13,9 @@
       "ior:instance:3500d960-d49b-43e6-81a9-0f12ddacb272",
       "ior:instance:8d5a11e6-a5c0-4237-a218-afbe19699bf6",
       "ior:instance:a1081953-ffd3-4f5b-994e-dc908d5ad29d",
-      "ior:instance:0067401b-6b47-4dee-a218-2d71000b79a3"
+      "ior:instance:0067401b-6b47-4dee-a218-2d71000b79a3",
+      "ior:instance:9576dde5-a36b-4b4f-9630-62dd23bb4b6a",
+      "ior:instance:112166ee-964f-4b05-a077-29fe0f78b40a"
     ],
     "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
     "description": "Clean-create radical-OOP M1 File class (Tron zero-migration, S41). A FILE IS a File; instances are M0 File-class objects resolved through this class, ref'd by fully-qualified IOR, owned (never null), carried whole through DnD. Behaviour not data-bag (has methods).",
@@ -29,6 +31,14 @@
       "ior:instance:15f10982-05ea-4191-8115-a7a4dde2d5b6",
       "ior:instance:4195cfef-4ba0-4e08-bbd7-da1bc28c5b3d"
     ],
-    "umlMethodNote": "UmlMethod x5 (ownIor/renderSelf/moveTo/displayName/iconToken): the CHAIN Methods exist as ior:class:Method (renderSelf 3feca893/moveTo 3500d960/ownIor 8d5a11e6). OPEN for architect: does the M2 metamodel REFERENCE these existing Methods as its UmlMethod elements, or mint separate ior:class:ModelElement instanceOf UmlMethod-006? Flagged to avoid a dup; displayName/iconToken methods not yet minted as chain Methods."
+    "umlMethodNote": "UmlMethod x5 (ownIor/renderSelf/moveTo/displayName/iconToken): the CHAIN Methods exist as ior:class:Method (renderSelf 3feca893/moveTo 3500d960/ownIor 8d5a11e6). OPEN for architect: does the M2 metamodel REFERENCE these existing Methods as its UmlMethod elements, or mint separate ior:class:ModelElement instanceOf UmlMethod-006? Flagged to avoid a dup; displayName/iconToken methods not yet minted as chain Methods.",
+    "m2DerivedMethodSet": [
+      "File.ownIor(8d5a11e6)",
+      "File.renderSelf(3feca893)",
+      "File.moveTo(3500d960)",
+      "File.displayName(112166ee)",
+      "File.iconToken(9576dde5)"
+    ],
+    "m2MethodNote": "M2 UmlMethod x5 = the file.ts-DERIVED method set, REFERENCED (architect ruling: reference-not-dup; a Method IS-A UmlMethod). \u26a0 FLAG for architect/expert: File.methods[] ALSO holds publishChange a1081953 (R41.3) + openDiagram 0067401b (R41.6) = DESIGNED chain methods NOT YET in file.ts. The re-derive+diff gate must distinguish DERIVED (current TS) from DESIGNED (chain, future) or file.ts gains them \u2014 else the gate flags designed-not-built as drift."
   }
 }
