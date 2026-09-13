@@ -6,6 +6,8 @@
  * [impl:uuid:a4804ee9-eb52-4e03-9bb5-ad618ccfd180] R16.5 square SVG type icons
  */
 
+import type { FileIconToken } from '../../../ts/scenario/file.js'; // Sprint 41 T41.1: the File class owns the CATEGORY token; this ADAPTER owns the glyph.
+
 const svg = (d: string) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 
@@ -43,4 +45,18 @@ export const TRACE_ICONS: Record<string, string> = {
   // R33.1 (S33-P1) MOF-layer folder icons — the /model tree groups by metaLevel (📦 M2 profile / 📁 M1 projects).
   'mof-layer': svg('<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>'),
   'mof-project': svg('<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>'),
+};
+
+// Sprint 41 T41.1 (inc-4 adapter) — the THIN VIEW adapter for the /model unit tree: maps a File's SEMANTIC icon TOKEN
+// (File.renderSelf().iconToken — what the file IS) → an SVG glyph (how it looks HERE), consistent with the SVG siblings.
+// The File class owns the category; this map owns the glyph. Every FileIconToken has an entry (total → never blank).
+export const FILE_TOKEN_ICONS: Record<FileIconToken, string> = {
+  image: svg('<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>'),
+  audio: svg('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'),
+  video: svg('<path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/>'),
+  document: svg('<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>'),
+  archive: svg('<rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/>'),
+  code: svg('<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>'),
+  data: svg('<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>'),
+  generic: svg('<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>'),
 };
