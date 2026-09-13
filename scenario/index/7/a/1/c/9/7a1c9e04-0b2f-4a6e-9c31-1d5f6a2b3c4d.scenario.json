@@ -3,11 +3,12 @@
   "ownerIor": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
   "model": {
     "uuid": "7a1c9e04-0b2f-4a6e-9c31-1d5f6a2b3c4d",
-    "name": "folder.children",
-    "description": "PLACEHOLDER (architect wires class/method on build-go, design scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633)): Folder answers 'children' via its own method (ask-the-object). class + method = null until wired.",
+    "name": "folder.listChildren",
+    "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): Folder lists its children via its own method Folder.children (ask-the-object). intendedMethod=Folder.children. class+method=null until wired.",
     "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
     "class": null,
     "method": null,
-    "unitLinks": []
+    "unitLinks": [],
+    "intendedMethod": "Folder.children"
   }
 }

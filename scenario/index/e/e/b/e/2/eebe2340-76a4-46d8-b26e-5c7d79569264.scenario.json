@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+  "model": {
+    "uuid": "eebe2340-76a4-46d8-b26e-5c7d79569264",
+    "name": "folder.linkChild",
+    "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): answers 'linkChild' via its own method Folder.linkIn (ask-the-object). intendedMethod=Folder.linkIn. class+method=null until wired.",
+    "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+    "intendedMethod": "Folder.linkIn",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}

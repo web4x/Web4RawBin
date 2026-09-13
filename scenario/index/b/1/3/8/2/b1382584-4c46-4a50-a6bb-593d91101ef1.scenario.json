@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+  "model": {
+    "uuid": "b1382584-4c46-4a50-a6bb-593d91101ef1",
+    "name": "folder.unlinkChild",
+    "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): answers 'unlinkChild' via its own method Folder.unlink (ask-the-object). intendedMethod=Folder.unlink. class+method=null until wired.",
+    "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+    "intendedMethod": "Folder.unlink",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}

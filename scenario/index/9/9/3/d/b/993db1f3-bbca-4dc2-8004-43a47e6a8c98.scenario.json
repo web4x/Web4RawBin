@@ -12,6 +12,7 @@
     "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
     "useCases": [
       "ior:instance:59649d58-f4d6-4862-9fee-93eab5055982",
+      "ior:instance:0b09a430-eb28-46d2-a84b-652a63db1de1",
       "ior:instance:812d0e73-bd4b-41df-ad49-860f38ced744"
     ],
     "tasks": [

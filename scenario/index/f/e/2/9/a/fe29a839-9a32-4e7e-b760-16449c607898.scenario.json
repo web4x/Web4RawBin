@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+  "model": {
+    "uuid": "fe29a839-9a32-4e7e-b760-16449c607898",
+    "name": "folder.resolveOwnIor",
+    "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): answers 'resolveOwnIor' via its own method Folder.ownIor (ask-the-object). intendedMethod=Folder.ownIor. class+method=null until wired.",
+    "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+    "intendedMethod": "Folder.ownIor",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}

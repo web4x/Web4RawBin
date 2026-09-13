@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+  "model": {
+    "uuid": "0b09a430-eb28-46d2-a84b-652a63db1de1",
+    "name": "file.moveIntoFolder",
+    "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): answers 'moveIntoFolder' via its own method File.moveTo (ask-the-object). intendedMethod=File.moveTo. class+method=null until wired.",
+    "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+    "intendedMethod": "File.moveTo",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}

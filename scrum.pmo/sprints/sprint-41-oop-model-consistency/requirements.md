@@ -19,6 +19,7 @@
   - [ ] **(126/top-down)** File is delivered TOP-DOWN through the FULL 6-step MDA chain minted BEFORE any code — Requirement -> UseCase -> Class(M1) -> Method -> Implementation -> Test — NO backfill (Rule #126 purest form). Every chain link on disk before File code ships.
   - [ ] **(create/clean-new)** The File class is CREATED CLEAN + NEW — a radical-OOP M1 File class existing for the FIRST time (Tron zero-migration re-scope). It is NOT consolidated/migrated/backfilled from the existing lowercase-'file' ModelElement stubs (35f8f879 / a0df222c / bccba82d (ior:class:ModelElement name 'file', owner null)) — those are LEFT as legacy. The new File is the canonical M1 model going forward.
   -> file.renderSelf [uc:uuid:59649d58-f4d6-4862-9fee-93eab5055982]
+  -> file.moveIntoFolder [uc:uuid:0b09a430-eb28-46d2-a84b-652a63db1de1]
   -> file.resolveOwnIor [uc:uuid:812d0e73-bd4b-41df-ad49-860f38ced744]
 
 - [ ] **R41.2 — Folder is a modelled M1 class (MOF/MDA) — RECONCILE the existing Folder class (77ff595d), fix its null owner, add M1 model + fully-qualified IOR + behaviour + DnD-carries-unit**
@@ -33,5 +34,8 @@
   - [ ] **(dnd/carries-unit)** Dragging a Folder in rb-file-tree carries the REAL Folder-class unit (its fully-qualified IOR resolving to the stored unit + owner) through the ONE DnD contract (R37.20/R40.106), NOT a computed bare string ('collection:dir:...', 'collection:file:...', 'folder:<uuid>'). Drop places a LINK to that one unit.
   - [ ] **(126/top-down)** Folder is delivered TOP-DOWN through the FULL 6-step MDA chain minted BEFORE any code — Requirement -> UseCase -> Class(M1) -> Method -> Implementation -> Test — NO backfill (Rule #126 purest form). Every chain link on disk before Folder code ships.
   - [ ] **(create/clean-new)** The Folder class is CREATED CLEAN + NEW as a radical-OOP M1 class (Tron zero-migration re-scope). ★ MEASURED (robbin-req, measure-don't-relay, FYI not blocking): a legacy Folder Class EXISTS — 77ff595d-a6c7-4022-a437-198c5a714bc7 (ior:class:Class name 'Folder', R40.86 DropTarget, ownerIor NULL). Per Tron ZERO-MIGRATION it is LEFT un-migrated; the new S41 Folder SUPERSEDES it as the canonical M1 model (recorded, not reconciled). Architect design said 'Folder absent/mint' — surfaced the existing unit so the supersede is explicit, not a silent 2nd class.
-  -> folder.children [uc:uuid:7a1c9e04-0b2f-4a6e-9c31-1d5f6a2b3c4d]
   -> folder.renderSelf [uc:uuid:8b2d0f15-1c3e-4b7f-8d42-2e6a7b3c4d5e]
+  -> folder.listChildren [uc:uuid:7a1c9e04-0b2f-4a6e-9c31-1d5f6a2b3c4d]
+  -> folder.linkChild [uc:uuid:eebe2340-76a4-46d8-b26e-5c7d79569264]
+  -> folder.unlinkChild [uc:uuid:b1382584-4c46-4a50-a6bb-593d91101ef1]
+  -> folder.resolveOwnIor [uc:uuid:fe29a839-9a32-4e7e-b760-16449c607898]

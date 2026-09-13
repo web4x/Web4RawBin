@@ -11,8 +11,11 @@
     "designRef": "scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633)",
     "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
     "useCases": [
+      "ior:instance:8b2d0f15-1c3e-4b7f-8d42-2e6a7b3c4d5e",
       "ior:instance:7a1c9e04-0b2f-4a6e-9c31-1d5f6a2b3c4d",
-      "ior:instance:8b2d0f15-1c3e-4b7f-8d42-2e6a7b3c4d5e"
+      "ior:instance:eebe2340-76a4-46d8-b26e-5c7d79569264",
+      "ior:instance:b1382584-4c46-4a50-a6bb-593d91101ef1",
+      "ior:instance:fe29a839-9a32-4e7e-b760-16449c607898"
     ],
     "tasks": [
       "ior:instance:6128094d-3a43-4541-b050-71cd33a8f7c8"
