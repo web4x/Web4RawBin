@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:3feca893-d59f-4d5b-b641-0cbdb873a6b1",
+  "model": {
+    "uuid": "1c68c169-d599-4a9c-96f0-9302c1f1c8ad",
+    "name": "test:File.renderSelf.pixelProof",
+    "description": "DoD-c PIXEL gate for File.renderSelf (name-regression fix). 5 failable ACs ALL GREEN @ served v0.8.237: SVG-glyph rendered / name == model.name-or-title / uuid shown ONLY on genuine absence. Method 3feca893, UC file.renderSelf 59649d58.",
+    "sourceFile": "ior:file:test/visual/r41-1-file-render-proof-gate.mjs",
+    "implementations": [],
+    "status": "pass",
+    "servedVersion": "0.8.237",
+    "coversGate": "r41-1-file-render-proof-gate",
+    "coversMethod": "ior:instance:3feca893-d59f-4d5b-b641-0cbdb873a6b1",
+    "unitLinks": []
+  }
+}

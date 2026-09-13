@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": null,
+  "model": {
+    "uuid": "22dd2658-023a-4476-9e71-2024e250fbce",
+    "name": "test:deployAtomicity.distAtomic",
+    "description": "DoD deploy-atomicity governance gate (check:dist-atomic) - v0.8.237 phantom remediation: EVERY build-manifest bundle is committed + present + served (no phantom/missing bundle). Failable: a manifest bundle absent from the committed/served dist => RED.",
+    "sourceFile": "ior:file:scripts/check-dist-atomic.mjs",
+    "implementations": [],
+    "status": "pass",
+    "servedVersion": "0.8.237",
+    "coversGate": "check:dist-atomic",
+    "unitLinks": []
+  }
+}
