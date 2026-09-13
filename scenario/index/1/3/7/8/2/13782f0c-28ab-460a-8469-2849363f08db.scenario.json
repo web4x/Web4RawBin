@@ -17,6 +17,13 @@
     ],
     "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
     "description": "Clean-create radical-OOP M1 File class (Tron zero-migration, S41). A FILE IS a File; instances are M0 File-class objects resolved through this class, ref'd by fully-qualified IOR, owned (never null), carried whole through DnD. Behaviour not data-bag (has methods).",
-    "unitLinks": []
+    "unitLinks": [],
+    "attributes": [
+      "ior:instance:82bfe4e5-ce46-4a26-969a-fe75bfa4aff8",
+      "ior:instance:f8906479-0ffa-4816-8df4-81cdf6752164",
+      "ior:instance:87cf7fe6-18a9-4f9d-a36f-ccfcc90b374d",
+      "ior:instance:54f12397-58f6-4af8-9820-d07ade19f57a"
+    ],
+    "metamodelSource": "DERIVED from file.ts via TsToModel (SOURCE=TS; UML+PUML derived, consistent-by-construction; designRef file-m2-metamodel.md ed23137be). This owned+populated UmlClass File is the TRUTH; the 3 empty lowercase 'file' stubs are untouched legacy (zero-migration)."
   }
 }
