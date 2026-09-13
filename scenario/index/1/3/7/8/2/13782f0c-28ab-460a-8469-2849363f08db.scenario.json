@@ -24,6 +24,11 @@
       "ior:instance:87cf7fe6-18a9-4f9d-a36f-ccfcc90b374d",
       "ior:instance:54f12397-58f6-4af8-9820-d07ade19f57a"
     ],
-    "metamodelSource": "DERIVED from file.ts via TsToModel (SOURCE=TS; UML+PUML derived, consistent-by-construction; designRef file-m2-metamodel.md ed23137be). This owned+populated UmlClass File is the TRUTH; the 3 empty lowercase 'file' stubs are untouched legacy (zero-migration)."
+    "metamodelSource": "DERIVED from file.ts via TsToModel (SOURCE=TS; UML+PUML derived, consistent-by-construction; designRef file-m2-metamodel.md ed23137be). This owned+populated UmlClass File is the TRUTH; the 3 empty lowercase 'file' stubs are untouched legacy (zero-migration).",
+    "associations": [
+      "ior:instance:15f10982-05ea-4191-8115-a7a4dde2d5b6",
+      "ior:instance:4195cfef-4ba0-4e08-bbd7-da1bc28c5b3d"
+    ],
+    "umlMethodNote": "UmlMethod x5 (ownIor/renderSelf/moveTo/displayName/iconToken): the CHAIN Methods exist as ior:class:Method (renderSelf 3feca893/moveTo 3500d960/ownIor 8d5a11e6). OPEN for architect: does the M2 metamodel REFERENCE these existing Methods as its UmlMethod elements, or mint separate ior:class:ModelElement instanceOf UmlMethod-006? Flagged to avoid a dup; displayName/iconToken methods not yet minted as chain Methods."
   }
 }
