@@ -3845,9 +3845,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           let slots: any = { current: null, lastCompleted: null, nextBacklog: null, inProgress: [] }; // R40.18: inProgress[] default so a consumer never hits undefined.map
           let pinSprintLabel = '';
           try {
-            const desNum = /\d+/.exec(String(model.sprintName || ''))?.[0];
+            // PART-1 v2 (d26ef6c59) DESIGNATION-DRIVES-SPRINT-RESOLUTION: the current sprint FOLLOWS the designated TASK
+            // (currentTaskUuid) — derive it from the task's OWN sprint (single source) so a task designated in ANOTHER
+            // sprint (e.g. INC-7 8e8b32d6) surfaces even if the separate sprintName field is stale/mismatched. Fall back to
+            // the sprintName hint only when no task is designated or its sprint is not found.
+            const desTaskUuid = String(model.currentTaskUuid || '').replace('ior:instance:', '').split('@')[0];
+            let desSprintNum: number | null = null;
+            if (desTaskUuid) {
+              for (const su of idx.list()) { const s = idx.get(su); if (s?.ior !== 'ior:class:Sprint') continue; const tks = (((s.model as Record<string, unknown>).tasks as string[]) || []).map(t => String(t).replace('ior:instance:', '').split('@')[0]); if (tks.includes(desTaskUuid)) { desSprintNum = sprintNumOf(s); break; } }
+            }
+            if (desSprintNum == null) { const dn = /\d+/.exec(String(model.sprintName || ''))?.[0]; desSprintNum = dn ? Number(dn) : null; }
             const nextNum = /\d+/.exec(String(model.nextSprintName || ''))?.[0];
-            const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null, nextSprintNumber: nextNum ? Number(nextNum) : null });
+            const pin = resolveSprintPin(idx, { currentSprintNumber: desSprintNum, nextSprintNumber: nextNum ? Number(nextNum) : null });
             const cur = pin.current;
             if (cur) pinSprintLabel = `${sprintPrefix(cur.number)} — ${cur.status}${cur.designated ? ' (designated)' : ''}`;
             slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined); // R40.58 D1: consume ThreeSlots (was `as any` — a type-checker defeat on our own typed fn)
