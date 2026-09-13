@@ -21,22 +21,29 @@ try{
   await p.screenshot({path:SHOT});
   const m=await p.evaluate(()=>{
     const items=[...document.querySelectorAll('rb-object-item[type=file]')];
-    const glyph=it=>{const ic=it.querySelector('.oi-icon');const svg=ic?.querySelector('svg');return{name:(it.querySelector('.oi-name')?.textContent||'').trim(),uuid:(it.getAttribute('ref')||'').replace(/^file:/,'').slice(0,36),hasSVG:!!svg,svgPaths:svg?svg.querySelectorAll('path,rect,circle,polygon').length:0,emojiText:(ic?.textContent||'').trim(),blank:!svg&&!(ic?.textContent||'').trim()};};
-    return {count:items.length,files:items.slice(0,20).map(glyph)};
+    const glyph=it=>{const ic=it.querySelector('.oi-icon');const svg=ic?.querySelector('svg');return{name:(it.querySelector('.oi-name')?.textContent||'').trim(),uuid:(it.getAttribute('ref')||'').replace(/^file:/,'').slice(0,36),title:(it.getAttribute('title')||'').trim(),nameAttr:(it.getAttribute('name')||'').trim(),hasSVG:!!svg,svgPaths:svg?svg.querySelectorAll('path,rect,circle,polygon').length:0,emojiText:(ic?.textContent||'').trim(),blank:!svg&&!(ic?.textContent||'').trim()};};
+    return {count:items.length,files:items.map(glyph)};
   });
   R.fileCount=m.count; R.sample=m.files;
   // AC1: every file node has an SVG glyph, no emoji text, not blank
   R.ac1 = m.files.length>0 && m.files.every(f=>f.hasSVG && f.svgPaths>0 && !f.blank && !/\p{Emoji}/u.test(f.emojiText.replace(/[a-z0-9-]/gi,'')));
-  // AC2: NAME present == model.name (not the uuid). Measure data-vs-render for known-named files.
-  const named=m.files.filter(f=>/^[0-9a-f]{8}-[0-9a-f]{4}-/.test(f.name)); // rendered a uuid-looking label
-  const checks=[]; for(const f of m.files.slice(0,6)){ const real=await iorName(f.uuid); const rendersName = real && f.name===real; const rendersUuid = f.name.startsWith(f.uuid.slice(0,8)); checks.push({uuid:f.uuid.slice(0,8),modelName:real,rendered:f.name,rendersName,rendersUuid}); }
+  // real name a file HAS = its title attr (the source rawName uses) or name attr; uuid-looking label = the fallback fired
+  const realNameOf = f => f.nameAttr || f.title || ''; // what the label SHOULD be when a name exists
+  const rendersUuid = f => f.name.replace(/-/g,'').startsWith(f.uuid.replace(/-/g,'').slice(0,12)); // label == the unit's uuid
+  // AC2 (STRENGTHENED, both-directions): EVERY file that HAS a real name must render THAT name (label==realName), not the uuid.
+  const withName = m.files.filter(f=>realNameOf(f));
+  R.ac2 = withName.length>0 && withName.every(f=>f.name===realNameOf(f));
+  R.ac2_finding = withName.filter(f=>f.name!==realNameOf(f)).slice(0,8).map(f=>({uuid:f.uuid.slice(0,8),realName:realNameOf(f),rendered:f.name.slice(0,16)}));
+  // provenance spot-check: a few rendered labels vs the LIVE unit model.name (data-not-DOM-proxy)
+  const checks=[]; for(const f of m.files.slice(0,4)){ const real=await iorName(f.uuid); checks.push({uuid:f.uuid.slice(0,8),modelName:real,title:f.title,rendered:f.name.slice(0,16),ok:real?f.name===real:true}); }
   R.nameChecks=checks;
-  R.ac2 = checks.length>0 && checks.every(c=>c.modelName ? c.rendered===c.modelName : true); // named files must render their name
-  R.ac2_finding = checks.filter(c=>c.modelName && c.rendersUuid); // named-but-renders-uuid = the defect
-  // AC3: generic/unknown mime (octet-stream) file → generic SVG (not blank). The mv-*.bin are octet-stream + have SVG.
-  R.ac3 = m.files.some(f=>f.hasSVG && f.svgPaths>0); // a file with a glyph exists (generic-token path renders an SVG)
-  // AC4: uuid fallback never blank/empty — every rendered label non-empty
-  R.ac4 = m.files.every(f=>f.name.length>0);
+  // AC3: generic/unknown mime (octet-stream) file → generic SVG (not blank).
+  R.ac3 = m.files.some(f=>f.hasSVG && f.svgPaths>0);
+  // AC4 (STRENGTHENED): the uuid-fallback fires ONLY on GENUINE absence of BOTH name and title. A file that HAS a name/title
+  // but renders its uuid = the fallback firing WRONGLY = RED (the one-directional 'never empty' could not catch this).
+  const uuidLabelled = m.files.filter(rendersUuid);
+  R.ac4_wrongFallback = uuidLabelled.filter(f=>realNameOf(f)).length; // uuid shown DESPITE having a name/title = wrong
+  R.ac4 = m.files.every(f=>f.name.length>0) && R.ac4_wrongFallback===0; // never-empty AND fallback only on genuine absence
   // AC5 stub-must-fail control: a NON-file node (room) must NOT carry the file glyph shape → proves the file-glyph detection discriminates (would fail if trivial)
   R.ac5 = await p.evaluate(()=>{const room=document.querySelector('rb-object-item[type=room] .oi-icon');const svg=room?.querySelector('svg');return !svg && (room?.textContent||'').trim()==='•';}); // room icon is the '•' text, NOT a file svg
 }catch(e){R.error=String(e.message||e);}
@@ -46,8 +53,8 @@ if(R.error)console.log('ERROR:',R.error);
 console.log('file nodes rendered:',R.fileCount);
 console.log('name data-vs-render:',JSON.stringify(R.nameChecks));
 console.log(`AC1 SVG-glyph-consistent(not emoji/blank) = ${R.ac1?'GREEN':'RED'}`);
-console.log(`AC2 NAME==model.name(not uuid)            = ${R.ac2?'GREEN':'★RED'}  ${R.ac2_finding?.length?'FINDING: '+R.ac2_finding.length+' named files render UUID: '+R.ac2_finding.map(c=>c.uuid+'→'+c.modelName+' shows '+c.rendered.slice(0,12)).join('; '):''}`);
+console.log(`AC2 label==real-name for every named file = ${R.ac2?'GREEN':'★RED'}  ${R.ac2_finding?.length?'FINDING: '+R.ac2_finding.length+' named files render UUID: '+R.ac2_finding.map(c=>c.realName+'→shows '+c.rendered).join('; '):''}`);
 console.log(`AC3 generic-mime→generic-SVG(not blank)   = ${R.ac3?'GREEN':'RED'}`);
-console.log(`AC4 label never-empty(uuid fallback ok)   = ${R.ac4?'GREEN':'RED'}`);
+console.log(`AC4 uuid-fallback ONLY on genuine absence  = ${R.ac4?'GREEN':'★RED'}  (wrong-fallback[has-name-but-uuid]=${R.ac4_wrongFallback})`);
 console.log(`AC5 stub-must-fail control(room≠file-glyph)= ${R.ac5?'GREEN(discriminates)':'RED'}`);
 console.log('screenshot →',SHOT);
