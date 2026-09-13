@@ -63,7 +63,7 @@ export interface M1Model {
   visibility?: 'public' | 'private' | 'protected'; parameters?: { name: string; type?: string }[]; returnType?: string;
   documentation?: string; parentClass?: string;
 }
-export interface M1Unit { ior: 'ior:class:ModelElement'; ownerIor: null; model: M1Model; }
+export interface M1Unit { ior: 'ior:class:ModelElement'; ownerIor: string | null; model: M1Model; }
 
 interface Draft { uuid: string; kind: string; name: string; qn: string; sourceFile: string;
   members: string[]; memberOf?: string; typeRefs: string[]; heritage: string[]; depRefs: string[];
@@ -141,7 +141,17 @@ export class TsToModel {
   // — parse `files` into M1 ModelElement units (deterministic uuid),
   // resolve typed-member relationships (relatesTo + M2 type), write them to `indexDir` idempotently (0-churn re-run),
   // and reconcile (remove prior M1 units of the processed files that are no longer present in source).
-  generate(files: string[], opts?: { indexDir?: string; write?: boolean; diagram?: boolean }): { units: M1Unit[]; wrote: number; removed: number; diagramUuid?: string } {
+  // Sprint 41 T41.6: `deriveClassM2` — the CLEAN-class M2 derivation entry (radical-OOP): derive the UmlClass + members
+  // from the TS source AND stamp the clean-class shape — ownerIor NON-NULL (owner-never-null; the caller supplies Tron's
+  // ior, no hardcoded identity). The M1 unit stays an ior:class:ModelElement; its FQ-IOR is COMPOSED-not-stored
+  // (Ior.for('ModelElement', origin, uuid) on demand — NO selfIor field, per the value-object principle), so this method
+  // adds NO stored IOR. Reuses generate() wholesale (no fork); file-unit.ts UNTOUCHED. UML units → puml (classM2Puml) next.
+  deriveClassM2(files: string[], opts: { ownerIor: string; indexDir?: string; write?: boolean; diagram?: boolean }): { units: M1Unit[]; wrote: number; removed: number; diagramUuid?: string } {
+    if (!opts?.ownerIor || !String(opts.ownerIor).trim()) throw new Error('deriveClassM2: ownerIor is required (clean-class shape = owner-never-null — supply Tron\'s ior).');
+    return this.generate(files, opts);
+  }
+
+  generate(files: string[], opts?: { indexDir?: string; write?: boolean; diagram?: boolean; ownerIor?: string }): { units: M1Unit[]; wrote: number; removed: number; diagramUuid?: string } {
     const indexDir = opts?.indexDir || path.join(this.root, 'scenario', 'index');
     const write = opts?.write !== false;
     const program = ts.createProgram(files, { target: ts.ScriptTarget.ES2020, allowJs: false, noResolve: false, noLib: true });
@@ -257,7 +267,7 @@ export class TsToModel {
       if (d.parentClass) model.parentClass = ref(d.parentClass);
       if (dd._rel && dd._rel.length) { model.relatesTo = dd._rel.map((r) => ref(r.to)); model.relations = dd._rel.map((r) => ({ to: ref(r.to), type: ref(r.type) })); }
       if (dd._from && dd._from.length) model.relatedFrom = dd._from.map(ref);
-      units.push({ ior: 'ior:class:ModelElement', ownerIor: null, model });
+      units.push({ ior: 'ior:class:ModelElement', ownerIor: opts?.ownerIor ?? null, model }); // Sprint 41 T41.6: clean-class shape stamps owner (deriveClassM2 supplies Tron); default null = legacy generate UNCHANGED
     }
 
     if (!write) return { units, wrote: 0, removed: 0 };
