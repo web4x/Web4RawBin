@@ -61,7 +61,7 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish
     const folderUnit: ScenarioUnit = {
       ior: iorClass('Folder'),
       model: { uuid, name: input.name, kind: 'folder', location: input.location || '', children: [], parent: input.parent ?? null, unitLinks, ...(input.origin ? { selfIor: composeUnitIor('Folder', uuid, input.origin) } : {}) }, // Sprint 41: clean path (origin supplied) mints the fully-qualified selfIor; legacy (no origin) UNCHANGED
-      ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
+      ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : (input.uploaderToken ? iorInstance(input.uploaderToken) : null), // Sprint 41 OWNER-DEFAULT: owner from the minting context — roomUuid→room, else the acting identity (uploaderToken; Tron as root when he acts). Ownerless-impossible for a real create; guard #1 backstops the residual null.
     } as ScenarioUnit;
     UnitController.create(idx, folderUnit.ior, uuid, folderUnit, { publish }); // scenario/index + syncLinks (room symlink) + emit (live) — same seam as a file
     console.log(`[file-unit] folder unit created: uuid=${uuid.slice(0, 8)} room=${(input.roomUuid || '').slice(0, 8)} parent=${input.parent ? 'set' : 'null'} links=${unitLinks.length}`);
@@ -140,7 +140,7 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish
       ...(input.location ? { location: input.location } : {}),
       ...(input.origin ? { selfIor: composeUnitIor('File', uuid, input.origin) } : {}), // Sprint 41: clean path (origin supplied) mints the fully-qualified selfIor; legacy (no origin) UNCHANGED (zero-migration)
     },
-    ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
+    ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : (input.uploaderToken ? iorInstance(input.uploaderToken) : null), // Sprint 41 OWNER-DEFAULT: owner from the minting context — roomUuid→room, else the acting identity (uploaderToken; Tron as root when he acts). Ownerless-impossible for a real create; guard #1 backstops the residual null.
   });
   UnitController.create(idx, unit.ior, uuid, unit, { publish }); // R37.11 slice-1: was idx.put (syncLinks still fires via put) — seam create (emit → live); INV-T byte-diff==0
   try { fs.unlinkSync(lockPath); } catch {}
