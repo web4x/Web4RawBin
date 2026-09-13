@@ -27,7 +27,8 @@
  */
 import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
-import { TRACE_ICONS } from './icons.js';
+import { TRACE_ICONS, FILE_TOKEN_ICONS } from './icons.js';
+import { File } from '../../../ts/scenario/file.js'; // Sprint 41 T41.1 inc-4b: ask the File object to render itself
 import { selectionModel } from './selection-model.js';
 import { dropDispatcher } from '../drop-dispatcher.js'; // T26.2: application/rb-federated-ref builder
 import { DndContract, isUnits } from '../dnd-contract.js'; // T37.20.2/.4: THE ONE drag serialize+resolve (unit ref under application/rb-unit; NO #*.show URL). .4 folder target: resolveDragUnit for an in-app unit dropped on a folder.
@@ -220,17 +221,27 @@ export class RbObjectItem extends HTMLElement {
   };
 
   render(): void {
-    const { type } = this.parts();
+    const { type, uuid } = this.parts();
     // R40.4-phase2 (Tron "TWO implementations"): render the composed display name VERBATIM — no generateName word-cut
     // (a SECOND truncation, redundant with the CSS `.oi-name` ellipsis which already single-lines overflow). One name,
     // composed once (sprintDisplayName/taskDisplayName), shown once; long names ellipsis via CSS (nowrap, no re-wrap).
     const rawName = this.getAttribute('name') || this.getAttribute('title') || '(untitled)';
-    const name = rawName.startsWith('>') ? rawName.replace(/^>\s*/, '').slice(0, 50) : rawName;
+    let name = rawName.startsWith('>') ? rawName.replace(/^>\s*/, '').slice(0, 50) : rawName;
     // R40.4-phase2 defect#2 (Tron "TWO implementations / shown TWICE"): the subtitle is the DESCRIPTION only — NEVER the
     // title. The old `|| title` fallback rendered the name a SECOND time (and an === name guard missed it because the name
     // slot is truncated by generateName while the title is full → not equal). One name, one place: drop the title fallback.
     const desc = this.getAttribute('description') || '';
-    const icon = TRACE_ICONS[type] || '•';
+    // Sprint 41 T41.1 inc-4b: a FILE unit renders ITSELF (ask-the-object) — File.renderSelf() yields a semantic view-model
+    // (icon TOKEN + name), and the thin /model adapter FILE_TOKEN_ICONS maps the token → an SVG (consistent with the SVG
+    // siblings). Replaces the TRACE_ICONS['file'] derivation (deleted from icons.ts). Other types keep TRACE_ICONS.
+    let icon: string;
+    if (type === 'file') {
+      const vm = new File({ uuid, name: this.getAttribute('name') || '' }).renderSelf();
+      icon = FILE_TOKEN_ICONS[vm.iconToken];
+      name = vm.name; // uuid fallback, never an empty label
+    } else {
+      icon = TRACE_ICONS[type] || '•';
+    }
     const hasChildren = this.hasAttribute('has-children');
     const childCount = this.getAttribute('child-count') || '0';
     const rawStatus = (this.getAttribute('status') || '').toLowerCase();
