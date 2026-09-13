@@ -24,13 +24,16 @@ Tron: "i want a complete m2 metamodel of file as Uml m2 ts m2 and puml m2… com
 - **VIEW** = the PUML text AND the on-screen diagram (rendered from the UML units via a thin surface adapter — like the icon token→glyph adapter).
 - **CONTROLLER** = the actions: **'open diagram'** (renders the diagram VIEW of this M2 — ABSORBED here; the diagram IS the view of the metamodel) + File's own actions (moveTo, …).
 
-## Element list (to req — the derivation ENUMERATES from TS; current concrete set)
-- **UmlClass:** File. **Collaborator UmlClass:** Ior.
-- **UmlAttribute ×4:** uuid, origin, name, mimeType (every `FileModel` field).
-- **UmlMethod ×5:** ownIor, renderSelf, moveTo, displayName, iconToken (+ Ior: for, toString).
+## Element list — CORRECTED to the DERIVED TRUTH (expert inc-1 98409a24d measured 28 units; PO: TS-source=truth, re-point-to-built-reality; my earlier attrs-on-File grouping was a hand-sketch)
+The derivation FLATTENS per-TS into ~28 ModelElement units. Structure as DERIVED, not as I hand-grouped:
+- **UmlClass:** `File` (= a `model` field + the 5 methods; the fields are NOT on File) · `Ior` (collaborator).
+- **UmlInterface:** `FileModel` (**owns the 4 attributes** uuid/origin/name/mimeType) · `FileViewModel` · `MoveCommand`. — These are File's field/return TYPES (File.model:FileModel etc.), NOT interfaces File *implements* (GAP-4 below still holds: File implements NONE).
+- **UmlType:** `FileIconToken` · `IorClassName`.
+- **UmlAttribute ×4:** uuid/origin/name/mimeType — **members of `FileModel`, NOT of File** (the correction).
+- **UmlMethod ×5 on File:** ownIor/renderSelf/moveTo/displayName/iconToken (+ Ior: for/toString) — REFERENCE the chain Method units, not dup (see ruling above).
 - **UmlAssociation/Dependency:** File→Ior (uses), File→Folder (moveTo target).
-- **UmlInterface:** none today — GAP 4 flagged (add only if File genuinely implements one; do not fabricate).
-(The list is DERIVED, not hand-maintained — as File's TS gains/loses a field/method, the derivation + gate keep all three in sync.)
+- **UmlInterface File *implements*:** none (GAP-4) — distinct from the interfaces above which File USES; do not fabricate an implements.
+(The list is DERIVED, not hand-maintained — the gate diffs the REAL derived structure across TS/UML/PUML; it must NOT assert the attrs-on-File grouping. As File's TS changes, the derivation + gate keep all three in sync.)
 
 ## Failable ACs (to req)
 1. Every File element (each attribute/method/association) present in ALL THREE representations (UML unit + TS + PUML) — missing from ANY ⇒ RED.
