@@ -1,0 +1,102 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+    "altId": "R41.1",
+    "name": "File is a modelled M1 class (MOF/MDA) \u2014 behaviour not data-bag, owned (never null), fully-qualified IOR, carried whole through DnD",
+    "description": "Model File as a REAL M1 Class (radical-OOP: 'a FILE IS a File class'). Today rb-file-tree emits bare strings ('collection:dir:src/shared/test','collection:file:src/shared/','file:b9fa43a2-...') and File units are broken (ownerIor NULL; {uuid,name,location,kind,ext} data-bag, no backing class). CREATE File CLEAN + NEW as a radical-OOP M1 class (Tron zero-migration: leave the 3 lowercase 'file' ModelElement stubs as legacy, do NOT consolidate/migrate). 3 by-construction guards (owner-never-null / fully-qualified-additive-IOR / class-has-methods). TOP-DOWN, full 6-step chain, no backfill.",
+    "tronQuote": "create a class File and a class Folder during two top down planned sprint tasks with full tracability and as full mda mof chain in a sprint 41: OOP model consistency",
+    "poDirective": "PO 2026-09-12 (Tron build order): File as a real M1 class in Sprint 41, scenario-first, full MDA/MOF chain before code.",
+    "designRef": "scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633)",
+    "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "useCases": [
+      "ior:instance:59649d58-f4d6-4862-9fee-93eab5055982",
+      "ior:instance:812d0e73-bd4b-41df-ad49-860f38ced744"
+    ],
+    "tasks": [],
+    "tests": [],
+    "unitLinks": [],
+    "consolidatesStubs": "35f8f879 / a0df222c / bccba82d (ior:class:ModelElement name 'file', owner null)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-41-oop-model-consistency/requirements.md",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-file-owner-never-null-create-rejects",
+        "group": "guard/owner-never-null",
+        "text": "The CREATE PATH REJECTS an ownerless File BY CONSTRUCTION (Tron: 'its me as the owner') \u2014 ownerIor never null on a NEW File. A GUARD on new creates, NOT a backfill of the existing units. The owner is a fully-qualified instance IOR (Tron / resolved room / user).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:owner-never-null",
+          "assertion": "create a NEW File with no owner -> REJECTED; remove the create-guard so an ownerless File persists => RED"
+        },
+        "stubMustFail": "remove the create-guard; an ownerless File is created/persisted -> RED"
+      },
+      {
+        "id": "AC-file-fully-qualified-ior-additive",
+        "group": "guard/federation-ior",
+        "text": "NEW File units carry a FULLY-QUALIFIED IOR = CLASS + PROTOCOL + ORIGIN + UUID ('ior:class:File:rest:<origin>/<uuid>', Tron verbatim), and the RESOLVER resolves that new form. ADDITIVE / zero-migration: the legacy bare form still parses and the 212 existing bare refs are NOT rewritten. ORIGIN is mandatory \u2014 it makes the ref resolvable ACROSS servers (federation).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:fully-qualified-ior",
+          "assertion": "a NEW File ref emitted without class/protocol/ORIGIN/uuid => RED; the resolver failing to resolve the new fully-qualified form => RED; a spec that REWRITES the 212 existing bare refs (migration) => out of scope"
+        },
+        "stubMustFail": "emit a new File ref bare (no origin) OR make the parser reject the legacy form -> RED"
+      },
+      {
+        "id": "AC-file-class-has-methods-ask-the-object",
+        "group": "guard/behaviour-not-data-bag",
+        "text": "File is a CLASS WITH METHODS (behaviour) \u2014 ask-the-object: a file renders/resolves ITSELF via its methods (renderSelf / resolveOwnIor / children). A 0-method DATA-BAG ({uuid,name,location,kind,ext} with no behaviour) FAILS \u2014 that is the radical-OOP violation that made the tree emit strings.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:class-has-methods",
+          "assertion": "a File M1 class with 0 methods (pure data-bag) => RED; the file must answer renderSelf/ior via its own methods"
+        },
+        "stubMustFail": "seed a File class with 0 methods (data-bag) -> RED"
+      },
+      {
+        "id": "AC-file-is-real-M1-class",
+        "group": "mof/m1-class",
+        "text": "File is a REAL M1 Class unit (ior:class:Class name 'File', proper case) in the MOF/MDA chain \u2014 radical-OOP: 'a FILE IS a File class'. Every file rendered/dragged/stored is a File-class INSTANCE (M0) resolved THROUGH the class, never an ad-hoc JSON blob nor a computed bare string.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-is-m1-class",
+          "assertion": "a file surfaced without a backing M1 File Class => RED"
+        },
+        "stubMustFail": "seed a file with no M1 File class backing it -> RED"
+      },
+      {
+        "id": "AC-file-dnd-carries-real-unit",
+        "group": "dnd/carries-unit",
+        "text": "Dragging a File in rb-file-tree carries the REAL File-class unit (its fully-qualified IOR resolving to the stored unit + owner) through the ONE DnD contract (R37.20/R40.106), NOT a computed bare string ('collection:dir:...', 'collection:file:...', 'file:<uuid>'). Drop places a LINK to that one unit.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:dnd-carries-file-folder-unit",
+          "assertion": "a file drag payload that is a bare string instead of a resolvable fully-qualified File IOR => RED"
+        },
+        "stubMustFail": "seed a file drag emitting a bare 'collection:file:...' string -> RED"
+      },
+      {
+        "id": "AC-file-full-mda-chain-no-backfill",
+        "group": "126/top-down",
+        "text": "File is delivered TOP-DOWN through the FULL 6-step MDA chain minted BEFORE any code \u2014 Requirement -> UseCase -> Class(M1) -> Method -> Implementation -> Test \u2014 NO backfill (Rule #126 purest form). Every chain link on disk before File code ships.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:126-chain-complete-before-code",
+          "assertion": "the File chain missing any link at code-ship, OR any link minted AFTER its code (backfill) => RED"
+        },
+        "stubMustFail": "seed File code shipped with a missing/after-the-fact chain link -> RED"
+      },
+      {
+        "id": "AC-file-created-clean-new-zero-migration",
+        "group": "create/clean-new",
+        "text": "The File class is CREATED CLEAN + NEW \u2014 a radical-OOP M1 File class existing for the FIRST time (Tron zero-migration re-scope). It is NOT consolidated/migrated/backfilled from the existing lowercase-'file' ModelElement stubs (35f8f879 / a0df222c / bccba82d (ior:class:ModelElement name 'file', owner null)) \u2014 those are LEFT as legacy. The new File is the canonical M1 model going forward.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-clean-new",
+          "assertion": "the new File M1 class exists as a fresh radical-OOP class; a spec that migrates/rewrites the legacy stubs (Tron said zero-migration) => out of scope; a File rendered with NO backing M1 class => RED"
+        },
+        "stubMustFail": "seed a file surfaced with no backing clean M1 File class -> RED"
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+  "model": {
+    "uuid": "812d0e73-bd4b-41df-ad49-860f38ced744",
+    "name": "file.resolveOwnIor",
+    "description": "PLACEHOLDER (architect wires class/method on build-go, design scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633)): File answers 'resolveOwnIor' via its own method (ask-the-object). class + method = null until wired.",
+    "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}

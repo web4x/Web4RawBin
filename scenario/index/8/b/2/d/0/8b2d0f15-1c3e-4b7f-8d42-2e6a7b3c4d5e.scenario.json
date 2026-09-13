@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+  "model": {
+    "uuid": "8b2d0f15-1c3e-4b7f-8d42-2e6a7b3c4d5e",
+    "name": "folder.renderSelf",
+    "description": "PLACEHOLDER (architect wires class/method on build-go, design scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633)): Folder answers 'renderSelf' via its own method (ask-the-object). class + method = null until wired.",
+    "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}

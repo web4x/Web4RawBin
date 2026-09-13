@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Sprint",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "name": "Sprint 41 \u2014 OOP Model Consistency",
+    "number": 41,
+    "status": "Planned",
+    "compoundSource": "scrum.pmo/sprints/sprint-41-oop-model-consistency/requirements.md",
+    "goal": "TOP-DOWN PLANNED (Tron build order 2026-09-12): model File + Folder as REAL M1 CLASSES in the MOF/MDA chain, full traceability, whole chain minted BEFORE any code (Rule #126 purest form \u2014 deliberate contrast to incident-driven bottom-up). \u2605 Tron ZERO-MIGRATION re-scope (4fc4325f3): File/Folder CREATED CLEAN + NEW (exist for the first time), NOT consolidated/migrated; legacy stubs left, guards scope to NEW units. 3 by-construction guards both classes satisfy: (1) ownerIor never-null (create rejects ownerless); (2) fully-qualified IOR class+protocol+origin+uuid, ADDITIVE/back-compat; (3) class-has-methods / ask-the-object (a 0-method data-bag fails). EXACTLY TWO tasks: (1) class File, (2) class Folder.",
+    "tronQuote": "create a class File and a class Folder during two top down planned sprint tasks with full tracability and as full mda mof chain in a sprint 41: OOP model consistency",
+    "designRef": "scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633) + re-scope 4fc4325f3 (zero-migration, clean-new)",
+    "requirements": [
+      "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+      "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae"
+    ],
+    "tasks": [],
+    "createdAt": "2026-09-12",
+    "createdBy": "robbin-req",
+    "joint": [
+      "robbin-req",
+      "robbin-architect",
+      "robbin-planner"
+    ],
+    "rootDiagnosis": "PO: a STORAGE question was ruled (resolve-on-read vs mint) when the real gap was MODELLING \u2014 optimised how to compute a fake instead of asking where the CLASS is. Radical-OOP law violated at the model layer = why the tree emits strings."
+  }
+}
