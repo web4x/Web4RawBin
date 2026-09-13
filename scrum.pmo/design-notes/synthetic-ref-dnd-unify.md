@@ -1,5 +1,7 @@
 # Synthetic-ref / DnD-unify — every tree node must BE a scenario unit (robbin-architect, 2026-09-13)
 
+> ★★ SUPERSEDED by Sprint 41 (sprint-41-oop-model-consistency.md, 2026-09-13). This note's A-vs-B (resolve-on-read vs mint) was the STORAGE axis — the wrong question. Tron's point: the CLASS (File/Folder) was never MODELLED; we were optimising how to compute a fake. Sprint 41 MODELS File & Folder as M1 classes and the tree emits M0 instances of them (behaviour on the object), which retires the synthetic-string resolve-on-read and satisfies T37.20 AC-A1/A2 structurally. Kept for the root analysis (mofFolder type='collection' default, the 3-symptom root); do NOT build the A-fix.
+
 Tron: "T37.20xx is ALL ABOUT UNIFYING DND TO SCENARIO UNIT JSONS ON ALL UNITS." Defect: in the Model-Driven Code Quality tree, `MessageTypes.ts` renders with a FOLDER icon, drags as a folder, detail = "COLLECTION / scenario". Radical-OOP violation: `collection:file:src/shared/MessageTypes.ts` is a path wearing a ref's clothes, not a File instance. PO routed TOP, by-construction, scenario-first, design-only → expert. T37.20 pulled back to In-Progress (AC-A1 fails on his device).
 
 ## ★ ROOT — measured, and it REFINES the mint-vs-resolve framing (citation)
