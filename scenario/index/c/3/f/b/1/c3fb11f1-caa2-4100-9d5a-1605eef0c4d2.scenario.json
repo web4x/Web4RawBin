@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+  "model": {
+    "uuid": "c3fb11f1-caa2-4100-9d5a-1605eef0c4d2",
+    "name": "repoRegistry.createRepo",
+    "description": "PLACEHOLDER: RepoRegistry (the EXISTING gh boundary, reuse not fork) owns gh calls: createRepo/createProject GATED+PRIVATE + list*. Never inline gh in a view/domain method.",
+    "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+    "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+    "method": "ior:instance:6b95c792-9fd4-4962-b1f0-c696a18e7315",
+    "unitLinks": []
+  }
+}

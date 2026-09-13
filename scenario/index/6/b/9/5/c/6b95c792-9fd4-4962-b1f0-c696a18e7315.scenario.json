@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "model": {
+    "uuid": "6b95c792-9fd4-4962-b1f0-c696a18e7315",
+    "name": "RepoRegistry.createRepo",
+    "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+    "coveredByUseCase": "ior:instance:c3fb11f1-caa2-4100-9d5a-1605eef0c4d2",
+    "description": "gated + PRIVATE default; explicit create-intent; at BUILD on Tron go.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

@@ -73,12 +73,15 @@
   radical oop classes top down scenario first planned
   Tron 'radical oop classes top down scenario first planned'. On the M1 node (mof-m1; detail: Scenario/Edit/Add folder/Rename/Import PUML) add an action named EXACTLY 'add Repository'. It opens a selector MODELLED ON the three-way-diff selector (REUSE the existing repo/branch chooser diffEditor.repoTargeting + RepoRegistry, do NOT fork a 2nd picker) to select (a) a GitHub Repository + (b) a Project within it, PLUS a 'NEW project' action (existing OR new). Radical-OOP: Repository (41.4 M1 class) HAS-A Project (its own class, PO-ruled); the selector + actions are OWNED BY those classes, never free functions.
   **Acceptance criteria:**
-  - [ ] **(ui/action-visible)** The 'add Repository' action (named EXACTLY 'add Repository') is VISIBLE on the M1 node (mof-m1) detail panel, alongside Scenario / Edit / Add folder / Rename / Import PUML.
-  - [ ] **(reuse/no-second-picker)** The action opens a selector MODELLED ON / REUSING the existing three-way-diff repo/branch chooser (diffEditor.repoTargeting + RepoRegistry) — NO second picker forked — and it lists REAL gh repositories.
-  - [ ] **(project/existing)** An EXISTING Project within the selected repository can be selected and ATTACHED (Repository HAS-A Project).
-  - [ ] **(project/new)** A NEW Project can be CREATED (via a 'NEW project' action inside the selector) AND attached — Tron can add EITHER an existing OR a new project.
-  - [ ] **(model/tree-reflects)** After attach, the M1 TREE SHOWS the result — the attached Repository + Project as REAL modelled M1 units (owned, fully-qualified IOR), not a path string; live (R41.3 observer shape, no forced reload).
-  - [ ] **(radical-oop/owned)** The selector + the actions are METHODS OWNED BY the classes (Repository HAS-A Project; the action + attach on Repository/Project), NEVER free functions. A free-function selector/action => RED.
-  -> m1Node.addRepositoryAction [uc:uuid:86c45bba-96fb-472f-b71e-97a8b2ab8fad]
-  -> repoProjectSelector.chooseExistingOrNew [uc:uuid:0296dad4-212f-448f-b576-5cba7cd53df8]
-  -> project.createAndAttach [uc:uuid:83b8e3a5-55fb-4f64-ab85-23a7931471a1]
+  - [ ] **(radical-oop/action)** The Repository is added via the OWNED ACTION ModelLayer.addRepository (mints through the create seam: owner set, IOR composed, registered in mof-m1) — NEVER a hand-written Repository unit. A hand-write bypassing the action => RED.
+  - [ ] **(reuse/one-picker)** ONE selector — the reused rb-diff-editor RepoRefSelector (extended project + new-project). grep 0 second repo/branch picker. A forked picker => RED.
+  - [ ] **(boundary/gh-isolated)** gh calls ONLY in RepoRegistry (the EXISTING gh boundary — REUSED, not a 2nd GhBoundary). grep 0 inline gh in views or domain methods. Repository.create/Project.create DELEGATE to RepoRegistry. An inline gh call outside RepoRegistry => RED.
+  - [ ] **(safety/gated-private)** CREATE (new repo/new project) defaults PRIVATE + requires an EXPLICIT create-intent flag; happens at BUILD on Tron's explicit go (never a side effect, never an architect step). A public or no-confirm create => RED. (public publishes everything + delete does not unpublish = irreversible.)
+  - [ ] **(guard/owner+ior)** New Repository/Project units carry ownerIor=Tron + fully-qualified IOR. A null-owner or bare-IOR new unit => RED.
+  - [ ] **(safety/existing-read-only)** SELECT/ATTACH an EXISTING repo/project performs NO outward create (read/attach only, not gated). Only the NEW branches hit the gated create. An existing-attach that fires an outward gh create => RED.
+  -> layer.addRepository [uc:uuid:86c45bba-96fb-472f-b71e-97a8b2ab8fad]
+  -> selector.pickRepoProject [uc:uuid:0296dad4-212f-448f-b576-5cba7cd53df8]
+  -> project.create [uc:uuid:83b8e3a5-55fb-4f64-ab85-23a7931471a1]
+  -> repository.attachToProject [uc:uuid:329b3855-b391-467f-bdf4-600354ec3c5f]
+  -> project.attachRepository [uc:uuid:fc9c542f-3cfb-4c46-b0a5-9599dba03521]
+  -> repoRegistry.createRepo [uc:uuid:c3fb11f1-caa2-4100-9d5a-1605eef0c4d2]

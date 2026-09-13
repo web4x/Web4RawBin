@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:c58d1a59-17e3-481c-80ee-f3a5dca8ba6d",
+  "model": {
+    "uuid": "1dd129b4-363e-4c9a-a99d-42dbde69cef5",
+    "name": "ModelLayer.addRepository",
+    "class": "ior:instance:c58d1a59-17e3-481c-80ee-f3a5dca8ba6d",
+    "coveredByUseCase": "ior:instance:86c45bba-96fb-472f-b71e-97a8b2ab8fad",
+    "description": "Opens the selector -> attach existing OR create-new via Repository/Project/GhBoundary -> mints the Repository in the M1 layer (owner-set, FQ-IOR, registered in mof-m1, live via 41.3 observer). The container owns adds to its collection (like Folder.linkIn); agents/Tron invoke this ACTION, never hand-write a Repository.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

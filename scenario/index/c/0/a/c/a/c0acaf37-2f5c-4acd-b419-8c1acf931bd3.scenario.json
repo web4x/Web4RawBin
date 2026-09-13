@@ -12,7 +12,10 @@
     "useCases": [
       "ior:instance:86c45bba-96fb-472f-b71e-97a8b2ab8fad",
       "ior:instance:0296dad4-212f-448f-b576-5cba7cd53df8",
-      "ior:instance:83b8e3a5-55fb-4f64-ab85-23a7931471a1"
+      "ior:instance:83b8e3a5-55fb-4f64-ab85-23a7931471a1",
+      "ior:instance:329b3855-b391-467f-bdf4-600354ec3c5f",
+      "ior:instance:fc9c542f-3cfb-4c46-b0a5-9599dba03521",
+      "ior:instance:c3fb11f1-caa2-4100-9d5a-1605eef0c4d2"
     ],
     "tasks": [],
     "tests": [],
@@ -20,77 +23,97 @@
     "crossRef": [
       "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
       "ior:instance:522473f3-f7b8-4444-91ec-101fd2bfee77",
-      "ior:instance:2368167a-6efd-4079-aaab-cd41705d6add"
+      "ior:instance:2368167a-6efd-4079-aaab-cd41705d6add",
+      "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
     ],
     "reuseNote": "REUSES the existing three-way-diff selector (diffEditor.repoTargeting 522473f3 / RepoRegistry.list 2368167a) \u2014 no second picker. Repository=9be9df2f (41.4). Project class MINTED here (absent; 3 Project instances existed, no Class \u2014 like File).",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-41-oop-model-consistency/requirements.md",
     "acceptanceCriteria": [
       {
-        "id": "AC-action-visible-on-m1-node",
-        "group": "ui/action-visible",
-        "text": "The 'add Repository' action (named EXACTLY 'add Repository') is VISIBLE on the M1 node (mof-m1) detail panel, alongside Scenario / Edit / Add folder / Rename / Import PUML.",
+        "id": "AC-action-invoked-never-handwritten",
+        "group": "radical-oop/action",
+        "text": "The Repository is added via the OWNED ACTION ModelLayer.addRepository (mints through the create seam: owner set, IOR composed, registered in mof-m1) \u2014 NEVER a hand-written Repository unit. A hand-write bypassing the action => RED.",
         "gateRef": {
           "kind": "test",
-          "ref": "check:add-repository-action-visible",
-          "assertion": "the M1 node detail shows an 'add Repository' action; absent => RED"
+          "ref": "check:add-repo-via-action",
+          "assertion": "a hand-written Repository bypassing ModelLayer.addRepository => RED"
         },
-        "stubMustFail": "remove the action from the M1 node detail -> RED"
+        "stubMustFail": "hand-write a Repository unit bypassing the action -> RED"
       },
       {
-        "id": "AC-selector-reused-lists-real-gh-repos",
-        "group": "reuse/no-second-picker",
-        "text": "The action opens a selector MODELLED ON / REUSING the existing three-way-diff repo/branch chooser (diffEditor.repoTargeting + RepoRegistry) \u2014 NO second picker forked \u2014 and it lists REAL gh repositories.",
-        "gateRef": {
-          "kind": "test",
-          "ref": "check:reuse-diff-selector-real-repos",
-          "assertion": "the selector is the reused three-way-diff chooser + lists real gh repos; a forked 2nd picker OR a stubbed repo list => RED"
-        },
-        "stubMustFail": "fork a second repo picker instead of reusing the three-way-diff selector -> RED"
-      },
-      {
-        "id": "AC-existing-project-attachable",
-        "group": "project/existing",
-        "text": "An EXISTING Project within the selected repository can be selected and ATTACHED (Repository HAS-A Project).",
-        "gateRef": {
-          "kind": "test",
-          "ref": "check:attach-existing-project",
-          "assertion": "an existing Project is attached to the Repository; cannot attach an existing project => RED"
-        },
-        "stubMustFail": "make existing-project attach impossible -> RED"
-      },
-      {
-        "id": "AC-new-project-creatable-attachable",
-        "group": "project/new",
-        "text": "A NEW Project can be CREATED (via a 'NEW project' action inside the selector) AND attached \u2014 Tron can add EITHER an existing OR a new project.",
-        "gateRef": {
-          "kind": "test",
-          "ref": "check:create-attach-new-project",
-          "assertion": "a new Project is created via the selector's NEW-project action + attached; missing new-project path => RED"
-        },
-        "stubMustFail": "remove the NEW-project action / make new-project create+attach impossible -> RED"
-      },
-      {
-        "id": "AC-m1-tree-shows-result",
-        "group": "model/tree-reflects",
-        "text": "After attach, the M1 TREE SHOWS the result \u2014 the attached Repository + Project as REAL modelled M1 units (owned, fully-qualified IOR), not a path string; live (R41.3 observer shape, no forced reload).",
-        "gateRef": {
-          "kind": "test",
-          "ref": "check:m1-tree-shows-repo-project",
-          "assertion": "the M1 tree renders the attached Repository+Project as modelled units after attach; a bare string / no tree update => RED"
-        },
-        "stubMustFail": "attach a repo/project that does not appear as a modelled unit in the M1 tree -> RED"
-      },
-      {
-        "id": "AC-owned-by-classes-not-free-functions",
-        "group": "radical-oop/owned",
-        "text": "The selector + the actions are METHODS OWNED BY the classes (Repository HAS-A Project; the action + attach on Repository/Project), NEVER free functions. A free-function selector/action => RED.",
+        "id": "AC-one-selector-no-fork",
+        "group": "reuse/one-picker",
+        "text": "ONE selector \u2014 the reused rb-diff-editor RepoRefSelector (extended project + new-project). grep 0 second repo/branch picker. A forked picker => RED.",
         "gateRef": {
           "kind": "lint",
-          "ref": "check:add-repo-owned-by-classes",
-          "assertion": "the add-Repository action + selector + attach are class methods; a free function implementing them => RED"
+          "ref": "check:one-repo-selector",
+          "assertion": "grep finds exactly one repo/branch picker (the reused one); a 2nd forked picker => RED"
         },
-        "stubMustFail": "implement the action/selector as a free function -> RED"
+        "stubMustFail": "fork a 2nd repo/branch picker -> RED"
+      },
+      {
+        "id": "AC-gh-only-in-RepoRegistry",
+        "group": "boundary/gh-isolated",
+        "text": "gh calls ONLY in RepoRegistry (the EXISTING gh boundary \u2014 REUSED, not a 2nd GhBoundary). grep 0 inline gh in views or domain methods. Repository.create/Project.create DELEGATE to RepoRegistry. An inline gh call outside RepoRegistry => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gh-only-in-boundary",
+          "assertion": "grep 0 inline gh outside RepoRegistry; inline gh in a view/domain method => RED"
+        },
+        "stubMustFail": "inline a gh call in a view or domain method -> RED"
+      },
+      {
+        "id": "AC-create-gated-private",
+        "group": "safety/gated-private",
+        "text": "CREATE (new repo/new project) defaults PRIVATE + requires an EXPLICIT create-intent flag; happens at BUILD on Tron's explicit go (never a side effect, never an architect step). A public or no-confirm create => RED. (public publishes everything + delete does not unpublish = irreversible.)",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:gh-create-gated-private",
+          "assertion": "GhBoundary.createRepo/createProject default PRIVATE + require explicit create-intent; a public/no-confirm create => RED"
+        },
+        "stubMustFail": "create a repo/project public or without explicit create-intent -> RED"
+      },
+      {
+        "id": "AC-new-units-owner-fully-qualified-ior",
+        "group": "guard/owner+ior",
+        "text": "New Repository/Project units carry ownerIor=Tron + fully-qualified IOR. A null-owner or bare-IOR new unit => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:new-repo-project-owner-ior",
+          "assertion": "new Repository/Project have ownerIor=Tron + FQ-IOR; null-owner/bare-IOR => RED"
+        },
+        "stubMustFail": "mint a new Repository/Project with null owner or bare IOR -> RED"
+      },
+      {
+        "id": "AC-attach-existing-no-outward-create",
+        "group": "safety/existing-read-only",
+        "text": "SELECT/ATTACH an EXISTING repo/project performs NO outward create (read/attach only, not gated). Only the NEW branches hit the gated create. An existing-attach that fires an outward gh create => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:attach-existing-no-create",
+          "assertion": "attaching an existing repo/project makes no outward gh create; an existing-attach with an outward create => RED"
+        },
+        "stubMustFail": "make existing-attach fire an outward gh create -> RED"
       }
-    ]
+    ],
+    "designRef": "scrum.pmo/design-notes/add-repository-action.md (architect ff7af3994) \u2014 complete-to-method",
+    "openQuestions": [
+      {
+        "q": "ModelLayer as the action owner vs an existing layer object",
+        "status": "OPEN \u2014 architect lean: clean ModelLayer (top-down; mof-m1 is a Folder today)",
+        "owner": "PO/Tron"
+      },
+      {
+        "q": "exact reusable selector sub-unit (RepoRefSelector extraction point in rb-diff-editor)",
+        "status": "OPEN \u2014 EXPERT confirms the extraction point before build (a guessed target could fork)",
+        "owner": "expert"
+      },
+      {
+        "q": "repo/project NAME + org + VISIBILITY",
+        "status": "OPEN \u2014 Tron (default PRIVATE; carried from 41.4; Web4RawBinOOP/private/web4x seen, apply on formal relay)",
+        "owner": "PO/Tron"
+      }
+    ],
+    "ghBoundaryNote": "check-before-create (architect ruling): GhBoundary was NOT minted \u2014 REUSE RepoRegistry 28cc1759 (existing gh-facing boundary, RepoRegistry.list). Added only absent gh methods (createRepo/createProject GATED+PRIVATE, listProjects/listBranches). listRepos = RepoRegistry.list (reused). ATTACH-EXISTING buildable now; CREATE gated on Tron repo-name/visibility (built, not exercised)."
   }
 }

@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "c58d1a59-17e3-481c-80ee-f3a5dca8ba6d",
+    "name": "ModelLayer",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:ModelLayer:rest:https://prod.wo-da.de:4444/scenario/c58d1a59-17e3-481c-80ee-f3a5dca8ba6d",
+    "iorFormat": "ior:class:ModelLayer:rest:<origin>/<uuid>",
+    "methods": [
+      "ior:instance:1dd129b4-363e-4c9a-a99d-42dbde69cef5"
+    ],
+    "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+    "description": "Clean M1 ModelLayer class (owns the mof-m1 layer + its adds). mof-m1 is a synthetic Folder today; top-down models it as a real class. OPEN(a): ModelLayer-own-class vs fold onto existing layer object (architect lean: clean ModelLayer).",
+    "unitLinks": []
+  }
+}

@@ -15,7 +15,8 @@
       "ior:instance:de585b85-4426-44e3-a561-80eaff9002af",
       "ior:instance:b6f32a0e-9128-41a4-8e1f-3e67a9498a28",
       "ior:instance:c97d56d4-045d-4a26-b2b1-1b18acdaf765",
-      "ior:instance:f8d8aea7-769d-48aa-a1ac-2354e93414c9"
+      "ior:instance:f8d8aea7-769d-48aa-a1ac-2354e93414c9",
+      "ior:instance:e7cda5b0-59db-4df4-b2e7-84f9d95744be"
     ],
     "coversRequirement": "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
     "description": "Clean radical-OOP M1 Repository class (owner=Tron, fully-qualified IOR, methods=behaviour not data-bag). A repo IS a class, not a path string. CREATE-clean (lowercase 'repo' stub left, zero-migration). M0 instance registered in the M1 tree, ownerIor=Tron.",

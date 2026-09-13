@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "model": {
+    "uuid": "0ec33ac4-e253-4c1e-ad84-e40aa3d9cebc",
+    "name": "RepoRegistry.createProject",
+    "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+    "coveredByUseCase": "ior:instance:c3fb11f1-caa2-4100-9d5a-1605eef0c4d2",
+    "description": "gated + PRIVATE default; explicit create-intent.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

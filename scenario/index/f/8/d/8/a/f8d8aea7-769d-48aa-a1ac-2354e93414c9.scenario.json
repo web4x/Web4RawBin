@@ -3,10 +3,10 @@
   "ownerIor": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
   "model": {
     "uuid": "f8d8aea7-769d-48aa-a1ac-2354e93414c9",
-    "name": "Repository.addProject",
+    "name": "Repository.attachTo",
     "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
     "coveredByUseCase": "ior:instance:86c45bba-96fb-472f-b71e-97a8b2ab8fad",
-    "description": "Repository attaches a Project (existing or new) = the HAS-A relation (PO-ruled Repository HAS-A Project). Owned by Repository, not a free function.",
+    "description": "Repository attaches to a Project (HAS-A). Owned by Repository, not a free function.",
     "implementations": [],
     "tests": [],
     "unitLinks": []

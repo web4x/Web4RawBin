@@ -11,7 +11,9 @@
     "methods": [
       "ior:instance:94096289-cad9-465d-953a-0eb2d756850c",
       "ior:instance:da30b8cb-3436-4fea-bc92-f7abd101c4cf",
-      "ior:instance:eff24f8e-13fd-4acc-b10c-0606104ea33d"
+      "ior:instance:eff24f8e-13fd-4acc-b10c-0606104ea33d",
+      "ior:instance:011df884-407c-44d0-8d55-4946c33e0400",
+      "ior:instance:9b41dcff-3d2b-49a0-97e6-b4cdc94ef275"
     ],
     "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
     "description": "Clean radical-OOP M1 Project class (owner=Tron, FQ-IOR, methods not data-bag). Project is its OWN class; Repository HAS-A Project (PO-ruled). 3 Project INSTANCES existed (RawBin+2 fixtures) but no Class was defined - minted here (like File).",

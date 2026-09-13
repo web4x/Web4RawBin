@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "model": {
+    "uuid": "64d3421b-901b-4a4f-982a-759f709c2c79",
+    "name": "RepoRegistry.listProjects",
+    "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+    "coveredByUseCase": "ior:instance:c3fb11f1-caa2-4100-9d5a-1605eef0c4d2",
+    "description": "read-only.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

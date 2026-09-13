@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+  "model": {
+    "uuid": "9b41dcff-3d2b-49a0-97e6-b4cdc94ef275",
+    "name": "Project.repositories",
+    "class": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "coveredByUseCase": "ior:instance:fc9c542f-3cfb-4c46-b0a5-9599dba03521",
+    "description": "the Repositories attached to this Project.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

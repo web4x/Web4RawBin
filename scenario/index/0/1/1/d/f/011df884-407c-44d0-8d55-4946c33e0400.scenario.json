@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+  "model": {
+    "uuid": "011df884-407c-44d0-8d55-4946c33e0400",
+    "name": "Project.attach",
+    "class": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "coveredByUseCase": "ior:instance:fc9c542f-3cfb-4c46-b0a5-9599dba03521",
+    "description": "attach a Repository to this Project.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

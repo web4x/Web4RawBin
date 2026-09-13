@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+  "model": {
+    "uuid": "329b3855-b391-467f-bdf4-600354ec3c5f",
+    "name": "repository.attachToProject",
+    "description": "PLACEHOLDER (architect wires): Repository attaches to a Project (HAS-A).",
+    "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+    "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "method": "ior:instance:f8d8aea7-769d-48aa-a1ac-2354e93414c9",
+    "unitLinks": []
+  }
+}
