@@ -10,7 +10,8 @@
     "intention": "class Folder EXISTS as a real M1 class for the first time \u2014 behaviour not data-bag, owned, fully-qualified IOR, carried whole through DnD.",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "status": "Planned",
-    "priority": "P0-TOP \u2014 Tron watching (2026-09-13), OOP model consistency build order",
+    "waitingOn": "BLOCKED \u2014 do NOT start: requires Tron QA-approval of Task 41.1 (class File) FIRST. Tron order 2026-09-13 verbatim 'dont do folder before i assure file qa approved'. Planner go WITHDRAWN, expert countermanded.",
+    "priority": "BLOCKED-ON-TRON-QA-OF-FILE (was P0-TOP) \u2014 gated until Tron QA-approves T41.1; Tron watching 2026-09-13, OOP model consistency build order",
     "acceptanceCriteria": "PROJECTS from 0ac8c383-ec63-4515-b27a-6614546ed9ae (no hand-write, AXIS-2): the 3 by-construction guards (owner-never-null / fully-qualified-additive-IOR / class-has-methods) + M1-class + dnd-carries-real-unit + full-chain-no-backfill + created-clean-new.",
     "coveredRequirements": [
       "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae"
@@ -21,7 +22,7 @@
     ],
     "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
     "sprintName": "Sprint 41",
-    "remainingIssues": "STOOD UP Planned, top-down scenario-first (chain minted before code). \u2605 Crisis-minted by robbin-req (PO urgent 2026-09-13, Tron watching zero-tasks, planner pane unreachable=detached shell) \u2014 PLANNER's lane: take over / reconcile. Architect wires class/method on build-go (design 37e362633 + re-scope 4fc4325f3).",
+    "remainingIssues": "\u2605\u2605 BLOCKED-ON-TRON-QA-OF-FILE (2026-09-13, Tron order): do NOT start T41.2 Folder until Tron QA-APPROVES Task 41.1 (class File). Verbatim 'dont do folder before i assure file qa approved'. Planner go WITHDRAWN, expert countermanded \u2014 nobody re-starts this until the File QA-accept lands. Stays Planned (no work). Provenance: crisis-minted by robbin-req 2026-09-13; architect wires class/method on build-go (design 37e362633 + re-scope 4fc4325f3).",
     "createdBy": "robbin-req",
     "createdAt": "2026-09-13"
   }
