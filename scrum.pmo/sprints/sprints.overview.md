@@ -34,10 +34,11 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 <!-- GENERATED-INDEX:BEGIN -->
 ## 📌 Sprint pointers (generated — R37.1 pin + R37.5 rollup)
-- **current:** ⚠️ UNRESOLVED — pin ambiguous — R37.1/R40.17 FAIL-LOUD (INV-C1-4): 6 Active sprints [21, 20, 40, 19, 37, 25] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
+- **current:** ⚠️ UNRESOLVED — pin ambiguous — R37.1/R40.17 FAIL-LOUD (INV-C1-4): 6 Active sprints [41, 21, 20, 40, 19, 37] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
 
 | # | Sprint | Status |
 |---|--------|--------|
+| 41 | Sprint 41 — OOP Model Consistency | Active |
 | 40 | Server Manager — deployment-node model + mobile input control | Active |
 | 37 | Consistency by Construction | Active |
 | 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |
@@ -51,7 +52,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 | 28 | Graph-Integrity Foundation | Planned |
 | 27 | Detail View Enhancements | Closed |
 | 26 | RawBin Federation | QA-pending |
-| 25 | Apple DnD | Active |
+| 25 | Apple DnD | QA-pending |
 | 24 | Traceability Skills | Closed |
 | 23 | Media Preview | Closed |
 | 22 | Traceability View Fixes | Closed |

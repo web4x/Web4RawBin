@@ -236,7 +236,7 @@ export class RbObjectItem extends HTMLElement {
     // siblings). Replaces the TRACE_ICONS['file'] derivation (deleted from icons.ts). Other types keep TRACE_ICONS.
     let icon: string;
     if (type === 'file') {
-      const vm = new File({ uuid, name: this.getAttribute('name') || '' }).renderSelf();
+      const vm = new File({ uuid, name: this.getAttribute('name') || this.getAttribute('title') || '' }).renderSelf();
       icon = fileIconGlyph(vm.iconToken); // adapter maps the File's token → SVG (never blank); glyph stays surface-side
       name = vm.name; // uuid fallback, never an empty label
     } else {
