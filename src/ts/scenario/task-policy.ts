@@ -145,6 +145,7 @@ export const TaskPolicy: UnitPolicy = {
         const arr = Array.isArray(m.changeRequests) ? (m.changeRequests as string[]) : [];
         arr.push(String(intent.addChangeRequest)); m.changeRequests = arr;
       }
+      m.lastAdvancedAt = new Date().toISOString(); m.lastAdvancedAtSource = 'seam'; // PART-3 (pin-status-integrity): a reopen IS a status/checklist transition — stamp it too, so EVERY seam advance stamps (omission-proof; BITE-C)
       return;
     }
     if (intent.subStep !== undefined) { // R40.18: tick the NAMED In-Progress sub-step, KEEP the state, stamp + emit (seam)

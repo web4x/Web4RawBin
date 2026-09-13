@@ -7,13 +7,27 @@ import { ScenarioIndex } from './index-store.js';
 import { fwdRefs } from '../shared/chain-model.js';
 import { bareUuid } from '../shared/bare-uuid.js'; // R40.58 D2: the ONE canonical uuid normaliser (strip prefix+@host) — the designation producer routes through it
 import type { ScenarioUnit } from './types.js';
-import { deriveStatusEnum, rollupParentStatus, childTaskUuids, type TaskStatusEnum } from './task-status.js'; // R40.1 (d): parent status ROLLS UP from children (weakest-link) — a coordination root derives from its subtasks, not its lying stored status
+import { deriveStatusEnum, rollupParentStatus, childTaskUuids, STATUS_ORDER, type TaskStatusEnum } from './task-status.js'; // R40.1 (d): parent status ROLLS UP from children (weakest-link) — a coordination root derives from its subtasks, not its lying stored status
 
 // R40.18 pin auto-progress (design-r40.18-pin-auto-progress.md): a task has "LEFT current" once it reaches a
-// TERMINAL-FOR-CURRENT status — QA-Review or Done (or raw Superseded/Cancelled). Detected via the STATUS ENUM
-// (deriveStatusEnum, the single source), NEVER a symbol/glyph. QA-Review leaves *current* by DERIVATION (no hook,
-// no stored pin) but is NOT completion — lastCompleted still follows Done only (lastCompleted-follows-DONE-not-QA).
-const TERMINAL_FOR_CURRENT: readonly TaskStatusEnum[] = ['QA Review', 'Done'];
+// R40.x pin-status-integrity PART-1 (design 899c3b5bc; architect-confirmed + expert STATUS_ORDER catch): a task is
+// current-eligible ONLY while in ACTIVE DEVELOPMENT — {Planned, In Progress}. EVERYTHING else — the
+// 'QA-Review-with-open-CR' band, clean 'QA Review', 'Done', and any UNKNOWN/corrupt status — is terminal-for-current.
+// This is POSITION-INDEPENDENT (NOT a hand-listed terminal subset that drifts from the enum): the old
+// ['QA Review','Done'] omitted the band [STATUS_ORDER idx 2, BEFORE 'QA Review'] → a task correctly in the QA band
+// stayed pin-eligible for WEEKS = Tron's lying pin. OCP: a new non-dev status is auto-terminal. FAIL-SAFE: an unknown
+// status is ∉ the active set → terminal (non-eligible), never silently the most-open state. (deriveStatusEnum stays the
+// single status source; this only classifies eligibility.) Superseded/Cancelled: also ∉ active → terminal (raw check kept explicit).
+const ACTIVE_FOR_CURRENT: readonly TaskStatusEnum[] = ['Planned', 'In Progress'];
+const isTerminalForCurrent = (status: string): boolean => !ACTIVE_FOR_CURRENT.includes(status as TaskStatusEnum);
+// R40.x pin PART-1 (architect by-construction, DRY): the SINGLE auto-current-candidate predicate = ACTIVE DEV only
+// ('In Progress'). The band / QA Review / Done / unknown are NOT auto-current (QA-phase, not the active-dev front Tron
+// watches); Planned is the FALLBACK (below), not a candidate. Used at the :290 auto-pick so it cannot drift from a
+// second inline list — the old `|| 'QA-Review-with-open-CR'` at :290 is exactly the drift that admitted a PARKED band
+// (T40.1) as current. DISTINCT from isTerminalForCurrent (that is COMPLETION — {band,QA,Done}, Planned NON-terminal —
+// used by the every-terminal / first-non-terminal slots; conflating the two would make Planned "terminal" and break those).
+// The owner DESIGNATION override (:300-305) is a SEPARATE, deliberately more-permissive path; a PARKED designation expiring is PART-3.
+const isCurrentEligible = (status: string): boolean => status === 'In Progress';
 
 export type HopStatus = 'pending' | 'in-progress' | 'done' | 'gate-proven';
 
@@ -187,20 +201,27 @@ export class CurrentSprint {
     // nextBacklog = next not-done task in-sprint, and if the sprint has none left, the FIRST open task
     // of the next sprint (by number) — so the pin ALWAYS shows current/last/next. Forward-only + not-
     // done-only keeps the phantom (done/past) out while still surfacing genuine upcoming work.
-    type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean; terminal: boolean; status: TaskStatusEnum; lastAdvancedAt: string };
+    type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean; terminal: boolean; status: TaskStatusEnum | 'Unknown'; lastAdvancedAt: string }; // PART-1: 'Unknown' = a corrupt/unrecognized stored status (fail-safe: non-current-eligible + surfaced, never degraded to Planned)
     // R40.1 (d) — DERIVED task status with PARENT ROLLUP (CR 18ebe066, design §3). A task with resolvable subtask
     // children derives the WEAKEST-LINK rollup of the children's derived statuses (children-rollup is AUTHORITATIVE for a
     // parent — its own stored/checklist status is IGNORED). A leaf keeps deriveStatusEnum(checklist), else the declared
     // model.status normalized (no-checklist legacy). Recursive (a child may itself be a parent) with a cycle-guard;
     // READ-side only, no disk write (single-writer intact). So coordination-root 37.4 derives QA-Review from its
     // QA-Review children → terminal-for-current → auto-rejected as the pin, no special case (its lying 'Planned' fixed).
-    const leafStatus = (m: Record<string, unknown>): TaskStatusEnum => {
+    const leafStatus = (m: Record<string, unknown>): TaskStatusEnum | 'Unknown' => {
       const checklist = String(m.statusChecklist || '');
       if (checklist) return deriveStatusEnum(checklist);
       const rawStatus = String(m.status || '');
-      return (['Planned', 'In Progress', 'QA Review', 'Done'] as TaskStatusEnum[]).find((s) => s.toLowerCase() === rawStatus.toLowerCase()) || 'Planned';
+      // PART-1: match the raw stored status against the FULL single-source STATUS_ORDER (all 5), not a hand-listed 4-value
+      // subset (the old subset omitted the band = the latent 2nd instance of the bug). FAIL-SAFE on a genuinely unknown
+      // status: do NOT `|| 'Planned'` (the most-open, most-current-eligible state = the dangerous unknown-read-as-intent
+      // direction). Surface it + return an 'Unknown' sentinel → isTerminalForCurrent classifies it non-current-eligible.
+      const matched = STATUS_ORDER.find((s) => s.toLowerCase() === rawStatus.toLowerCase());
+      if (matched) return matched;
+      if (rawStatus) console.warn(`[CurrentSprint PART-1] unknown stored task status ${JSON.stringify(rawStatus)} (task ${String(m.uuid || '')}) — non-current-eligible + surfaced, NOT degraded to Planned`);
+      return 'Unknown';
     };
-    const rolledStatus = (uuid: string, seen: Set<string> = new Set()): TaskStatusEnum => {
+    const rolledStatus = (uuid: string, seen: Set<string> = new Set()): TaskStatusEnum | 'Unknown' => {
       const key = bareUuid(uuid);
       const unit = this.index.get(key);
       if (!unit || unit.ior !== 'ior:class:Task' || seen.has(key)) return 'Planned';
@@ -219,7 +240,7 @@ export class CurrentSprint {
       // R40.18/R40.1(d): status via the ENUM with PARENT ROLLUP — single-source = rolledStatus (children-rollup for a
       // parent, deriveStatusEnum for a leaf); never a glyph/symbol, never the stored status for a parent.
       const rawStatus = String(m.status || '');
-      const status: TaskStatusEnum = rolledStatus(uuid);
+      const status: TaskStatusEnum | 'Unknown' = rolledStatus(uuid);
       return {
         uuid, name: String(m.name || ''),
         reqUuid: reqIors.length > 0 ? ior(reqIors[0]) : '',
@@ -227,7 +248,7 @@ export class CurrentSprint {
         done: status === 'Done',
         // R40.18 terminal-for-current: QA-Review or Done leaves the current-eligible set (Superseded/Cancelled too,
         // if a raw status carries them — the enum cannot derive those, so match the raw string as a belt-and-braces).
-        terminal: TERMINAL_FOR_CURRENT.includes(status) || /^(superseded|cancelled)$/i.test(rawStatus),
+        terminal: isTerminalForCurrent(status) || /^(superseded|cancelled)$/i.test(rawStatus),
         status,
         lastAdvancedAt: String(m.lastAdvancedAt || ''), // R40.18: seam-stamped recency; '' (untimestamped) ranks LAST in the current predicate
       };
@@ -272,9 +293,13 @@ export class CurrentSprint {
     // stuck; R40.17). A genuine owner Set-Current is the separate designatedCurrent OVERRIDE (demote — next increment).
     // WIP=N: the whole inProgress SET is surfaced (below) so multi-current is HONEST — no arbitrary single-pick.
     const inProgressRanked = sprintTasks
-      // R40.59 inv-3 (the ONE current-eligibility place): the band is current-able (processing a CR IS working) — it is
-      // already non-terminal (TERMINAL_FOR_CURRENT stays ['QA Review','Done']), so accept it here alongside In Progress.
-      .filter(t => t.status === 'In Progress' || t.status === 'QA-Review-with-open-CR')
+      // R40.x pin-status-integrity PART-1 (design 899c3b5bc, architect-confirmed) — REVERSES R40.59 inv-3: the
+      // 'QA-Review-with-open-CR' band is NO LONGER current-eligible. This filter (not TERMINAL_FOR_CURRENT alone) is the
+      // REAL current-pick gate; the old `|| band` is exactly why T40.1 — a band task whose CRs sat PARKED for weeks —
+      // showed as current for weeks (Tron's lie). A band task is in QA, not active development; the genuinely in-flight
+      // DEV work is elsewhere. Current-candidate = ACTIVE DEV only (In Progress), consistent with isTerminalForCurrent
+      // (band is terminal-for-current). BITE-A: a band task is NOT getThreeSlots().current. Planned = the fallback (below), never a candidate.
+      .filter(t => isCurrentEligible(t.status)) // R40.x PART-1: the ONE auto-current-candidate predicate (active-dev only) — no inline list to drift; the band no longer admitted here
       .sort((a, b) => (b.lastAdvancedAt || '').localeCompare(a.lastAdvancedAt || '')); // max lastAdvancedAt first; untimestamped last
     let i = -1;
     if (inProgressRanked.length) i = sprintTasks.indexOf(inProgressRanked[0]);

@@ -22,7 +22,9 @@
     "sprintName": "Sprint 40",
     "remainingIssues": "STOOD UP In-Progress = the CURRENT in-flight arc (pin points here; boarded 2026-09-12 on PO board-sync + pin-re-point). ★ SHIPPED + SIGNED (accept-ready-shipped, credited here; split into per-increment accept-ready rows on request): 225 composite-delete verify-GONE + resurrection-fix + 6 keep-marks (architect-signed firing, first real prod deleteRoom GONE+STAYS-GONE) · 226 preserve-unknown keep-mark durability (canary-bite green; req impl unit pending->wire) · 227 sweep real-owner brace, Tron's 26 profiles now protected by construction, RED->GREEN both halves architect-signed (req impl unit pending->wire). ★ IN-FLIGHT: 228 sanctioned sweep op (list-not-filter, two-phase fail-closed, MANDATORY setSha; SIGN PENDING bites; req impl unit->wire) · 229 orphan-only tripwire (in flight). ★★ OPEN/HONEST (PO: do NOT let dissolve): (a) 34 ORPHANS stay TRACKED-AND-INERT — only Tron's identity+device-key can run the sanctioned op; PO will NOT make him our janitor; EXIT = his option via banked setSha 51ef7d17 (PO anchor #96.24). (b) INC-7 BASELINE stays RED with the DOCUMENTED cause (orphans awaiting an authed path) — an HONEST red, NEVER a green bought by bypassing our guards. (c) 2 LOW follow-ups: owner-facing UNMARK op (code honours protected=false but nothing user-facing writes it) + non-git roomDir BACKUP (a SECRET STORE — roomDir holds the room SSH private key). Minted SERVED tree; flagged req to reverse-wire ff9ed585.tasks[] + wire the 226/227/228 impl units. 0 Done till Tron.",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-09-12"
+    "createdAt": "2026-09-12",
+    "lastAdvancedAt": "2026-09-12T22:41:44+02:00",
+    "lastAdvancedAtSource": "git-backfill"
   },
   "ownerIor": null
 }
