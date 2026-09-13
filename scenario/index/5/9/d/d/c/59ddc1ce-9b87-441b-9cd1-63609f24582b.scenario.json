@@ -1,0 +1,115 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "59ddc1ce-9b87-441b-9cd1-63609f24582b",
+    "altId": "R41.4",
+    "name": "A new git repository is created (gh/git) + REGISTERED in the M1 tree as a modelled Repository class \u2014 class-first + MVC by construction; the corrected MVP is implemented THERE",
+    "description": "Tron order 2026-09-13: 'add a new git repository via gh and git to the M1 tree as radical oop class first mvc implementation. then we implement the corrected mvp there.' The logical end of today's whole line: stop retrofitting a codebase whose VIEWS HOLD COPIES and whose FILES WERE NEVER CLASSES \u2014 build the corrected architecture CLEAN, in its OWN repo, modelled from the start. The repo is a modelled M1 thing (a Repository IS a class, not a path string \u2014 same lesson as File/Folder), class-first + MVC by construction (R41.3 observer shape from line one), and is the greenfield home for the corrected MVP.",
+    "tronQuote": "add a task 41.4 to add a new git repository via gh and git to the M1 tree as radiacl oop class first mvc implementation. then we implement the corrected mvp there.",
+    "poDirective": "PO 2026-09-13 (Tron order): mint requirement + task 41.4; repo created via gh/git, registered in M1 tree as modelled unit, class-first MVC by construction, corrected MVP implemented there. TWO OPEN (Tron's word, do not guess): repo name+org; visibility (default PRIVATE).",
+    "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "useCases": [
+      "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3"
+    ],
+    "tasks": [
+      "ior:instance:28978064-986e-416a-aec8-9518a504419b"
+    ],
+    "tests": [],
+    "unitLinks": [],
+    "extendsRequirement": "R41.3 (MVC observer shape) + R41.1/R41.2 (class-first M1) \u2014 applied to a greenfield repo",
+    "openQuestions": [
+      {
+        "q": "repo NAME + gh org/owner + VISIBILITY",
+        "status": "OPEN \u2014 Tron's word (do NOT guess). VISIBILITY default PRIVATE; public publishes everything + IRREVERSIBLE by deletion; NEVER create public on inference.",
+        "owner": "PO relays Tron"
+      },
+      {
+        "q": "Repository OWN class vs specialization of Project",
+        "status": "OPEN \u2014 architect leans OWN class (git behaviour head/branch/remote beyond a Project bucket) with Project HAS-A Repository; Tron rules.",
+        "owner": "PO relays Tron"
+      }
+    ],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-41-oop-model-consistency/requirements.md",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-repository-m1-class-methods-owner-ior",
+        "group": "m1/repository-class",
+        "text": "Repository is a real M1 class (ModelElement, instanceOf UmlClass a1d2e3f4-..-003) with methods create()/renderSelf()/ownIor()/head()/branch()/remote(), ownerIor=Tron, and a fully-qualified IOR ior:class:Repository:rest:<origin>/<uuid>. CREATE-clean (the lowercase 'repo' M1 stub is LEFT, zero-migration). A 0-method / null-owner / bare-IOR Repository => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:repository-m1-class",
+          "assertion": "Repository is M1 with methods + ownerIor=Tron + fully-qualified IOR; 0-method/null-owner/bare-IOR => RED"
+        },
+        "stubMustFail": "seed a Repository with 0 methods OR null owner OR a bare IOR -> RED"
+      },
+      {
+        "id": "AC-repo-registered-m1-cross-origin",
+        "group": "m1/registered-federation",
+        "text": "The new repo (M0 instance) is REGISTERED in the EXISTING M1 tree (a Repository node RESOLVES) AND is addressable CROSS-ORIGIN by its fully-qualified IOR \u2014 the new repo is a DISTINCT ORIGIN (Sprint 26 federation used for real; the first genuine 2nd origin). A repo referenced as a bare path string / not resolvable cross-origin => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:repo-m1-node-cross-origin",
+          "assertion": "the Repository node resolves in the M1 tree + a cross-origin fully-qualified IOR to its units resolves via the federated loader; a bare-path/local-only repo ref => RED"
+        },
+        "stubMustFail": "seed the repo as a path string / local-only ref (not M1-registered, not cross-origin) -> RED"
+      },
+      {
+        "id": "AC-greenfield-view-base-observer-only",
+        "group": "mvc-kernel/view-base",
+        "text": "The greenfield View base class is OBSERVER-ONLY BY CONSTRUCTION: it subscribes to a Model's IOR-keyed event + re-renders via renderSelf() on notify; there is NO reload/poll path in the base. In the new repo: 0 location.reload, 0 polling-for-freshness. A view that reloads/polls => RED (so the 13/94-subscribe retrofit cannot recur).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:new-repo-view-observer-only",
+          "assertion": "grep the new repo: 0 location.reload + 0 poll-for-freshness; a reload/poll view => RED"
+        },
+        "stubMustFail": "add a location.reload or a polling view in the new repo -> RED"
+      },
+      {
+        "id": "AC-greenfield-model-base-change-event",
+        "group": "mvc-kernel/model-base",
+        "text": "The greenfield Model base class owns state + a per-object IOR-keyed CHANGE-EVENT (emits on mutation); EVERY domain class (File/Folder/Repository/...) extends it, so change-events exist BY CONSTRUCTION. A data-bag class (no behaviour/events) is unrepresentable => a data-bag class => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:new-repo-model-base-events",
+          "assertion": "every domain class in the new repo extends the Model base + emits an IOR-keyed change-event on mutation; a data-bag class => RED"
+        },
+        "stubMustFail": "seed a data-bag class (no change-event) in the new repo -> RED"
+      },
+      {
+        "id": "AC-create-rejects-ownerless-line-1",
+        "group": "guard/owner-never-null",
+        "text": "create() REJECTS an ownerless unit from LINE 1 (owner-never-null by construction in the greenfield, Tron 'its me as the owner'). An ownerless create in the new repo => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:new-repo-create-rejects-ownerless",
+          "assertion": "create() rejects a unit with no owner; remove the guard so an ownerless unit is created => RED"
+        },
+        "stubMustFail": "create an ownerless unit in the new repo -> RED"
+      },
+      {
+        "id": "AC-visibility-PRIVATE-never-public-on-inference",
+        "group": "safety/visibility-irreversible",
+        "text": "\u2605 SAFETY (FAILABLE): the repo is created PRIVATE by default and is NEVER created PUBLIC on an inference \u2014 PUBLIC requires TRON'S EXPLICIT word (public publishes EVERYTHING + is NOT reversible by deletion). gh repo create is a build-time OUTWARD action on explicit Tron/PO go, not now. Creating public without explicit Tron authorization => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:repo-private-not-public-on-inference",
+          "assertion": "the repo is PRIVATE unless Tron explicitly authorized public; a public repo on inference => RED"
+        },
+        "stubMustFail": "create the repo public without explicit Tron authorization -> RED"
+      },
+      {
+        "id": "AC-corrected-mvp-implemented-there",
+        "group": "mvp/greenfield-home",
+        "text": "The CORRECTED MVP is implemented in the NEW repo (the greenfield home) \u2014 build the corrected architecture clean, modelled from the start, THERE; not retrofitted into the old codebase.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:corrected-mvp-in-new-repo",
+          "assertion": "the corrected MVP lives in the new repo (class-first, MVC-kernel); MVP retrofitted into the old codebase => RED/out-of-scope"
+        },
+        "stubMustFail": "build the corrected MVP in the old codebase instead of the new repo -> RED"
+      }
+    ],
+    "designRef": "scrum.pmo/design-notes/task-41.4-repository-class-greenfield.md (architect c990ac68e) \u2014 canonical 5 ACs + MVC kernel"
+  }
+}

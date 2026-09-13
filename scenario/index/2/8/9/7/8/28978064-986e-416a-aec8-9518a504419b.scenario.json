@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "28978064-986e-416a-aec8-9518a504419b",
+    "altId": "T41.4",
+    "name": "New git repo as M1 Repository class \u2014 greenfield class-first MVC home for the corrected MVP",
+    "slug": "new-git-repo-m1-class-mvp-home",
+    "description": "Create a new git repo (gh/git), register it in the M1 tree as a modelled Repository class (not a path string), class-first + MVC by construction (R41.3 shape from line one), implement the corrected MVP there.",
+    "intention": "Stop retrofitting; build the corrected architecture clean in its own modelled repo.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "priority": "P0 \u2014 Tron order 2026-09-13; BLOCKED on 2 OPEN (Tron's word): repo name+org + visibility",
+    "acceptanceCriteria": "PROJECTS from R41.4 59ddc1ce-9b87-441b-9cd1-63609f24582b (no hand-write): repo-created-via-gh-git / registered-M1-modelled-unit / class-first-mvc-by-construction / corrected-mvp-there / visibility-PRIVATE-never-public-on-inference / repo-name-org-from-tron.",
+    "coveredRequirements": [
+      "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b"
+    ],
+    "useCases": [
+      "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3"
+    ],
+    "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "sprintName": "Sprint 41",
+    "blockedOn": "2 OPEN items need Tron's word BEFORE the repo is created: (a) repo NAME + org/owner; (b) VISIBILITY (default PRIVATE, never public on inference).",
+    "remainingIssues": "STOOD UP Planned, BLOCKED on Tron's word (name/org + visibility). \u2605 Crisis-minted by robbin-req (PO urgent 2026-09-13, Tron order; planner being rewound) \u2014 PLANNER's lane, take over/reconcile (lane-flag). Architect wires M1 registration shape + class-first MVC skeleton. \u2605 SAFETY: do NOT create the repo public on an inference (irreversible); default PRIVATE. No repo creation until Tron gives name+org+visibility.",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-09-13"
+  }
+}

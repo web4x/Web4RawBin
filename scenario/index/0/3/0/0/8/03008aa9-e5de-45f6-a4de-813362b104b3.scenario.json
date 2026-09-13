@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
+  "model": {
+    "uuid": "03008aa9-e5de-45f6-a4de-813362b104b3",
+    "name": "repository.registerInM1TreeClassFirst",
+    "description": "PLACEHOLDER (architect wires M1 registration shape + class-first MVC skeleton): a new gh/git repo is registered as a modelled M1 Repository unit (owned, fully-qualified IOR), class-first + MVC by construction, greenfield home for the corrected MVP. class+method=null until wired.",
+    "coversRequirement": "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}
