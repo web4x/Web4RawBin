@@ -14,8 +14,22 @@ import { ScenarioIndex } from './index-store.js';
 import { FileLoader } from './classes.js';
 import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11 slice-1: route the create through the seam (persist+emit inseparable → new File appears live)
 
+// [impl:uuid:8d5a11e6-...File.ownIor] [impl:uuid:619421d1-...Folder.ownIor] Sprint 41 — the class composes its OWN
+// fully-qualified IOR: ior:class:<Class>:rest:<origin>/scenario/<uuid> (CLASS + PROTOCOL rest + ORIGIN + uuid). ORIGIN is
+// LOAD-BEARING (cross-server resolvable — the Sprint 26 federation property; a bare local ref resolves nowhere but here).
+// ★ GUARD #2 BY CONSTRUCTION: an empty origin → THROW (a File/Folder minted without origin is rejected). The origin is
+// SUPPLIED by the caller (the server's selfHost = https://${BASE_DOMAIN}:${HTTPS_PORT}); file-unit is server-config-free
+// by design (crypto/fs only), so the composer never reaches for a global. Pure → directly unit-testable (the guard#2 BITE).
+export function composeUnitIor(className: 'File' | 'Folder', uuid: string, origin: string): string {
+  const o = String(origin || '').trim();
+  if (!o) throw new Error(`composeUnitIor GUARD#2: refusing a ${className} IOR without an origin — a bare ref is cross-server-unresolvable (Sprint 41 fully-qualified-IOR by construction).`);
+  if (!uuid) throw new Error(`composeUnitIor: ${className} IOR requires a uuid.`);
+  return `ior:class:${className}:rest:${o.replace(/\/+$/, '')}/scenario/${uuid}`;
+}
+
 export interface FileUnitInput {
   name: string;
+  origin?: string;                // Sprint 41: the server's canonical origin (selfHost) → composeUnitIor sets a fully-qualified selfIor. Absent = legacy bare create UNCHANGED (zero-migration).
   content?: Buffer | string;      // T37.21: OPTIONAL — a folder is a room unit with NO content (everything is a unit)
   kind?: 'file' | 'folder';       // T37.21: 'folder' → the SAME become-a-room-unit path, ior:class:Folder, no content
   location?: string;              // T37.21 folder: its roomcoll location (parity with the model-side Folder unit)
@@ -46,7 +60,7 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish
     if (input.extraUnitLinks) unitLinks.push(...input.extraUnitLinks);
     const folderUnit: ScenarioUnit = {
       ior: iorClass('Folder'),
-      model: { uuid, name: input.name, kind: 'folder', location: input.location || '', children: [], parent: input.parent ?? null, unitLinks },
+      model: { uuid, name: input.name, kind: 'folder', location: input.location || '', children: [], parent: input.parent ?? null, unitLinks, ...(input.origin ? { selfIor: composeUnitIor('Folder', uuid, input.origin) } : {}) }, // Sprint 41: clean path (origin supplied) mints the fully-qualified selfIor; legacy (no origin) UNCHANGED
       ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
     } as ScenarioUnit;
     UnitController.create(idx, folderUnit.ior, uuid, folderUnit, { publish }); // scenario/index + syncLinks (room symlink) + emit (live) — same seam as a file
@@ -124,6 +138,7 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish
       // (the folder branch already threaded these; the File branch omitted them → a nested file never linked to its folder).
       ...(input.parent != null ? { parent: input.parent } : {}),
       ...(input.location ? { location: input.location } : {}),
+      ...(input.origin ? { selfIor: composeUnitIor('File', uuid, input.origin) } : {}), // Sprint 41: clean path (origin supplied) mints the fully-qualified selfIor; legacy (no origin) UNCHANGED (zero-migration)
     },
     ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
   });
