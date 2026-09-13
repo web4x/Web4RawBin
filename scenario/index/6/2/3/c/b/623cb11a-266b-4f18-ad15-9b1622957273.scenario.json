@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+  "model": {
+    "uuid": "623cb11a-266b-4f18-ad15-9b1622957273",
+    "name": "Folder.publishChange",
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "coveredByUseCase": "ior:instance:8f464a83-d107-4a98-9a08-73ca6f5e456f",
+    "description": "On mutation, emits a per-object change-event keyed by this Folder's IOR via publishUnitChanged (R41.3 notify). View re-renders via Folder.renderSelf().",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

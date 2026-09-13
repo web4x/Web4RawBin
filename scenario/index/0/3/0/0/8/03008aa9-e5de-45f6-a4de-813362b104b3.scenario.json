@@ -6,8 +6,8 @@
     "name": "repository.registerInM1TreeClassFirst",
     "description": "PLACEHOLDER (architect wires M1 registration shape + class-first MVC skeleton): a new gh/git repo is registered as a modelled M1 Repository unit (owned, fully-qualified IOR), class-first + MVC by construction, greenfield home for the corrected MVP. class+method=null until wired.",
     "coversRequirement": "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "method": "ior:instance:67981bd4-630f-4450-bea7-bd5230c446c5",
     "unitLinks": []
   }
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+  "model": {
+    "uuid": "24057be4-645d-49a5-8b8a-a7845543c1e7",
+    "name": "Repository.ownIor",
+    "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "coveredByUseCase": "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3",
+    "description": "composes its fully-qualified IOR ior:class:Repository:rest:<origin>/<uuid> - origin load-bearing (this repo is a DISTINCT origin = federation 2nd origin).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+  "model": {
+    "uuid": "67981bd4-630f-4450-bea7-bd5230c446c5",
+    "name": "Repository.renderSelf",
+    "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "coveredByUseCase": "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3",
+    "description": "renders its own M1-tree node + detail = the tree registration (ask-the-object).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

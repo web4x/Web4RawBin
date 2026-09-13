@@ -6,8 +6,8 @@
     "name": "fileFolderView.observesUnitLiveNoReload",
     "description": "PLACEHOLDER (architect wires class/method): a File/Folder view subscribes to its unit's UNIT_CHANGED on the viewBus and re-renders ITSELF (ask-the-object) with no forced reload; ignores unrelated changes. intendedMethod likely File.renderSelf/Folder.renderSelf reacting to the bus (architect confirms). class+method=null until wired.",
     "coversRequirement": "ior:instance:500be03e-1f3c-44c5-ad15-bdd1e9fea7d4",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "method": "ior:instance:a1081953-ffd3-4f5b-994e-dc908d5ad29d",
     "unitLinks": []
   }
 }

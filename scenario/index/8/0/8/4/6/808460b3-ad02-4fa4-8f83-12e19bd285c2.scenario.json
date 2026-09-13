@@ -13,7 +13,8 @@
       "ior:instance:cddd1ca8-01f9-43c9-8623-79f1fea6d864",
       "ior:instance:519ae557-09af-4c17-b603-3971c6d31f4b",
       "ior:instance:b7a18047-a677-4730-9bd6-e03985757213",
-      "ior:instance:619421d1-b03b-4758-82fe-0df8a96bef46"
+      "ior:instance:619421d1-b03b-4758-82fe-0df8a96bef46",
+      "ior:instance:623cb11a-266b-4f18-ad15-9b1622957273"
     ],
     "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
     "description": "Clean-create radical-OOP M1 Folder class (Tron zero-migration, S41). A FOLDER IS a Folder; instances are M0 Folder-class objects resolved through this class, ref'd by fully-qualified IOR, owned (never null), carried whole through DnD. Behaviour not data-bag (has methods).",

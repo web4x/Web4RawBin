@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "model": {
+    "uuid": "a1081953-ffd3-4f5b-994e-dc908d5ad29d",
+    "name": "File.publishChange",
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "coveredByUseCase": "ior:instance:8f464a83-d107-4a98-9a08-73ca6f5e456f",
+    "description": "On mutation, emits a per-object change-event keyed by this File's IOR via the ONE write seam publishUnitChanged (the notify half of R41.3 MVC). The view subscribed by IOR re-renders via File.renderSelf(); a direct disk write bypassing this seam blinds the view.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

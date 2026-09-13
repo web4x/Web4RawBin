@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:337a7764-b789-4fca-9cf7-da9f8fb40a17",
+  "model": {
+    "uuid": "9a0df2f8-51dc-4d34-b96e-298ed7e03b13",
+    "name": "ViewBase.subscribe",
+    "class": "ior:instance:337a7764-b789-4fca-9cf7-da9f8fb40a17",
+    "coveredByUseCase": "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3",
+    "description": "Subscribes to a Model's IOR-keyed change-event (observer-only by construction - no reload/poll path exists in the base).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

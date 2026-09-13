@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:2bafcb53-d464-49aa-b2e9-bfb650793274",
+  "model": {
+    "uuid": "fa92bc3b-8f2b-4194-b10c-e5d343fcf8f6",
+    "name": "ModelBase.emitChange",
+    "class": "ior:instance:2bafcb53-d464-49aa-b2e9-bfb650793274",
+    "coveredByUseCase": "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3",
+    "description": "Emits a per-object change-event keyed by the model's IOR on mutation. EVERY domain class (File/Folder/Repository) extends ModelBase -> change-events BY CONSTRUCTION; a data-bag (no event) is unrepresentable.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

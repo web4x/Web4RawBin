@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+  "model": {
+    "uuid": "ccf4b743-8a14-413e-8ed6-3ce2459da2c0",
+    "name": "Repository.create",
+    "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "coveredByUseCase": "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3",
+    "description": "genesis via gh/git (M0 repo creation) - REAL outward action at BUILD on explicit Tron/PO go, NOT now; PRIVATE by default, never public on inference.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

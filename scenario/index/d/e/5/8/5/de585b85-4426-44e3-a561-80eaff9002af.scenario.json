@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+  "model": {
+    "uuid": "de585b85-4426-44e3-a561-80eaff9002af",
+    "name": "Repository.head",
+    "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "coveredByUseCase": "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3",
+    "description": "current git HEAD as behaviour on the object.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

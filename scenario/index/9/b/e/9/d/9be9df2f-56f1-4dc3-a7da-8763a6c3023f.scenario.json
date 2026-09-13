@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "name": "Repository",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:Repository:rest:https://prod.wo-da.de:4444/scenario/9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "iorFormat": "ior:class:Repository:rest:<origin>/<uuid>",
+    "methods": [
+      "ior:instance:ccf4b743-8a14-413e-8ed6-3ce2459da2c0",
+      "ior:instance:67981bd4-630f-4450-bea7-bd5230c446c5",
+      "ior:instance:24057be4-645d-49a5-8b8a-a7845543c1e7",
+      "ior:instance:de585b85-4426-44e3-a561-80eaff9002af",
+      "ior:instance:b6f32a0e-9128-41a4-8e1f-3e67a9498a28",
+      "ior:instance:c97d56d4-045d-4a26-b2b1-1b18acdaf765"
+    ],
+    "coversRequirement": "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
+    "description": "Clean radical-OOP M1 Repository class (owner=Tron, fully-qualified IOR, methods=behaviour not data-bag). A repo IS a class, not a path string. CREATE-clean (lowercase 'repo' stub left, zero-migration). M0 instance registered in the M1 tree, ownerIor=Tron.",
+    "unitLinks": []
+  }
+}

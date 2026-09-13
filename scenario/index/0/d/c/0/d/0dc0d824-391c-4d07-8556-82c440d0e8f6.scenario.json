@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:337a7764-b789-4fca-9cf7-da9f8fb40a17",
+  "model": {
+    "uuid": "0dc0d824-391c-4d07-8556-82c440d0e8f6",
+    "name": "ViewBase.renderOnNotify",
+    "class": "ior:instance:337a7764-b789-4fca-9cf7-da9f8fb40a17",
+    "coveredByUseCase": "ior:instance:03008aa9-e5de-45f6-a4de-813362b104b3",
+    "description": "On notify, re-renders via that model's renderSelf(). No reload-only view, no copy-holding, no polling can be added (unrepresentable). So the 13/94-subscribe retrofit cannot recur.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

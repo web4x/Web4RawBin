@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "2bafcb53-d464-49aa-b2e9-bfb650793274",
+    "name": "ModelBase",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:ModelBase:rest:https://prod.wo-da.de:4444/scenario/2bafcb53-d464-49aa-b2e9-bfb650793274",
+    "iorFormat": "ior:class:ModelBase:rest:<origin>/<uuid>",
+    "methods": [
+      "ior:instance:fa92bc3b-8f2b-4194-b10c-e5d343fcf8f6"
+    ],
+    "coversRequirement": "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
+    "description": "Clean radical-OOP M1 ModelBase class (owner=Tron, fully-qualified IOR, methods=behaviour not data-bag). Greenfield MVC kernel Model base: owns state + IOR-keyed change-event. The base REQUIRES behaviour+events so a 0-method data-bag cannot exist.",
+    "unitLinks": []
+  }
+}

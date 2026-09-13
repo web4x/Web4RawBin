@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "337a7764-b789-4fca-9cf7-da9f8fb40a17",
+    "name": "ViewBase",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:ViewBase:rest:https://prod.wo-da.de:4444/scenario/337a7764-b789-4fca-9cf7-da9f8fb40a17",
+    "iorFormat": "ior:class:ViewBase:rest:<origin>/<uuid>",
+    "methods": [
+      "ior:instance:9a0df2f8-51dc-4d34-b96e-298ed7e03b13",
+      "ior:instance:0dc0d824-391c-4d07-8556-82c440d0e8f6"
+    ],
+    "coversRequirement": "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
+    "description": "Clean radical-OOP M1 ViewBase class (owner=Tron, fully-qualified IOR, methods=behaviour not data-bag). Greenfield MVC kernel View base: subscribe + renderOnNotify = observer-only BY CONSTRUCTION.",
+    "unitLinks": []
+  }
+}
