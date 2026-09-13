@@ -129,15 +129,19 @@ const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
 // moves both ATOMICALLY → split-brain is UNREPRESENTABLE by construction (not two call sites agreeing by convention).
 // Governs the STORE (reads + writes), hence MODEL_STORE_SOURCE (renamed from Slice-2's MODEL_READ_SOURCE; the old name is
 // still honoured transitionally so the tester's committed r4081c PAIR-2 runner keeps working until the flag-removal step).
-// Reads the env AT the call (every call) so the flag genuinely flips (PAIR-2 proven not a no-op false-green). DEFAULT
-// 'model-store' = pre-repoint MODEL_STORE (FROZEN — coupling is behaviour-preserving at default: no flip, no model-store
-// mutation). 'scenario-index' = post-flip one-store target. The flip is the live ROLLBACK lever. model-store is NOT deleted
-// in the coupling step (deletion is a later step); flag+lint removal is LAST.
+// Reads the env AT the call (every call) so the flag genuinely flips (PAIR-2 proven not a no-op false-green). ★ DEFAULT
+// (post-migration, inverted): the migrated one-store scenario/index is the DEFAULT (unset/any value ≠ 'model-store'); only an
+// EXPLICIT 'model-store' selects the R40.81-drained legacy store as a live ROLLBACK lever. This removes the latent silent
+// outage where a lost .env line defaulted to the EMPTY model-store. model-store is NOT deleted; flag+lint removal is LAST.
 class ModelStoreLocator {
   // the model store dir (flag-toggled) — model-unit reads/writes + mof aggregation resolve here.
   static modelDir(): string {
     const src = process.env.MODEL_STORE_SOURCE || envVars['MODEL_STORE_SOURCE'] || process.env.MODEL_READ_SOURCE || envVars['MODEL_READ_SOURCE']; // canonical MODEL_STORE_SOURCE (process.env OR .env); old name transitional. Reading .env (envVars) makes the flip DURABLE across restarts → the observation window can't be silently un-flipped by a bare restart.
-    return src === 'scenario-index' ? PROD_INDEX : MODEL_STORE;
+    // DEFAULT-INVERSION: the migrated one-store (scenario/index, 7149 units) is now the DEFAULT; MODEL_STORE (R40.81-DRAINED
+    // to ZERO) is an EXPLICIT rollback lever only. Was `src==='scenario-index' ? PROD_INDEX : MODEL_STORE` = default→drained
+    // → a LOST .env line silently served an EMPTY model store with NO error. Fail-safe: unset/anything → the real store; only
+    // an explicit `model-store` opts into the (empty) legacy store. Behaviour-identical while .env=scenario-index (today).
+    return src === 'model-store' ? MODEL_STORE : PROD_INDEX;
   }
   // the store backing a specific uuid: a model unit → modelDir() (flag-toggled); every other unit → prod scenario/index.
   static dirFor(uuid: string): string {
