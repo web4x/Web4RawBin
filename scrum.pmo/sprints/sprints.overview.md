@@ -38,6 +38,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 | # | Sprint | Status |
 |---|--------|--------|
+| 41 | Sprint 41 — OOP Model Consistency | Planned |
 | 40 | Server Manager — deployment-node model + mobile input control | Active |
 | 37 | Consistency by Construction | Active |
 | 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |

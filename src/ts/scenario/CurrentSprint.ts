@@ -9,25 +9,32 @@ import { bareUuid } from '../shared/bare-uuid.js'; // R40.58 D2: the ONE canonic
 import type { ScenarioUnit } from './types.js';
 import { deriveStatusEnum, rollupParentStatus, childTaskUuids, STATUS_ORDER, type TaskStatusEnum } from './task-status.js'; // R40.1 (d): parent status ROLLS UP from children (weakest-link) — a coordination root derives from its subtasks, not its lying stored status
 
-// R40.18 pin auto-progress (design-r40.18-pin-auto-progress.md): a task has "LEFT current" once it reaches a
-// R40.x pin-status-integrity PART-1 (design 899c3b5bc; architect-confirmed + expert STATUS_ORDER catch): a task is
-// current-eligible ONLY while in ACTIVE DEVELOPMENT — {Planned, In Progress}. EVERYTHING else — the
-// 'QA-Review-with-open-CR' band, clean 'QA Review', 'Done', and any UNKNOWN/corrupt status — is terminal-for-current.
-// This is POSITION-INDEPENDENT (NOT a hand-listed terminal subset that drifts from the enum): the old
-// ['QA Review','Done'] omitted the band [STATUS_ORDER idx 2, BEFORE 'QA Review'] → a task correctly in the QA band
-// stayed pin-eligible for WEEKS = Tron's lying pin. OCP: a new non-dev status is auto-terminal. FAIL-SAFE: an unknown
-// status is ∉ the active set → terminal (non-eligible), never silently the most-open state. (deriveStatusEnum stays the
-// single status source; this only classifies eligibility.) Superseded/Cancelled: also ∉ active → terminal (raw check kept explicit).
-const ACTIVE_FOR_CURRENT: readonly TaskStatusEnum[] = ['Planned', 'In Progress'];
-const isTerminalForCurrent = (status: string): boolean => !ACTIVE_FOR_CURRENT.includes(status as TaskStatusEnum);
-// R40.x pin PART-1 (architect by-construction, DRY): the SINGLE auto-current-candidate predicate = ACTIVE DEV only
-// ('In Progress'). The band / QA Review / Done / unknown are NOT auto-current (QA-phase, not the active-dev front Tron
-// watches); Planned is the FALLBACK (below), not a candidate. Used at the :290 auto-pick so it cannot drift from a
-// second inline list — the old `|| 'QA-Review-with-open-CR'` at :290 is exactly the drift that admitted a PARKED band
-// (T40.1) as current. DISTINCT from isTerminalForCurrent (that is COMPLETION — {band,QA,Done}, Planned NON-terminal —
-// used by the every-terminal / first-non-terminal slots; conflating the two would make Planned "terminal" and break those).
-// The owner DESIGNATION override (:300-305) is a SEPARATE, deliberately more-permissive path; a PARKED designation expiring is PART-3.
-const isCurrentEligible = (status: string): boolean => status === 'In Progress';
+// R40.x pin-status-integrity PART-1 FINAL (design 899c3b5bc→b3b93a84d→e36be13e8; PO ruling (b)). The pin lied: T40.1,
+// a 'QA-Review-with-open-CR' band whose CRs sat PARKED for weeks, showed as CURRENT while genuinely in-flight dev was
+// invisible. ROOT = an enumerated subset silently mishandled a value outside it (same family as GUARD#6 / Room.persist):
+// current-eligibility was gated in THREE disagreeing places, and a hand-listed terminal subset omitted the band. FIX =
+// ONE band-aware predicate at all three gates. POSITION-INDEPENDENT (no STATUS_ORDER index test — the band sorts at idx
+// 2 BEFORE 'QA Review'). FAIL-SAFE: unknown/corrupt status → non-eligible + surfaced (leafStatus 'Unknown'), never the
+// most-open state. Ruling (b) preserves R40.59 inv-3 (an ACTIVELY-processing band IS working) yet excludes a PARKED one.
+// Superseded/Cancelled raw statuses matched at the call site (:251).
+const BAND_STATUS = 'QA-Review-with-open-CR';
+export const isBand = (status: string): boolean => status === BAND_STATUS;
+// ★ THE ONE current-eligibility predicate — used at ALL THREE gates (terminal :251, auto-filter :302, designation
+// override :326) so they cannot drift (the 3-gate disagreement was Tron's lying pin). Current-eligible =
+//   (a) ACTIVE DEV: status === 'In Progress'; OR
+//   (b) an ACTIVELY-PROCESSING band: a 'QA-Review-with-open-CR' whose lastAdvancedAt is at least as recent as the
+//       sprint's In-Progress RECENCY FRONT (its CR is being worked NOW). RELATIVE reference = the sprint's own
+//       In-Progress recency (self-scaling, NO magic clock constant → cannot rot). PART-3 makes lastAdvancedAt truthful.
+// FAIL-SAFE: recencyFront='' (no In-Progress competitor) → a band is NOT eligible — never present a PARKED band's
+// HISTORY as activity-happening-NOW (Tron's exact complaint; PO-corrected edge). Position-independent (no STATUS_ORDER
+// index test — the band sorts at idx 2 BEFORE 'QA Review', so a >=index rule would omit it = the original bug).
+export const isCurrentEligible = (status: string, lastAdvancedAt = '', recencyFront = ''): boolean =>
+  status === 'In Progress' || (isBand(status) && !!recencyFront && (lastAdvancedAt || '') >= recencyFront);
+// terminal-for-current = has LEFT the current-eligible set going FORWARD: NOT Planned (Planned is the pre-start
+// fallback, never terminal) AND NOT current-eligible. Derived from the ONE predicate → an ACTIVE band is non-terminal,
+// a PARKED band / QA Review / Done / Unknown terminal. (Superseded/Cancelled raw statuses are matched at the call site.)
+export const isTerminalForCurrent = (status: string, lastAdvancedAt = '', recencyFront = ''): boolean =>
+  status !== 'Planned' && !isCurrentEligible(status, lastAdvancedAt, recencyFront);
 
 export type HopStatus = 'pending' | 'in-progress' | 'done' | 'gate-proven';
 
@@ -275,6 +282,11 @@ export class CurrentSprint {
       if (match) { sprintTaskUuids = match.tasks; currentSprint = match; }
     }
     const sprintTasks = sprintTaskUuids.map(slotInfo).filter((t): t is Slot => !!t);
+    // PART-1 FINAL: the sprint's In-Progress RECENCY FRONT (max lastAdvancedAt of active-dev tasks) — the relative
+    // reference a band's own stamp must reach to count as ACTIVELY processing. Re-classify band terminals against it
+    // (the ONE predicate; slotInfo defaulted a band terminal because the front was not yet known at slot-build time).
+    const recencyFront = sprintTasks.filter(t => t.status === 'In Progress').map(t => t.lastAdvancedAt).filter(Boolean).sort().reverse()[0] || '';
+    for (const t of sprintTasks) if (isBand(t.status)) t.terminal = isTerminalForCurrent(t.status, t.lastAdvancedAt, recencyFront);
 
     // 2) current = the WIP by construction (PIN-KEEP): a VALID focus wins (in-sprint — sprintTasks already is — AND
     //    not-done), else the in-sprint task covering the WIP chain req (also not-done), else forward-fall to the
@@ -299,7 +311,7 @@ export class CurrentSprint {
       // showed as current for weeks (Tron's lie). A band task is in QA, not active development; the genuinely in-flight
       // DEV work is elsewhere. Current-candidate = ACTIVE DEV only (In Progress), consistent with isTerminalForCurrent
       // (band is terminal-for-current). BITE-A: a band task is NOT getThreeSlots().current. Planned = the fallback (below), never a candidate.
-      .filter(t => isCurrentEligible(t.status)) // R40.x PART-1: the ONE auto-current-candidate predicate (active-dev only) — no inline list to drift; the band no longer admitted here
+      .filter(t => isCurrentEligible(t.status, t.lastAdvancedAt, recencyFront)) // R40.x PART-1 FINAL: the ONE predicate — In Progress OR an ACTIVELY-processing band (recency-front); a PARKED band is excluded, an active one preserved (inv-3)
       .sort((a, b) => (b.lastAdvancedAt || '').localeCompare(a.lastAdvancedAt || '')); // max lastAdvancedAt first; untimestamped last
     let i = -1;
     if (inProgressRanked.length) i = sprintTasks.indexOf(inProgressRanked[0]);
@@ -323,7 +335,10 @@ export class CurrentSprint {
       // nextBacklog recalculates off it. The 'QA-Review-with-open-CR' BAND is NOT excluded (processing a CR IS working) →
       // it STAYS current. So: designation wins while status ∈ {Planned, In-Progress, QA-Review-with-open-CR}; expires at
       // clean 'QA Review' / Done / gone (re-checked per read, expiry observed by StaleSteerLog).
-      if (d && d.status !== 'Done' && d.status !== 'QA Review') current = d;
+      // PART-1 FINAL 3rd gate: a designation wins while status ∈ {Planned, In-Progress, band} — BUT a band designation
+      // uses the SAME recency predicate, so a designated PARKED band EXPIRES (does not linger as current) exactly like
+      // the auto-pick. An active band designation still wins (inv-3). One predicate at all three gates → no drift.
+      if (d && d.status !== 'Done' && d.status !== 'QA Review' && (!isBand(d.status) || isCurrentEligible(d.status, d.lastAdvancedAt, recencyFront))) current = d;
     }
     if (!current && this.chain?.req) {
       // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot (guard !done; LIVE name)
