@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+  "model": {
+    "uuid": "cddd1ca8-01f9-43c9-8623-79f1fea6d864",
+    "name": "Folder.children",
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "coveredByUseCase": "ior:instance:7a1c9e04-0b2f-4a6e-9c31-1d5f6a2b3c4d",
+    "description": "Folder.children \u2014 the object answers 'children' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

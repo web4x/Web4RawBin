@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "model": {
+    "uuid": "8d5a11e6-a5c0-4237-a218-afbe19699bf6",
+    "name": "File.ownIor",
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "coveredByUseCase": "ior:instance:812d0e73-bd4b-41df-ad49-860f38ced744",
+    "description": "File.ownIor \u2014 the object answers 'ownIor' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

@@ -6,8 +6,8 @@
     "name": "folder.renderSelf",
     "description": "PLACEHOLDER (architect wires class/method on build-go, design scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633)): Folder answers 'renderSelf' via its own method (ask-the-object). class + method = null until wired.",
     "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "method": "ior:instance:f1a18a54-3771-4626-80ee-ef9f51e05f95",
     "unitLinks": []
   }
 }

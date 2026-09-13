@@ -7,8 +7,8 @@
     "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): answers 'resolveOwnIor' via its own method Folder.ownIor (ask-the-object). intendedMethod=Folder.ownIor. class+method=null until wired.",
     "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
     "intendedMethod": "Folder.ownIor",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "method": "ior:instance:619421d1-b03b-4758-82fe-0df8a96bef46",
     "unitLinks": []
   }
 }

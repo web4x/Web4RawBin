@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+  "model": {
+    "uuid": "519ae557-09af-4c17-b603-3971c6d31f4b",
+    "name": "Folder.linkIn",
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "coveredByUseCase": "ior:instance:eebe2340-76a4-46d8-b26e-5c7d79569264",
+    "description": "Folder.linkIn \u2014 the object answers 'linkIn' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

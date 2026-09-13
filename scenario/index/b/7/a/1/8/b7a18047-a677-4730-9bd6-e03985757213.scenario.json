@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+  "model": {
+    "uuid": "b7a18047-a677-4730-9bd6-e03985757213",
+    "name": "Folder.unlink",
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "coveredByUseCase": "ior:instance:b1382584-4c46-4a50-a6bb-593d91101ef1",
+    "description": "Folder.unlink \u2014 the object answers 'unlink' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

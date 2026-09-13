@@ -6,8 +6,8 @@
     "name": "file.renderSelf",
     "description": "PLACEHOLDER (architect wires class/method on build-go, design scrum.pmo/design-notes/sprint-41-oop-model-consistency.md (architect 37e362633)): File answers 'renderSelf' via its own method (ask-the-object). class + method = null until wired.",
     "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "method": "ior:instance:3feca893-d59f-4d5b-b641-0cbdb873a6b1",
     "unitLinks": []
   }
 }

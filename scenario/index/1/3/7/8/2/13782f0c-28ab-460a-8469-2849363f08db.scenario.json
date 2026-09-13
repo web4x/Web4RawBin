@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "13782f0c-28ab-460a-8469-2849363f08db",
+    "name": "File",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:File:rest:https://prod.wo-da.de:4444/scenario/13782f0c-28ab-460a-8469-2849363f08db",
+    "iorFormat": "ior:class:File:rest:<origin>/<uuid> (class+protocol+origin+uuid, federation-resolvable)",
+    "methods": [
+      "ior:instance:3feca893-d59f-4d5b-b641-0cbdb873a6b1",
+      "ior:instance:3500d960-d49b-43e6-81a9-0f12ddacb272",
+      "ior:instance:8d5a11e6-a5c0-4237-a218-afbe19699bf6"
+    ],
+    "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+    "description": "Clean-create radical-OOP M1 File class (Tron zero-migration, S41). A FILE IS a File; instances are M0 File-class objects resolved through this class, ref'd by fully-qualified IOR, owned (never null), carried whole through DnD. Behaviour not data-bag (has methods).",
+    "unitLinks": []
+  }
+}

@@ -7,8 +7,8 @@
     "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): answers 'moveIntoFolder' via its own method File.moveTo (ask-the-object). intendedMethod=File.moveTo. class+method=null until wired.",
     "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
     "intendedMethod": "File.moveTo",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "method": "ior:instance:3500d960-d49b-43e6-81a9-0f12ddacb272",
     "unitLinks": []
   }
 }

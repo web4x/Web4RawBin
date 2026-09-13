@@ -7,8 +7,8 @@
     "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): answers 'unlinkChild' via its own method Folder.unlink (ask-the-object). intendedMethod=Folder.unlink. class+method=null until wired.",
     "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
     "intendedMethod": "Folder.unlink",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "method": "ior:instance:b7a18047-a677-4730-9bd6-e03985757213",
     "unitLinks": []
   }
 }

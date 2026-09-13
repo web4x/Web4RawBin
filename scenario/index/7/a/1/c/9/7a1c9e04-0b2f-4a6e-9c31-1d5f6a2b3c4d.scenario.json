@@ -6,8 +6,8 @@
     "name": "folder.listChildren",
     "description": "PLACEHOLDER (architect wires class/method, design efb7067ba (CLASS+METHOD HOPS)): Folder lists its children via its own method Folder.children (ask-the-object). intendedMethod=Folder.children. class+method=null until wired.",
     "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "method": "ior:instance:cddd1ca8-01f9-43c9-8623-79f1fea6d864",
     "unitLinks": [],
     "intendedMethod": "Folder.children"
   }

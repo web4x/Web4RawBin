@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "name": "Folder",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:Folder:rest:https://prod.wo-da.de:4444/scenario/808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "iorFormat": "ior:class:Folder:rest:<origin>/<uuid> (class+protocol+origin+uuid, federation-resolvable)",
+    "methods": [
+      "ior:instance:f1a18a54-3771-4626-80ee-ef9f51e05f95",
+      "ior:instance:cddd1ca8-01f9-43c9-8623-79f1fea6d864",
+      "ior:instance:519ae557-09af-4c17-b603-3971c6d31f4b",
+      "ior:instance:b7a18047-a677-4730-9bd6-e03985757213",
+      "ior:instance:619421d1-b03b-4758-82fe-0df8a96bef46"
+    ],
+    "coversRequirement": "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
+    "description": "Clean-create radical-OOP M1 Folder class (Tron zero-migration, S41). A FOLDER IS a Folder; instances are M0 Folder-class objects resolved through this class, ref'd by fully-qualified IOR, owned (never null), carried whole through DnD. Behaviour not data-bag (has methods).",
+    "unitLinks": [],
+    "supersedesLegacy": "ior:instance:77ff595d-a6c7-4022-a437-198c5a714bc7",
+    "supersedesNote": "New clean S41 Folder supersedes legacy 77ff595d-a6c7-4022-a437-198c5a714bc7 (R40.86 DropTarget, owner null) \u2014 un-migrated per Tron zero-migration."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+  "model": {
+    "uuid": "f1a18a54-3771-4626-80ee-ef9f51e05f95",
+    "name": "Folder.renderSelf",
+    "class": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
+    "coveredByUseCase": "ior:instance:8b2d0f15-1c3e-4b7f-8d42-2e6a7b3c4d5e",
+    "description": "Folder.renderSelf \u2014 the object answers 'renderSelf' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

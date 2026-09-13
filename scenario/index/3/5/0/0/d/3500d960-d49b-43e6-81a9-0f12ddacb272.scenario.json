@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "model": {
+    "uuid": "3500d960-d49b-43e6-81a9-0f12ddacb272",
+    "name": "File.moveTo",
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "coveredByUseCase": "ior:instance:0b09a430-eb28-46d2-a84b-652a63db1de1",
+    "description": "File.moveTo \u2014 the object answers 'moveTo' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}
