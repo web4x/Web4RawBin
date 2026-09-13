@@ -170,7 +170,9 @@ export class RbObjectItem extends HTMLElement {
     const origin = (typeof location !== 'undefined' && location.origin) ? location.origin : '';
     // T26.2: cross-origin federated reference for the PRIMARY unit (a UNIT ref, not a URL) — receiver's server imports from
     // fetchUrl. Design R37.20: federated-ref STAYS, only for genuine cross-origin; serializeDragUnit owns the canonical slots.
-    if (origin) dt.setData('application/rb-federated-ref', dropDispatcher.buildFederatedRef({ uuid, type, name: this.getAttribute('name') || uuid, originHost: origin }));
+    // v0.8.238 (architect d6a7f8ffa): SAME root as the :239 render fix — a moved File carries its name via the TITLE attr
+    // (name null), so a cross-origin DRAG must read name||title||uuid (was name||uuid → empty-name into the import). uuid stays the genuine-absence fallback.
+    if (origin) dt.setData('application/rb-federated-ref', dropDispatcher.buildFederatedRef({ uuid, type, name: this.getAttribute('name') || this.getAttribute('title') || uuid, originHost: origin }));
     dt.effectAllowed = 'copyLink';
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
   };
