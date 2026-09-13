@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "model": {
+    "uuid": "52203a54-a620-42ff-8651-6851e076a748",
+    "altId": "R40.109",
+    "name": "Remove the MODEL_STORE_SOURCE write-flag + its MODEL_READ_SOURCE alias \u2014 one store, no switch (the 'rollback lever' is a split-brain data-loss footgun, not a rollback)",
+    "description": "Tester EVIDENCE (isolated rig): with flag=model-store a model write lands ONLY in data/model-store (DRAINED) and is ABSENT from scenario/index where reads resolve -> on any bare restart / lost .env / flip back to default, that write is LOST (data written where nothing reads). The R40.81 close recorded model-store as an 'explicit rollback lever' \u2014 PO's wording, WRONG: reads ignore the flag entirely, so it cannot roll anything back; it only MISROUTES writes. It is a SPLIT-BRAIN SWITCH and a documented rollback that cannot roll back is a footgun someone reaches for in an incident. REQUIREMENT: remove the flag + its transitional MODEL_READ_SOURCE alias; one store, no switch.",
+    "discoverySource": {
+      "type": "tester-evidence",
+      "demonstratedBy": "robbin-tester",
+      "date": "2026-09-13",
+      "rig": "isolated rig: flag=model-store -> write to drained model-store, absent from scenario/index, lost on restart/lost-.env/flip-back"
+    },
+    "extendsRequirement": "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+    "crossRef": [
+      "ior:instance:72cb9032-8ae6-454d-92c4-3b967b9844d9"
+    ],
+    "crossRefNote": "Completes the ONE-STORE (R40.81 root): R40.102 removed the READER toggle (reads hardwired to one store); THIS removes the residual WRITE flag MODEL_STORE_SOURCE + the MODEL_READ_SOURCE alias = no store-choice anywhere, write-side + alias. The split-brain was: reads already ignore the flag (R40.102), but writes still obeyed it = writes misrouted to a store nothing reads.",
+    "queuePriority": "AFTER the current Sprint 41 increment (PO rank): a real data-loss footgun but only fires if someone SETS the flag, so it does NOT preempt Tron's ordered sprint. Boarded so it cannot drift.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "useCases": [],
+    "tasks": [],
+    "tests": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-no-model-write-routes-anywhere-but-scenario-index",
+        "group": "one-store/write-single-sink",
+        "text": "NO code path can route a model write anywhere but scenario/index \u2014 there is exactly ONE write sink. Re-introduce a store-choice (any flag/param selecting a write target) => RED. (Fixes the demonstrated footgun: flag=model-store wrote to the DRAINED data/model-store, absent from scenario/index where reads resolve = silent data loss on restart / lost .env / flip-back.)",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:model-write-single-sink",
+          "assertion": "every model write lands in scenario/index; a code path routing a model write to model-store (or any alt store) => RED"
+        },
+        "stubMustFail": "re-introduce a store-choice that routes a model write to data/model-store -> RED"
+      },
+      {
+        "id": "AC-flag-and-alias-removed",
+        "group": "one-store/no-switch",
+        "text": "The MODEL_STORE_SOURCE flag AND its transitional MODEL_READ_SOURCE alias are REMOVED \u2014 0 references in code, env-readers, config, or scripts. One store, no switch. A residual reference to either => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-model-store-flag",
+          "assertion": "grep MODEL_STORE_SOURCE / MODEL_READ_SOURCE across code+scripts+config == 0; any residual => RED"
+        },
+        "stubMustFail": "leave a MODEL_STORE_SOURCE or MODEL_READ_SOURCE reference anywhere -> RED"
+      },
+      {
+        "id": "AC-not-a-rollback-lever-corrected",
+        "group": "framing/correction",
+        "text": "The R40.81-close framing of model-store as an 'explicit rollback lever' is CORRECTED on record: reads IGNORE the flag entirely, so it could never roll anything back \u2014 it only MISROUTED writes (split-brain switch). Removing it loses NO rollback capability; rollback is the git pre-image, not this flag. A doc/req still calling it a rollback lever => RED.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "check:no-rollback-lever-claim",
+          "assertion": "no doc/req describes MODEL_STORE_SOURCE as a rollback mechanism; rollback = git pre-image"
+        },
+        "stubMustFail": "leave a doc claiming the flag is a rollback lever -> RED"
+      }
+    ]
+  }
+}

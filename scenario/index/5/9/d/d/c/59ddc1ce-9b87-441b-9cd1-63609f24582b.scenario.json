@@ -23,11 +23,6 @@
         "q": "repo NAME + gh org/owner + VISIBILITY",
         "status": "OPEN \u2014 Tron's word (do NOT guess). VISIBILITY default PRIVATE; public publishes everything + IRREVERSIBLE by deletion; NEVER create public on inference.",
         "owner": "PO relays Tron"
-      },
-      {
-        "q": "Repository OWN class vs specialization of Project",
-        "status": "OPEN \u2014 architect leans OWN class (git behaviour head/branch/remote beyond a Project bucket) with Project HAS-A Repository; Tron rules.",
-        "owner": "PO relays Tron"
       }
     ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-41-oop-model-consistency/requirements.md",
@@ -110,6 +105,13 @@
         "stubMustFail": "build the corrected MVP in the old codebase instead of the new repo -> RED"
       }
     ],
-    "designRef": "scrum.pmo/design-notes/task-41.4-repository-class-greenfield.md (architect c990ac68e) \u2014 canonical 5 ACs + MVC kernel"
+    "designRef": "scrum.pmo/design-notes/task-41.4-repository-class-greenfield.md (architect c990ac68e) \u2014 canonical 5 ACs + MVC kernel",
+    "poRulings": [
+      {
+        "q": "Repository OWN class vs specialization of Project",
+        "ruling": "PO-RULED 2026-09-13: Repository is its OWN CLASS, HAS-A Project (a Repository IS a Repository; a Project-specialization would be the same category error as a File being a collection-string). Reverses no Tron invariant; Tron overrules if he disagrees. NOT awaiting Tron.",
+        "by": "robbin-po"
+      }
+    ]
   }
 }

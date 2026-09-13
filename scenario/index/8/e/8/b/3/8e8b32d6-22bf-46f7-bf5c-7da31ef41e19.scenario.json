@@ -3,19 +3,19 @@
   "ownerIor": null,
   "model": {
     "uuid": "8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "name": "Server Manager — deployment-node model + mobile input control",
+    "name": "Server Manager \u2014 deployment-node model + mobile input control",
     "number": 40,
     "slug": "sprint-40-server-manager-deployment-mobile-input",
-    "goal": "Server Manager: model the deployment surface + fix mobile input control (Tron-authorized S40, #76). R40.1 — an action that opens the Claude app/web at the selected pane's AGENT RC (remote-control) session (per-pane/per-agent deep link; Claude Code sessions addressable as claude.ai/code/<session-id>, so selecting robbinTeam2:0.0 + firing lands on that agent's RC). R40.2 — represent WODA.prod as a UML deployment-NODE (rendered deployment-node style in the UML diagram) with REFERENCES to (a) the SSH config for WODA.prod, (b) the configured DOMAIN, (c) the LETSENCRYPT CERTIFICATE for that server, and the CURRENT OTMUX ITEMS (sessions->windows->panes) as CHILDREN of that root node. R40.3 — an action that PREVENTS the OS-specific (iOS) keyboard from opening + a new configurable Keyboard Controller surface (action-bar-style but with CONFIGURABLE KEYSTROKES); this sprint delivers the SUPPRESSION + the controller SHELL + the config model (the controller behavior is designed later). Evidence (Tron screenshot): the iOS keyboard covers the ENTIRE terminal and the input row overlays the Scenario/Edit buttons. Scenario-first (#126): req mints the R40.1/2/3 Requirement units + ACs; planner boards the sprint + 3 covering tasks; units on disk BEFORE any implementation.",
+    "goal": "Server Manager: model the deployment surface + fix mobile input control (Tron-authorized S40, #76). R40.1 \u2014 an action that opens the Claude app/web at the selected pane's AGENT RC (remote-control) session (per-pane/per-agent deep link; Claude Code sessions addressable as claude.ai/code/<session-id>, so selecting robbinTeam2:0.0 + firing lands on that agent's RC). R40.2 \u2014 represent WODA.prod as a UML deployment-NODE (rendered deployment-node style in the UML diagram) with REFERENCES to (a) the SSH config for WODA.prod, (b) the configured DOMAIN, (c) the LETSENCRYPT CERTIFICATE for that server, and the CURRENT OTMUX ITEMS (sessions->windows->panes) as CHILDREN of that root node. R40.3 \u2014 an action that PREVENTS the OS-specific (iOS) keyboard from opening + a new configurable Keyboard Controller surface (action-bar-style but with CONFIGURABLE KEYSTROKES); this sprint delivers the SUPPRESSION + the controller SHELL + the config model (the controller behavior is designed later). Evidence (Tron screenshot): the iOS keyboard covers the ENTIRE terminal and the input row overlays the Scenario/Edit buttons. Scenario-first (#126): req mints the R40.1/2/3 Requirement units + ACs; planner boards the sprint + 3 covering tasks; units on disk BEFORE any implementation.",
     "status": "Planned",
     "phases": [
       {
         "id": "R40.1",
-        "title": "Action: Open Claude.ai RC — per-pane/agent deep link to the selected agent's remote-control session."
+        "title": "Action: Open Claude.ai RC \u2014 per-pane/agent deep link to the selected agent's remote-control session."
       },
       {
         "id": "R40.2",
-        "title": "WODA.prod as a UML deployment-NODE — SSH/domain/letsencrypt references + otmux sessions->windows->panes as children."
+        "title": "WODA.prod as a UML deployment-NODE \u2014 SSH/domain/letsencrypt references + otmux sessions->windows->panes as children."
       },
       {
         "id": "R40.3",
@@ -23,7 +23,7 @@
       },
       {
         "id": "R40.4",
-        "title": "Sprint labels show the sprint NUMBER — composed at DISPLAY from model.number + name by ONE shared helper (single-source, no drift; fixes all sprints, no migration)."
+        "title": "Sprint labels show the sprint NUMBER \u2014 composed at DISPLAY from model.number + name by ONE shared helper (single-source, no drift; fixes all sprints, no migration)."
       },
       {
         "id": "R40.5",
@@ -160,7 +160,8 @@
       "ior:instance:fc201015-2fd8-4a05-b9b1-32e0355a130d",
       "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
       "ior:instance:fe7788d7-4bec-4231-bc2a-3dc3542c88a2",
-      "ior:instance:8c520271-a320-4c95-a58c-8aa75c9dea1d"
+      "ior:instance:8c520271-a320-4c95-a58c-8aa75c9dea1d",
+      "ior:instance:52203a54-a620-42ff-8651-6851e076a748"
     ],
     "tasks": [
       "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
