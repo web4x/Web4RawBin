@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "c9fb1a08-b66d-4ae6-a9fe-b32e966922af",
+    "altId": "T41.3",
+    "name": "MVC live-updates for File and Folder \u2014 view observes model, object notifies, no forced reload",
+    "slug": "mvc-live-updates-file-folder",
+    "description": "File/Folder views update live via MVC (observe model + notify on change, no forced reload; observing != polling). Applies the C4/R37.4 viewBus law to the two S41 classes. Written against the architect's measured subscribing-vs-reload-only coverage.",
+    "intention": "Every 'disk is correct' reaches Tron's screen \u2014 a File/Folder view reflects its unit's change WITHOUT a reload.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "priority": "P0-TOP \u2014 Tron watching (2026-09-13), cost him twice today (Tasks(0) + pin written-not-landed while disk correct)",
+    "acceptanceCriteria": "PROJECTS from R41.3 500be03e-1f3c-44c5-ad15-bdd1e9fea7d4 (no hand-write, AXIS-2): view-observes-updates-no-reload (forward) / observing-not-polling (reverse) / no-view-copy-repull / scoped-file-folder-not-fleet / measured-baseline-zero-reload-only (counts pending architect).",
+    "coveredRequirements": [
+      "ior:instance:500be03e-1f3c-44c5-ad15-bdd1e9fea7d4"
+    ],
+    "useCases": [
+      "ior:instance:8f464a83-d107-4a98-9a08-73ca6f5e456f"
+    ],
+    "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "sprintName": "Sprint 41",
+    "remainingIssues": "STOOD UP Planned, top-down scenario-first. \u2605 Crisis-minted by robbin-req (PO urgent 2026-09-13, Tron order, Tron watching; planner being rewound) \u2014 PLANNER's lane, take over/reconcile (same lane-flag discipline as T41.1/T41.2). Architect wires class/method + provides the subscribing-vs-reload-only MEASUREMENT (AC-measured-baseline pending). Expert builds Impl+Test on PO go.",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-09-13"
+  }
+}

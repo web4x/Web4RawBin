@@ -39,3 +39,17 @@
   -> folder.linkChild [uc:uuid:eebe2340-76a4-46d8-b26e-5c7d79569264]
   -> folder.unlinkChild [uc:uuid:b1382584-4c46-4a50-a6bb-593d91101ef1]
   -> folder.resolveOwnIor [uc:uuid:fe29a839-9a32-4e7e-b760-16449c607898]
+
+- [ ] **R41.3 — File/Folder views update LIVE via MVC (view observes model, object notifies) — no forced reload; observing != polling**
+  [requirement:uuid:500be03e-1f3c-44c5-ad15-bdd1e9fea7d4]
+  the ui has NO MVC liveupdates... its all forced reloads!!! | add that as requirements for folder and file as task 41.3
+  Tron: 'the ui has NO MVC liveupdates... its all forced reloads!!!' — cost him TWICE today (S41 rendered Tasks(0); the pin read written-not-landed) BOTH while disk was correct: every 'disk is correct' failed to reach his screen. Radical-OOP, SCOPED to the File/Folder classes built in 41.1/41.2 (NOT a fleet-wide refactor): the VIEW OBSERVES THE MODEL and the OBJECT NOTIFIES on change; a File/Folder view updates WITHOUT a forced reload when its unit changes. Views holding COPIES they re-pull = the data-layer anti-pattern at the VIEW layer. Applies the existing C4/R37.4 MVC law (one controller + viewBus UNIT_CHANGED + registered projections) to File + Folder. Written against the architect's MEASURED live-update coverage.
+  **Acceptance criteria:**
+  - [ ] **(observer/subscribe)** A File/Folder VIEW (BOTH the tree-node AND the detail view) SUBSCRIBES to its OWN object's change-event on the ViewBus, keyed on the unit's IOR — NOT a global rebuild, NOT a subscription to all traffic.
+  - [ ] **(observer/notify-seam)** The File/Folder UNIT EMITS a per-object change-event on mutation, via the ONE write seam (publishUnitChanged keyed by its IOR). The object notifies through the single seam; nothing mutates a File/Folder without emitting.
+  - [ ] **(observer/render-self)** On notify, the view re-renders THAT object via its renderSelf() (the 41.1/41.2 method) — NO wholesale tree rebuild, NO forced reload. Ask-the-object: the changed File/Folder renders itself.
+  - [ ] **(observer/reaches-screen)** A File/Folder change REACHES THE VIEW with NO manual refresh (the stale-render bite — every 'disk is correct' must reach Tron's screen). Bypassing the observer/seam leaves the screen stale.
+  - [ ] **(observer/no-polling)** NO setInterval / polling for File/Folder freshness (observing != polling). Freshness comes from the per-object event, never a timer.
+  - [ ] **(scope/two-classes)** SCOPED to File + Folder (tree-node + detail views of the 41.1/41.2 classes) — converges with the 41.1/41.2 renderSelf + route-writes-through-seam, scoped to these two. NOT a fleet-wide view refactor; rides the existing C4/R37.4 ViewBus, no new bus.
+  - [ ] **(measured/coverage)** WRITTEN AGAINST MEASURED REALITY (architect measurement, 41.3 note 95b04fa02): client surface = 94 .ts files, 13 SUBSCRIBE (ViewBus.on), 10 force RELOAD/href - live-observation is the MINORITY. Tron reload-only surfaces named: RoomView (WS-direct, no ViewBus), rb-task-detail (static/reload), model.ts host, universal-actions action-bar; drawer subscribes AND reloads. SCOPED to File/Folder: the File/Folder tree-node + detail views must SUBSCRIBE - ZERO reload-only File/Folder views after. A File/Folder view still reload-only after => RED.
+  -> fileFolderView.observesUnitLiveNoReload [uc:uuid:8f464a83-d107-4a98-9a08-73ca6f5e456f]

@@ -1,0 +1,117 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "500be03e-1f3c-44c5-ad15-bdd1e9fea7d4",
+    "altId": "R41.3",
+    "name": "File/Folder views update LIVE via MVC (view observes model, object notifies) \u2014 no forced reload; observing != polling",
+    "description": "Tron: 'the ui has NO MVC liveupdates... its all forced reloads!!!' \u2014 cost him TWICE today (S41 rendered Tasks(0); the pin read written-not-landed) BOTH while disk was correct: every 'disk is correct' failed to reach his screen. Radical-OOP, SCOPED to the File/Folder classes built in 41.1/41.2 (NOT a fleet-wide refactor): the VIEW OBSERVES THE MODEL and the OBJECT NOTIFIES on change; a File/Folder view updates WITHOUT a forced reload when its unit changes. Views holding COPIES they re-pull = the data-layer anti-pattern at the VIEW layer. Applies the existing C4/R37.4 MVC law (one controller + viewBus UNIT_CHANGED + registered projections) to File + Folder. Written against the architect's MEASURED live-update coverage.",
+    "tronQuote": "the ui has NO MVC liveupdates... its all forced reloads!!! | add that as requirements for folder and file as task 41.3",
+    "poDirective": "PO 2026-09-13 (Tron order): mint requirement(s) for S41 task 41.3 = MVC live-updates for File and Folder; write against architect's measured coverage.",
+    "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "useCases": [
+      "ior:instance:8f464a83-d107-4a98-9a08-73ca6f5e456f"
+    ],
+    "tasks": [
+      "ior:instance:c9fb1a08-b66d-4ae6-a9fe-b32e966922af"
+    ],
+    "tests": [],
+    "unitLinks": [],
+    "extendsRequirement": "ior:file:scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md (C4/R37.4 MVC law \u2014 one controller + viewBus)",
+    "measurementDependency": "architect measuring subscribing-vs-reload-only view counts NOW; robbin-req fills AC-measured-baseline exact numbers on receipt (written against measured reality, not assumption)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-41-oop-model-consistency/requirements.md",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-observe-subscribes-own-event",
+        "group": "observer/subscribe",
+        "text": "A File/Folder VIEW (BOTH the tree-node AND the detail view) SUBSCRIBES to its OWN object's change-event on the ViewBus, keyed on the unit's IOR \u2014 NOT a global rebuild, NOT a subscription to all traffic.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-folder-view-subscribes-by-ior",
+          "assertion": "a File/Folder tree-node + detail view subscribe by their unit IOR; a view that global-rebuilds or subscribes to all traffic => RED"
+        },
+        "stubMustFail": "seed a File/Folder view that global-rebuilds instead of subscribing by IOR -> RED"
+      },
+      {
+        "id": "AC-notify-unit-emits-per-object-event",
+        "group": "observer/notify-seam",
+        "text": "The File/Folder UNIT EMITS a per-object change-event on mutation, via the ONE write seam (publishUnitChanged keyed by its IOR). The object notifies through the single seam; nothing mutates a File/Folder without emitting.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-folder-publishUnitChanged",
+          "assertion": "a File/Folder mutation emits publishUnitChanged{IOR} via the one seam; a File/Folder change with NO emit => RED"
+        },
+        "stubMustFail": "mutate a File/Folder without emitting the per-object change-event -> RED"
+      },
+      {
+        "id": "AC-render-object-renderSelf-no-rebuild",
+        "group": "observer/render-self",
+        "text": "On notify, the view re-renders THAT object via its renderSelf() (the 41.1/41.2 method) \u2014 NO wholesale tree rebuild, NO forced reload. Ask-the-object: the changed File/Folder renders itself.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-folder-renderSelf-on-notify",
+          "assertion": "on a unit change the view calls the object's renderSelf() for THAT object only; a wholesale tree rebuild or forced reload => RED"
+        },
+        "stubMustFail": "force a reload/rebuild on a File/Folder change instead of renderSelf() -> RED"
+      },
+      {
+        "id": "AC-live-reaches-screen",
+        "group": "observer/reaches-screen",
+        "text": "A File/Folder change REACHES THE VIEW with NO manual refresh (the stale-render bite \u2014 every 'disk is correct' must reach Tron's screen). Bypassing the observer/seam leaves the screen stale.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-folder-live-reaches-screen",
+          "assertion": "a File/Folder change is visible on the open view with no manual refresh; bypass the observer/seam so the screen stays stale => RED"
+        },
+        "stubMustFail": "bypass the observer/seam; a File/Folder change does NOT reach the screen without manual refresh -> RED"
+      },
+      {
+        "id": "AC-no-poll",
+        "group": "observer/no-polling",
+        "text": "NO setInterval / polling for File/Folder freshness (observing != polling). Freshness comes from the per-object event, never a timer.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:file-folder-no-poll",
+          "assertion": "a setInterval/poll loop for File/Folder view freshness => RED"
+        },
+        "stubMustFail": "seed a setInterval polling a File/Folder view for freshness -> RED"
+      },
+      {
+        "id": "AC-scoped-file-folder-not-fleet",
+        "group": "scope/two-classes",
+        "text": "SCOPED to File + Folder (tree-node + detail views of the 41.1/41.2 classes) \u2014 converges with the 41.1/41.2 renderSelf + route-writes-through-seam, scoped to these two. NOT a fleet-wide view refactor; rides the existing C4/R37.4 ViewBus, no new bus.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:r413-scope",
+          "assertion": "a change touching non-File/Folder view formats under R41.3 => out of scope"
+        },
+        "stubMustFail": "seed a fleet-wide view-machinery change under R41.3 (beyond File/Folder) -> out of scope"
+      },
+      {
+        "id": "AC-measured-baseline-zero-reload-only-file-folder",
+        "group": "measured/coverage",
+        "text": "WRITTEN AGAINST MEASURED REALITY (architect measurement, 41.3 note 95b04fa02): client surface = 94 .ts files, 13 SUBSCRIBE (ViewBus.on), 10 force RELOAD/href - live-observation is the MINORITY. Tron reload-only surfaces named: RoomView (WS-direct, no ViewBus), rb-task-detail (static/reload), model.ts host, universal-actions action-bar; drawer subscribes AND reloads. SCOPED to File/Folder: the File/Folder tree-node + detail views must SUBSCRIBE - ZERO reload-only File/Folder views after. A File/Folder view still reload-only after => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-folder-zero-reload-only",
+          "assertion": "File/Folder reload-only view count == 0 after; a surviving reload-only File/Folder view => RED. Baseline = architect measurement (pending)."
+        },
+        "stubMustFail": "seed a File/Folder view that remains reload-only (not subscribing) -> RED",
+        "measured": {
+          "totalTsFiles": 94,
+          "subscribe": 13,
+          "reloadOnly": 10,
+          "source": "architect 95b04fa02",
+          "tronReloadOnlySurfaces": [
+            "RoomView",
+            "rb-task-detail",
+            "model.ts host",
+            "universal-actions action-bar"
+          ]
+        }
+      }
+    ],
+    "architectAcShapeRef": "architect observer shape 2026-09-13 (AC-observe/notify/render-object/live-reaches-screen/no-poll, ViewBus keyed on IOR + publishUnitChanged seam + renderSelf)",
+    "designRef": "scrum.pmo/design-notes/task-41.3-file-folder-mvc-live-update.md (architect 95b04fa02) \u2014 canonical 5 ACs + measurement"
+  }
+}

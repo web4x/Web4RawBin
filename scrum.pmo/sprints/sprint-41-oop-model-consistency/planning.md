@@ -14,3 +14,4 @@ TOP-DOWN PLANNED (Tron build order 2026-09-12): model File + Folder as REAL M1 C
 
 - [ ] ⏳ [class File — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)](./class-file.md)
 - [ ] ⏳ [class Folder — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)](./class-folder.md)
+- [ ] ⏳ [MVC live-updates for File and Folder — view observes model, object notifies, no forced reload](./mvc-live-updates-file-folder.md)
