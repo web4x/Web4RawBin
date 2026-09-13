@@ -2251,12 +2251,32 @@ function approveChangeRequest(idx: ScenarioIndex, crUuid: string, approver: { id
 // requests' sub-step through the EXISTING generic subStep seam (task-policy tickSubStep) → hasOpenCrSubstep goes false →
 // deriveStatusEnum recomputes to clean 'QA Review' (approvable). NO status literal (the seam derives), NO auto-tick (fires
 // ONLY on this explicit owner action). A non-band task → the subStep validate throws (band-state-only) → 409, nothing written.
-function resolveCr(idx: ScenarioIndex, taskUuid: string, actor: { id: string; name: string }): { code: number; payload: Record<string, unknown> } {
+function resolveCr(idx: ScenarioIndex, taskUuid: string, actor: { id: string; name: string }, now: string): { code: number; payload: Record<string, unknown> } {
   const unit = idx.get(taskUuid);
   if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
   try {
+    // (1) GATE + BAND-CLEAR: tick the processing-CR sub-step via the seam. Throws 409 if this is NOT a band task
+    // (QA-Review-with-open-CR) → nothing below runs → no CR flipped. This is the existing band-state gate, unchanged.
     const resolved = UnitController.apply(idx, 'ior:class:Task', taskUuid, { subStep: PROCESSING_CR_SUBSTEP }, { actor, publish: publishUnitChanged });
-    return { code: 200, payload: { ok: true, status: String((resolved.model as Record<string, unknown>).status || '') } }; // clean 'QA Review' once the band clears
+    // (2) ★ HONOUR THE NAME (PO 2026-09-13): an action called 'Resolve CRs' must actually RESOLVE the CRs — the band clearing
+    // is not enough (the CRs kept DISPLAYING Open = the screen lied, the recorded interim was a req hand-flip = the reject-
+    // ed hand-patch-the-display pattern). Flip every REACHABLE open CR Open→Resolved, ATTRIBUTED to the actor who clicked
+    // (provenance: the ACTION resolved them, not a script). Reachability = the SAME durable backref approveChangeRequest
+    // uses (CR.task / CR.ownerIor → this task, R40.10). Via the SEAM (UnitController.apply on the CR unit — single writer).
+    // Idempotent: a CR already Resolved/Approved is left as-is. Owner-gated at the route (requireOwnerHttp) — gate unchanged.
+    const norm = (s: unknown) => String(s || '').replace('ior:instance:', '').split('@')[0];
+    const resolvedCrUuids: string[] = [];
+    for (const cru of idx.list()) {
+      const cu = idx.get(cru);
+      if (!cu || cu.ior !== 'ior:class:ChangeRequest') continue;
+      const cm = cu.model as Record<string, unknown>;
+      if (norm(cm.task) !== taskUuid && norm(cu.ownerIor) !== taskUuid) continue; // not this task's CR
+      const st = String(cm.status || '');
+      if (st === 'Resolved' || st === 'Approved') continue;                        // idempotent — already resolved/verdicted
+      UnitController.apply(idx, 'ior:class:ChangeRequest', cru, { status: 'Resolved', resolvedBy: actor.id, resolvedByName: actor.name, resolvedAt: now }, { actor, publish: publishUnitChanged });
+      resolvedCrUuids.push(cru);
+    }
+    return { code: 200, payload: { ok: true, status: String((resolved.model as Record<string, unknown>).status || ''), resolvedCrs: resolvedCrUuids.length, resolvedCrUuids } }; // clean 'QA Review' + the CRs now read Resolved (name == behaviour)
   } catch (e: any) {
     return { code: 409, payload: { ok: false, error: 'resolve-refused', detail: String(e?.message || e) } }; // e.g. not a band task (no open processing-CR sub-step)
   }
@@ -2502,7 +2522,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const now = new Date().toISOString();
           let out: { code: number; payload: Record<string, unknown> };
           if (verb === 'approve') out = approveByOwner(idx, taskUuid, approver, now);
-          else if (verb === 'resolve-cr') out = resolveCr(idx, taskUuid, approver); // R40.1 CR-resolve: tick the band's processing-CR sub-step → clean QA-Review (owner-gated above)
+          else if (verb === 'resolve-cr') out = resolveCr(idx, taskUuid, approver, now); // R40.1 CR-resolve: tick the band's processing-CR sub-step → clean QA-Review + flip reachable CRs Open→Resolved (actor-attributed); owner-gated above
           else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, approver.id, reason, now); }
           // R40.18 BITE-6b observable stale-steer (LOG-ONLY, never a pin write): if the just-approved-to-Done task is
           // the current explicit steer, its designation is used up → auto-progress resumes. Delegated to StaleSteerLog.

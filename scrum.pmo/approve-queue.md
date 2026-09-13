@@ -36,13 +36,15 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 fe6b4379** Task 37.4.2: CONTROLLER — one generic unitController — _Test: test:R37.11 slice-1 AC-2 mutation-seam bindin_
 - 🧪 **S40 95d74272** Task 40.6: deploymentRefs -> real typed OOP model (t — _Test: test:T40.11 AC-1(graph)/AC-2(crown)/AC-3(view_
 
-#### ⚠️ NOT READY — 4 (at QA-Review but evidence INCOMPLETE — NOT approvable)
+#### ⚠️ NOT READY — 6 (at QA-Review but evidence INCOMPLETE — NOT approvable)
 - 🧪 **S37 24284f6d** Test-room creation is IMPOSSIBLE by construction — a — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S37 257ab50f** Task 37.40: CalendarEntry is a natural CLASS — dropp — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S37 bc0302dd** Task 37.39: Image is a natural CLASS — dropping an i — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_
+- 🧪 **S40 7dc025f0** R40.107 CREATE-fix — room creation works again: GUAR — _needs: NO Impl on chain (unbuilt)_
+- 🧪 **S40 ddc37f95** Your rooms and profiles are safe — a bulk delete can — _needs: NO Impl on chain (unbuilt)_
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 36 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 35 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
@@ -52,7 +54,6 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 3dd05daa** Task 37.20.2: A FILE drags as a FILE (its File unit) — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S37 5acdcc4c** Task 37.24: Realtime-MVC live-update slice — a route — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S37 68364f5e** Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPaylo — _device @390 + needs: Impl exists but markerPending (not shipped)_
-- 🧪 **S37 ae01f065** Task 37.20: ONE shared DnD drop contract — buffer ca — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S37 c0157a03** Task 37.31: iOS transport-lifecycle RESYNC — live-MV — _device @390 + needs: NO Impl on chain (unbuilt)_
 - 🧪 **S37 c8e0b1d2** Task 37.26: Sprint/task-name FORMATTER — item shows  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S37 fdee4809** Task 37.22: IOR carries a clear origin (class+host+p — _device @390 + needs: Impl exists but markerPending (not shipped)_
