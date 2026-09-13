@@ -1,0 +1,42 @@
+# Pin-Status Integrity — the pin lies (robbin-architect, 2026-09-13)
+
+Tron (authoritative): CURRENT pin shows **Task 40.1**, parked in QA for weeks, while the genuinely in-flight INC-7 (740f8996) is invisible. PO routed TOP-of-queue, by-construction, scenario-first, design-only → expert.
+
+## ★ ROOT — measured on disk; REFINES the PO's stated locus (citation, not claim)
+The PO's stated locus was `leafStatus` (CurrentSprint.ts:200-201) degrading an unknown status to `'Planned'`. My disk measurement shows the **actual bite is one step downstream**, and the degrade-to-Planned is a *second, latent* instance of the same class:
+
+- `'QA-Review-with-open-CR'` is a **first-class `TaskStatusEnum` member** (task-status-constants.ts:11; 5-value enum) that `deriveStatusEnum` **correctly emits** (task-status.ts:43 — QA-Review box checked + an OPEN `processing change requests` substep).
+- T40.1 (7a956c21) **has a checklist** deriving exactly that band — so it does NOT hit the leafStatus:201 raw-status path; it derives `'QA-Review-with-open-CR'` faithfully.
+- **THE BITE:** `TERMINAL_FOR_CURRENT = ['QA Review', 'Done']` (CurrentSprint.ts:16) **omits the band**. So :230 `terminal = TERMINAL_FOR_CURRENT.includes('QA-Review-with-open-CR')` → **false** → T40.1 never leaves the current-eligible set → keeps winning the pin. A task correctly in a QA-Review band is mis-classified as non-terminal because a hand-listed subset of the enum omits it.
+- **SECOND (latent) instance — the PO's locus:** `leafStatus:201` inline list `['Planned','In Progress','QA Review','Done']` *also* omits the band → a checklist-LESS task with a non-canonical stored status degrades to `'Planned'` (the dangerous most-open direction). Not what bit T40.1 (it has a checklist), but a real latent bug.
+- **COMPOUNDING (confirmed):** INC-7 740f8996 has `lastAdvancedAt=NONE`; the predicate ranks untimestamped LAST (:232) → the genuinely-in-flight task loses to the stale one even before the terminal bug.
+
+**Deeper class (one root, three surfaces):** `TaskStatusEnum` has 5 values; multiple consumers enumerate a **4-value subset** and mishandle the omitted band. Blast of the band string = **26 consumer sites** (measured). This is the same family as today's GUARD#6 (absent members→drop-all) and Room.persist (dropped unmodeled fields): **an enumerated subset silently mishandles a value outside it, in the dangerous direction.**
+
+## DESIGN — by the book, three parts, sequenced
+
+### PART 1 — terminal-for-current derived from the single-source enum; fail-SAFE on unknown (IMMEDIATE, low-blast — unblocks Tron now)
+Patterns: **Single-Source-of-Truth** (no duplicated enum subset) · **Open/Closed** (a new band auto-classified) · **Fail-Safe Default** (unknown → non-eligible, never most-open).
+- Replace the hand-listed `TERMINAL_FOR_CURRENT = ['QA Review','Done']` with a DERIVATION from `STATUS_ORDER`: **terminal-for-current = any status at-or-past the `'QA Review'` index in STATUS_ORDER.** `'QA-Review-with-open-CR'` sits in the QA band → terminal automatically; any future QA/terminal band added to STATUS_ORDER is classified with ZERO edits here.
+- Fix `leafStatus` likewise: match the raw status against the full `STATUS_ORDER` (all 5), and for a GENUINELY unknown status (not in STATUS_ORDER at all) do **NOT** `|| 'Planned'` — return an explicit `'Unknown'` sentinel that is (a) **non-current-eligible** (classified terminal/excluded) and (b) **SURFACED** (addLog/flag, never swallowed). The dangerous direction (unknown→most-open-eligible) is removed; the safe direction (unknown→non-eligible+visible) is the only default.
+- Net: T40.1 classifies terminal → drops out of the pin; INC-7 becomes current (once Part 3 timestamps it).
+
+### PART 2 — split the conflated field (structural root removal; PHASED, 26-site blast)
+Pattern: **a discriminating fact is its OWN field, never encoded into another** ([[status-discriminator-is-a-unit-field]]) · orthogonal decomposition.
+- `'QA-Review-with-open-CR'` conflates the status enum (QA Review) with the open-CR condition. Split: `TaskStatusEnum` returns to **4 canonical** values; the open-CR condition becomes its OWN derived fact — `hasOpenCrSubstep(checklist)` ALREADY EXISTS (task-status.ts:26) as the predicate; expose it as a parallel derived field/band (`openCr: boolean`), not an enum member.
+- `deriveStatusEnum(T40.1)` then returns canonical `'QA Review'` (terminal by Part 1 regardless); consumers that render the 🔁 band read `status==='QA Review' && openCr`.
+- Once the enum is 4-canonical again, the subset-drift at the ROOT is impossible (no 5th value for a 4-list to omit). **Blast = 26 sites** (action-applicability, universal-actions, task-policy, server.ts:2165/2169/2241/3849, STATUS_GLYPHS 🔁, the 2 units) → expert measures each + phases; the 2 stored units migrate status→'QA Review' + openCr-derived. Part 1 makes Part 2 non-urgent (pin already correct), so Part 2 ships carefully, not under pressure.
+
+### PART 3 — lastAdvancedAt stamped on advance + backfill the untimestamped
+Pattern: **invariant-by-construction seam-stamp** (the stamp rides the SAME transition as the advance; callers cannot forget it — [[R40.18 seam-stamp]]).
+- The advance seam (TaskPolicy/UnitController) stamps `lastAdvancedAt` on every status/checklist advance. INC-7 (In Progress, NONE) + the 2 QA units are untimestamped → **backfill from git** (last advance-commit per unit, source='git-backfill', labelled) so the in-flight INC-7 ranks above parked tasks by genuine recency.
+
+## FAILABLE BITES (required; removing each guard → RED)
+- **BITE-A (the actual root):** seed a task whose checklist derives `'QA-Review-with-open-CR'` (QA Review ticked + open CR substep) → assert `getThreeSlots().current` is NOT that task (terminal-for-current) → revert Part 1 (terminal back to `['QA Review','Done']`) → **RED** (the task wins current = Tron's exact bug reproduces).
+- **BITE-B (the latent/unknown):** seed a checklist-less task with a non-enum stored status → assert non-current-eligible AND surfaced → revert the fail-safe (`|| 'Planned'`) → **RED** (degrades to Planned, becomes current).
+- **BITE-C (stamp):** a task advanced via the seam has a non-empty `lastAdvancedAt` → remove the seam stamp → **RED**.
+
+## Scenario-first / chain
+Extends R40.18 (current-pin predicate) + R40.59/R40.60 (CR band). req mints the requirement + UC `currentPin.statusIntegrity` (the 3-part by-construction guard + the 3 bites as ACs); I wire/backstop on build. Fix ships first (Tron's pin is lying NOW — Part 1 is the unblocker); chain attaches to shipped reality (mint-to-shipped, full-uuid, real Impl). No chain gates the Part-1 fix.
+
+**Sequencing:** Part 1 (immediate, low-blast, unblocks Tron) → Part 3 (stamp+backfill, so INC-7 surfaces) → Part 2 (phased structural split, 26-site blast, non-urgent once Part 1 holds).
