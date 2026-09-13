@@ -33,6 +33,28 @@ Full 6-step per class: **Requirement → UseCase → Class → Method → Implem
 - **Task 41.2 — Folder:** same chain; Class `Folder` MINTED (absent today); Methods (children/renderSelf/ior); Impl (tree emits M0 Folder instances); Test.
 Both tasks: instances trace `instanceOf` → M1 class → M2 → M3 (the level chain is VERIFIABLE, not implied).
 
+## ★ CLASS + METHOD HOPS — concrete & mintable (architect owns; hand to req/planner so the chain is not empty)
+MDA anchors (measured): M3 root `a1d2e3f4-0000-4a1b-8c2d-000000000001`; M2 `UmlClass` = `a1d2e3f4-0000-4a1b-8c2d-000000000003`; M2 `UmlMethod` = `a1d2e3f4-0000-4a1b-8c2d-000000000006`. Every method name is camelCase (name gate).
+
+### Class `File` (NEW clean M1) — metaLevel=M1, instanceOf [UmlClass …003], ownerIor=Tron, IOR `ior:class:File:rest:<origin>/<uuid>`
+Methods (real behaviour — ask-the-object):
+- `File.renderSelf()` — the File renders its OWN tree node + detail (icon/name from the object; replaces the synthetic-string render). UC `file.renderSelf`.
+- `File.moveTo(targetFolder)` — the File moves ITSELF into a folder (composes with the object-action move). UC `file.moveIntoFolder`.
+- `File.ownIor()` — composes its OWN fully-qualified IOR (class+protocol+origin+uuid); the by-construction origin guard lives here. UC `file.resolveOwnIor`.
+
+### Class `Folder` (NEW clean M1 — MINT) — metaLevel=M1, instanceOf [UmlClass …003], ownerIor=Tron, IOR `ior:class:Folder:rest:<origin>/<uuid>`
+Methods:
+- `Folder.renderSelf()` — renders its OWN tree node + detail. UC `folder.renderSelf`.
+- `Folder.children()` — the Folder answers its OWN contained children (behaviour, never rebuilt from ref+external machinery). UC `folder.listChildren`.
+- `Folder.linkIn(unit)` / `Folder.unlink(unit)` — add/remove ONE containment edge as object behaviour. UCs `folder.linkChild` / `folder.unlinkChild`.
+- `Folder.ownIor()` — composes its fully-qualified IOR. UC `folder.resolveOwnIor`.
+
+### Chain wiring (per task) — Req → UC → Class → Method → Impl → Test
+- **Task 41.1 File:** Req(41.1) → each UC above → Class `File` → its Method → Impl (rb-file-tree renders the File instance via `renderSelf`; `File.ownIor` composes the fully-qualified ref) → Test.
+- **Task 41.2 Folder:** Req(41.2) → each UC → Class `Folder` → Method → Impl (tree emits Folder instances; `Folder.children` drives the tree) → Test.
+- **3 by-construction guards as FAILABLE ACs:** (1) create REJECTS an ownerless unit (owner=Tron, never null); (2) a File/Folder minted without a fully-qualified `ior:class:…:rest:<origin>/<uuid>` is REJECTED (origin present) — via `ownIor()`; (3) a 0-method class FAILS the M1-class gate (a data-bag is not a class). Remove any guard → its BITE RED.
+- **Minting:** req mints Req+UC (top-down); the Class + Method units are THIS spec (architect-owned) — req/planner mint them in the chain, I refine/wire on build-go. Impl/Test are the build. NEW clean units only — do NOT touch the 3 stubs / 282-206 M0 / 212 bare refs.
+
 ## Supersedes / coordination
 - **Supersedes `synthetic-ref-dnd-unify.md` (Shape A):** that followed the retracted storage axis. Under Sprint 41 the tree emits modelled M0 File/Folder instances (behaviour on the object) — the synthetic-string resolve-on-read is retired. T37.20 AC-A1/A2 (file drags as File, payload = unit JSON) are SATISFIED because the node IS a File instance. (The pin-status-integrity item is unaffected — ships on its own sequence.)
 - **req** mints the 2 requirements + UCs (scenario-first). **planner** stands up Sprint 41 + Task 41.1/41.2. **I** own the chain shape + class/method set + MDA levels + the 3 by-construction guards; I backstop on build. Named separate items (ranked, not stretched): fleet-wide ownerIor-null backfill (1379); the fully-qualified-IOR migration of the existing 212 bare refs.
