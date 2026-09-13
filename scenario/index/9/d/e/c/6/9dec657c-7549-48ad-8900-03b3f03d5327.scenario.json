@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "model": {
+    "uuid": "9dec657c-7549-48ad-8900-03b3f03d5327",
+    "name": "File.iconGlyph",
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "description": "Answers the File's icon glyph for its token (ask-the-object) - BEHAVIOUR host for the token->SVG mapping (was FILE_TOKEN_ICONS const data-map, which cannot head a method label = the data-not-behaviour smell this sprint fixes). Expert wraps FILE_TOKEN_ICONS behind File.iconGlyph on next client rebuild + places [impl:uuid:199105f8-6fe9-40c5-a580-8b8a524e7909] on it.",
+    "implementations": [
+      "ior:instance:199105f8-6fe9-40c5-a580-8b8a524e7909"
+    ],
+    "tests": [
+      "ior:instance:c5749bef-fa87-40a8-bfaf-a4bd86f756d4"
+    ],
+    "unitLinks": []
+  }
+}

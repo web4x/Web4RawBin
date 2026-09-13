@@ -7,18 +7,14 @@
 [task:uuid:fdee4809-8a48-4ecf-92fc-bc5ac5d2c28b]
 
 ## Status
-- [x] Planned
-- [x] In Progress
-  - [x] refinement
-  - [x] creating test cases
-  - [x] implementing
-  - [x] testing
-- [x] QA Review
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
 - [ ] Done
-
-## Remaining Issues
-
-FLIPPED Planned -> QA-Review 2026-09-07 (closed by measurement, PO ruling): the cross-instance origin capability is DELIVERED by the T37.20 contract (dnd-contract.ts:6 parseFederatedIor + isLocalOrigin = THE ONE origin-decision helper; the federated ior:instance:<uuid>@<originHost> IS the class+host+path origin). Tester RE-VERIFIED CURRENT on v0.8.211 (not carry-forward): r260-t262 drag-source GREEN DET-3x (emits ior:instance:UUID@origin + fetchUrl, NOT a plain URL) + r263-t267 e2e import GREEN DET-3x (drop RESOLVES to a REAL unit with originHost provenance, children lazy @host, idempotent — NOT an app#file.show WebItem). Together = prod<->test drop resolves-via-origin. AC-C-clear-origin + reconcile-no-fork + cross-instance-resolves = MET. ★ CLOSING AC = AC-C-DEVICE @390 (Tron real prod<->test drop on phone) = a genuine device physics limit (Tron ACCEPTS, we do not ask him to test). QA-Review ceiling; 0 Done till Tron.
 
 ## Task Description
 

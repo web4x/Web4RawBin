@@ -12,7 +12,8 @@
       "ior:instance:3feca893-d59f-4d5b-b641-0cbdb873a6b1",
       "ior:instance:3500d960-d49b-43e6-81a9-0f12ddacb272",
       "ior:instance:8d5a11e6-a5c0-4237-a218-afbe19699bf6",
-      "ior:instance:a1081953-ffd3-4f5b-994e-dc908d5ad29d"
+      "ior:instance:a1081953-ffd3-4f5b-994e-dc908d5ad29d",
+      "ior:instance:9dec657c-7549-48ad-8900-03b3f03d5327"
     ],
     "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
     "description": "Clean-create radical-OOP M1 File class (Tron zero-migration, S41). A FILE IS a File; instances are M0 File-class objects resolved through this class, ref'd by fully-qualified IOR, owned (never null), carried whole through DnD. Behaviour not data-bag (has methods).",

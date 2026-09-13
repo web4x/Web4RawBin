@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 265** — Done **98** · QA-Review **65** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 97** (265 = 98+65+3+97)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 93**
+- **TOTAL S30++ tasks: 257** — Done **98** · QA-Review **58** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 96** (257 = 98+58+3+96)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 92**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 55 | 1 | 21 | 0 | 33 |
-| S40 | 90 | 0 | 27 | 0 | 61 |
+| S37 | 54 | 1 | 20 | 0 | 33 |
+| S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 20 · build 61
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 20 · build 59
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -54,7 +54,6 @@
 | S37 | 9cd50dde | In Progress | marker | Task 37.34: Dir-namespace single base-resolution — ONE resol |
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
-| S37 | ae01f065 | In Progress | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
 | S37 | af84c07e | Planned | build | Task 37.42: RENAME as the object's own behaviour — unit.rena |
 | S37 | afe976e3 | Planned | build | Task 37.28.5: guard-coverage freshness guard — coverage DERI |
 | S37 | b43278f7 | Planned | build | Task 37.32: Gate-harness invokes faithfully or marks BROKEN  |
@@ -65,6 +64,7 @@
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
 | S37 | e2068636 | Planned | build | Task 37.28.6: constraint-cycle (structural) freshness guard  |
 | S37 | e48a1e0a | Planned | build | Task 37.37: AXIS-4 lint — drift-metric COMPLETENESS (exclude |
+| S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S37 | ff834c77 | In Progress | gate | Task 37.13: Naming is canon by construction — the be |
 | S40 | 0137dd13 | Planned | build | Task 40.73: 3 unreachable methods — in no Class.methods[], i |
 | S40 | 05d86575 | Planned | build | Task 40.67: State-file currency — boot-currency guard co |
@@ -77,9 +77,9 @@
 | S40 | 2e831ffd | In Progress | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
 | S40 | 311df491 | Planned | marker | Task 40.93: Room-folder physical create routes through the O |
 | S40 | 38609d01 | Planned | marker | Task 40.50: Sprints render descending (latest on top) in |
-| S40 | 3b545845 | Planned | build | R40.106 root-edge remaining half (DEBT) — ROOT folder still  |
 | S40 | 45ae067e | Planned | build | Task 40.72: Dangling tree links expand to EMPTY @390 — a use |
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
+| S40 | 49822597 | In Progress | RIPE | Task 40.85: Plain file upload via the drop area SUCCEEDS (0. |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
 | S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
 | S40 | 5899aeb2 | Planned | RIPE | Task 40.16: Folders as real scenario units — type-driven |
@@ -91,7 +91,6 @@
 | S40 | 71334df3 | In Progress | two-key | Task 40.55: Boots may not name a sprint/version divergin |
 | S40 | 7193c129 | Planned | marker | Task 40.78: Add-folder ALSO inside a room Files collection ( |
 | S40 | 724fa12b | Planned | build | Task 40.43: trace:audit orphan backlog DRAINED via delta |
-| S40 | 740f8996 | In Progress | build | R40.106 INC-7 DELETE-PROTECTION (in flight) — a delete reall |
 | S40 | 755a7be4 | Planned | build | Task 40.40: Every unit type is DECLARED indexed / alt-in |
 | S40 | 7cbc4241 | Planned | build | Task 40.35: deploymentRefs model inversion — the minted  |
 | S40 | 800fa79d | Planned | marker | Task 40.70: Add-folder/add-diagram is MVC-live in the tree + |
