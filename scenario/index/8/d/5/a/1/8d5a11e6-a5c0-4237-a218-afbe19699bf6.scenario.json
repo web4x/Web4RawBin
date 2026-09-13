@@ -7,8 +7,12 @@
     "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
     "coveredByUseCase": "ior:instance:812d0e73-bd4b-41df-ad49-860f38ced744",
     "description": "File.ownIor \u2014 the object answers 'ownIor' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
-    "implementations": [],
-    "tests": [],
+    "implementations": [
+      "ior:instance:30e39639-01cf-43eb-8b65-3d50b02995a7"
+    ],
+    "tests": [
+      "ior:instance:f22f164f-8c18-4819-9be7-cde87cbc39d5"
+    ],
     "unitLinks": []
   }
 }

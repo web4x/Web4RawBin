@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:3feca893-d59f-4d5b-b641-0cbdb873a6b1",
+  "model": {
+    "uuid": "199105f8-6fe9-40c5-a580-8b8a524e7909",
+    "name": "FILE_TOKEN_ICONS (token->SVG VIEW adapter map)",
+    "sourceFile": "src/ts/scenario/file-unit.ts",
+    "sourceLine": 0,
+    "servedVersion": "hotfix/t40.1-checklist-band",
+    "commitSha": "a13f6243b",
+    "markerPending": true,
+    "tests": [
+      "ior:instance:c5749bef-fa87-40a8-bfaf-a4bd86f756d4"
+    ],
+    "unitLinks": [],
+    "chainNote": "Backfill (Tron 'where is the implementation' \u2014 #126 chain was dead-ending at Method). robbin-req mints; EXPERT places [impl:uuid:199105f8-6fe9-40c5-a580-8b8a524e7909] at src/ts/scenario/file-unit.ts (commit a13f6243b) in the same pass."
+  }
+}

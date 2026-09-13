@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "d6404f28-206c-4adf-a88a-c7cd6268aae8",
+    "name": "Ior",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:Ior:rest:https://prod.wo-da.de:4444/scenario/d6404f28-206c-4adf-a88a-c7cd6268aae8",
+    "iorFormat": "ior:class:Ior:rest:<origin>/<uuid>",
+    "methods": [
+      "ior:instance:323872e9-3d22-4aea-ac09-e43173517f38"
+    ],
+    "coversRequirement": "ior:instance:993db1f3-bbca-4dc2-8004-43a47e6a8c98",
+    "description": "NEW M1 VALUE-OBJECT class (the design created it; src/ts/scenario/ior.ts). Ior OWNS compose + GUARD#2 = fully-qualified-IOR by construction. File/Folder.ownIor delegate to it; its impl hangs HERE, not bolted onto File. Check-before-create: no Ior Class existed (whole class had no marker) - minted.",
+    "unitLinks": []
+  }
+}

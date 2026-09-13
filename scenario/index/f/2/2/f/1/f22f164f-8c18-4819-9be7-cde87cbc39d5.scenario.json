@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:30e39639-01cf-43eb-8b65-3d50b02995a7",
+  "model": {
+    "uuid": "f22f164f-8c18-4819-9be7-cde87cbc39d5",
+    "name": "test:Ior.composeFullyQualifiedGuard",
+    "description": "Test for the EXISTING failable gate check:unit-ior-guard (stub-must-fail, shipped but not a unit). Closes the chain Method->Impl->Test for the backfilled increment.",
+    "sourceFile": "ior:file:npm run check:unit-ior-guard",
+    "implementations": [
+      "ior:instance:30e39639-01cf-43eb-8b65-3d50b02995a7"
+    ],
+    "status": "pass",
+    "coversGate": "check:unit-ior-guard",
+    "unitLinks": []
+  }
+}

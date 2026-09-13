@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:323872e9-3d22-4aea-ac09-e43173517f38",
+  "model": {
+    "uuid": "30e39639-01cf-43eb-8b65-3d50b02995a7",
+    "name": "Ior.compose (fully-qualified IOR + GUARD#2)",
+    "sourceFile": "src/ts/scenario/ior.ts",
+    "sourceLine": 0,
+    "servedVersion": "hotfix/t40.1-checklist-band",
+    "commitSha": "245da4f9f",
+    "markerPending": true,
+    "tests": [
+      "ior:instance:f22f164f-8c18-4819-9be7-cde87cbc39d5"
+    ],
+    "unitLinks": [],
+    "chainNote": "Backfill (Tron 'where is the implementation' \u2014 #126 chain was dead-ending at Method). robbin-req mints; EXPERT places [impl:uuid:30e39639-01cf-43eb-8b65-3d50b02995a7] at src/ts/scenario/ior.ts (commit 245da4f9f) in the same pass."
+  }
+}

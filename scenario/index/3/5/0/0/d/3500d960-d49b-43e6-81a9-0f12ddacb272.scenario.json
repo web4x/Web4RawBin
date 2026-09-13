@@ -7,8 +7,12 @@
     "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
     "coveredByUseCase": "ior:instance:0b09a430-eb28-46d2-a84b-652a63db1de1",
     "description": "File.moveTo \u2014 the object answers 'moveTo' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
-    "implementations": [],
-    "tests": [],
+    "implementations": [
+      "ior:instance:65b154c8-04b8-462c-9dde-ff3a654d4e40"
+    ],
+    "tests": [
+      "ior:instance:eeab2deb-83ae-4819-8602-edd8f33f27c5"
+    ],
     "unitLinks": []
   }
 }

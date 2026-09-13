@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:d6404f28-206c-4adf-a88a-c7cd6268aae8",
+  "model": {
+    "uuid": "323872e9-3d22-4aea-ac09-e43173517f38",
+    "name": "Ior.compose",
+    "class": "ior:instance:d6404f28-206c-4adf-a88a-c7cd6268aae8",
+    "description": "Composes a fully-qualified IOR (class+protocol+origin+uuid) + enforces GUARD#2 (fully-qualified-by-construction). Replaces the deleted composeUnitIor free-fn. File.ownIor/Folder.ownIor DELEGATE here (ask-the-object).",
+    "implementations": [
+      "ior:instance:30e39639-01cf-43eb-8b65-3d50b02995a7"
+    ],
+    "tests": [
+      "ior:instance:f22f164f-8c18-4819-9be7-cde87cbc39d5"
+    ],
+    "unitLinks": []
+  }
+}

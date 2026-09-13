@@ -7,8 +7,14 @@
     "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
     "coveredByUseCase": "ior:instance:59649d58-f4d6-4862-9fee-93eab5055982",
     "description": "File.renderSelf \u2014 the object answers 'renderSelf' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
-    "implementations": [],
-    "tests": [],
+    "implementations": [
+      "ior:instance:48d04414-4df1-4e5e-8ba5-108cfe6924ec",
+      "ior:instance:199105f8-6fe9-40c5-a580-8b8a524e7909"
+    ],
+    "tests": [
+      "ior:instance:aa84b7eb-7688-4a43-8ce7-029e8f137911",
+      "ior:instance:c5749bef-fa87-40a8-bfaf-a4bd86f756d4"
+    ],
     "unitLinks": []
   }
 }

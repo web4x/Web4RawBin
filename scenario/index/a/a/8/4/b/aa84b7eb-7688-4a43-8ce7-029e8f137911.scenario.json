@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:48d04414-4df1-4e5e-8ba5-108cfe6924ec",
+  "model": {
+    "uuid": "aa84b7eb-7688-4a43-8ce7-029e8f137911",
+    "name": "test:File.renderSelfToken",
+    "description": "Test for the EXISTING failable gate check:file-renderself (stub-must-fail, shipped but not a unit). Closes the chain Method->Impl->Test for the backfilled increment.",
+    "sourceFile": "ior:file:npm run check:file-renderself",
+    "implementations": [
+      "ior:instance:48d04414-4df1-4e5e-8ba5-108cfe6924ec"
+    ],
+    "status": "pass",
+    "coversGate": "check:file-renderself",
+    "unitLinks": []
+  }
+}
