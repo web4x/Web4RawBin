@@ -4,7 +4,7 @@
   "model": {
     "uuid": "43a1f664-a7c1-475a-8d8b-25306041b9ff",
     "altId": "T41.6",
-    "name": "Complete M2 metamodel of File (UML+TS+PUML, consistent-by-construction) + 'open diagram' action on class File",
+    "name": "Task 41.6: Complete M2 metamodel of File (UML+TS+PUML, consistent-by-construction) + 'open diagram' action on class File",
     "slug": "file-complete-m2-metamodel-open-diagram",
     "description": "Tron order (CURRENT): File is not fully modeled \u2014 where are its UmlClass attributes/interfaces/relationships? Complete the M2 metamodel of File in 3 consistent-by-construction representations (UML M2 + TS M2 + PUML M2, one source others derived, MVC) + add an 'open diagram' action on class File (file.ts) rendering EVERYTHING modeled. ZERO-MIGRATION: leave file-unit.ts alone. Architect designing the metamodel shape now (fold on-disk note).",
     "intention": "The invented modeling overhead becomes VISIBLE + complete, not theoretical; File is completely modeled, not just Class+Methods.",
