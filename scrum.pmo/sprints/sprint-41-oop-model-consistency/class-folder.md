@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# class Folder — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)
+# Task 41.2: class Folder — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)
 
 [task:uuid:6128094d-3a43-4541-b050-71cd33a8f7c8]
 
@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-STOOD UP Planned, top-down scenario-first (chain minted before code). ★ Crisis-minted by robbin-req (PO urgent 2026-09-13, Tron watching zero-tasks, planner pane unreachable=detached shell) — PLANNER's lane: take over / reconcile. Architect wires class/method on build-go (design 37e362633 + re-scope 4fc4325f3).
+★★ BLOCKED-ON-TRON-QA-OF-FILE (2026-09-13, Tron order): do NOT start T41.2 Folder until Tron QA-APPROVES Task 41.1 (class File). Verbatim 'dont do folder before i assure file qa approved'. Planner go WITHDRAWN, expert countermanded — nobody re-starts this until the File QA-accept lands. Stays Planned (no work). Provenance: crisis-minted by robbin-req 2026-09-13; architect wires class/method on build-go (design 37e362633 + re-scope 4fc4325f3).
 
 ## Task Description
 

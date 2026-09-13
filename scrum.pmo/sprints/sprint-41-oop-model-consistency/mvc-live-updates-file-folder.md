@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# MVC live-updates for File and Folder — view observes model, object notifies, no forced reload
+# Task 41.3: MVC live-updates for File and Folder — view observes model, object notifies, no forced reload
 
 [task:uuid:c9fb1a08-b66d-4ae6-a9fe-b32e966922af]
 

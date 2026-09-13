@@ -85,3 +85,15 @@
   -> repository.attachToProject [uc:uuid:329b3855-b391-467f-bdf4-600354ec3c5f]
   -> project.attachRepository [uc:uuid:fc9c542f-3cfb-4c46-b0a5-9599dba03521]
   -> repoRegistry.createRepo [uc:uuid:c3fb11f1-caa2-4100-9d5a-1605eef0c4d2]
+
+- [ ] **R41.6 — File is completely modeled as an M2 metamodel (UML+TS+PUML, consistent-by-construction, MVC) + class File owns an 'open diagram' action rendering everything modeled**
+  [requirement:uuid:b522428a-0806-437b-891e-9e7777eea0e6]
+  where is the UmlClass File where are all the other model elements for File... add an action open diagram with ALL YOU MODELED. into the file.ts add that as task and make it the current task!! | leave file-unit.ts allone!!!
+  Tron: 'where is the UmlClass File, where are all the other model elements... add an action open diagram with ALL YOU MODELED'. MEASURED on disk: UmlClass File EXISTS (13782f0c, instanceOf UmlClass); the M2 metamodel EXISTS (UmlClass/Interface/Attribute/Association/Generalization/Method/...); but File's ATTRIBUTES (name/contentHash/size/mimeType/uploadedAt/uploaderToken/roomUuid/location), INTERFACES (implements), and RELATIONSHIPS (File→Folder containment, File→Ior) are MISSING — File is modeled as Class+Methods ONLY. Complete it: 3 representations (UML M2 + TS M2 + PUML M2) CONSISTENT BY CONSTRUCTION (one source, others derived, never 3 hand-maintained copies; MVC model=data/views=puml+diagram/controller=actions) + File.openDiagram action rendering everything. ★ ZERO-MIGRATION (Tron): leave file-unit.ts alone; coexistence intended.
+  **Acceptance criteria:**
+  - [ ] **(model/complete)** File is COMPLETELY modeled as an M2 metamodel: UmlClass File (13782f0c exists) + ALL its model elements — attributes, interfaces (implements), relationships/associations, methods — as Uml* units. MEASURED gap: File today has Class+Methods only; attributes/interfaces/relationships MISSING. A File model element present in code/data but absent from the metamodel => RED.
+  - [ ] **(model/one-source)** THREE representations — UML M2 + TS M2 + PUML M2 — are CONSISTENT BY CONSTRUCTION: ONE source, the others DERIVED/proven, NEVER three hand-maintained copies. MVC: model=data, puml+diagram=VIEWS, actions=controller. A 2nd hand-maintained copy (drift-able) => RED.
+  - [ ] **(action/diagram)** The 'open diagram' action on class File (file.ts) renders a diagram of EVERYTHING modeled for File — UmlClass, interfaces, attributes, methods, relationships — with NO silent omission (every modeled element APPEARS). Ask-the-object: File OWNS the action (File.openDiagram).
+  - [ ] **(action/ui)** The 'open diagram' action OPENS from the UI (on class File / mof node). Reuse the existing diagram render (rb-diagram-detail), no fork.
+  - [ ] **(scope/zero-migration)** ★ ZERO-MIGRATION (Tron standing law, 'leave file-unit.ts allone'): src/ts/scenario/file-unit.ts is NOT touched — no collapse, refactor, deletion, or marker change. Build the CLEAN class File (file.ts) + metamodel BESIDE it; coexistence is INTENDED, not debt. A change to file-unit.ts under this task => RED.
+  -> file.openDiagram [uc:uuid:4ea665d1-17d3-4dc1-867f-e569d9c94bea]

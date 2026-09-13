@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "43a1f664-a7c1-475a-8d8b-25306041b9ff",
+    "altId": "T41.6",
+    "name": "Complete M2 metamodel of File (UML+TS+PUML, consistent-by-construction) + 'open diagram' action on class File",
+    "slug": "file-complete-m2-metamodel-open-diagram",
+    "description": "Tron order (CURRENT): File is not fully modeled \u2014 where are its UmlClass attributes/interfaces/relationships? Complete the M2 metamodel of File in 3 consistent-by-construction representations (UML M2 + TS M2 + PUML M2, one source others derived, MVC) + add an 'open diagram' action on class File (file.ts) rendering EVERYTHING modeled. ZERO-MIGRATION: leave file-unit.ts alone. Architect designing the metamodel shape now (fold on-disk note).",
+    "intention": "The invented modeling overhead becomes VISIBLE + complete, not theoretical; File is completely modeled, not just Class+Methods.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "priority": "P0-CURRENT \u2014 Tron ordered it CURRENT 2026-09-13 ('make it the current task')",
+    "acceptanceCriteria": "PROJECTS from R41.6 b522428a-0806-437b-891e-9e7777eea0e6: complete-M2-metamodel / three-reps-consistent-by-construction / open-diagram-renders-everything-no-omission / opens-from-ui / zero-migration-file-unit-untouched.",
+    "coveredRequirements": [
+      "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6"
+    ],
+    "useCases": [
+      "ior:instance:4ea665d1-17d3-4dc1-867f-e569d9c94bea"
+    ],
+    "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "sprintName": "Sprint 41",
+    "remainingIssues": "STOOD UP Planned + CURRENT (Tron order). Architect designs the M2-metamodel shape (UML+TS+PUML one-source); robbin-req folds the on-disk note + mints the missing model elements; expert builds File.openDiagram + the derivation; PLANNER boards it CURRENT. \u2605 ZERO-MIGRATION: file-unit.ts untouched. T41.2 Folder BLOCKED until Tron QA-approves File.",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-09-13"
+  }
+}

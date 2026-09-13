@@ -1,0 +1,84 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "b522428a-0806-437b-891e-9e7777eea0e6",
+    "altId": "R41.6",
+    "name": "File is completely modeled as an M2 metamodel (UML+TS+PUML, consistent-by-construction, MVC) + class File owns an 'open diagram' action rendering everything modeled",
+    "description": "Tron: 'where is the UmlClass File, where are all the other model elements... add an action open diagram with ALL YOU MODELED'. MEASURED on disk: UmlClass File EXISTS (13782f0c, instanceOf UmlClass); the M2 metamodel EXISTS (UmlClass/Interface/Attribute/Association/Generalization/Method/...); but File's ATTRIBUTES (name/contentHash/size/mimeType/uploadedAt/uploaderToken/roomUuid/location), INTERFACES (implements), and RELATIONSHIPS (File\u2192Folder containment, File\u2192Ior) are MISSING \u2014 File is modeled as Class+Methods ONLY. Complete it: 3 representations (UML M2 + TS M2 + PUML M2) CONSISTENT BY CONSTRUCTION (one source, others derived, never 3 hand-maintained copies; MVC model=data/views=puml+diagram/controller=actions) + File.openDiagram action rendering everything. \u2605 ZERO-MIGRATION (Tron): leave file-unit.ts alone; coexistence intended.",
+    "tronQuote": "where is the UmlClass File where are all the other model elements for File... add an action open diagram with ALL YOU MODELED. into the file.ts add that as task and make it the current task!! | leave file-unit.ts allone!!!",
+    "poDirective": "PO 2026-09-13 (Tron, CURRENT): mint the complete-File-M2-metamodel + open-diagram task scenario-first; architect designs the metamodel; zero-migration (file-unit.ts untouched). The earlier 'file-unit.ts collapse is a sprint concern' was WITHDRAWN (PO over-extension).",
+    "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+    "useCases": [
+      "ior:instance:4ea665d1-17d3-4dc1-867f-e569d9c94bea"
+    ],
+    "tasks": [
+      "ior:instance:43a1f664-a7c1-475a-8d8b-25306041b9ff"
+    ],
+    "tests": [],
+    "unitLinks": [],
+    "measured": {
+      "umlClassFile": "EXISTS 13782f0c",
+      "m2Metamodel": "EXISTS (UmlClass/Interface/Attribute/Association/Generalization/Method/Node/Property)",
+      "missing": "File attributes + interfaces(implements) + relationships \u2014 modeled as Class+Methods only"
+    },
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-41-oop-model-consistency/requirements.md",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-file-complete-M2-metamodel",
+        "group": "model/complete",
+        "text": "File is COMPLETELY modeled as an M2 metamodel: UmlClass File (13782f0c exists) + ALL its model elements \u2014 attributes, interfaces (implements), relationships/associations, methods \u2014 as Uml* units. MEASURED gap: File today has Class+Methods only; attributes/interfaces/relationships MISSING. A File model element present in code/data but absent from the metamodel => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-metamodel-complete",
+          "assertion": "every File attribute/interface/relationship/method has a Uml* model unit; a modeled-in-code element with no metamodel unit => RED"
+        },
+        "stubMustFail": "leave a File attribute/relationship unmodeled -> RED"
+      },
+      {
+        "id": "AC-three-reps-consistent-by-construction",
+        "group": "model/one-source",
+        "text": "THREE representations \u2014 UML M2 + TS M2 + PUML M2 \u2014 are CONSISTENT BY CONSTRUCTION: ONE source, the others DERIVED/proven, NEVER three hand-maintained copies. MVC: model=data, puml+diagram=VIEWS, actions=controller. A 2nd hand-maintained copy (drift-able) => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-metamodel-one-source",
+          "assertion": "UML/TS/PUML derive from one source; a hand-maintained 2nd copy that can drift => RED"
+        },
+        "stubMustFail": "hand-maintain a 2nd copy of the File metamodel (UML vs TS vs PUML) -> RED"
+      },
+      {
+        "id": "AC-open-diagram-renders-everything",
+        "group": "action/diagram",
+        "text": "The 'open diagram' action on class File (file.ts) renders a diagram of EVERYTHING modeled for File \u2014 UmlClass, interfaces, attributes, methods, relationships \u2014 with NO silent omission (every modeled element APPEARS). Ask-the-object: File OWNS the action (File.openDiagram).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-open-diagram-complete",
+          "assertion": "the diagram shows every File model element; a modeled element missing from the diagram => RED"
+        },
+        "stubMustFail": "omit a modeled File element from the diagram -> RED"
+      },
+      {
+        "id": "AC-opens-from-ui",
+        "group": "action/ui",
+        "text": "The 'open diagram' action OPENS from the UI (on class File / mof node). Reuse the existing diagram render (rb-diagram-detail), no fork.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:file-open-diagram-ui",
+          "assertion": "the action is invokable from the UI + renders; not wired to the UI => RED"
+        },
+        "stubMustFail": "action not reachable/openable from the UI -> RED"
+      },
+      {
+        "id": "AC-zero-migration-file-unit-untouched",
+        "group": "scope/zero-migration",
+        "text": "\u2605 ZERO-MIGRATION (Tron standing law, 'leave file-unit.ts allone'): src/ts/scenario/file-unit.ts is NOT touched \u2014 no collapse, refactor, deletion, or marker change. Build the CLEAN class File (file.ts) + metamodel BESIDE it; coexistence is INTENDED, not debt. A change to file-unit.ts under this task => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:file-unit-untouched",
+          "assertion": "file-unit.ts unchanged by this task; any edit to it => RED"
+        },
+        "stubMustFail": "edit/collapse/delete file-unit.ts under this task -> RED"
+      }
+    ]
+  }
+}

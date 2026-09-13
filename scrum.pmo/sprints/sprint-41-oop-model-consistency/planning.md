@@ -12,7 +12,8 @@ TOP-DOWN PLANNED (Tron build order 2026-09-12): model File + Folder as REAL M1 C
 
 ## Tasks
 
-- [ ] ⏳ [class File — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)](./class-file.md)
-- [ ] ⏳ [class Folder — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)](./class-folder.md)
-- [ ] ⏳ [MVC live-updates for File and Folder — view observes model, object notifies, no forced reload](./mvc-live-updates-file-folder.md)
-- [ ] ⏳ [New git repo as M1 Repository class — greenfield class-first MVC home for the corrected MVP](./new-git-repo-m1-class-mvp-home.md)
+- [ ] ✅ [Task 41.1: class File — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)](./class-file.md)
+- [ ] ⏳ [Task 41.2: class Folder — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)](./class-folder.md)
+- [ ] ⏳ [Task 41.3: MVC live-updates for File and Folder — view observes model, object notifies, no forced reload](./mvc-live-updates-file-folder.md)
+- [ ] ⏳ [Task 41.4: New git repo as M1 Repository class — greenfield class-first MVC home for the corrected MVP](./new-git-repo-m1-class-mvp-home.md)
+- [ ] ⏳ [Complete M2 metamodel of File (UML+TS+PUML, consistent-by-construction) + 'open diagram' action on class File](./file-complete-m2-metamodel-open-diagram.md)

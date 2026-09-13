@@ -2,23 +2,23 @@
 
 [Back to Planning](./planning.md)
 
-# class File — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)
+# Task 41.1: class File — radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)
 
 [task:uuid:a264c6a3-9732-4796-9aaa-dbd3b8e67dd6]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-STOOD UP Planned, top-down scenario-first (chain minted before code). ★ Crisis-minted by robbin-req (PO urgent 2026-09-13, Tron watching zero-tasks, planner pane unreachable=detached shell) — PLANNER's lane: take over / reconcile. Architect wires class/method on build-go (design 37e362633 + re-scope 4fc4325f3).
+IN-PROGRESS by-the-act (planner 2026-09-13, Tron DELIVER order): FOUR increments SHIPPED+GATED on hotfix/t40.1-checklist-band, each VERIFIED as a real commit (never hand-stamped) — inc-1 ownIor 245da4f9f (Ior value-object owns compose+GUARD#2, composeUnitIor DELETED) / inc-2 renderSelf-as-TOKEN 5795ab068 (semantic icon token, Model/View leak fixed) / inc-3 moveTo eadf179a7 (pure move COMMAND, ask-the-object) / inc-4a token->SVG adapter map a13f6243b (FILE_TOKEN_ICONS, /model view owns glyph). Architect BACKSTOPPED ownIor + moveTo GREEN. ★ REMAINING: inc-4b (rb-object-item wiring + deploy) = single remaining implementation piece; then testing / chain-complete-to-Test. NOT Done — Tron's gate (0 Done till Tron). Provenance: crisis-minted by robbin-req 2026-09-13; architect wires class/method (design 37e362633 + re-scope 4fc4325f3).
 
 ## Task Description
 

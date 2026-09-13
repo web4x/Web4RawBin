@@ -15,13 +15,15 @@
       "ior:instance:0ac8c383-ec63-4515-b27a-6614546ed9ae",
       "ior:instance:500be03e-1f3c-44c5-ad15-bdd1e9fea7d4",
       "ior:instance:59ddc1ce-9b87-441b-9cd1-63609f24582b",
-      "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3"
+      "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+      "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6"
     ],
     "tasks": [
       "ior:instance:a264c6a3-9732-4796-9aaa-dbd3b8e67dd6",
       "ior:instance:6128094d-3a43-4541-b050-71cd33a8f7c8",
       "ior:instance:c9fb1a08-b66d-4ae6-a9fe-b32e966922af",
-      "ior:instance:28978064-986e-416a-aec8-9518a504419b"
+      "ior:instance:28978064-986e-416a-aec8-9518a504419b",
+      "ior:instance:43a1f664-a7c1-475a-8d8b-25306041b9ff"
     ],
     "createdAt": "2026-09-12",
     "createdBy": "robbin-req",

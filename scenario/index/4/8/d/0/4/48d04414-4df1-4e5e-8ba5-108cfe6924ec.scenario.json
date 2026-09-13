@@ -4,7 +4,7 @@
   "model": {
     "uuid": "48d04414-4df1-4e5e-8ba5-108cfe6924ec",
     "name": "File.renderSelf (renders as token)",
-    "sourceFile": "src/ts/scenario/file-unit.ts",
+    "sourceFile": "src/ts/scenario/file.ts",
     "sourceLine": 0,
     "servedVersion": "hotfix/t40.1-checklist-band",
     "commitSha": "5795ab068",
@@ -13,6 +13,7 @@
       "ior:instance:aa84b7eb-7688-4a43-8ce7-029e8f137911"
     ],
     "unitLinks": [],
-    "chainNote": "Backfill (Tron 'where is the implementation' \u2014 #126 chain was dead-ending at Method). robbin-req mints; EXPERT places [impl:uuid:48d04414-4df1-4e5e-8ba5-108cfe6924ec] at src/ts/scenario/file-unit.ts (commit 5795ab068) in the same pass."
+    "chainNote": "Backfill (Tron 'where is the implementation' \u2014 #126 chain was dead-ending at Method). robbin-req mints; EXPERT places [impl:uuid:48d04414-4df1-4e5e-8ba5-108cfe6924ec] at src/ts/scenario/file-unit.ts (commit 5795ab068) in the same pass.",
+    "sourceFileNote": "corrected file-unit.ts->file.ts (Tron: trace class File in file.ts, not the functional file-unit.ts; markers ARE in file.ts)"
   }
 }

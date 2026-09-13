@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "model": {
+    "uuid": "0067401b-6b47-4dee-a218-2d71000b79a3",
+    "name": "File.openDiagram",
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "coveredByUseCase": "ior:instance:4ea665d1-17d3-4dc1-867f-e569d9c94bea",
+    "description": "File owns the 'open diagram' action (file.ts) \u2014 renders EVERYTHING modeled for File (no silent omission), reusing the existing diagram render. Ask-the-object.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

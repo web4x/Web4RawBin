@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",
+  "model": {
+    "uuid": "4ea665d1-17d3-4dc1-867f-e569d9c94bea",
+    "name": "file.openDiagram",
+    "description": "PLACEHOLDER (architect wires): File owns an 'open diagram' action that renders the complete File metamodel (UmlClass+attributes+interfaces+methods+relationships) via the reused diagram render. Ask-the-object.",
+    "coversRequirement": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",
+    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "method": "ior:instance:0067401b-6b47-4dee-a218-2d71000b79a3",
+    "unitLinks": []
+  }
+}
