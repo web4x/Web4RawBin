@@ -15,6 +15,10 @@ export interface FileModel { uuid: string; origin?: string; name?: string; mimeT
 // The PURE view-model File.renderSelf() returns — DATA, not DOM. A thin client adapter renders it (icon+name node).
 export interface FileViewModel { kind: 'file'; uuid: string; icon: string; name: string; badges: string[]; }
 
+// The PURE move COMMAND File.moveTo() returns — intent, not effect. A thin client transport adapter dispatches it via
+// the EXISTING /api/room/<id>/move-unit path (adding roomId + playerToken, which are transport context, not the File's).
+export interface MoveCommand { verb: 'move'; unit: string; target: string; source?: string; }
+
 export class File {
   constructor(private readonly model: FileModel) {}
 
@@ -34,6 +38,14 @@ export class File {
   // over time — a ranked follow-up, not T41.1). Pure → directly unit-testable.
   renderSelf(): FileViewModel {
     return { kind: 'file', uuid: this.model.uuid, icon: this.icon(), name: this.displayName(), badges: [] };
+  }
+
+  // [impl:uuid:3500d960-d49b-43e6-81a9-0f12ddacb272] File.moveTo — the File moves ITSELF (ask-the-object): returns a
+  // PURE move COMMAND (intent), never touches transport. The thin client adapter dispatches it via the EXISTING
+  // move-unit route (REUSE — no new route, no fork): the File contributes what it knows (its uuid, the target, the
+  // source it moves from); roomId + playerToken are the adapter's transport context, not the File's.
+  moveTo(target: string, source?: string): MoveCommand {
+    return { verb: 'move', unit: this.model.uuid, target, ...(source ? { source } : {}) };
   }
 
   private displayName(): string {
