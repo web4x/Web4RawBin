@@ -236,6 +236,10 @@ export class RbObjectItem extends HTMLElement {
     // siblings). Replaces the TRACE_ICONS['file'] derivation (deleted from icons.ts). Other types keep TRACE_ICONS.
     let icon: string;
     if (type === 'file') {
+      // [impl:uuid:3feca893-d59f-4d5b-b641-0cbdb873a6b1] File.renderSelf consumed here — the /model thin VIEW adapter
+      // asks the File instance to render itself (Impl of the renderSelf chain: UC file.renderSelf 59649d58 → Class File
+      // 13782f0c → Method renderSelf 3feca893). name = getAttribute('name')||getAttribute('title')||'' (moved files carry
+      // the name via TITLE; matches the image path :228) — the v0.8.236 name-renders-uuid regression fix (v0.8.237).
       const vm = new File({ uuid, name: this.getAttribute('name') || this.getAttribute('title') || '' }).renderSelf();
       icon = fileIconGlyph(vm.iconToken); // adapter maps the File's token → SVG (never blank); glyph stays surface-side
       name = vm.name; // uuid fallback, never an empty label

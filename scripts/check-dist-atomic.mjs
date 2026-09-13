@@ -4,6 +4,8 @@
  * build-manifest references is UNTRACKED (rebuilt-not-committed) or MISSING, prod serves an uncommitted/absent asset
  * = a phantom. This gate asserts EVERY build-manifest-referenced bundle is present on disk AND git-tracked.
  * stub-must-fail: leave a manifest-referenced bundle untracked / delete it → this gate exits 1 (RED).
+ * [test:uuid:PENDING-req-mint] deploy-atomicity governance gate (v0.8.237 phantom-deploy remediation) — req wires the
+ * chain marker if the deploy-governance chain requires a Test unit (expert does not self-mint).
  */
 import { readFileSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
