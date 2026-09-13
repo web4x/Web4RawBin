@@ -107,7 +107,8 @@
       {
         "id": "GAP-4",
         "what": "UmlInterface for File = NONE today (File implements no interface in TS currently)",
-        "action": "FLAGGED to PO/Tron (architect); do NOT mint a fabricated interface \u2014 the derived set has no interface, and inventing one would be a hand-copy not a derivation"
+        "action": "FLAGGED to PO/Tron (architect); do NOT mint a fabricated interface \u2014 the derived set has no interface, and inventing one would be a hand-copy not a derivation",
+        "unitConvertibleMeasured": "Architect MEASURED (2812577b4): File does NOT structurally satisfy UnitConvertible (lacks isBinary/load/toUnit), so implements=NONE is CORRECT + COMPLETE, NOT a missing element. IF Tron wants File unit-convertible that is a behaviour-ADD (his R12 call), NOT a derivation gap \u2014 do NOT mint an implements-UnitConvertible element (that would be a fabricated, un-derived interface)."
       }
     ]
   }
