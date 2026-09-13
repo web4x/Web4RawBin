@@ -4,7 +4,7 @@
   "model": {
     "uuid": "6128094d-3a43-4541-b050-71cd33a8f7c8",
     "altId": "T41.2",
-    "name": "class Folder \u2014 radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)",
+    "name": "Task 41.2: class Folder \u2014 radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)",
     "slug": "class-folder",
     "description": "Build class Folder as a radical-OOP M1 class (clean-create; new S41 Folder SUPERSEDES legacy 77ff595d, un-migrated per Tron): owner-never-null + fully-qualified IOR + class-has-methods (children/renderSelf). Full 6-step MDA chain before code.",
     "intention": "class Folder EXISTS as a real M1 class for the first time \u2014 behaviour not data-bag, owned, fully-qualified IOR, carried whole through DnD.",

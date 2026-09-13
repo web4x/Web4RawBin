@@ -4,12 +4,12 @@
   "model": {
     "uuid": "a264c6a3-9732-4796-9aaa-dbd3b8e67dd6",
     "altId": "T41.1",
-    "name": "class File \u2014 radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)",
+    "name": "Task 41.1: class File \u2014 radical-OOP M1 class, clean-create (full MDA/MOF chain, top-down)",
     "slug": "class-file",
     "description": "Build class File as a radical-OOP M1 class (clean-create, ZERO migration): owner-never-null (create rejects ownerless) + fully-qualified IOR (ior:class:File:rest:<origin>/<uuid>, additive) + class-has-methods (renderSelf/resolveOwnIor, ask-the-object). Full 6-step MDA chain minted before code. rb-file-tree emits M0 File instances, not bare strings.",
     "intention": "class File EXISTS as a real M1 class for the first time \u2014 behaviour not data-bag, owned, fully-qualified IOR, carried whole through DnD.",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
     "priority": "P0-TOP \u2014 Tron watching (2026-09-13), OOP model consistency build order",
     "acceptanceCriteria": "PROJECTS from 993db1f3-bbca-4dc2-8004-43a47e6a8c98 (no hand-write, AXIS-2): the 3 by-construction guards (owner-never-null / fully-qualified-additive-IOR / class-has-methods) + M1-class + dnd-carries-real-unit + full-chain-no-backfill + created-clean-new.",
     "coveredRequirements": [
@@ -21,7 +21,7 @@
     ],
     "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
     "sprintName": "Sprint 41",
-    "remainingIssues": "STOOD UP Planned, top-down scenario-first (chain minted before code). \u2605 Crisis-minted by robbin-req (PO urgent 2026-09-13, Tron watching zero-tasks, planner pane unreachable=detached shell) \u2014 PLANNER's lane: take over / reconcile. Architect wires class/method on build-go (design 37e362633 + re-scope 4fc4325f3).",
+    "remainingIssues": "IN-PROGRESS by-the-act (planner 2026-09-13, Tron DELIVER order): FOUR increments SHIPPED+GATED on hotfix/t40.1-checklist-band, each VERIFIED as a real commit (never hand-stamped) \u2014 inc-1 ownIor 245da4f9f (Ior value-object owns compose+GUARD#2, composeUnitIor DELETED) / inc-2 renderSelf-as-TOKEN 5795ab068 (semantic icon token, Model/View leak fixed) / inc-3 moveTo eadf179a7 (pure move COMMAND, ask-the-object) / inc-4a token->SVG adapter map a13f6243b (FILE_TOKEN_ICONS, /model view owns glyph). Architect BACKSTOPPED ownIor + moveTo GREEN. \u2605 REMAINING: inc-4b (rb-object-item wiring + deploy) = single remaining implementation piece; then testing / chain-complete-to-Test. NOT Done \u2014 Tron's gate (0 Done till Tron). Provenance: crisis-minted by robbin-req 2026-09-13; architect wires class/method (design 37e362633 + re-scope 4fc4325f3).",
     "createdBy": "robbin-req",
     "createdAt": "2026-09-13"
   }

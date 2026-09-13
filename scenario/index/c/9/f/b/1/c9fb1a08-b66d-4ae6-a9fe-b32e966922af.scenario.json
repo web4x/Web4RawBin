@@ -4,7 +4,7 @@
   "model": {
     "uuid": "c9fb1a08-b66d-4ae6-a9fe-b32e966922af",
     "altId": "T41.3",
-    "name": "MVC live-updates for File and Folder \u2014 view observes model, object notifies, no forced reload",
+    "name": "Task 41.3: MVC live-updates for File and Folder \u2014 view observes model, object notifies, no forced reload",
     "slug": "mvc-live-updates-file-folder",
     "description": "File/Folder views update live via MVC (observe model + notify on change, no forced reload; observing != polling). Applies the C4/R37.4 viewBus law to the two S41 classes. Written against the architect's measured subscribing-vs-reload-only coverage.",
     "intention": "Every 'disk is correct' reaches Tron's screen \u2014 a File/Folder view reflects its unit's change WITHOUT a reload.",

@@ -4,7 +4,7 @@
   "model": {
     "uuid": "28978064-986e-416a-aec8-9518a504419b",
     "altId": "T41.4",
-    "name": "New git repo as M1 Repository class \u2014 greenfield class-first MVC home for the corrected MVP",
+    "name": "Task 41.4: New git repo as M1 Repository class \u2014 greenfield class-first MVC home for the corrected MVP",
     "slug": "new-git-repo-m1-class-mvp-home",
     "description": "Create a new git repo (gh/git), register it in the M1 tree as a modelled Repository class (not a path string), class-first + MVC by construction (R41.3 shape from line one), implement the corrected MVP there.",
     "intention": "Stop retrofitting; build the corrected architecture clean in its own modelled repo.",
