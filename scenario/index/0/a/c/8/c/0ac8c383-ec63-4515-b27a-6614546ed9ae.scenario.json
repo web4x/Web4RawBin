@@ -14,7 +14,9 @@
       "ior:instance:7a1c9e04-0b2f-4a6e-9c31-1d5f6a2b3c4d",
       "ior:instance:8b2d0f15-1c3e-4b7f-8d42-2e6a7b3c4d5e"
     ],
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6128094d-3a43-4541-b050-71cd33a8f7c8"
+    ],
     "tests": [],
     "unitLinks": [],
     "reconcilesClass": "ior:instance:77ff595d-a6c7-4022-a437-198c5a714bc7",
