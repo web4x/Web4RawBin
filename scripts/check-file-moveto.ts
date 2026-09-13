@@ -1,4 +1,5 @@
 /**
+ * [test:uuid:eeab2deb] Test — File.moveTo (impl 65b154c8).
  * Sprint 41 (T41.1 inc-3) — File.moveTo(target) returns a PURE move COMMAND (intent), not an effect. The File moves
  * ITSELF (ask-the-object); a thin client transport adapter dispatches the command via the EXISTING move-unit route
  * (no new route, no fork). This gate proves moveTo yields {verb:'move', unit, target, source?} — data, not a call.

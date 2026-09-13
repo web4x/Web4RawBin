@@ -19,6 +19,8 @@ export class Ior {
     readonly uuid: string,
   ) {}
 
+  // [impl:uuid:30e39639-01cf-43eb-8b65-3d50b02995a7] Ior.compose (Class Ior d6404f28) — composes the fully-qualified IOR
+  // (class+protocol+origin+uuid) + GUARD#2 by construction. File/Folder.ownIor DELEGATE here (the impl hangs on Ior, not File).
   // The ONLY way to make an Ior. GUARD#2: empty origin → THROW (a File/Folder ref without an origin resolves nowhere
   // but here — the Sprint 26 federation property). Empty uuid → THROW. Origin's trailing slashes are normalized once.
   static for(className: IorClassName, origin: string, uuid: string): Ior {

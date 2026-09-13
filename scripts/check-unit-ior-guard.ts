@@ -1,4 +1,5 @@
 /**
+ * [test:uuid:f22f164f] Test — GUARD#2 (Ior compose, impl 30e39639).
  * Sprint 41 GUARD #2 gate — the fully-qualified IOR is a VALUE-OBJECT (`Ior`), composed WITH an origin, BY CONSTRUCTION.
  * Ior.for(className, origin, uuid) = ior:class:<Class>:rest:<origin>/scenario/<uuid>; an EMPTY origin THROWS in the
  * constructor (you cannot build an ownerless-of-origin ref). File.ownIor()/Folder.ownIor() ASK the Ior (single format

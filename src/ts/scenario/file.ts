@@ -30,14 +30,14 @@ export class File {
 
   get uuid(): string { return this.model.uuid; }
 
-  // [impl:uuid:8d5a11e6-a5c0-4237-a218-afbe19699bf6] File.ownIor — the File composes its OWN fully-qualified IOR by
-  // ASKING the Ior value-object (single owner of the format + GUARD#2). No hand-built string, no free-fn shim: the
-  // deleted composeUnitIor's knowledge collapsed into Ior. GUARD#2 (empty origin → throw) is enforced by Ior's constructor.
+  // File.ownIor — the File composes its OWN fully-qualified IOR by ASKING the Ior value-object (single owner of the
+  // format + GUARD#2). No impl marker here: ownIor DELEGATES — the implementation hangs on Ior.compose (impl 30e39639),
+  // not on File (req/PO chain ruling). No hand-built string, no free-fn shim (composeUnitIor collapsed into Ior).
   ownIor(): string {
     return Ior.for('File', this.model.origin || '', this.model.uuid).toString();
   }
 
-  // [impl:uuid:3feca893-d59f-4d5b-b641-0cbdb873a6b1] File.renderSelf — the File renders ITSELF (ask-the-object): returns
+  // [impl:uuid:48d04414-4df1-4e5e-8ba5-108cfe6924ec] File.renderSelf — the File renders ITSELF (ask-the-object): returns
   // a PURE view-model (a semantic icon CATEGORY token from the object's own mime/ext, its name, badges), NOT DOM and NOT
   // a concrete glyph. The client thin adapter maps the token → an SVG (the /model tree) or emoji (elsewhere) + paints the
   // node; the tree stops rebuilding the answer from a synthetic `file:<path>` string. The File owns WHAT IT IS (category);
@@ -46,7 +46,7 @@ export class File {
     return { kind: 'file', uuid: this.model.uuid, iconToken: this.iconToken(), name: this.displayName(), badges: [] };
   }
 
-  // [impl:uuid:3500d960-d49b-43e6-81a9-0f12ddacb272] File.moveTo — the File moves ITSELF (ask-the-object): returns a
+  // [impl:uuid:65b154c8-04b8-462c-9dde-ff3a654d4e40] File.moveTo — the File moves ITSELF (ask-the-object): returns a
   // PURE move COMMAND (intent), never touches transport. The thin client adapter dispatches it via the EXISTING
   // move-unit route (REUSE — no new route, no fork): the File contributes what it knows (its uuid, the target, the
   // source it moves from); roomId + playerToken are the adapter's transport context, not the File's.

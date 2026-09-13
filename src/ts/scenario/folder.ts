@@ -11,8 +11,8 @@ export class Folder {
 
   get uuid(): string { return this.model.uuid; }
 
-  // [impl:uuid:619421d1-...Folder.ownIor] composes the Folder's fully-qualified IOR by ASKING the Ior value-object
-  // (single format owner + GUARD#2). Same shape as File.ownIor — the format is NOT duplicated (Ior owns it).
+  // Folder.ownIor — composes the Folder's fully-qualified IOR by ASKING the Ior value-object (single format owner +
+  // GUARD#2). No impl marker: ownIor DELEGATES — the impl hangs on Ior.compose (30e39639), not Folder. Format not duplicated.
   ownIor(): string {
     return Ior.for('Folder', this.model.origin, this.model.uuid).toString();
   }

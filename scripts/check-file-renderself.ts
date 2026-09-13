@@ -1,4 +1,5 @@
 /**
+ * [test:uuid:aa84b7eb] Test — File.renderSelf (impl 48d04414).
  * Sprint 41 (T41.1 inc-2) — File.renderSelf() returns a PURE VIEW-MODEL (ask-the-object), NOT a bare string and NOT DOM.
  * The radical-OOP fix: the tree paints a File node from the File's OWN view-model, never rebuilds it from a synthetic
  * `file:<path>` string. This gate proves renderSelf yields {kind,uuid,icon,name,badges} with the object's own icon+name.

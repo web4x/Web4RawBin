@@ -1,4 +1,5 @@
 /**
+ * [test:uuid:c5749bef] Test — FILE_TOKEN_ICONS token→SVG adapter (impl 199105f8).
  * Sprint 41 (T41.1 inc-4 adapter) — the /model thin VIEW adapter maps a File's semantic icon TOKEN → an SVG glyph.
  * This gate proves the map is TOTAL over the File vocabulary (every FileIconToken → a non-empty SVG, NEVER blank) and
  * that it is a glyph adapter (SVG), not the model. A missing token = a blank icon on Tron's tree = a regression.

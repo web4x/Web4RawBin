@@ -48,6 +48,7 @@ export const TRACE_ICONS: Record<string, string> = {
   'mof-project': svg('<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>'),
 };
 
+// [impl:uuid:199105f8-6fe9-40c5-a580-8b8a524e7909] FILE_TOKEN_ICONS token→SVG adapter.
 // Sprint 41 T41.1 (inc-4 adapter) — the THIN VIEW adapter for the /model unit tree: maps a File's SEMANTIC icon TOKEN
 // (File.renderSelf().iconToken — what the file IS) → an SVG glyph (how it looks HERE), consistent with the SVG siblings.
 // The File class owns the category; this map owns the glyph. Every FileIconToken has an entry (total → never blank).
