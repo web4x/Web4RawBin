@@ -21,13 +21,18 @@ if (!Array.isArray(vm.badges)) fail('renderSelf.badges must be an array.');
 if (vm.name !== 'notes.md') fail(`renderSelf.name must be the file name (got ${JSON.stringify(vm.name)}).`);
 if (new File({ uuid: U }).renderSelf().name !== U) fail('renderSelf.name must fall back to uuid when name is absent (never blank).');
 
-// ICON — the FILE owns its icon (mime lens first, ext fallback, default 📄)
-const iconOf = (name: string, mimeType?: string) => new File({ uuid: U, name, mimeType }).renderSelf().icon;
-if (iconOf('p.png', 'image/png') !== '🖼') fail('image/* → 🖼');
-if (iconOf('doc.pdf', 'application/pdf') !== '📕') fail('application/pdf → 📕');
-if (iconOf('link', 'text/uri-list') !== '🔗') fail('text/uri-list → 🔗');
-if (iconOf('mod.ts') !== '⚡') fail('.ts ext → ⚡ (ext fallback when no mime)');
-if (iconOf('mystery.zzz') !== '📄') fail('unknown → 📄 default');
+// ICON — the FILE owns its icon CATEGORY as a semantic TOKEN, NOT a concrete glyph (PO ruling: glyph is the adapter's job).
+const tokenOf = (name: string, mimeType?: string) => new File({ uuid: U, name, mimeType }).renderSelf().iconToken;
+if (tokenOf('p.png', 'image/png') !== 'image') fail('image/* → token "image"');
+if (tokenOf('doc.pdf', 'application/pdf') !== 'document') fail('application/pdf → token "document"');
+if (tokenOf('mod.ts') !== 'code') fail('.ts ext → token "code" (ext fallback when no mime)');
+if (tokenOf('data.json') !== 'data') fail('.json ext → token "data"');
+if (tokenOf('photo.jpg') !== 'image') fail('image ext → token "image"');
+if (tokenOf('mystery.zzz') !== 'generic') fail('unknown → token "generic" (never blank)');
+// NO CONCRETE GLYPH in the view-model — the token is a lowercase category word, never an emoji/SVG (the leak inc-2 shipped).
+const ALLOWED = ['image', 'audio', 'video', 'document', 'archive', 'code', 'data', 'generic'];
+if (!ALLOWED.includes(vm.iconToken)) fail(`iconToken must be a semantic category (got ${JSON.stringify(vm.iconToken)}).`);
+if (/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}]|<svg|<path/u.test(JSON.stringify(vm))) fail('view-model must contain NO concrete glyph (emoji/SVG) — the object owns the category, the adapter owns the glyph.');
 
 // PURE — file.ts must not import a node builtin / DOM (the ONE class runs both sides)
 const src = readFileSync(new URL('../src/ts/scenario/file.ts', import.meta.url), 'utf-8');
