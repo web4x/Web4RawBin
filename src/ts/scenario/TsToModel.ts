@@ -11,6 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { deriveViewKind } from '../shared/facet-type.js'; // R40.23: THE single facet-type source (no hardcoded viewKind)
+import { classM2Puml } from '../shared/puml-serializer.js'; // Sprint 41 T41.6 inc-2: derived M2 UmlClass → PUML (reuse, no fork)
 
 // M2 metaclass uuids — MIRROR scripts/seed-mda-model.mjs (pinned/stable seed constants). [model facet, code facet].
 const M2 = {
@@ -299,6 +300,12 @@ export class TsToModel {
       const djson = JSON.stringify(dUnit, null, 2) + '\n';
       fs.mkdirSync(path.dirname(dfile), { recursive: true });
       if ((fs.existsSync(dfile) ? fs.readFileSync(dfile, 'utf-8') : '') !== djson) { fs.writeFileSync(dfile, djson); wrote++; }
+
+      // Sprint 41 T41.6 inc-2: the PUML view of the derived M2 UmlClass — classM2Puml serializes the SAME units (reuse
+      // modelToPuml, no fork); we (the caller) do the I/O (puml-serializer is NO-I/O). Deterministic → 0-churn re-run.
+      const pumlFile = path.resolve(indexDir, '..', 'file.puml');
+      const puml = classM2Puml(units);
+      if ((fs.existsSync(pumlFile) ? fs.readFileSync(pumlFile, 'utf-8') : '') !== puml) { fs.writeFileSync(pumlFile, puml); wrote++; }
     }
 
     // RECONCILE — remove prior M1 units of the PROCESSED source files that are no longer present (rename/move/delete).

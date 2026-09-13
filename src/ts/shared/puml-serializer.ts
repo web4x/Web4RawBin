@@ -4,6 +4,7 @@
 // INV-P1 same-uuid-across-M (identity embedded in the .puml), P2 reuse-not-remint (import binds the embedded uuid),
 // P3 round-trip byte-identical (deterministic order + no timestamps), P4 isolation (caller persists to isolated store).
 import type { EdgeKind } from '../../public/ts/trace/diagram-view-model.js';
+import type { M1Unit } from '../scenario/TsToModel.js'; // type-only (erased) — the derived M2 ModelElement unit shape
 
 export interface PumlNode { uuid: string; name: string; kind: string; attrs: string[]; methods: string[]; }
 export interface PumlRelation { from: string; to: string; kind: EdgeKind } // from/to = element UUIDs
@@ -55,6 +56,40 @@ export function modelToPuml(nodes: PumlNode[], relations: PumlRelation[]): strin
   }
   lines.push('@enduml');
   return lines.join('\n') + '\n';
+}
+
+// Sprint 41 T41.6 inc-2 — the derived M2 UmlClass (deriveClassM2's ModelElement units) → PUML. Maps the M1 ModelElement
+// graph onto PumlNode/PumlRelation and REUSES modelToPuml (no fork, no second serializer). A classifier unit (kind
+// class/interface) becomes a node; its members[] resolve to attrs (attribute/property) + methods (method/function) BY
+// THE DERIVATION'S OWN STRUCTURE (attrs land wherever TS put them — e.g. on the FileModel interface — never hardcoded);
+// relations[] map the M2 edge-type uuid → EdgeKind. PURE (no I/O; the caller writes file.puml into the isolated store).
+const M2_EDGE_TO_KIND: Record<string, EdgeKind> = {
+  'a1d2e3f4-0000-4a1b-8c2d-000000000010': 'association',
+  'a1d2e3f4-0000-4a1b-8c2d-000000000011': 'generalization',
+  'a1d2e3f4-0000-4a1b-8c2d-000000000012': 'dependency',
+};
+// [impl:uuid:PENDING-req-mint] PumlSerializer.classM2Puml — derived M2 UmlClass units → @startuml (reuses modelToPuml)
+export function classM2Puml(units: M1Unit[]): string {
+  const byUuid = new Map(units.map((u) => [u.model.uuid, u.model]));
+  const nodes: PumlNode[] = [];
+  const relations: PumlRelation[] = [];
+  for (const u of units) {
+    const m = u.model;
+    if (m.kind !== 'class' && m.kind !== 'interface') continue; // only classifiers become PUML nodes; members ride their owner
+    const attrs: string[] = []; const methods: string[] = [];
+    for (const memUuid of m.members || []) {
+      const mem = byUuid.get(memUuid);
+      if (!mem) continue;
+      if (mem.kind === 'method' || mem.kind === 'function') methods.push(mem.name);
+      else if (mem.kind === 'attribute' || mem.kind === 'property') attrs.push(mem.name);
+    }
+    nodes.push({ uuid: m.uuid, name: m.name, kind: m.kind, attrs, methods });
+    for (const r of m.relations || []) {
+      const kind = M2_EDGE_TO_KIND[r.type];
+      if (kind) relations.push({ from: m.uuid, to: r.to, kind });
+    }
+  }
+  return modelToPuml(nodes, relations);
 }
 
 const REL_IN: { re: RegExp; kind: EdgeKind; swap: boolean }[] = [
