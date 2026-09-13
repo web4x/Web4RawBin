@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "name": "Project",
+    "metaLevel": "M1",
+    "instanceOf": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+    "selfIor": "ior:class:Project:rest:https://prod.wo-da.de:4444/scenario/eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "iorFormat": "ior:class:Project:rest:<origin>/<uuid>",
+    "methods": [
+      "ior:instance:94096289-cad9-465d-953a-0eb2d756850c",
+      "ior:instance:da30b8cb-3436-4fea-bc92-f7abd101c4cf",
+      "ior:instance:eff24f8e-13fd-4acc-b10c-0606104ea33d"
+    ],
+    "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+    "description": "Clean radical-OOP M1 Project class (owner=Tron, FQ-IOR, methods not data-bag). Project is its OWN class; Repository HAS-A Project (PO-ruled). 3 Project INSTANCES existed (RawBin+2 fixtures) but no Class was defined - minted here (like File).",
+    "unitLinks": []
+  }
+}

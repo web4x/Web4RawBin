@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+  "model": {
+    "uuid": "83b8e3a5-55fb-4f64-ab85-23a7931471a1",
+    "name": "project.createAndAttach",
+    "description": "PLACEHOLDER (architect wires class/method on build-go): a NEW Project is created + attached to the Repository (Repository HAS-A Project). class+method=null until wired.",
+    "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+    "class": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "method": "ior:instance:94096289-cad9-465d-953a-0eb2d756850c",
+    "unitLinks": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+  "model": {
+    "uuid": "86c45bba-96fb-472f-b71e-97a8b2ab8fad",
+    "name": "m1Node.addRepositoryAction",
+    "description": "PLACEHOLDER (architect wires class/method on build-go): the M1 node exposes the 'add Repository' action; opens the reused selector (owned by class, not a free function). class+method=null until wired.",
+    "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+    "class": "ior:instance:9be9df2f-56f1-4dc3-a7da-8763a6c3023f",
+    "method": "ior:instance:f8d8aea7-769d-48aa-a1ac-2354e93414c9",
+    "unitLinks": []
+  }
+}

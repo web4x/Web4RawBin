@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+  "model": {
+    "uuid": "94096289-cad9-465d-953a-0eb2d756850c",
+    "name": "Project.create",
+    "class": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "coveredByUseCase": "ior:instance:83b8e3a5-55fb-4f64-ab85-23a7931471a1",
+    "description": "Project.create - ask-the-object.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

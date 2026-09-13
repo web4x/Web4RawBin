@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+  "model": {
+    "uuid": "0296dad4-212f-448f-b576-5cba7cd53df8",
+    "name": "repoProjectSelector.chooseExistingOrNew",
+    "description": "PLACEHOLDER (architect wires class/method on build-go): REUSE the three-way-diff selector to choose a gh Repository + a Project (existing) OR a NEW project action; no forked picker. class+method=null until wired.",
+    "coversRequirement": "ior:instance:c0acaf37-2f5c-4acd-b419-8c1acf931bd3",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  }
+}

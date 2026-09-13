@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+  "model": {
+    "uuid": "da30b8cb-3436-4fea-bc92-f7abd101c4cf",
+    "name": "Project.renderSelf",
+    "class": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "coveredByUseCase": "ior:instance:83b8e3a5-55fb-4f64-ab85-23a7931471a1",
+    "description": "Project.renderSelf - ask-the-object.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

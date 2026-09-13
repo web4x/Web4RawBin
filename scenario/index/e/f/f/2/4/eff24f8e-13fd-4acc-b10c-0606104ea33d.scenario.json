@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+  "model": {
+    "uuid": "eff24f8e-13fd-4acc-b10c-0606104ea33d",
+    "name": "Project.ownIor",
+    "class": "ior:instance:eeaa43d7-d8bc-49c5-b7bb-16f4d6f44c20",
+    "coveredByUseCase": "ior:instance:83b8e3a5-55fb-4f64-ab85-23a7931471a1",
+    "description": "Project.ownIor - ask-the-object.",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

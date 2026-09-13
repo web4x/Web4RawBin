@@ -67,3 +67,18 @@
   - [ ] **(safety/visibility-irreversible)** ★ SAFETY (FAILABLE): the repo is created PRIVATE by default and is NEVER created PUBLIC on an inference — PUBLIC requires TRON'S EXPLICIT word (public publishes EVERYTHING + is NOT reversible by deletion). gh repo create is a build-time OUTWARD action on explicit Tron/PO go, not now. Creating public without explicit Tron authorization => RED.
   - [ ] **(mvp/greenfield-home)** The CORRECTED MVP is implemented in the NEW repo (the greenfield home) — build the corrected architecture clean, modelled from the start, THERE; not retrofitted into the old codebase.
   -> repository.registerInM1TreeClassFirst [uc:uuid:03008aa9-e5de-45f6-a4de-813362b104b3]
+
+- [ ] **R41.5 — M1 node 'add Repository' action — reuse the three-way-diff selector to attach a gh Repository + a Project (existing OR new); result shows in the M1 tree**
+  [requirement:uuid:c0acaf37-2f5c-4acd-b419-8c1acf931bd3]
+  radical oop classes top down scenario first planned
+  Tron 'radical oop classes top down scenario first planned'. On the M1 node (mof-m1; detail: Scenario/Edit/Add folder/Rename/Import PUML) add an action named EXACTLY 'add Repository'. It opens a selector MODELLED ON the three-way-diff selector (REUSE the existing repo/branch chooser diffEditor.repoTargeting + RepoRegistry, do NOT fork a 2nd picker) to select (a) a GitHub Repository + (b) a Project within it, PLUS a 'NEW project' action (existing OR new). Radical-OOP: Repository (41.4 M1 class) HAS-A Project (its own class, PO-ruled); the selector + actions are OWNED BY those classes, never free functions.
+  **Acceptance criteria:**
+  - [ ] **(ui/action-visible)** The 'add Repository' action (named EXACTLY 'add Repository') is VISIBLE on the M1 node (mof-m1) detail panel, alongside Scenario / Edit / Add folder / Rename / Import PUML.
+  - [ ] **(reuse/no-second-picker)** The action opens a selector MODELLED ON / REUSING the existing three-way-diff repo/branch chooser (diffEditor.repoTargeting + RepoRegistry) — NO second picker forked — and it lists REAL gh repositories.
+  - [ ] **(project/existing)** An EXISTING Project within the selected repository can be selected and ATTACHED (Repository HAS-A Project).
+  - [ ] **(project/new)** A NEW Project can be CREATED (via a 'NEW project' action inside the selector) AND attached — Tron can add EITHER an existing OR a new project.
+  - [ ] **(model/tree-reflects)** After attach, the M1 TREE SHOWS the result — the attached Repository + Project as REAL modelled M1 units (owned, fully-qualified IOR), not a path string; live (R41.3 observer shape, no forced reload).
+  - [ ] **(radical-oop/owned)** The selector + the actions are METHODS OWNED BY the classes (Repository HAS-A Project; the action + attach on Repository/Project), NEVER free functions. A free-function selector/action => RED.
+  -> m1Node.addRepositoryAction [uc:uuid:86c45bba-96fb-472f-b71e-97a8b2ab8fad]
+  -> repoProjectSelector.chooseExistingOrNew [uc:uuid:0296dad4-212f-448f-b576-5cba7cd53df8]
+  -> project.createAndAttach [uc:uuid:83b8e3a5-55fb-4f64-ab85-23a7931471a1]
