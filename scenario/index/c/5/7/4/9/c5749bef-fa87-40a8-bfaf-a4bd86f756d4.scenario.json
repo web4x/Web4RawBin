@@ -1,9 +1,9 @@
 {
   "ior": "ior:class:Test",
-  "ownerIor": "ior:instance:199105f8-6fe9-40c5-a580-8b8a524e7909",
+  "ownerIor": null,
   "model": {
     "uuid": "c5749bef-fa87-40a8-bfaf-a4bd86f756d4",
-    "name": "test:File.iconAdapterMap",
+    "name": "test:fileIconGlyph (adapter token->SVG)",
     "description": "Test for the EXISTING failable gate check:file-icon-adapter (stub-must-fail, shipped but not a unit). Closes the chain Method->Impl->Test for the backfilled increment.",
     "sourceFile": "ior:file:npm run check:file-icon-adapter",
     "implementations": [
@@ -11,6 +11,7 @@
     ],
     "status": "pass",
     "coversGate": "check:file-icon-adapter",
-    "unitLinks": []
+    "unitLinks": [],
+    "hostFunction": "fileIconGlyph (trace/icons.ts)"
   }
 }

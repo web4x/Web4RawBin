@@ -1,10 +1,10 @@
 {
   "ior": "ior:class:Implementation",
-  "ownerIor": "ior:instance:9dec657c-7549-48ad-8900-03b3f03d5327",
+  "ownerIor": null,
   "model": {
     "uuid": "199105f8-6fe9-40c5-a580-8b8a524e7909",
-    "name": "File.iconGlyph impl (token->SVG; wraps FILE_TOKEN_ICONS)",
-    "sourceFile": "src/ts/scenario/file-unit.ts",
+    "name": "fileIconGlyph (VIEW adapter, trace/icons.ts) - token->SVG glyph, wraps FILE_TOKEN_ICONS",
+    "sourceFile": "src/public/ts/trace/icons.ts",
     "sourceLine": 0,
     "servedVersion": "hotfix/t40.1-checklist-band",
     "commitSha": "a13f6243b",
@@ -13,7 +13,8 @@
       "ior:instance:c5749bef-fa87-40a8-bfaf-a4bd86f756d4"
     ],
     "unitLinks": [],
-    "chainNote": "Re-pointed to METHOD host File.iconGlyph (a const data-map cannot head a method label). Expert wraps FILE_TOKEN_ICONS behind File.iconGlyph next rebuild + places [impl:uuid:199105f8-6fe9-40c5-a580-8b8a524e7909] there. markerPending.",
-    "hostMethod": "ior:instance:9dec657c-7549-48ad-8900-03b3f03d5327"
+    "chainNote": "CORRECTED (expert+inc-2 ruling): host is fileIconGlyph on the ADAPTER (icons.ts), NOT File.iconGlyph - File.iconGlyph re-leaked presentation onto the Model (undoing inc-2). A named adapter fn wrapping the const = behaviour not data-bag (credits the audit) + glyph on the surface. Expert places [impl:uuid:199105f8-6fe9-40c5-a580-8b8a524e7909] on fileIconGlyph; rb-object-item calls fileIconGlyph(vm.iconToken) next rebuild. markerPending.",
+    "hostFunction": "fileIconGlyph(token) in trace/icons.ts (the VIEW/adapter - glyph STAYS on the surface, not the Model; MVC per inc-2: Model owns WHAT-IT-IS token, Surface owns HOW-IT-LOOKS glyph)",
+    "coversGate": "check:file-icon-adapter"
   }
 }
