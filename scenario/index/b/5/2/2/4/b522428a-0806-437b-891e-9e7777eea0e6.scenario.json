@@ -60,13 +60,13 @@
       {
         "id": "AC-derived-class-owner-ior-real-members",
         "group": "metamodel/not-a-stub",
-        "text": "The derived UmlClass File has ownerIor=Tron + a fully-qualified IOR + REAL members (attributes+methods+associations) \u2014 NOT the 0-member stub. A 0-member / null-owner / bare-IOR derived File class => RED.",
+        "text": "The derived UmlClass File unit (a ior:class:ModelElement DESCRIBING File, NOT a File instance) is a REAL derived unit, distinguished from the 0-member null-owner stub by the TRIO: (1) ownerIor=Tron; (2) REAL members (>0 attributes+methods+associations); (3) FQ-ADDRESSABLE-AS-A-ModelElement \u2014 its FQ-IOR class-token = ModelElement (its OWN class, NEVER File; a File-token = M0-instance shape = category error), COMPOSED on demand via Ior.for(ModelElement,origin,uuid), NOT a stored selfIor field (compose-not-store; a stored derived IOR = drift). The M0 File-INSTANCE FQ-IOR (class-token File, via File.ownIor) is a SEPARATE layer where GUARD#2 applies. RED if: a 0-member/null-owner derived File unit, OR a STORED File-token selfIor on the M1 unit, OR not composable-as-ModelElement.",
         "gateRef": {
           "kind": "test",
           "ref": "check:file-class-real-members",
-          "assertion": "derived UmlClass File has owner+FQ-IOR+>0 members; a 0-member stub => RED"
+          "assertion": "derived UmlClass File has owner=Tron + >0 members + is FQ-addressable-as-ModelElement (composed via Ior.for, ModelElement-token); a 0-member stub OR a stored File-token selfIor on the M1 unit OR non-composable => RED"
         },
-        "stubMustFail": "derive a 0-member File class stub -> RED"
+        "stubMustFail": "derive a 0-member File stub, OR store a File-token selfIor on the M1 UmlClass unit, OR make it non-composable-as-ModelElement -> RED"
       },
       {
         "id": "AC-model-purity-no-glyph-dom-format",
