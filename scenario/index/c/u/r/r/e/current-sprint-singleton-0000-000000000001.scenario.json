@@ -2,7 +2,7 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 41.1 class File — CREATE the clean M1 File class (full MDA/MOF chain, top-down, zero migration) [Sprint 41 OOP Model Consistency; PO-DESIGNATED because the auto-derivation is broken]",
+    "name": "Current: Task 41.1 class File — CREATE the clean M1 File class (full MDA/MOF chain, top-down, zero migration) [Sprint 41 OOP Model Consistency; ⚠ PROVENANCE: set by a PO-ORDERED UNIT-WRITE (auto-derivation broken), NOT by Tron's owner set-as-current action — this is NOT his decision. Owner-gate bypass acknowledged (STANDING RULE: agents don't unit-write an owner-gated action); KEEP-not-revert per PO (value TRUE; INC-7 was a closed lie); the truthful-pin-that-holds still needs Tron's click]",
     "chain": {
       "req": "993db1f3-bbca-4dc2-8004-43a47e6a8c98",
       "uc": "59649d58-f4d6-4862-9fee-93eab5055982",
