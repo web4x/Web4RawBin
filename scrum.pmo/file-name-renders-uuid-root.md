@@ -26,3 +26,13 @@ The caller feeds File.renderSelf a NARROWER name source than every other type �
 - Seed the 6 (or a fresh moved File with model.name + title-delivered): assert rendered label === model.name (NOT the uuid). 
 - Assert uuid-fallback fires ONLY on genuine absence: a File with neither name nor title → uuid (the only uuid case).
 - stub-must-fail: revert the :239 fix (name-only) → the moved/title-fed File renders uuid → RED. (The old AC4 'never empty' passed while wrong — this gate is directional: label===name when name exists.)
+
+## FIX-COMPLETENESS VERIFICATION (banked pre-HALT; the one-line fix is a HALF-fix)
+CHECK 1 — did the file-branch (:239) drop ONLY the title fallback vs old rawName (:228 name||title||'(untitled)')?
+- Dropped: the title fallback (the root). ALSO the final fallback changed '(untitled)'→uuid (via File.displayName) — INTENDED per the File-owns-its-fallback design (uuid never-blank), acceptable, not a defect.
+- Ordering: same (name||title). Escaping: BOTH branches funnel to :252 `esc(name)` → preserved. → the ONLY functional drop = the title fallback.
+CHECK 2 — other branches reading getAttribute('name') WITHOUT ||title (would hit the same defect):
+- ★ rb-object-item.ts:173 — the DRAG federated-ref builder: `buildFederatedRef({ …, name: this.getAttribute('name') … })` reads name WITHOUT ||title. A moved File (name in title) DRAGGED cross-origin → fed-ref carries an EMPTY name = the SAME defect on the drag path. **The one-line :239 fix is a HALF-fix; :173 must ALSO read name||title.**
+- Other `new File(...)` (RoomView:333/360, rb-avatar:200) = the BROWSER-native File constructor (uploads), NOT our class → unrelated, not the defect.
+- Folder path: our Folder class isn't built (T41.2 blocked); when built its branch MUST read name||title (do not repeat the name-only pattern) — flagged for T41.2.
+### COMPLETE FIX = rb-object-item :239 (render) AND :173 (drag fed-ref) both read `getAttribute('name') || getAttribute('title')`. Gate must cover BOTH render AND drag-fed-ref of a moved File. file.ts/snapshot/file-unit.ts UNCHANGED.
