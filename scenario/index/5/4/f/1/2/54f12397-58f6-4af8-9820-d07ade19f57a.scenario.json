@@ -12,6 +12,7 @@
       "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005"
     ],
     "memberOf": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
-    "derivedFrom": "file.ts FileModel.mimeType (TsToModel derivation; consistent-by-construction, NOT hand-copied \u2014 the gate re-derives+diffs)"
+    "derivedFrom": "file.ts FileModel.mimeType (TsToModel derivation; consistent-by-construction, NOT hand-copied \u2014 the gate re-derives+diffs)",
+    "derivationKey": "src/ts/scenario/file.ts::FileModel.mimeType"
   }
 }

@@ -39,6 +39,7 @@
       "File.displayName(112166ee)",
       "File.iconToken(9576dde5)"
     ],
-    "m2MethodNote": "M2 UmlMethod x5 = the file.ts-DERIVED method set, REFERENCED (architect ruling: reference-not-dup; a Method IS-A UmlMethod). \u26a0 FLAG for architect/expert: File.methods[] ALSO holds publishChange a1081953 (R41.3) + openDiagram 0067401b (R41.6) = DESIGNED chain methods NOT YET in file.ts. The re-derive+diff gate must distinguish DERIVED (current TS) from DESIGNED (chain, future) or file.ts gains them \u2014 else the gate flags designed-not-built as drift."
+    "m2MethodNote": "M2 UmlMethod x5 = the file.ts-DERIVED method set, REFERENCED (architect ruling: reference-not-dup; a Method IS-A UmlMethod). \u26a0 FLAG for architect/expert: File.methods[] ALSO holds publishChange a1081953 (R41.3) + openDiagram 0067401b (R41.6) = DESIGNED chain methods NOT YET in file.ts. The re-derive+diff gate must distinguish DERIVED (current TS) from DESIGNED (chain, future) or file.ts gains them \u2014 else the gate flags designed-not-built as drift.",
+    "derivationKey": "src/ts/scenario/file.ts::File"
   }
 }
