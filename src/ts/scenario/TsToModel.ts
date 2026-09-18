@@ -346,7 +346,10 @@ export class TsToModel {
           let unit: { ior?: string; model?: M1Model };
           try { unit = JSON.parse(fs.readFileSync(p, 'utf-8')); } catch { continue; }
           if (unit.ior !== 'ior:class:ModelElement' || unit.model?.metaLevel !== 'M1') continue;
-          if (processed.has(String(unit.model.sourceFile)) && !liveUuids.has(String(unit.model.uuid))) { fs.unlinkSync(p); removed++; }
+          // T41.6 inc-3 (PO ruling 2026-09-18): THE DERIVATION MAY ONLY RETIRE WHAT THE DERIVATION CREATED. Deletion scope =
+          // units carrying a derivationKey (derivation-owned provenance); a HAND-MINTED unit WITHOUT a derivationKey is NOT the
+          // derivation's to delete, even sharing sourceFile (subsumes the supersededByDerivation case; retire-nothing by construction).
+          if (unit.model.derivationKey && processed.has(String(unit.model.sourceFile)) && !liveUuids.has(String(unit.model.uuid))) { fs.unlinkSync(p); removed++; }
         }
       }
     }
