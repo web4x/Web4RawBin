@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:c3f50c6c-7178-4c30-851b-6544be5cc58d",
+  "model": {
+    "uuid": "6f7fb69c-7bed-426d-b177-48df122bd807",
+    "name": "classM2Puml(units: M1Unit[]): string",
+    "sourceFile": "src/ts/shared/puml-serializer.ts",
+    "sourceLine": 72,
+    "servedVersion": "0.8.238",
+    "method": "ior:instance:c3f50c6c-7178-4c30-851b-6544be5cc58d",
+    "tests": [
+      "ior:instance:c3a78fbe-e374-4405-8142-7728afaaccf3"
+    ],
+    "description": "puml-serializer.ts:72 classM2Puml \u2014 the inc-2 impl of R41.6 M2->PUML. Scenario-first: MINTED (PO ruling 2026-09-18) to REPLACE the shipped [impl:uuid:PENDING-req-mint] placeholder; expert places [impl:uuid:6f7fb69c-7bed-426d-b177-48df122bd807] at :72. Gate check:file-m2-puml (Test c3a78fbe) GREEN @ v0.8.238.",
+    "unitLinks": []
+  }
+}

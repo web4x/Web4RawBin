@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",
+  "model": {
+    "uuid": "701c3a46-538b-494a-a2ef-22c941dc5b6d",
+    "name": "pumlSerializer.classM2ToPuml",
+    "description": "Serialize the DERIVED M2 UmlClass units to PUML (the inc-2 mechanism of R41.6 consistency-by-construction): classM2Puml reuses modelToPuml, emits methods on the class + attrs on the FileModel interface (derivation structure) + relations as arrows, deterministic.",
+    "coversRequirement": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",
+    "class": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441",
+    "method": "ior:instance:c3f50c6c-7178-4c30-851b-6544be5cc58d",
+    "parent": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",
+    "unitLinks": []
+  }
+}

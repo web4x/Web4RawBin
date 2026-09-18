@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441",
+  "model": {
+    "uuid": "c3f50c6c-7178-4c30-851b-6544be5cc58d",
+    "name": "PumlSerializer.classM2Puml",
+    "description": "PumlSerializer.classM2Puml(units): serialize derived M2 UmlClass/UmlInterface units -> @startuml, reusing modelToPuml; only classifiers become nodes (members ride their owner), methods on the class, attrs where TS put them (FileModel interface), member-level edges hoisted to the class, deterministic 0-churn.",
+    "memberOf": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441",
+    "parentClass": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441",
+    "useCase": "ior:instance:701c3a46-538b-494a-a2ef-22c941dc5b6d",
+    "implementations": [
+      "ior:instance:6f7fb69c-7bed-426d-b177-48df122bd807"
+    ],
+    "unitLinks": []
+  }
+}

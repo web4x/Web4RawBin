@@ -6,7 +6,8 @@
     "file": "src/ts/shared/puml-serializer.ts",
     "methods": [
       "ior:instance:f13a6144-6c10-45a1-a1d7-3700f14f3676",
-      "ior:instance:31cd0acb-e599-4961-8ace-208a43ca7662"
+      "ior:instance:31cd0acb-e599-4961-8ace-208a43ca7662",
+      "ior:instance:c3f50c6c-7178-4c30-851b-6544be5cc58d"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/ts/shared/puml-serializer.ts",

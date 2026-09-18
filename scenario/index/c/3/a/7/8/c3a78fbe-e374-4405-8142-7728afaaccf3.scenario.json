@@ -6,7 +6,9 @@
     "description": "GATE check:file-m2-puml (inc-2) \u2014 classM2Puml serializes the derived M2 UmlClass units -> PUML, REUSING modelToPuml; proves the mapping follows the DERIVATION'S OWN structure (attrs on the FileModel INTERFACE, NOT hardcoded on File), emits methods on the class, maps relations -> PUML arrows, deterministic (0-churn). stub-must-fail: drop members/relations or hardcode attrs-on-File => RED. GREEN @ v0.8.238. Closes the PUML rep of AC-every-element-in-all-three-reps. Exercises classM2Puml (impl PENDING-req-mint) + modelToPuml (8462f889).",
     "sourceFile": "ior:file:scripts/check-file-m2-puml.ts",
     "verifiesGate": "check:file-m2-puml",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:6f7fb69c-7bed-426d-b177-48df122bd807"
+    ],
     "status": "pass",
     "servedVersion": "0.8.238",
     "coversRequirement": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",

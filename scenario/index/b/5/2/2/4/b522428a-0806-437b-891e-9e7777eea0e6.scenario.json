@@ -10,7 +10,8 @@
     "poDirective": "PO 2026-09-13 (Tron, CURRENT): mint the complete-File-M2-metamodel + open-diagram task scenario-first; architect designs the metamodel; zero-migration (file-unit.ts untouched). The earlier 'file-unit.ts collapse is a sprint concern' was WITHDRAWN (PO over-extension).",
     "parent": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
     "useCases": [
-      "ior:instance:4ea665d1-17d3-4dc1-867f-e569d9c94bea"
+      "ior:instance:4ea665d1-17d3-4dc1-867f-e569d9c94bea",
+      "ior:instance:701c3a46-538b-494a-a2ef-22c941dc5b6d"
     ],
     "tasks": [
       "ior:instance:43a1f664-a7c1-475a-8d8b-25306041b9ff"
