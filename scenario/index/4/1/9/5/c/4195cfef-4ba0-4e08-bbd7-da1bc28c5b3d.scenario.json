@@ -14,6 +14,8 @@
     "memberOf": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
     "source": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
     "target": "ior:instance:808460b3-ad02-4fa4-8f83-12e19bd285c2",
-    "derivedFrom": "file.ts File.moveTo targets a Folder (association) (TsToModel derivation; consistent-by-construction)"
+    "derivedFrom": "file.ts File.moveTo targets a Folder (association) (TsToModel derivation; consistent-by-construction)",
+    "supersededByDerivation": true,
+    "supersededByDerivationNote": "M2 truth for File associations = the DERIVED File.relations[]/relatesTo EDGE (deriveClassM2 relate() TsToModel:264 \u2014 an association IS an edge between 2 units, DRY, not a 3rd unit). This UmlAssociation unit is DORMANT per architect ruling 2026-09-18 (PO retire-nothing): not deleted, not stamped with derivationKey (no derived unit to resolve-to); the inc-3 one-representation gate treats associations as edges. (File->Folder (moveTo target))"
   }
 }
