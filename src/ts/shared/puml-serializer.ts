@@ -77,16 +77,25 @@ export function classM2Puml(units: M1Unit[]): string {
     const m = u.model;
     if (m.kind !== 'class' && m.kind !== 'interface') continue; // only classifiers become PUML nodes; members ride their owner
     const attrs: string[] = []; const methods: string[] = [];
-    for (const memUuid of m.members || []) {
-      const mem = byUuid.get(memUuid);
+    for (const memRef of m.members || []) {
+      const mem = byUuid.get(String(memRef).replace(/^ior:instance:/, '')); // members are ior:instance:<uuid> refs; byUuid is keyed by bare uuid (T41.6 inc-3: real deriveClassM2 emits prefixed refs — a bare-only lookup silently dropped every member = empty boxes)
       if (!mem) continue;
       if (mem.kind === 'method' || mem.kind === 'function') methods.push(mem.name);
       else if (mem.kind === 'attribute' || mem.kind === 'property') attrs.push(mem.name);
     }
     nodes.push({ uuid: m.uuid, name: m.name, kind: m.kind, attrs, methods });
-    for (const r of m.relations || []) {
-      const kind = M2_EDGE_TO_KIND[r.type];
-      if (kind) relations.push({ from: m.uuid, to: r.to, kind });
+    // Class-diagram edges are between CLASSES: emit the box's own relations AND HOIST its members' relations (a method's
+    // return-type dependency renderSelf→FileViewModel becomes the owning class's dependency File→FileViewModel) — so the
+    // diagram shows EVERY derived edge (T41.6 inc-3 consistency: a member-level edge dropped = a silent omission).
+    const edgeSrc = [m, ...(m.members || []).map((mr) => byUuid.get(String(mr).replace(/^ior:instance:/, ''))).filter(Boolean) as typeof m[]];
+    const seenEdge = new Set<string>();
+    for (const src of edgeSrc) for (const r of src.relations || []) {
+      const kind = M2_EDGE_TO_KIND[String(r.type).replace(/^ior:instance:/, '')]; // r.type is an ior:instance:<M2-uuid> ref; the table is keyed by BARE uuid (prefix mismatch = every edge silently dropped)
+      const toBare = String(r.to).replace(/^ior:instance:/, '');
+      if (!kind || toBare === m.uuid) continue; // skip self-edges (a class depending on itself = noise)
+      const key = `${toBare}:${kind}`;
+      if (seenEdge.has(key)) continue; seenEdge.add(key);
+      relations.push({ from: m.uuid, to: toBare, kind }); // to = BARE uuid (PumlRelation.to is a bare element uuid; modelToPuml resolves by bare — a prefixed ref would drop the edge)
     }
   }
   return modelToPuml(nodes, relations);
