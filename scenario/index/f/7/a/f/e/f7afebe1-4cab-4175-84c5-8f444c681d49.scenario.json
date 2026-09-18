@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+  "model": {
+    "uuid": "f7afebe1-4cab-4175-84c5-8f444c681d49",
+    "altId": "BUG-ws-reconnect-storm",
+    "name": "The lobby WS does NOT reconnect-storm \u2014 the connection is stable, and the reconnect RATE is a VISIBLE signal so a storm cannot hide again",
+    "description": "LIVE DEFECT (architect-diagnosed, Tron's screen): the lobby WS RECONNECTS every few seconds \u2014 this is the CONTINUOUS DRIVER that makes the room-list flap (BUG-lobby-roomlist-flap) visible + continuous. \u2605 MINTED AS ITS OWN REQUIREMENT, NOT folded into the flap fix (PO): the flap fix (A) removes the SYMPTOM (each reconnect re-sends the mixed list) and would HIDE this reconnect storm. This req = the WS connection is STABLE (no few-second reconnect loop; reconnects only on real network loss) AND the reconnect RATE is a VISIBLE signal (logged/surfaced/queryable) so a future storm SURFACES instead of hiding. Cause-fix = architect/expert; this states the WHAT.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "routedVia": "robbin-po",
+      "date": "2026-09-18",
+      "evidence": "LIVE: lobby WS reconnects every few seconds (continuous flap driver); minted separate per PO so A cannot hide B"
+    },
+    "crossRef": [
+      "ior:instance:45ce18a5-3a83-4811-b5fd-ffbeb2a22cb7",
+      "ior:instance:1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35"
+    ],
+    "crossRefNote": "crossRef the room-list-flap req (A): B is the CONTINUOUS DRIVER of A's visible flap. A fixes the symptom; B must be measured/fixed INDEPENDENTLY (its gate measures reconnect RATE directly, never the room-list stability).",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
+    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-no-reconnect-storm",
+        "group": "ws/stability",
+        "text": "A stable lobby session does NOT reconnect on a few-second cadence \u2014 the WS stays connected and reconnects ONLY on a real network loss/close, not in a loop.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test WS stable session no reconnect loop",
+          "assertion": "over M seconds on a stable network the session reconnects 0 times (beyond the initial connect); N reconnects within a few seconds => RED"
+        },
+        "stubMustFail": "seed a session reconnecting every few seconds on a stable network -> RED"
+      },
+      {
+        "id": "AC-visible-reconnect-rate-signal",
+        "group": "ws/observability",
+        "text": "\u2605 The reconnect RATE is a VISIBLE signal (a log line / metric / surfaced counter) so a reconnect storm CANNOT HIDE AGAIN \u2014 a reader or gate can observe the per-session reconnect rate directly.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test reconnect-rate is observable",
+          "assertion": "the reconnect rate/count is emitted as a queryable signal; a reconnect storm with NO visible rate signal => RED (it could hide)"
+        },
+        "stubMustFail": "seed a reconnect storm that produces NO visible reconnect-rate signal -> RED"
+      },
+      {
+        "id": "AC-independent-of-flap-fix",
+        "group": "ws/not-folded",
+        "text": "This requirement is INDEPENDENT of the room-list-flap fix (A). Fixing A (the symptom) must NOT close B \u2014 B's gate measures the RECONNECT RATE directly, NEVER the room-list stability, so removing the visible flap does not falsely satisfy B.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test B measures reconnect rate not room-list",
+          "assertion": "B's satisfaction is decided by the measured reconnect rate; B marked satisfied via the room-list-flap being gone (without a reconnect-rate measure) => RED"
+        },
+        "stubMustFail": "seed B satisfied because A fixed the flap, with no reconnect-rate measurement -> RED"
+      }
+    ]
+  }
+}

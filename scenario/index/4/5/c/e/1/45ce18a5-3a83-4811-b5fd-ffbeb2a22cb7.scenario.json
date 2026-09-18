@@ -1,0 +1,86 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+  "model": {
+    "uuid": "45ce18a5-3a83-4811-b5fd-ffbeb2a22cb7",
+    "altId": "BUG-lobby-roomlist-flap",
+    "name": "Lobby room-list uses ONE owner-aware builder emitted AFTER auth \u2014 a private owned room appears in EVERY room-list (no pre-auth owner-unaware welcome that flaps the list)",
+    "description": "LIVE DEFECT (architect-diagnosed, Tron's screen): the lobby room-list ALTERNATES. Cause = TWO builders for one list. The WS 'welcome' send (server.ts:4930) uses the owner-UNAWARE builder roomManager.listRooms(getConnectedOwners()) AND fires PRE-AUTH (the session's playerToken is not yet known) -> it OMITS the session's PRIVATE OWNED rooms; every OTHER send (:5144, :5506) uses the owner-AWARE roomListFor(token) -> INCLUDES them. As the sends race, the owned room appears then disappears = the flap. FIX (architect): ONE builder \u2014 roomListFor(token) for ALL ROOM_LIST sends, emitted AFTER auth (:5183 where playerToken is set); the welcome sends NO competing ROOM_LIST.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "routedVia": "robbin-po",
+      "date": "2026-09-18",
+      "verifiedBy": "robbin-req (read server.ts:4930 owner-unaware pre-auth welcome + :5144/:5506 owner-aware roomListFor + :5183 auth; grep -a NUL-safe)",
+      "evidence": "LIVE user-facing on Tron's screen (lobby room-list flap)"
+    },
+    "crossRef": [
+      "ior:instance:1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35",
+      "ior:instance:f7afebe1-4cab-4175-84c5-8f444c681d49"
+    ],
+    "crossRefNote": "crossRef T95 (lobby-rooms-ordered) same lobby-room-list surface. crossRef the reconnect-storm req (B) \u2014 B is the CONTINUOUS DRIVER of this flap; A removes the symptom, B must be fixed separately (not folded).",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
+    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-private-owned-in-every-list",
+        "group": "roomlist/owner-visibility",
+        "text": "A session's PRIVATE OWNED room is PRESENT in EVERY room-list that session receives \u2014 the WELCOME/first list INCLUDED. No ROOM_LIST send a session gets ever omits its own private owned room.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test @390 owner sees own private room in welcome + all lists",
+          "assertion": "every ROOM_LIST a session receives (welcome first) contains its private owned room; any send that omits it => RED"
+        },
+        "stubMustFail": "seed a ROOM_LIST send to the owner that omits the owner's private room -> RED"
+      },
+      {
+        "id": "AC-non-owner-never-sees",
+        "group": "roomlist/privacy-direction",
+        "text": "BOTH DIRECTIONS: a NON-OWNER NEVER sees another user's private owned room in ANY room-list (the owner-aware builder must not leak).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test non-owner room-list excludes private",
+          "assertion": "a non-owner's ROOM_LIST never contains another's private owned room; a leak => RED"
+        },
+        "stubMustFail": "seed a non-owner ROOM_LIST containing another user's private room -> RED"
+      },
+      {
+        "id": "AC-one-owner-aware-builder",
+        "group": "roomlist/single-builder",
+        "text": "Exactly ONE room-list builder \u2014 the owner-AWARE roomListFor(token) \u2014 feeds ALL ROOM_LIST sends. The owner-UNAWARE builder (roomManager.listRooms(getConnectedOwners())) is NOT used for any client ROOM_LIST send.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "grep: no owner-unaware ROOM_LIST send",
+          "assertion": "every ROOM_LIST send uses roomListFor(token); any send building the list from getConnectedOwners (owner-unaware) => RED"
+        },
+        "stubMustFail": "seed a ROOM_LIST send built from the owner-unaware getConnectedOwners builder -> RED"
+      },
+      {
+        "id": "AC-emitted-after-auth-no-welcome-list",
+        "group": "roomlist/after-auth",
+        "text": "The ROOM_LIST is emitted AFTER auth (once playerToken is known, ~:5183), NOT pre-auth at welcome (:4930). The welcome message carries NO competing ROOM_LIST.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test welcome carries no ROOM_LIST; first list post-auth",
+          "assertion": "no ROOM_LIST is sent before auth; the welcome frame has no rooms; a pre-auth ROOM_LIST send => RED"
+        },
+        "stubMustFail": "seed a ROOM_LIST send in the welcome (pre-auth) frame -> RED"
+      },
+      {
+        "id": "AC-no-flap-stable-membership",
+        "group": "roomlist/stability",
+        "text": "Over N consecutive room-lists a session receives, the owned-room membership is STABLE \u2014 the private owned room does NOT alternate present/absent across sends (the flap is gone).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test N consecutive lists stable membership",
+          "assertion": "across N ROOM_LIST sends the owner's private room is present in ALL; present-then-absent alternation => RED"
+        },
+        "stubMustFail": "seed two consecutive lists where the private room is present then absent -> RED"
+      }
+    ]
+  }
+}
