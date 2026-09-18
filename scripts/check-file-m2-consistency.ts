@@ -9,6 +9,7 @@
  *   units share a derivationKey (remove resolve-by-key → a 2nd unit minted → this fires).
  * stub-must-fail: drop an element from the PUML (a hand-edit divergence) → the diff MUST catch it (proven self-biting below).
  */
+// [test:uuid:6ec75551-d711-4770-af09-50f6cbdc2d95] test:file-m2-consistency — closes R41.6 AC-consistency-gate-rederives-diffs (TS⟶UML⟶PUML element-for-element + the one-representation invariant the derivationKey reconcile enables).
 import { TsToModel } from '../src/ts/scenario/TsToModel.js';
 import { classM2Puml, pumlToModel } from '../src/ts/shared/puml-serializer.js';
 

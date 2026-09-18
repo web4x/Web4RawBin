@@ -4,6 +4,7 @@
  * NOT hardcoded on File), emits methods on the class, maps relations → PUML arrows, and is deterministic (0-churn).
  * stub-must-fail: drop members/relations or hardcode attrs-on-File in classM2Puml → the assertions fail → RED.
  */
+// [test:uuid:c3a78fbe-e374-4405-8142-7728afaaccf3] test:file-m2-puml — closes R41.6 AC-every-element-in-all-three-reps.
 import { classM2Puml } from '../src/ts/shared/puml-serializer.js';
 import type { M1Unit } from '../src/ts/scenario/TsToModel.js';
 
