@@ -13,6 +13,7 @@
     "derivedFrom": "file.ts (TsToModel; the metamodel REFERENCES this chain Method, no parallel UmlMethod unit per architect ruling)",
     "implementations": [],
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "derivationKey": "src/ts/scenario/file.ts::File.displayName"
   }
 }
