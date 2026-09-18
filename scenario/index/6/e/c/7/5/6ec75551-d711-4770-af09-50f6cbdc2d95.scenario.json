@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6ec75551-d711-4770-af09-50f6cbdc2d95",
+    "name": "test:file-m2-consistency",
+    "description": "GATE check:file-m2-consistency (inc-3, a784f7447) \u2014 CONSISTENT-BY-CONSTRUCTION: re-derives UML-from-TS (deriveClassM2) + PUML-from-UML (classM2Puml) + parse-back (pumlToModel) and asserts ALL THREE agree ELEMENT-FOR-ELEMENT over the derivation's own graph (structure-agnostic: attrs on FileModel where TS put them). Asserts the ONE-REPRESENTATION INVARIANT (PO identity-reconcile: every derived element resolves to EXACTLY ONE unit \u2014 no two units share a derivationKey; remove resolve-by-key => a 2nd unit => RED). stub-must-fail: drop an element from PUML => diff catches it. GREEN @ v0.8.238 (6 boxes, 15 attrs, 8 methods, 2 edges; one-representation confirmed = my derivationKey reconcile). Exercises TsToModel.deriveClassM2/generate (382f8644) + classM2Puml (impl PENDING-req-mint) + pumlToModel (e85bc60a).",
+    "sourceFile": "ior:file:scripts/check-file-m2-consistency.ts",
+    "verifiesGate": "check:file-m2-consistency",
+    "implementations": [],
+    "status": "pass",
+    "servedVersion": "0.8.238",
+    "coversRequirement": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",
+    "coversAC": "AC-consistency-gate-rederives-diffs",
+    "chainNote": "DoD-c Test for T41.6 inc-3 gate (PO-ordered 2026-09-18). Gate is committed + wired in ci:gates:raw + measured GREEN. Expert places [test:uuid:6ec75551-d711-4770-af09-50f6cbdc2d95] in scripts/check-file-m2-consistency.ts. classM2Puml impl still [impl:uuid:PENDING-req-mint] (chain gap flagged).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6"
+}

@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c3a78fbe-e374-4405-8142-7728afaaccf3",
+    "name": "test:file-m2-puml",
+    "description": "GATE check:file-m2-puml (inc-2) \u2014 classM2Puml serializes the derived M2 UmlClass units -> PUML, REUSING modelToPuml; proves the mapping follows the DERIVATION'S OWN structure (attrs on the FileModel INTERFACE, NOT hardcoded on File), emits methods on the class, maps relations -> PUML arrows, deterministic (0-churn). stub-must-fail: drop members/relations or hardcode attrs-on-File => RED. GREEN @ v0.8.238. Closes the PUML rep of AC-every-element-in-all-three-reps. Exercises classM2Puml (impl PENDING-req-mint) + modelToPuml (8462f889).",
+    "sourceFile": "ior:file:scripts/check-file-m2-puml.ts",
+    "verifiesGate": "check:file-m2-puml",
+    "implementations": [],
+    "status": "pass",
+    "servedVersion": "0.8.238",
+    "coversRequirement": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6",
+    "coversAC": "AC-every-element-in-all-three-reps",
+    "chainNote": "DoD-c Test for T41.6 inc-3 gate (PO-ordered 2026-09-18). Gate is committed + wired in ci:gates:raw + measured GREEN. Expert places [test:uuid:c3a78fbe-e374-4405-8142-7728afaaccf3] in scripts/check-file-m2-puml.ts. classM2Puml impl still [impl:uuid:PENDING-req-mint] (chain gap flagged).",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b522428a-0806-437b-891e-9e7777eea0e6"
+}

@@ -15,7 +15,10 @@
     "tasks": [
       "ior:instance:43a1f664-a7c1-475a-8d8b-25306041b9ff"
     ],
-    "tests": [],
+    "tests": [
+      "ior:instance:6ec75551-d711-4770-af09-50f6cbdc2d95",
+      "ior:instance:c3a78fbe-e374-4405-8142-7728afaaccf3"
+    ],
     "unitLinks": [],
     "measured": {
       "umlClassFile": "EXISTS 13782f0c",
