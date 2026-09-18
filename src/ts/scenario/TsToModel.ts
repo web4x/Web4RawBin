@@ -56,6 +56,11 @@ export function keyToUuid(key: string): string {
 export interface M1Model {
   uuid: string; name: string; metaLevel: 'M1'; kind: string;
   sourceFile: string; qualifiedName: string;
+  // Sprint 41 T41.6 inc-3 (PO identity-reconcile ruling 2026-09-18): the derivation RESOLUTION KEY, stored as a TYPED
+  // FIELD (= `<relpath>::<qualifiedName>`) so resolution READS it (exact match) instead of re-inferring each run (a
+  // recomputed guess drifts on a path/qn change → silent dup). Resolve-existing-by-key BEFORE minting; the EXISTING
+  // unit is the IDENTITY (uuid stable, zero-migration). Same law as status-discriminator-is-a-unit-field.
+  derivationKey?: string;
   instanceOf: string[];
   members?: string[]; memberOf?: string;
   relatesTo?: string[]; relatedFrom?: string[];
@@ -149,12 +154,29 @@ export class TsToModel {
   // adds NO stored IOR. Reuses generate() wholesale (no fork); file-unit.ts UNTOUCHED. UML units → puml (classM2Puml) next.
   deriveClassM2(files: string[], opts: { ownerIor: string; indexDir?: string; write?: boolean; diagram?: boolean }): { units: M1Unit[]; wrote: number; removed: number; diagramUuid?: string } {
     if (!opts?.ownerIor || !String(opts.ownerIor).trim()) throw new Error('deriveClassM2: ownerIor is required (clean-class shape = owner-never-null — supply Tron\'s ior).');
-    return this.generate(files, opts);
+    return this.generate(files, { ...opts, resolveByKey: true }); // T41.6 inc-3: RESOLVE existing chain units by derivationKey before minting (identity-reconcile, zero-migration)
   }
 
-  generate(files: string[], opts?: { indexDir?: string; write?: boolean; diagram?: boolean; ownerIor?: string }): { units: M1Unit[]; wrote: number; removed: number; diagramUuid?: string } {
+  generate(files: string[], opts?: { indexDir?: string; write?: boolean; diagram?: boolean; ownerIor?: string; resolveByKey?: boolean }): { units: M1Unit[]; wrote: number; removed: number; diagramUuid?: string } {
     const indexDir = opts?.indexDir || path.join(this.root, 'scenario', 'index');
     const write = opts?.write !== false;
+    // T41.6 inc-3 (PO ruling): RESOLVE-existing-by-key. Build derivationKey→uuid ONCE from disk (the EXISTING unit is the
+    // identity — its uuid is reused, NEVER re-keyed). Legacy generate (resolveByKey falsy) is UNCHANGED (keyToUuid only).
+    const existingByKey = new Map<string, string>();
+    if (opts?.resolveByKey && fs.existsSync(indexDir)) {
+      const st = [indexDir];
+      while (st.length) { const dir = st.pop() as string;
+        for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+          const p = path.join(dir, ent.name);
+          if (ent.isDirectory()) { st.push(p); continue; }
+          if (!ent.name.endsWith('.scenario.json')) continue;
+          let u: { model?: { derivationKey?: string; uuid?: string } };
+          try { u = JSON.parse(fs.readFileSync(p, 'utf-8')); } catch { continue; }
+          const k = u.model?.derivationKey; const id = u.model?.uuid;
+          if (k && id && !existingByKey.has(k)) existingByKey.set(String(k), String(id)); // exact-match resolution key (READ, never re-inferred)
+        }
+      }
+    }
     const program = ts.createProgram(files, { target: ts.ScriptTarget.ES2020, allowJs: false, noResolve: false, noLib: true });
     const want = new Set(files.map((f) => path.resolve(f)));
 
@@ -165,7 +187,8 @@ export class TsToModel {
 
     const mkKey = (sf: string, qn: string): string => `${this.rel(sf)}::${qn}`;
     const addDraft = (sf: string, qn: string, kind: string, name: string): Draft => {
-      const uuid = keyToUuid(mkKey(sf, qn));
+      const key = mkKey(sf, qn);
+      const uuid = existingByKey.get(key) ?? keyToUuid(key); // T41.6 inc-3: RESOLVE the existing chain unit by derivationKey (uuid stable); MINT (deterministic keyToUuid) only when none resolves — never two representations
       let d = drafts.get(uuid);
       if (!d) { d = { uuid, kind, name, qn, sourceFile: this.rel(sf), members: [], typeRefs: [], heritage: [], depRefs: [] }; drafts.set(uuid, d); }
       return d;
@@ -258,6 +281,7 @@ export class TsToModel {
         sourceFile: d.sourceFile, qualifiedName: d.qn,
         instanceOf: (FACETS[d.kind] || []).map(ref),
       };
+      if (opts?.resolveByKey) model.derivationKey = `${d.sourceFile}::${d.qn}`; // T41.6 inc-3: the stored resolution key (= mkKey) so a re-run RESOLVES this same unit, never mints a dup
       if (d.members.length) model.members = d.members.map(ref);
       if (d.memberOf) model.memberOf = ref(d.memberOf);
       // R36.3 full signature: visibility + name(parameters) + returnType + docs; parentClass PRESENT ⇒ Method (else Function)
