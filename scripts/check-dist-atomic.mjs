@@ -30,4 +30,12 @@ for (const bundle of refs) {
   catch { fail(`manifest references ${bundle} but it is UNTRACKED in git — served != committed (phantom deploy). Commit the full dist state.`); }
 }
 
-console.log(`✓ dist atomicity: all ${refs.size} build-manifest-referenced bundles present on disk AND git-tracked (served==committed for every asset).`);
+// FULL-DIST integrity — the manifest-only check above is BLIND to code-split SECONDARY chunks (edit-*, rb-update-banner-*
+// are dynamically imported, NOT manifest entries) and to DELETIONS (stale tracked bundles removed from the tree but not
+// committed). The server serves the WORKING-TREE dist, so served==committed for EVERY asset ⟺ the whole dist dir is CLEAN
+// in git. Assert zero untracked / deleted / modified under src/public/dist. (This RED-s on exactly the phantom shape:
+// an untracked rebuilt chunk being served, or a stale bundle deleted-but-uncommitted — the recurring v0.8.237/239 defect.)
+const distDirty = execSync('git status --porcelain -- src/public/dist', { encoding: 'utf8' }).trim();
+if (distDirty) fail(`dist is NOT clean in git — served != committed for some asset (untracked chunk served, or stale bundle deleted-uncommitted). Commit the FULL dist state (new code-split chunks AND deletions AND manifest):\n${distDirty}`);
+
+console.log(`✓ dist atomicity: all ${refs.size} manifest bundles present+tracked AND the ENTIRE src/public/dist is git-clean (no untracked/deleted/modified) → served==committed for EVERY asset incl. code-split chunks.`);
