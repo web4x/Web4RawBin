@@ -75,6 +75,7 @@ import { detailScalarFields } from '../shared/detail-fields.js';
 import { createUserHome, getUserHomeDir, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { initStorageMap, REKEY_APPLIED, homeKeyFor } from './storage-id.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir, setGuardResolveToken } from './RoomKeys.js';
+import { legacyGenHitsCleanClassR0 } from './clean-class-guard.js'; // R0 containment (oopPO-ranked): refuse legacy generate over a scenario clean-class (dup-hazards the live model)
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
@@ -123,6 +124,7 @@ const __dirname = path.dirname(__filename);
 // referencing __dirname at module-top (was :48) is a const-TDZ ReferenceError that crashed boot. (emergency fix)
 const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
 const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
+// R0 CONTAINMENT guard (legacyGenHitsCleanClassR0) lives in ./clean-class-guard.js (pure, gate-testable) — imported below.
 
 // [impl:uuid:PENDING-req-mint] ModelStoreLocator (R40.81 Slice-3 COUPLING, architect design b39bdb697 / PO-accepted) — the
 // SINGLE OWNER of which physical store backs a model unit, consulted by BOTH the read path AND the write path so a flip
@@ -3370,11 +3372,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('data', (chunk: Buffer) => { body += chunk; });
       req.on('end', () => {
         try {
-          const { file } = JSON.parse(body || '{}');
+          const { file, override } = JSON.parse(body || '{}');
           const projectRoot = path.join(__dirname, '../../..');
           const abs = path.resolve(projectRoot, String(file || ''));
           if (!String(file) || !abs.startsWith(projectRoot + path.sep) || !abs.endsWith('.ts') || !fsSync.existsSync(abs)) { // path-safety: repo-relative existing .ts only (no traversal)
             res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-file: must be an existing repo-relative .ts path"}'); return;
+          }
+          if (!override && legacyGenHitsCleanClassR0(projectRoot, abs, false)) { // R0: legacy generate over a clean-class dup-hazards Tron's live model
+            res.writeHead(409, { 'Content-Type': 'application/json' }); res.end('{"error":"R0-refused: legacy generate over a scenario clean-class (file.ts/ior.ts/folder.ts) would DUPLICATE the live File/Folder model (arbitrary chain uuids != keyToUuid). Use the resolveByKey derivation, or pass override:true if you truly intend a legacy re-mint."}'); return;
           }
           ensureStoreSeeded();
           const r = new TsToModel(projectRoot).generate([abs], { indexDir: ModelStoreLocator.modelDir(), write: true, diagram: true }); // R40.81 Slice-3 couple: regen writes to the SAME store reads resolve (frozen model-store at default; coupled post-flip)
@@ -3392,7 +3397,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('end', () => {
         try {
           const projectRoot = path.join(__dirname, '../../..'); // __dirname used INSIDE the handler (runtime-safe, not module-top) — R32.5 boot lesson honored
-          const { dir } = JSON.parse(body || '{}');
+          const { dir, override } = JSON.parse(body || '{}');
+          const relDir = String(dir || 'src/ts/scenario');
+          if (!override && legacyGenHitsCleanClassR0(projectRoot, path.resolve(projectRoot, relDir), true)) { // R0: default dir 'src/ts/scenario' CONTAINS the clean-classes → legacy generate would dup the live model
+            res.writeHead(409, { 'Content-Type': 'application/json' }); res.end('{"error":"R0-refused: legacy generate-project over a dir containing a scenario clean-class (file.ts/ior.ts/folder.ts) would DUPLICATE the live File/Folder model. Use the resolveByKey derivation, or pass override:true if you truly intend a legacy re-mint."}'); return;
+          }
           const t0 = Date.now();
           // T36.3: the generate-project CORE is now the ONE shared generateProjectModel — HTTP handler + the local CLI
           // (scripts/regen-model.ts) run the SAME path/invariants (INV-P2 bounded/CAP/MODEL_STORE-only). Owner-gate above UNCHANGED.
