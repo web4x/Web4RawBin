@@ -220,6 +220,10 @@ interface WebSocketClient {
 
 const clientSessions = new Map<string, ClientSession>();
 const wsClients = new Set<WebSocketClient>();
+// R1 VISIBILITY (PO 2026-09-29): per-token reconnect-rate tracker + storm alarm — the signal the flap-fix would
+// otherwise have hidden. Recorded on ws close; ALARMS above a human-plausible rate. (import at module scope, ESM-hoisted.)
+import { ReconnectTracker, RECONNECT_ALARM_PER_MIN } from './reconnect-tracker.js';
+const reconnectTracker = new ReconnectTracker();
 // R37.11 slice-1 STEP-0: the ONE server-side publish for UnitController — generalizes the ad-hoc CurrentSprint
 // UNIT_CHANGED broadcast (was inline at the pin-designate handler) over the EXISTING wsClients transport (all-clients,
 // broadcast-safe — architect endorsed). Passed as {publish} into every routed apply/create so persist+emit are inseparable.
@@ -4678,7 +4682,7 @@ function connect(){
     if(m.type==='BUG_REPORT_OK'){document.getElementById('bug-status').textContent='Report sent! Thank you.';document.getElementById('bug-text').value='';document.getElementById('char-counter').textContent='0/500';document.getElementById('char-counter').style.color='#999';document.getElementById('bug-submit').disabled=false}
     if(m.type==='ERROR'){document.getElementById('bug-status').textContent='Error: '+m.message;document.getElementById('bug-submit').disabled=false}
   };
-  ws.onclose=function(){connected=false;setTimeout(connect,2000)};
+  ws.onclose=function(e){connected=false;window.__rbReconnects=(window.__rbReconnects||0)+1;console.warn('[ws] closed code='+((e&&e.code)||'?')+' reconnect#'+window.__rbReconnects+(e&&e.reason?(' reason='+e.reason):''));setTimeout(connect,2000)};/* R1 VISIBILITY: capture the close CODE + a reconnect COUNT so a storm is diagnosable, not silent */
 }
 connect();
 document.getElementById('bug-text').addEventListener('input',function(){
@@ -4945,10 +4949,17 @@ function setupWebSocketServer(server: https.Server): void {
       try { handleMessage(clientId, ws, JSON.parse(data.toString())); } catch (e: any) { addLog(`WS handler error: ${e?.message || e}`); }
     });
 
-    ws.on('close', () => {
+    ws.on('close', (code, reason) => {
       wsClients.delete(client);
       for (const [token, cid] of tokenToClient) { if (cid === clientId) tokenToClient.delete(token); }
-      addLog(`WS disconnected: ${ip} (${wsClients.size} online)`);
+      // R1 VISIBILITY: capture the close CODE + reason (the storm's root as evidence, not hypothesis) + the per-token
+      // reconnect RATE, and ALARM above the human-plausible bound — so a reconnect storm can never continue INVISIBLY
+      // now that the flap (its only prior symptom) is fixed.
+      const tok = client.playerToken || '';
+      const reasonStr = reason ? reason.toString().slice(0, 100) : '';
+      const rate = reconnectTracker.record(tok);
+      addLog(`WS disconnected: ${ip} (${wsClients.size} online) code=${code} reason="${reasonStr}"${tok ? ` token=${tok.slice(0, 8)} closes/min=${rate}` : ''}`);
+      if (tok && reconnectTracker.isStorm(rate)) addLog(`⚠ RECONNECT-STORM: token ${tok.slice(0, 8)} closed ${rate}× in the last minute (>${RECONNECT_ALARM_PER_MIN}/min = not a human) — last close code=${code}. Investigate the client reconnect loop.`);
 
       const room = roomManager.findMemberRoom(clientId);
       if (room) {
