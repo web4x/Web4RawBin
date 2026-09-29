@@ -51,6 +51,16 @@ function selfHealingStart() {
 
   console.log(`▸ start: node ${ver(node18)} @ ${node18}`);
 
+  // R0b: `--verify-only` runs the deploy-integrity gate ALONE (no kill/build/serve) + exits — a SAFE pre-deploy check
+  // and the way to GATE-THE-GATE without taking prod down (the real path's kill at step 3 precedes the gate, so a live
+  // refuse would leave prod dead). Same gate function the real deploy path runs → proving refuse/pass here proves it there.
+  if (process.argv.includes('--verify-only')) {
+    console.log('▸ --verify-only: deploy-integrity gate (dist atomicity), no kill/build/serve');
+    deployIntegrityGate(node18, env);
+    console.log('✓ --verify-only: deploy-integrity OK — dist is atomic (served==committed for every asset).');
+    process.exit(0);
+  }
+
   // (2) R31.13 PIN-2: npm CI (lock-exact) not npm i, if node_modules missing → the pinned esbuild (package.json 0.28.0
   // exact, PIN-1) is the one that runs → cross-env byte-identical builds (npm i could drift within a caret; ci is lock-exact)
   if (!existsSync(path.join(ROOT, 'node_modules'))) { console.log('▸ node_modules missing → npm ci'); run('npm', ['ci']); }
@@ -72,6 +82,15 @@ function selfHealingStart() {
 
   // (4-post) R31.7 INV-V1 (derive-equal): every version consumer must agree with the Config unit after the build.
   versionGuardAgreement();
+
+  // (4-post-2) R0b (oopPO rank 2976fbf1) — DEPLOY-INTEGRITY GATE ON THE DEPLOY PATH ITSELF. The dist phantom shipped
+  // TWICE (v0.8.237/239) because the 63 ci:gates run ONLY in CI, and PROD deploys LOCALLY (commit+build+restart) — the
+  // deploy path never ran them. start.mjs IS the deploy path (already refuses a dirty tree), so gating HERE makes an
+  // ungated phantom deploy STRUCTURALLY IMPOSSIBLE (construction, not CI-convention). SCOPED to deploy-integrity + FAST
+  // (one plain-node gate, no tsx, no server boot) — NOT the 63 suite (a slow boot gate gets bypassed). Runs AFTER the
+  // deterministic build: a clean deploy (committed dist == build output) passes; a phantom (rebuilt-but-uncommitted dist)
+  // is dirty → REFUSE. A plain restart reproduces byte-identical dist → clean → starts (not hostage). Pre-push = a 2nd net.
+  deployIntegrityGate(node18, env);
 
   // (5) foreground server (holds the pane TTY)
   runServerForeground(node18, env);
@@ -110,6 +129,19 @@ function versionGuardAgreement() {
     }
     console.log(`✓ R31.7 version-integrity: unit == package.json == sw.js == manifest == ${unit}`);
   } catch (e) { console.error(`✗ R31.7 INV-V1: could not verify version agreement (${e && e.message ? e.message : e})`); process.exit(1); }
+}
+
+// R0b (oopPO rank 2976fbf1): the deploy-path deploy-integrity gate. REUSES the ONE hardened gate check-dist-atomic.mjs
+// (whole-dist git-clean → served==committed for EVERY asset incl. dynamically-imported code-split chunks + deletions) —
+// no fork, no re-implementation. Runs it inline on the deploy path so a phantom deploy REFUSES to start here, before the
+// server ever serves an uncommitted asset. FAST: plain node, no tsx, no server boot. Version integrity is already
+// enforced by versionGuardTreeClean (config==HEAD) + versionGuardAgreement (unit==pkg==sw==manifest) above.
+function deployIntegrityGate(node, env) {
+  const r = spawnSync(node, [path.join(ROOT, 'scripts/check-dist-atomic.mjs')], { stdio: 'inherit', cwd: ROOT, env });
+  if (r.status !== 0) {
+    console.error('✗ R0b DEPLOY-INTEGRITY: refusing to start — the served dist is not fully committed (served != committed = a phantom deploy). Commit the FULL built dist (all code-split chunks + deletions + build-manifest), then restart. This gate closes the local commit+build+restart deploy path that the 63 ci:gates never run on.');
+    process.exit(r.status ?? 1);
+  }
 }
 
 // [impl:uuid:fbef44bc-efea-42b2-aab0-7fef82afd41e] R29.1 ServerLauncher.runServerForeground — blocking foreground server spawn (holds pane TTY)
