@@ -694,18 +694,22 @@ console.log(`[boot] storage-rekey: REKEY_APPLIED=${REKEY_APPLIED}`);
     else console.log(`[boot] revoked-tokens: loaded ${revokedTokens.size} (armed=${REVOKED_ARMED}, listPresent=${_rev.present}, expected ${EXPECTED_REVOKED_COUNT} when armed; unlisted token = deliberate fail-open)`);
   }
 }
-// Inject the redirect resolver so rooms collapse consolidated (redirectTo) members to the PRIMARY profile.
-Room.resolveToken = (token: string) => userProfiles.get(token)?.redirectTo || token;
+// R1 AC1 refinement (PO ruling 2026-09-29): ONE canonical MULTI-HOP, CYCLE-SAFE identity resolver for EVERY path —
+// collapses the prior single-hop Room.resolveToken + single-hop redirectTombstoneToPrimary + the guard's inline
+// while-loop into resolveRedirectChain (ask the resolver that is right). A consolidation chain (tok→mid→owner, 3+ hops)
+// now resolves to the true primary everywhere → the owner's own room never silently vanishes from his lobby again.
+import { resolveRedirectChain } from './redirect-chain.js';
+const profileRedirectOf = (t: string) => userProfiles.get(t)?.redirectTo;
+// Inject the redirect resolver so rooms collapse consolidated (redirectTo) members to the true PRIMARY (chain-followed).
+Room.resolveToken = (token: string) => resolveRedirectChain(token, profileRedirectOf);
 // v0.7.1 (R25.7): let room-load dedup detect orphan members (token whose profile was deleted) and self-heal.
 Room.profileExists = (token: string) => userProfiles.has(token);
-// R40.107 guard #6: inject the CHAINED redirect resolver (follow redirectTo to the true primary) into RoomKeys so the
-// persist-invariant can tell a benign consolidation (stub whose primary is present) from a real silent identity drop.
-setGuardResolveToken((token: string) => { let c = token; const seen = new Set<string>(); while (userProfiles.get(c)?.redirectTo && !seen.has(c)) { seen.add(c); c = userProfiles.get(c)!.redirectTo!; } return c; });
+// R40.107 guard #6: the persist-invariant guard uses the SAME chain-follow (tell a benign consolidation from a real drop).
+setGuardResolveToken((token: string) => resolveRedirectChain(token, profileRedirectOf));
 
-// [impl:uuid:6b459f04-e326-4f8a-b375-ddb33f2d4ffb] R25.7 redirectTombstoneToPrimary — resolve a connecting (possibly tombstoned)
-// token to its PRIMARY. IDENTIFY uses this to redirect a consolidated token → primary (TOKEN_REDIRECT),
-// never re-minting/clearing the immutable redirectTo.
-function redirectTombstoneToPrimary(token: string): string { return userProfiles.get(token)?.redirectTo || token; }
+// [impl:uuid:6b459f04-e326-4f8a-b375-ddb33f2d4ffb] R25.7 redirectTombstoneToPrimary — resolve a connecting (possibly
+// tombstoned) token to its true PRIMARY via the SAME chain-follow (any depth); IDENTIFY TOKEN_REDIRECTs to it, never re-mints.
+function redirectTombstoneToPrimary(token: string): string { return resolveRedirectChain(token, profileRedirectOf); }
 
 function generateSecretCode(): string {
   return String(1000 + Math.floor(Math.random() * 9000));
