@@ -51,9 +51,9 @@ function selfHealingStart() {
 
   console.log(`▸ start: node ${ver(node18)} @ ${node18}`);
 
-  // R0b: `--verify-only` runs the deploy-integrity gate ALONE (no kill/build/serve) + exits — a SAFE pre-deploy check
-  // and the way to GATE-THE-GATE without taking prod down (the real path's kill at step 3 precedes the gate, so a live
-  // refuse would leave prod dead). Same gate function the real deploy path runs → proving refuse/pass here proves it there.
+  // R0b: `--verify-only` runs the deploy-integrity gate ALONE (no kill/build/serve) + exits — a SAFE pre-deploy check.
+  // Same PRE-KILL gate the real deploy path now runs BEFORE the kill (order-fixed 2026-09-29), so proving refuse/pass
+  // here proves it there — and even the real-path refusal now leaves prod running (gate precedes the irreversible kill).
   if (process.argv.includes('--verify-only')) {
     console.log('▸ --verify-only: deploy-integrity gate (dist atomicity), no kill/build/serve');
     deployIntegrityGate(node18, env);
@@ -65,7 +65,18 @@ function selfHealingStart() {
   // exact, PIN-1) is the one that runs → cross-env byte-identical builds (npm i could drift within a caret; ci is lock-exact)
   if (!existsSync(path.join(ROOT, 'node_modules'))) { console.log('▸ node_modules missing → npm ci'); run('npm', ['ci']); }
 
-  // (3) kill any server already on the ports (fresh restart)
+  // (PRE-KILL GATES) R0b + ORDER-FIX (oopPO 2026-09-29, LAW: a runner-gate PRECEDES the irreversible step, never follows
+  // it). These run BEFORE the kill, so a REFUSAL leaves PROD RUNNING ON THE OLD VERSION (the correct failure mode) — never
+  // a dead port. Both are pre-build-knowable: (a) the deploy-critical generator inputs/outputs == HEAD; (b) the COMMITTED
+  // dist on disk is COMPLETE (whole-dist git-clean = served==committed per asset). The dist phantom shipped TWICE
+  // (v0.8.237/239) because the 63 ci:gates run ONLY in CI while PROD deploys LOCALLY (commit+build+restart) — the deploy
+  // path never ran them; gating HERE (start.mjs IS the deploy path) makes an ungated phantom deploy structurally impossible.
+  // The recurring phantom = built + committed-PARTIAL + restart → the uncommitted chunks are ALREADY on disk here → caught,
+  // prod untouched. FAST (plain-node, no tsx/boot); NOT the 63 suite. Pre-push = a 2nd net only.
+  versionGuardTreeClean(env);
+  deployIntegrityGate(node18, env);
+
+  // (3) kill any server already on the ports — the IRREVERSIBLE step, now AFTER the pre-kill gates (refuse → prod alive).
   for (const port of PORTS) {
     try {
       const pids = execSync(`lsof -ti tcp:${port} 2>/dev/null || true`, { shell: '/bin/bash' }).toString().trim().split(/\s+/).filter(Boolean);
@@ -74,23 +85,17 @@ function selfHealingStart() {
   }
   try { execSync('sleep 1'); } catch { /* let the ports free (server uses SO_REUSEADDR anyway) */ }
 
-  // (4-pre) R31.7 INV-V3 (tree-clean landmine guard): the deploy-critical generator input+outputs MUST equal HEAD.
-  versionGuardTreeClean(env);
-
   // (4) build — regenerates package.json/sw.js/manifest/__BUILD_VERSION__ from the ONE typed Config unit (R31.7)
   console.log('▸ build'); run(node18, [path.join(ROOT, 'build.mjs')]);
 
   // (4-post) R31.7 INV-V1 (derive-equal): every version consumer must agree with the Config unit after the build.
   versionGuardAgreement();
 
-  // (4-post-2) R0b (oopPO rank 2976fbf1) — DEPLOY-INTEGRITY GATE ON THE DEPLOY PATH ITSELF. The dist phantom shipped
-  // TWICE (v0.8.237/239) because the 63 ci:gates run ONLY in CI, and PROD deploys LOCALLY (commit+build+restart) — the
-  // deploy path never ran them. start.mjs IS the deploy path (already refuses a dirty tree), so gating HERE makes an
-  // ungated phantom deploy STRUCTURALLY IMPOSSIBLE (construction, not CI-convention). SCOPED to deploy-integrity + FAST
-  // (one plain-node gate, no tsx, no server boot) — NOT the 63 suite (a slow boot gate gets bypassed). Runs AFTER the
-  // deterministic build: a clean deploy (committed dist == build output) passes; a phantom (rebuilt-but-uncommitted dist)
-  // is dirty → REFUSE. A plain restart reproduces byte-identical dist → clean → starts (not hostage). Pre-push = a 2nd net.
-  deployIntegrityGate(node18, env);
+  // (4-post-2) POST-BUILD deploy-integrity assertion — prod is ALREADY killed here, so this NEVER dead-ports: on a drift
+  // (freshly-built dist != committed = a bad commit, source without its matching built dist) it RESTORES the committed dist
+  // (restart-old, served==committed last-known-good) rather than refusing. The build is deterministic (R31.13) so a clean
+  // deploy reproduces the committed dist byte-identical → this is a no-op. (The COMMON phantom is already caught pre-kill.)
+  deployIntegrityPostBuild(node18, env);
 
   // (5) foreground server (holds the pane TTY)
   runServerForeground(node18, env);
@@ -139,8 +144,24 @@ function versionGuardAgreement() {
 function deployIntegrityGate(node, env) {
   const r = spawnSync(node, [path.join(ROOT, 'scripts/check-dist-atomic.mjs')], { stdio: 'inherit', cwd: ROOT, env });
   if (r.status !== 0) {
-    console.error('✗ R0b DEPLOY-INTEGRITY: refusing to start — the served dist is not fully committed (served != committed = a phantom deploy). Commit the FULL built dist (all code-split chunks + deletions + build-manifest), then restart. This gate closes the local commit+build+restart deploy path that the 63 ci:gates never run on.');
+    console.error('✗ R0b DEPLOY-INTEGRITY (pre-kill): refusing to start — the committed dist is not complete (served != committed = a phantom deploy). PROD IS UNTOUCHED (this gate runs before the kill). Commit the FULL built dist (all code-split chunks + deletions + build-manifest), then restart. Closes the local commit+build+restart deploy path the 63 ci:gates never run on.');
     process.exit(r.status ?? 1);
+  }
+}
+
+// R0b ORDER-FIX: the POST-BUILD half. Runs AFTER the kill+build, so it must NEVER exit on a dead port. The build is
+// deterministic (R31.13): a clean deploy reproduces the committed dist byte-identical (no-op here). A DRIFT (freshly-built
+// dist != committed) is a bad commit (source changed without rebuilding+committing the matching dist). Since prod is
+// already stopped, fail to RESTART-OLD: restore the COMMITTED dist (bundles + manifest together → coherent, and config==HEAD
+// was enforced pre-kill so pkg/sw regenerate to the committed version matching the restored manifest) → served==committed
+// last-known-good, never a dead port. If the restore itself fails, THEN refuse (an uncommitted dist must not be served).
+function deployIntegrityPostBuild(node, env) {
+  const r = spawnSync(node, [path.join(ROOT, 'scripts/check-dist-atomic.mjs')], { stdio: 'inherit', cwd: ROOT, env });
+  if (r.status !== 0) {
+    console.error('⚠ R0b POST-BUILD DRIFT: freshly-built dist != committed (source/dist mismatch in the commit). Prod already stopped → NOT dead-porting; RESTORING the committed dist (served==committed, last-known-good) and serving that. FIX: rebuild + commit the full dist (npm run build; git commit src/public/dist), then redeploy.');
+    const g = spawnSync('git', ['checkout', '--', 'src/public/dist'], { stdio: 'inherit', cwd: ROOT, env });
+    if (g.status !== 0) { console.error('✗ R0b POST-BUILD: could not restore the committed dist (git checkout failed) — refusing to serve an uncommitted dist.'); process.exit(1); }
+    console.error('↺ restored committed dist — serving the last-known-good version (redeploy after committing the rebuilt dist).');
   }
 }
 
