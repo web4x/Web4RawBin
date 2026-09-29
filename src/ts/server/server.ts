@@ -5328,7 +5328,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // the DURABLE CURE (a chain that cannot be created beats one that is followed). EXISTING tombstones are UNTOUCHED
       // (grandfathered — the one-time collapse of the 3 live chains is HELD pending the architect's tombstone-immutability
       // ruling (a) immutable-grandfather vs (b) path-not-answer; the gate is grandfather-aware, never reds pre-existing data).
-      friend.redirectTo = redirectTombstoneToPrimary(myToken); // v0.7.0 (c): a tombstone; resolveToken + saveProfiles preserve it, IDENTIFY redirects it (never re-mints)
+      friend.redirectTo = redirectTombstoneToPrimary(myToken); // v0.7.0 (c): a tombstone — IMMUTABLE BY DESIGN: never rewritten, never repointed (resolveToken + saveProfiles preserve it, IDENTIFY redirects it, never re-mints). ★ Existing multi-hop chains are GRANDFATHERED and resolved by the any-depth chain-follow (resolveRedirectChain); collapsing them would destroy the merge audit trail (A merged via B into C) and is TRON'S CALL ALONE, never hygiene (architect ruled (a) immutable-grandfather 2026-09-29 — NO collapse). RANK-3 write-time invariant above only sets a FRESH tombstone to the terminal primary; it rewrites nothing.
       friend.secretCode = '';
       friend.bugReports = [];
       saveProfiles();
