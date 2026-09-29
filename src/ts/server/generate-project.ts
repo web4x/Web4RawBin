@@ -22,7 +22,7 @@ function seedStore(modelStore: string, prodIndex: string): void {
 
 /** The ONE generate-project path: validate the bounded dir → CAP-guarded .ts walk → seed → TsToModel.generate into the
  *  ISOLATED model store (write, no diagram). Returns a plain result; callers map it to HTTP or CLI output. */
-export function generateProjectModel(projectRoot: string, relDir: string, modelStore: string, prodIndex: string): GenProjectResult {
+export function generateProjectModel(projectRoot: string, relDir: string, modelStore: string, prodIndex: string, resolveByKey: boolean = true): GenProjectResult { // FIX-1 (spec 9979a2aa9): resolveByKey defaults TRUE — the persist path resolves keyed units (no legacy no-resolve dup); an explicit false is the NAMED legacy escape
   const absDir = path.resolve(projectRoot, relDir);
   if (!absDir.startsWith(projectRoot + path.sep) || !fsSync.existsSync(absDir)) return { ok: false, status: 400, error: 'bad-dir: must be an existing repo-relative dir' };
   const CAP = 200, EXCL = /\.(test|spec|d)\.ts$/;
@@ -31,7 +31,7 @@ export function generateProjectModel(projectRoot: string, relDir: string, modelS
   walk(absDir);
   if (files.length > CAP) return { ok: false, status: 413, error: `too-many-files: ${files.length} > CAP ${CAP} (narrow the dir)` };
   seedStore(modelStore, prodIndex);
-  const r = new TsToModel(projectRoot).generate(files, { indexDir: modelStore, write: true, diagram: false });
+  const r = new TsToModel(projectRoot).generate(files, { indexDir: modelStore, write: true, diagram: false, resolveByKey });
   const roots = r.units.filter((u) => u.model.metaLevel === 'M1' && !u.model.memberOf).length;
   return { ok: true, dir: relDir, files: files.length, units: r.units.length, roots, wrote: r.wrote, removed: r.removed };
 }

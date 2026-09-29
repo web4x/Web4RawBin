@@ -3380,17 +3380,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('data', (chunk: Buffer) => { body += chunk; });
       req.on('end', () => {
         try {
-          const { file, override } = JSON.parse(body || '{}');
+          const { file, override, resolveByKey: rbkRaw } = JSON.parse(body || '{}');
+          const resolveByKey = rbkRaw !== false; // FIX-1 (spec 9979a2aa9): resolveByKey IS the persist default (kills the legacy no-resolve dup path); explicit resolveByKey:false = the NAMED legacy escape
           const projectRoot = path.join(__dirname, '../../..');
           const abs = path.resolve(projectRoot, String(file || ''));
           if (!String(file) || !abs.startsWith(projectRoot + path.sep) || !abs.endsWith('.ts') || !fsSync.existsSync(abs)) { // path-safety: repo-relative existing .ts only (no traversal)
             res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-file: must be an existing repo-relative .ts path"}'); return;
           }
-          if (!override && legacyGenHitsCleanClassR0(projectRoot, abs, false)) { // R0: legacy generate over a clean-class dup-hazards Tron's live model
+          if (!override && !resolveByKey && legacyGenHitsCleanClassR0(projectRoot, abs, false)) { // R0 backstop (post-FIX-1): fires only on EXPLICIT legacy (resolveByKey:false) over a clean-class; the resolveByKey default resolves-by-key = no dup by construction
             res.writeHead(409, { 'Content-Type': 'application/json' }); res.end('{"error":"R0-refused: legacy generate over a scenario clean-class (file.ts/ior.ts/folder.ts) would DUPLICATE the live File/Folder model (arbitrary chain uuids != keyToUuid). Use the resolveByKey derivation, or pass override:true if you truly intend a legacy re-mint."}'); return;
           }
           ensureStoreSeeded();
-          const r = new TsToModel(projectRoot).generate([abs], { indexDir: ModelStoreLocator.modelDir(), write: true, diagram: true }); // R40.81 Slice-3 couple: regen writes to the SAME store reads resolve (frozen model-store at default; coupled post-flip)
+          const r = new TsToModel(projectRoot).generate([abs], { indexDir: ModelStoreLocator.modelDir(), write: true, diagram: true, resolveByKey }); // R40.81 Slice-3 couple + FIX-1: resolveByKey-by-default resolves keyed units (reuse uuid, no dup) — legacy only when explicitly named
           const roots = r.units.filter((u) => u.model.metaLevel === 'M1' && !u.model.memberOf).length;
           addLog(`[model] generate ${path.relative(projectRoot, abs)} → ${r.units.length} units (${roots} roots) diagram=${r.diagramUuid?.slice(0, 8)} wrote=${r.wrote} (store-only, prod untouched)`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, units: r.units.length, roots, diagramUuid: r.diagramUuid, wrote: r.wrote }));
@@ -3405,15 +3406,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('end', () => {
         try {
           const projectRoot = path.join(__dirname, '../../..'); // __dirname used INSIDE the handler (runtime-safe, not module-top) — R32.5 boot lesson honored
-          const { dir, override } = JSON.parse(body || '{}');
+          const { dir, override, resolveByKey: rbkRaw } = JSON.parse(body || '{}');
+          const resolveByKey = rbkRaw !== false; // FIX-1: resolveByKey IS the persist default; explicit resolveByKey:false = the NAMED legacy escape
           const relDir = String(dir || 'src/ts/scenario');
-          if (!override && legacyGenHitsCleanClassR0(projectRoot, path.resolve(projectRoot, relDir), true)) { // R0: default dir 'src/ts/scenario' CONTAINS the clean-classes → legacy generate would dup the live model
+          if (!override && !resolveByKey && legacyGenHitsCleanClassR0(projectRoot, path.resolve(projectRoot, relDir), true)) { // R0 backstop (post-FIX-1): fires only on EXPLICIT legacy over a dir containing a clean-class; resolveByKey default resolves = no dup
             res.writeHead(409, { 'Content-Type': 'application/json' }); res.end('{"error":"R0-refused: legacy generate-project over a dir containing a scenario clean-class (file.ts/ior.ts/folder.ts) would DUPLICATE the live File/Folder model. Use the resolveByKey derivation, or pass override:true if you truly intend a legacy re-mint."}'); return;
           }
           const t0 = Date.now();
           // T36.3: the generate-project CORE is now the ONE shared generateProjectModel — HTTP handler + the local CLI
           // (scripts/regen-model.ts) run the SAME path/invariants (INV-P2 bounded/CAP/MODEL_STORE-only). Owner-gate above UNCHANGED.
-          const g = generateProjectModel(projectRoot, String(dir || 'src/ts/scenario'), ModelStoreLocator.modelDir(), PROD_INDEX); // R40.81 Slice-3 couple: output store via the ONE locator
+          const g = generateProjectModel(projectRoot, String(dir || 'src/ts/scenario'), ModelStoreLocator.modelDir(), PROD_INDEX, resolveByKey); // R40.81 Slice-3 couple + FIX-1: resolveByKey-by-default persist path
           if (!g.ok) { res.writeHead(g.status || 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: g.error })); return; }
           addLog(`[model] generate-project ${g.dir} → ${g.files} files → ${g.units} units (${g.roots} roots) wrote=${g.wrote} removed=${g.removed} ${Date.now() - t0}ms (store-only, prod untouched)`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, dir: g.dir, files: g.files, units: g.units, roots: g.roots, wrote: g.wrote, removed: g.removed }));
