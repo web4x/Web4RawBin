@@ -469,8 +469,14 @@ export class RoomManager {
   }
 
   listRoomsForOwner(ownerToken: string): RoomInfo[] {
+    // R1 AC1 fix (PO ruling 2026-09-29) — ASK THE CANONICAL IDENTITY RESOLVER, never re-implement equality. A room's
+    // creatorToken and the session's token may be DIFFERENT tokens that RESOLVE to the same person (multi-token identity:
+    // redirect/consolidation). e.g. edd7fa61.creatorToken=c09087ec must show for ANY Marcel token resolving to c09087ec;
+    // exact `===` missed that → the owner's own private room could be absent. Resolve BOTH sides; a non-owner (resolving
+    // to someone else) still never matches → private rooms never leak. resolveToken defaults to identity, so exact still works.
+    const owner = Room.resolveToken(ownerToken);
     return [...this.rooms.values()]
-      .filter(r => r.creatorToken === ownerToken)
+      .filter(r => !!r.creatorToken && Room.resolveToken(r.creatorToken) === owner)
       .map(r => r.info());
   }
 
