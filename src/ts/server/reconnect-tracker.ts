@@ -24,3 +24,18 @@ export class ReconnectTracker {
     return ratePerMin > RECONNECT_ALARM_PER_MIN;
   }
 }
+
+// STORM AMPLIFIER FIX (oopPO rank 2, spec cdf69c6be): the client's FIXED 2s reconnect retry (reset on EVERY connect)
+// AMPLIFIES a flap — every client hammers the server at the same 2s cadence and a bare connect (that immediately
+// closes again) resets nothing to slow down. Fix = BOUNDED EXPONENTIAL BACKOFF + JITTER, and reset the attempt counter
+// ONLY after a connection stays open a STABLE period (never on bare connect). PURE + deterministic-given-`rand` so the
+// failable gate can assert it GROWS (not fixed) + is BOUNDED + JITTERED; the inline client mirrors this formula and the
+// gate asserts the served script no longer uses a fixed setTimeout(connect,2000).
+export const RECONNECT_BACKOFF_BASE_MS = 1000;
+export const RECONNECT_BACKOFF_MAX_MS = 30_000;   // bound: a reconnect never waits longer than 30s
+export const RECONNECT_STABLE_RESET_MS = 30_000;  // reset attempt→0 ONLY after the connection has been open this long (never on bare connect)
+
+export function reconnectBackoffDelay(attempt: number, rand: number = Math.random()): number {
+  const cap = Math.min(RECONNECT_BACKOFF_BASE_MS * Math.pow(2, Math.max(0, attempt)), RECONNECT_BACKOFF_MAX_MS);
+  return Math.round(cap / 2 + rand * (cap / 2)); // [cap/2, cap] — jittered (no thundering herd), never a FIXED interval, never 0
+}

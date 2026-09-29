@@ -4669,10 +4669,10 @@ textarea:focus{outline:none;border-color:#667eea}
 <p class="ver" id="ver"></p>
 </div>
 <script>
-var ws,connected=false;
+var ws,connected=false,reconnAttempt=0,stableTimer=null;/* STORM AMPLIFIER FIX: attempt counter for bounded exp backoff; stableTimer resets it ONLY after a STABLE open period */
 function connect(){
   ws=new WebSocket((location.protocol==='https:'?'wss:':'ws:')+'//'+location.host);
-  ws.onopen=function(){connected=true};
+  ws.onopen=function(){connected=true;if(stableTimer)clearTimeout(stableTimer);stableTimer=setTimeout(function(){reconnAttempt=0;},30000);};/* STORM AMPLIFIER FIX: reset backoff ONLY after 30s STABLE (never on bare connect — a flap that reconnects then immediately closes must NOT reset the backoff) */
   ws.addEventListener('message',function(e){
     var m=JSON.parse(e.data);
     if(m.type==='welcome'){
@@ -4688,7 +4688,7 @@ function connect(){
     if(m.type==='BUG_REPORT_OK'){document.getElementById('bug-status').textContent='Report sent! Thank you.';document.getElementById('bug-text').value='';document.getElementById('char-counter').textContent='0/500';document.getElementById('char-counter').style.color='#999';document.getElementById('bug-submit').disabled=false}
     if(m.type==='ERROR'){document.getElementById('bug-status').textContent='Error: '+m.message;document.getElementById('bug-submit').disabled=false}
   };
-  ws.onclose=function(e){connected=false;window.__rbReconnects=(window.__rbReconnects||0)+1;console.warn('[ws] closed code='+((e&&e.code)||'?')+' reconnect#'+window.__rbReconnects+(e&&e.reason?(' reason='+e.reason):''));setTimeout(connect,2000)};/* R1 VISIBILITY: capture the close CODE + a reconnect COUNT so a storm is diagnosable, not silent */
+  ws.onclose=function(e){connected=false;if(stableTimer){clearTimeout(stableTimer);stableTimer=null;}/* closed before STABLE → do NOT reset backoff */window.__rbReconnects=(window.__rbReconnects||0)+1;console.warn('[ws] closed code='+((e&&e.code)||'?')+' reconnect#'+window.__rbReconnects+(e&&e.reason?(' reason='+e.reason):''));/* R1 VISIBILITY unchanged (BITE) */var c=Math.min(1000*Math.pow(2,reconnAttempt),30000);var d=Math.round(c/2+Math.random()*(c/2));reconnAttempt++;setTimeout(connect,d)};/* STORM AMPLIFIER FIX: bounded exp backoff [c/2,c] cap 30s + jitter (mirrors reconnectBackoffDelay), NOT a fixed 2s hammer */
 }
 connect();
 document.getElementById('bug-text').addEventListener('input',function(){
