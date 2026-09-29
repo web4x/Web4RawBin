@@ -5321,7 +5321,14 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (!myProfile.consolidatedFrom) myProfile.consolidatedFrom = [];
       myProfile.consolidatedFrom.push(friend.token);
 
-      friend.redirectTo = myToken; // v0.7.0 (c): a tombstone — immutable; resolveToken + saveProfiles preserve it, IDENTIFY redirects it (never re-mints)
+      // RANK-3 PRIMARY-ONLY INVARIANT (write-time, non-mutating to existing data): write redirectTo = the TERMINAL
+      // primary of myToken's OWN chain (resolveRedirectChain), so a NEW consolidation can NEVER create a multi-hop
+      // chain — friend→terminal, never friend→mid→…→terminal. A no-op when myToken is already primary (the common
+      // case: resolveRedirectChain(primary)=primary); chain-preventing only when myToken is itself redirected. This is
+      // the DURABLE CURE (a chain that cannot be created beats one that is followed). EXISTING tombstones are UNTOUCHED
+      // (grandfathered — the one-time collapse of the 3 live chains is HELD pending the architect's tombstone-immutability
+      // ruling (a) immutable-grandfather vs (b) path-not-answer; the gate is grandfather-aware, never reds pre-existing data).
+      friend.redirectTo = redirectTombstoneToPrimary(myToken); // v0.7.0 (c): a tombstone; resolveToken + saveProfiles preserve it, IDENTIFY redirects it (never re-mints)
       friend.secretCode = '';
       friend.bugReports = [];
       saveProfiles();
