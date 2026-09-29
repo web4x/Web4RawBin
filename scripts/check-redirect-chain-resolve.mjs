@@ -2,12 +2,13 @@
  * R1 AC1 multi-hop gate (PO ruling 2026-09-29) — the canonical identity resolver follows the .redirectTo chain to the
  * true PRIMARY, MULTI-HOP and CYCLE-SAFE. A 3+-hop consolidation chain must resolve to the owner (single-hop lost it);
  * a redirect CYCLE must TERMINATE (proven by a seeded cycle, not inspection); a primary/unknown resolves to itself.
- * stub-must-fail: remove the `seen` cycle-guard → resolving the seeded X→Y→X cycle INFINITE-LOOPS → this gate HANGS
- * (never exits) → RED by timeout. That hang IS the proof the cycle-guard is load-bearing.
+ * stub-must-fail (LOUD + FAST, never a hang): remove the bounded-depth throw → an over-depth chain no longer throws
+ * → this gate's expect-throw assertion fails → RED with a message. (The `seen` set still gracefully terminates real cycles.)
  */
-import { resolveRedirectChain } from '../src/ts/server/redirect-chain.js';
+import { resolveRedirectChain, MAX_REDIRECT_DEPTH } from '../src/ts/server/redirect-chain.js';
 
 const fail = (m) => { console.error(`✗ ${m}`); process.exit(1); };
+const throws = (fn) => { try { fn(); return false; } catch { return true; } };
 const map = { A: 'B', B: 'C', C: 'D', X: 'Y', Y: 'X', Z: 'Z' }; // A→B→C→D (primary); cycle X→Y→X; self-loop Z→Z
 const of = (t) => map[t];
 
@@ -23,4 +24,9 @@ if (cyc !== 'X' && cyc !== 'Y') fail(`cycle X→Y→X must terminate at a cycle 
 const self = resolveRedirectChain('Z', of);
 if (self !== 'Z') fail(`self-loop Z→Z must terminate (got ${self}).`);
 
-console.log('✓ R1 AC1 multi-hop: 3-hop chain → primary D; cycle X→Y→X + self-loop Z→Z TERMINATE (cycle-safe); primary/unknown → self.');
+// BOUNDED-DEPTH backstop (LOUD + FAST, not a hang): an over-depth linear chain THROWS the named error.
+const longMap = {};
+for (let i = 0; i < MAX_REDIRECT_DEPTH + 5; i++) longMap['n' + i] = 'n' + (i + 1); // n0→n1→…→n(MAX+5): longer than the bound
+if (!throws(() => resolveRedirectChain('n0', (t) => longMap[t]))) fail(`an over-depth chain (>${MAX_REDIRECT_DEPTH} hops) did NOT throw — the bounded-depth guard is missing; a malformed redirect could hang the request path.`);
+
+console.log(`✓ R1 AC1 multi-hop: 3-hop chain → primary D; cycle X→Y→X + self-loop Z→Z TERMINATE (cycle-safe); over-depth (>${MAX_REDIRECT_DEPTH}) THROWS loud+fast; primary/unknown → self.`);
