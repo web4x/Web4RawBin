@@ -4936,7 +4936,10 @@ function setupWebSocketServer(server: https.Server): void {
 
     ws.send(JSON.stringify({ type: 'welcome', clientId, onlineCount: wsClients.size, challenge }));
     ws.send(JSON.stringify({ type: MSG.SERVER_CONFIG, shareDomain: BASE_DOMAIN || getLocalIP(), httpsPort: HTTPS_PORT }));
-    ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: enrichRoomList(roomManager.listRooms(getConnectedOwners())) }));
+    // R1 LOBBY-FLAP FIX: NO premature ROOM_LIST here. At connect the client is UNAUTHENTICATED (playerToken=''), so any
+    // list sent now is owner-UNAWARE (public-only) — and the owner-aware list that follows on IDENTIFY makes the owner's
+    // private/owned rooms "appear" seconds later = the flap. The ROOM_LIST is now sent ONCE, owner-aware, AFTER auth
+    // (IDENTIFY), via the ONE builder roomListFor(token) — the same builder broadcastRoomList + LIST_ROOMS already use.
 
     ws.on('message', (data) => {
       try { handleMessage(clientId, ws, JSON.parse(data.toString())); } catch (e: any) { addLog(`WS handler error: ${e?.message || e}`); }
@@ -5261,6 +5264,11 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         const ownerRooms = roomManager.listRoomsForOwner(token);
         broadcastRoomList();
         addLog(`Owner ${token.slice(0,8)} connected — ${ownerRooms.length} room(s) (${registered} newly registered)`);
+      } else {
+        // R1 LOBBY-FLAP FIX: a just-identified client with no registered rooms still gets its owner-aware list via the
+        // ONE builder (roomListFor) right here on IDENTIFY — replacing the removed premature owner-unaware welcome list.
+        // Every session thus gets exactly ONE ROOM_LIST, owner-aware, after auth → no flap in either direction.
+        send({ type: MSG.ROOM_LIST, rooms: roomListFor(token) });
       }
       break;
     }
