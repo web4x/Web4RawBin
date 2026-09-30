@@ -39,3 +39,17 @@ export function reconnectBackoffDelay(attempt: number, rand: number = Math.rando
   const cap = Math.min(RECONNECT_BACKOFF_BASE_MS * Math.pow(2, Math.max(0, attempt)), RECONNECT_BACKOFF_MAX_MS);
   return Math.round(cap / 2 + rand * (cap / 2)); // [cap/2, cap] — jittered (no thundering herd), never a FIXED interval, never 0
 }
+
+// WS KEEPALIVE (oopPO GAP-FIX, NOT the flap root — the root is an organic 1006 amplified by the fixed-2s retry, fixed
+// v0.8.245). The server sent ZERO ping frames (the ws lib auto-pongs but never auto-pings), so an idle socket was never
+// kept alive and a dead peer was never detected. The server now PINGs on a BATTERY-CONSCIOUS interval (Tron is on a phone
+// — an aggressive ping is its own harm) and TERMINATES a peer that misses N pongs. ★ The terminate is ws.terminate(),
+// which fires 'close' → the ws.on('close') handler records reconnectTracker.record UNCONDITIONALLY → every keepalive-
+// initiated close still passes THROUGH the counter (the visibility BITE stays GREEN; a calmer server cannot hide a storm).
+export const KEEPALIVE_INTERVAL_MS = 30_000;   // 30s — conventional + phone-friendly (not aggressive)
+export const KEEPALIVE_MAX_MISSED_PONGS = 2;   // terminate a peer that misses 2 consecutive pongs (dead within ~60–90s)
+
+// PURE decision (gate-testable): should a peer with `missedPongs` unanswered pings be terminated?
+export function keepaliveShouldTerminate(missedPongs: number, max: number = KEEPALIVE_MAX_MISSED_PONGS): boolean {
+  return missedPongs >= max;
+}

@@ -216,13 +216,15 @@ interface WebSocketClient {
   authenticated: boolean;
   authMethod: 'none' | 'token' | 'device-key';
   challenge: string;
+  isAlive?: boolean;      // WS KEEPALIVE: reset true on every pong
+  missedPongs?: number;   // WS KEEPALIVE: consecutive unanswered pings → terminate at KEEPALIVE_MAX_MISSED_PONGS
 }
 
 const clientSessions = new Map<string, ClientSession>();
 const wsClients = new Set<WebSocketClient>();
 // R1 VISIBILITY (PO 2026-09-29): per-token reconnect-rate tracker + storm alarm — the signal the flap-fix would
 // otherwise have hidden. Recorded on ws close; ALARMS above a human-plausible rate. (import at module scope, ESM-hoisted.)
-import { ReconnectTracker, RECONNECT_ALARM_PER_MIN } from './reconnect-tracker.js';
+import { ReconnectTracker, RECONNECT_ALARM_PER_MIN, keepaliveShouldTerminate, KEEPALIVE_INTERVAL_MS } from './reconnect-tracker.js';
 const reconnectTracker = new ReconnectTracker();
 // R37.11 slice-1 STEP-0: the ONE server-side publish for UnitController — generalizes the ad-hoc CurrentSprint
 // UNIT_CHANGED broadcast (was inline at the pin-designate handler) over the EXISTING wsClients transport (all-clients,
@@ -4914,6 +4916,19 @@ function setupWebSocketServer(server: https.Server): void {
   // BEFORE the socket opens (INV-G3: a rejected upgrade is destroyed, `connection` never fires, no PTY spawns).
   const wss = new WebSocketServer({ noServer: true });
   const termWss = new WebSocketServer({ noServer: true });
+  // WS KEEPALIVE (oopPO GAP-FIX, NOT the flap root — the root was an organic 1006 amplified by the fixed-2s retry, fixed
+  // v0.8.245): the server sent ZERO ping frames, so an idle socket was never kept alive nor a dead peer detected. Ping every
+  // app client on a battery-conscious interval; a peer that misses N pongs is TERMINATED. ★ ws.terminate() fires 'close' →
+  // the ws.on('close') handler records reconnectTracker.record UNCONDITIONALLY → every keepalive close passes THROUGH the
+  // counter (the visibility BITE stays GREEN; a calmer server cannot hide a future storm). Terminal ws (termWss) is excluded.
+  const keepaliveTimer = setInterval(() => {
+    for (const c of wsClients) {
+      if (keepaliveShouldTerminate(c.missedPongs || 0)) { try { c.ws.terminate(); } catch { /* already gone */ } continue; }
+      c.missedPongs = (c.missedPongs || 0) + 1; // assume unanswered until a pong resets it
+      try { c.ws.ping(); } catch { /* socket closing */ }
+    }
+  }, KEEPALIVE_INTERVAL_MS);
+  wss.on('close', () => clearInterval(keepaliveTimer));
   server.on('upgrade', (req, socket, head) => {
     const path = (req.url || '/').split('?')[0];
     if (path === '/api/server-manager/terminal') {
@@ -4942,6 +4957,8 @@ function setupWebSocketServer(server: https.Server): void {
     const challenge = crypto.randomBytes(32).toString('hex');
     const client: WebSocketClient = { ws, id: clientId, ip, userAgent, connectedAt, avatarUrl: '', deviceId: '', playerToken: '', authenticated: false, authMethod: 'none', challenge };
     wsClients.add(client);
+    client.isAlive = true; client.missedPongs = 0;
+    ws.on('pong', () => { client.isAlive = true; client.missedPongs = 0; }); // WS KEEPALIVE: a pong = the peer is alive → clear the missed-pong count
     addLog(`WS connected: ${ip} (${wsClients.size} online)`);
 
     ws.send(JSON.stringify({ type: 'welcome', clientId, onlineCount: wsClients.size, challenge }));
