@@ -1,23 +1,40 @@
 {
-  "ior": "ior:class:Method",
-  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "ior": "ior:class:ModelElement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
   "model": {
     "uuid": "3500d960-d49b-43e6-81a9-0f12ddacb272",
-    "name": "File.moveTo",
-    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
-    "coveredByUseCase": "ior:instance:0b09a430-eb28-46d2-a84b-652a63db1de1",
-    "description": "File.moveTo \u2014 the object answers 'moveTo' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
-    "implementations": [
-      "ior:instance:65b154c8-04b8-462c-9dde-ff3a654d4e40"
-    ],
-    "tests": [
-      "ior:instance:eeab2deb-83ae-4819-8602-edd8f33f27c5"
-    ],
-    "unitLinks": [],
+    "name": "moveTo",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/file.ts",
+    "qualifiedName": "File.moveTo",
     "instanceOf": [
-      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006"
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
     ],
+    "derivationKey": "src/ts/scenario/file.ts::File.moveTo",
     "memberOf": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
-    "derivationKey": "src/ts/scenario/file.ts::File.moveTo"
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "target",
+        "type": "string"
+      },
+      {
+        "name": "source",
+        "type": "string"
+      }
+    ],
+    "returnType": "MoveCommand",
+    "parentClass": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+    "relatesTo": [
+      "ior:instance:b7c21354-50d1-484d-acbb-7ac4daddaaab"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:b7c21354-50d1-484d-acbb-7ac4daddaaab",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000012"
+      }
+    ]
   }
 }

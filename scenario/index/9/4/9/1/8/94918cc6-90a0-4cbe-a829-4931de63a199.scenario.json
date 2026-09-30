@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "94918cc6-90a0-4cbe-a829-4931de63a199",
+    "name": "FileViewModel",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/file.ts",
+    "qualifiedName": "FileViewModel",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "derivationKey": "src/ts/scenario/file.ts::FileViewModel",
+    "members": [
+      "ior:instance:9b07537c-42f9-4a46-a916-55810d7fb64a",
+      "ior:instance:513b17b5-31d7-43e2-a22a-21043293f1ba",
+      "ior:instance:5b5cf182-c092-40db-a984-c5c32907db36",
+      "ior:instance:44248bd6-657a-40b4-af38-fca9b1d92adf",
+      "ior:instance:4c7157a0-8e54-4eb4-ac10-6fe9405259af"
+    ],
+    "relatedFrom": [
+      "ior:instance:3feca893-d59f-4d5b-b641-0cbdb873a6b1"
+    ]
+  }
+}

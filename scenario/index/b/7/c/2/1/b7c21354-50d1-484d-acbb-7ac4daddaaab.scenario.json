@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
+  "model": {
+    "uuid": "b7c21354-50d1-484d-acbb-7ac4daddaaab",
+    "name": "MoveCommand",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/file.ts",
+    "qualifiedName": "MoveCommand",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "derivationKey": "src/ts/scenario/file.ts::MoveCommand",
+    "members": [
+      "ior:instance:d71c4149-b9fa-447b-a68a-a19b4d21d572",
+      "ior:instance:c4215e5f-df7c-4b94-a6d8-a3195ab3a780",
+      "ior:instance:c5463dbf-9a17-436e-a23c-bcc2fa03059e",
+      "ior:instance:9405cbd2-9a0f-4df8-a441-f986b68a9021"
+    ],
+    "relatedFrom": [
+      "ior:instance:3500d960-d49b-43e6-81a9-0f12ddacb272"
+    ]
+  }
+}

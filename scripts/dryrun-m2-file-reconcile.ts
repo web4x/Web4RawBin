@@ -1,7 +1,7 @@
 /**
  * T41.6 FIX-1/FIX-2 DRY-RUN (write:false, READ-ONLY — mutates NOTHING). Runs deriveClassM2(resolveByKey) over
  * src/ts/scenario/file.ts and compares the WOULD-WRITE unit set to the PERSISTED disk (by derivationKey): reports
- * RESOLVED (uuid reused), MINTS (new — expect FileModel only), memberOf CHANGES (the 4 attrs File→FileModel),
+ * RESOLVED (uuid reused), MINTS (new — the architect-cleared 14: FileModel/FileViewModel/MoveCommand/FileIconToken + attrs), memberOf CHANGES (the 4 attrs File→FileModel),
  * RE-KEYS (a matched key whose uuid changed — MUST be 0), DELETIONS (removed — MUST be 0). Folder EXCLUDED per Tron.
  * The reconcile write:true must match THIS exactly (any divergence = STOP + report).
  *
@@ -43,9 +43,9 @@ for (const u of units) {
 console.log('=== T41.6 DRY-RUN (write:false) over src/ts/scenario/file.ts — READ ONLY ===');
 console.log(`derived units (file.ts-keyed): ${units.filter((u: any) => String(u.model?.derivationKey || '').startsWith('src/ts/scenario/file.ts')).length}`);
 console.log(`RESOLVED (uuid reused, no re-key): ${resolved.length}`); resolved.forEach(r => console.log('  ✓ ' + r));
-console.log(`MINTS (new units — EXPECT FileModel only): ${mints.length}`); mints.forEach(r => console.log('  + ' + r));
+console.log(`MINTS (new units — persist-all-14, architect-cleared: FileModel/FileViewModel/MoveCommand interfaces + FileIconToken type + attrs + File.uuid property): ${mints.length}`); mints.forEach(r => console.log('  + ' + r));
 console.log(`memberOf CHANGES (EXPECT the attrs → FileModel): ${memberChanges.length}`); memberChanges.forEach(r => console.log('  ~ ' + r));
 console.log(`RE-KEYS (MUST be 0): ${rekeys.length}`); rekeys.forEach(r => console.log('  ★RE-KEY ' + r));
 console.log(`DELETIONS (removed, MUST be 0): ${removed}`);
 console.log(`wrote (would-write, write:false so 0 on disk): ${wrote}`);
-console.log(`\nGATE: reconcile write:true must match EXACTLY — 0 re-keys (${rekeys.length}) + 0 deletions (${removed}); mints = FileModel only; the 4 attrs → FileModel. Any divergence = STOP.`);
+console.log(`\nGATE: reconcile write:true must match EXACTLY — 0 re-keys (${rekeys.length}) + 0 deletions (${removed}); mints = the architect-cleared 14 (persist-all-14); the 4 attrs → FileModel. Any divergence = STOP. (Reconcile SHIPPED T41.6 2026-09-30; FIX-2 gate check:m2-persisted-equals-derived now asserts persisted==derived.)`);

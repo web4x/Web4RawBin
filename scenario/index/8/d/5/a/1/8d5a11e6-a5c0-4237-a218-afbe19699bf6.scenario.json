@@ -1,23 +1,22 @@
 {
-  "ior": "ior:class:Method",
-  "ownerIor": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
+  "ior": "ior:class:ModelElement",
+  "ownerIor": "ior:instance:04e84ff9-a460-4c0a-8ab6-52793bebe9c4",
   "model": {
     "uuid": "8d5a11e6-a5c0-4237-a218-afbe19699bf6",
-    "name": "File.ownIor",
-    "class": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
-    "coveredByUseCase": "ior:instance:812d0e73-bd4b-41df-ad49-860f38ced744",
-    "description": "File.ownIor \u2014 the object answers 'ownIor' itself (ask-the-object). Impl+Test by expert on build-go (scenario-first: method minted before code).",
-    "implementations": [
-      "ior:instance:30e39639-01cf-43eb-8b65-3d50b02995a7"
-    ],
-    "tests": [
-      "ior:instance:f22f164f-8c18-4819-9be7-cde87cbc39d5"
-    ],
-    "unitLinks": [],
+    "name": "ownIor",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/file.ts",
+    "qualifiedName": "File.ownIor",
     "instanceOf": [
-      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006"
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
     ],
+    "derivationKey": "src/ts/scenario/file.ts::File.ownIor",
     "memberOf": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db",
-    "derivationKey": "src/ts/scenario/file.ts::File.ownIor"
+    "visibility": "public",
+    "parameters": [],
+    "returnType": "string",
+    "parentClass": "ior:instance:13782f0c-28ab-460a-8469-2849363f08db"
   }
 }
