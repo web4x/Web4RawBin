@@ -1,6 +1,7 @@
 import { defineConfig } from '@playwright/test';
 import path from 'node:path';
 import os from 'node:os';
+import fs from 'node:fs';
 
 // T100 / fail-closed isolation (the recurring-pollution root cause fix):
 // E2E is ISOLATED BY DEFAULT. A plain `npx playwright test` spawns its OWN server on a
@@ -13,6 +14,16 @@ const LIVE = process.env.E2E_LIVE === '1';
 const ISOLATED = !LIVE;
 const HTTPS_PORT = ISOLATED ? '4445' : '4444';
 const BASE_URL = `https://localhost:${HTTPS_PORT}`;
+const E2E_DATA_DIR = process.env.E2E_DATA_DIR || path.join(os.tmpdir(), 'rawbin-e2e-data');
+
+// R42.4: the isolated server works on a fresh COPY of scenario/ (RAWBIN_SCENARIO_ROOT), so a test run never
+// writes scenario/index or scenario/alt in the repo. Copied once per run (workers inherit the env flag).
+const E2E_SCENARIO_ROOT = `${E2E_DATA_DIR}-scenario`;
+if (ISOLATED && !process.env.__RAWBIN_E2E_SCENARIO_COPIED) {
+  fs.rmSync(E2E_SCENARIO_ROOT, { recursive: true, force: true });
+  fs.cpSync(path.resolve('scenario') /* cwd = repo root, like the webServer's npm run dev */, E2E_SCENARIO_ROOT, { recursive: true, verbatimSymlinks: true });
+  process.env.__RAWBIN_E2E_SCENARIO_COPIED = '1';
+}
 
 export default defineConfig({
   testDir: 'test/e2e',
@@ -51,7 +62,8 @@ export default defineConfig({
       ...process.env,
       ...(ISOLATED
         ? {
-            DATA_DIR: process.env.E2E_DATA_DIR || path.join(os.tmpdir(), 'rawbin-e2e-data'),
+            DATA_DIR: E2E_DATA_DIR,
+            RAWBIN_SCENARIO_ROOT: E2E_SCENARIO_ROOT,
             HTTPS_PORT: '4445',
             PORT: '4001',
           }

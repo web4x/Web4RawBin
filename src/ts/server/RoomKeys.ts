@@ -1,5 +1,6 @@
 // [impl:uuid:07474cf1-9581-4ae3-8a00-3931f4297da4] T74 room SSH keys
 // [impl:uuid:c37ebdba-1310-4f6a-9a35-2a2d5d43084d] ClassRegistry.get(name): ClassLoader
+import { SCENARIO_INDEX_DIR } from './scenario-root.js';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -234,7 +235,7 @@ export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonD
   const roomDir = getRoomDir(userToken, roomId, { mint: true });   // WRITE
   mkdirSafe(roomDir);
   const roomJsonPath = path.join(roomDir, 'room.json');
-  const scenarioDir = path.resolve(DATA_DIR, '../scenario/index');
+  const scenarioDir = SCENARIO_INDEX_DIR;
   const hex = roomId.replace(/-/g, '');
   if (hex.length >= 5) {
     const prefix = path.join(hex[0], hex[1], hex[2], hex[3], hex[4]);
