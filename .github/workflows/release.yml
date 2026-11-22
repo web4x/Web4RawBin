@@ -1,0 +1,27 @@
+# R42.2 ci-tags: CI makes release tags. After a push to main whose package.json version changed, tag that commit
+# v<version> (if the tag does not exist yet). Nobody tags by hand. CI (ci.yml) gates what reaches main.
+name: Release tag
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Decide tag
+        id: decide
+        run: echo "tag=$(node scripts/tag-on-merge.mjs '${{ github.event.before }}' '${{ github.sha }}')" >> "$GITHUB_OUTPUT"
+      - name: Create tag
+        if: steps.decide.outputs.tag != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${{ steps.decide.outputs.tag }}" -m "Release ${{ steps.decide.outputs.tag }} (made by CI on merge to main)" "${{ github.sha }}"
+          git push origin "${{ steps.decide.outputs.tag }}"

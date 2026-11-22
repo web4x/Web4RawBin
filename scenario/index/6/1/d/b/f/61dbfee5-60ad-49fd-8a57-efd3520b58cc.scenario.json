@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:776da5a6-9024-4785-ba0c-26d917e931b8",
+  "model": {
+    "uuid": "61dbfee5-60ad-49fd-8a57-efd3520b58cc",
+    "name": "test:ReleaseWorkflow.tagOnMerge",
+    "description": "AC ci-tags: a merge to main gets tag v<version> only when it bumps the version and the tag is new; never re-tags, never stamps an old version on a newer commit",
+    "sourceFile": "ior:file:test/vitest/tag-on-merge.test.ts",
+    "implementations": [
+      "ior:instance:776da5a6-9024-4785-ba0c-26d917e931b8"
+    ],
+    "useCase": "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75",
+    "requirement": "ior:instance:6a7aa5ca-fbea-4673-9f92-4a02afe95a41",
+    "status": "pass",
+    "unitLinks": []
+  }
+}
