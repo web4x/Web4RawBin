@@ -4,6 +4,7 @@ import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';
 import { parseVCard, type VCardData } from './vcard-parse.js';
 import { viewBus } from './ViewBus.js';
+import { bindSecretToggle } from './secret-toggle.js';
 
 interface ProfileData {
   name: string;
@@ -18,13 +19,33 @@ export class ProfileEditor {
   private overlay: HTMLElement | null = null;
   private mode: 'normal' | 'gate' = 'normal';
   private onSave: ((data: ProfileData) => void) | null = null;
+  private unlockPending = false; // unlock accepted, waiting for TOKEN_REDIRECT before reloading into the lobby
   private existingProfileUuid = ''; // v0.6.93: set when a dropped vCard's phone matches an existing profile → unlock-mode
 
   constructor(client: RawBinClient) {
     this.client = client;
     // v0.6.93 identity recognition: unlock-mode enroll outcomes
+    // Unlock succeeded: the server sends DEVICE_ENROLL_OK, then TOKEN_REDIRECT, then PROFILE.
+    // Device keys are stored by DeviceEnrollDialog's DEVICE_ENROLL_OK listener; RawBinClient stores the
+    // redirected token on TOKEN_REDIRECT. client.playerToken is readonly and still holds the throwaway
+    // token, so we reload once the redirect is stored → init() identifies as the existing user and goes
+    // straight to the lobby. (Previously the overlay just closed → empty page.)
     this.client.on(MSG.DEVICE_ENROLL_OK, () => {
-      if (this.existingProfileUuid) { this.existingProfileUuid = ''; this.close(); } // re-identify + proceed handled by the TOKEN_REDIRECT flow
+      if (!this.existingProfileUuid) return;
+      this.unlockPending = true;
+      const save = document.getElementById('pe-save') as HTMLButtonElement | null;
+      if (save) { save.textContent = 'Unlocked — signing you in…'; save.disabled = true; }
+    });
+    this.client.on(MSG.TOKEN_REDIRECT, (msg: any) => {
+      if (!this.unlockPending || !msg?.newToken) return;
+      this.unlockPending = false;
+      this.existingProfileUuid = '';
+      window.location.reload();
+    });
+    // R21.4: a typed phone that belongs to an existing user → same masked unlock sheet
+    // (instead of RawBinClient's plain-text window.prompt fallback).
+    this.client.on(MSG.KNOWN_KEY_CHALLENGE, (msg: any) => {
+      if (this.overlay && this.mode === 'gate' && msg?.profileUuid) this.switchToUnlock(msg.profileUuid, msg.maskedName || '');
     });
     this.client.on(MSG.DEVICE_ENROLL_FAILED, (msg: any) => {
       if (this.existingProfileUuid) { const e = document.getElementById('pe-unlock-err'); if (e) e.textContent = msg?.reason || 'Wrong secret code — try again'; }
@@ -73,7 +94,10 @@ export class ProfileEditor {
           <label>URL</label>
           <input type="url" id="pe-url" value="${initial.url || ''}" maxlength="200" placeholder="Website or social link...">
           <label>Secret Code (4 digits)</label>
-          <input type="text" id="pe-code" value="${initial.secretCode || ''}" pattern="[0-9]{4}" maxlength="4" placeholder="1234" inputmode="numeric">
+          <div class="secret-field">
+            <input type="password" id="pe-code" value="${initial.secretCode || ''}" pattern="[0-9]{4}" maxlength="4" placeholder="••••" inputmode="numeric" autocomplete="off">
+            <button type="button" class="secret-toggle" id="pe-code-toggle" aria-label="Show secret code" aria-pressed="false">👁</button>
+          </div>
           ${mode !== 'gate' ? `<label style="margin-top:8px">Your UUID</label><code style="display:block;padding:8px;background:rgba(0,0,0,0.05);border-radius:6px;font-size:0.75rem;word-break:break-all;user-select:all">${this.client.playerToken}</code>` : ''}
         </div>
         <button class="btn btn-primary profile-save" id="pe-save" ${mode === 'gate' && !initial.name ? 'disabled' : ''}>${mode === 'gate' ? 'Continue' : 'Save'}</button>
@@ -99,6 +123,7 @@ export class ProfileEditor {
 
   private setupEvents(): void {
     document.getElementById('pe-close')?.addEventListener('click', () => this.close());
+    bindSecretToggle('pe-code', 'pe-code-toggle');
 
     // R21.4: for a NEW (uncommitted) identity, a phone already in the index triggers a
     // device-link challenge instead of minting a new user. Check on phone blur.
@@ -200,6 +225,7 @@ export class ProfileEditor {
   // [impl:uuid:b3c5a6f5-62c5-422f-8a81-bd750657b791] R25.x ProfileEditor.switchToUnlock (recognizeIdentity)
   private switchToUnlock(profileUuid: string, maskedName: string): void {
     if (!this.overlay) return;
+    const firstSwitch = !this.existingProfileUuid;
     this.existingProfileUuid = profileUuid;
     const sheet = this.overlay.querySelector('.profile-sheet');
     const h3 = sheet?.querySelector('h3'); if (h3) h3.textContent = 'User already exists';
@@ -208,13 +234,15 @@ export class ProfileEditor {
     if (hdr && !document.getElementById('pe-unlock-banner')) {
       const banner = document.createElement('div');
       banner.id = 'pe-unlock-banner';
-      banner.style.cssText = 'padding:12px;margin:8px 0;background:rgba(255,152,0,0.12);border-radius:8px;color:#e0e0e0;font-size:0.85rem';
+      banner.style.cssText = 'padding:12px;margin:8px 0;background:rgba(255,152,0,0.12);border-radius:8px;color:#7a4500;font-size:0.85rem';
       banner.innerHTML = `🔓 Unlock device with your secret code${maskedName ? ` — <strong>${maskedName.replace(/[<>]/g, '')}</strong>` : ''}<div id="pe-unlock-err" style="color:#ff6b6b;font-size:0.8rem;margin-top:6px"></div>`;
       hdr.insertAdjacentElement('afterend', banner);
     }
     const save = document.getElementById('pe-save') as HTMLButtonElement | null;
     if (save) { save.textContent = '🔓 Unlock'; save.disabled = false; }
-    (document.getElementById('pe-code') as HTMLInputElement | null)?.focus();
+    // The gate pre-fills the throwaway new profile's generated code; it is not the existing user's code.
+    const codeInput = document.getElementById('pe-code') as HTMLInputElement | null;
+    if (codeInput && firstSwitch) { codeInput.value = ''; codeInput.focus(); }
   }
 
   // [impl:uuid:d1337706-80fa-48ba-a0a0-5b9cc42e2511] R21.1 Profile.applyVCard — vCard drop/import → photo→avatar + POST /api/vcard
