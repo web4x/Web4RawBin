@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { SCENARIO_INDEX_DIR } from './scenario-root.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
@@ -10,7 +11,7 @@ import { ScenarioIndex } from '../scenario/index.js';
 // BEFORE invoking them — NOT data-driven, so no self-grant escalation. The Feature unit is read/written directly
 // (fresh from disk each op) so featureAllowedUsers (which builds a fresh ScenarioIndex per request) sees the change
 // immediately → grant/revoke are effective at once (revoke-immediate). INV-G2 preserved: no OWNER_TOKEN literal here.
-const SCENARIO_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index');
+const SCENARIO_DIR = SCENARIO_INDEX_DIR;
 
 // R40.22 owner-safety option-(iii) (PO ruling): the TRUSTED protected owner-identity set lives in a ROOT-ONLY
 // runtime config OUTSIDE the repo (chmod 600, NEVER tracked) — the code holds only the PATH (a REFERENCE), never

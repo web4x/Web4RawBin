@@ -10,6 +10,7 @@
 // [impl:uuid:eef80308-52d5-4ecf-93fe-c678ac04b412] server.sprintNameFormat
 
 // [impl:uuid:e94199c4-5c74-458e-92ad-2e75f8bc2926] T4 server core
+import { SCENARIO_ROOT, SCENARIO_INDEX_DIR } from './scenario-root.js';
 import { resolveConnectionIdentity } from './connection-identity.js';
 import https from 'node:https';
 import http from 'node:http';
@@ -124,7 +125,7 @@ const __dirname = path.dirname(__filename);
 // R32.5 GO-LIVE: isolated MDA store (NEVER prod scenario/index). Defined HERE — after the __dirname shim — because
 // referencing __dirname at module-top (was :48) is a const-TDZ ReferenceError that crashed boot. (emergency fix)
 const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
-const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
+const PROD_INDEX = SCENARIO_INDEX_DIR;
 // R0 CONTAINMENT guard (legacyGenHitsCleanClassR0) lives in ./clean-class-guard.js (pure, gate-testable) — imported below.
 
 // [impl:uuid:PENDING-req-mint] ModelStoreLocator (R40.81 Slice-3 COUPLING, architect design b39bdb697 / PO-accepted) — the
@@ -263,7 +264,7 @@ const publishUnitChanged: (ior: string, uuid: string) => void = (ior, uuid) => {
 //        STATED. Disable the async rebuild → carry never reflected = RED. (Not a fixed interval: SWR = no-block + event-driven
 //        freshness from #1 + no idle CPU burn.)
 // Built EAGERLY at server boot (warmCrOwnerIndex) so even the first request never blocks on the cold build.
-const PROD_SCENARIO_DIR = path.join(__dirname, '../../../scenario/index');
+const PROD_SCENARIO_DIR = SCENARIO_INDEX_DIR;
 let crOwnerIndex: Map<string, string[]> | null = null;
 let crOwnerBuiltAt = 0;
 let crOwnerRebuilding = false;
@@ -385,7 +386,7 @@ function saveProfiles(): void {
 // alt/phone/<+digits> → that profile unit. Wrapped: phone-index failure never breaks profile save.
 function indexProfilePhone(token: string, name: string, phone: string): void {
   try {
-    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const scenarioDir = SCENARIO_INDEX_DIR;
     const idx = new ScenarioIndex(scenarioDir);
     let unit = idx.get(token);
     if (!unit) {
@@ -400,7 +401,7 @@ function indexProfilePhone(token: string, name: string, phone: string): void {
 // Ensures a Profile scenario unit exists (mirrors indexProfilePhone). Self-healing.
 function indexProfileEmail(token: string, name: string, emails: string[]): void {
   try {
-    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const scenarioDir = SCENARIO_INDEX_DIR;
     const idx = new ScenarioIndex(scenarioDir);
     let unit = idx.get(token);
     if (!unit) {
@@ -428,7 +429,7 @@ function pumpAddressVerify(): void {
   const finish = () => setTimeout(pumpAddressVerify, 1100); // <=1 req/s
   const cached = addrVerifyCache.get(job.oneLine);
   if (cached !== undefined) {
-    if (cached) { try { const sd = path.join(__dirname, '../../../scenario/index'); new AddressIndex(new ScenarioIndex(sd)).applyVerification(job.uuid, cached.lat, cached.lon); } catch {} }
+    if (cached) { try { const sd = SCENARIO_INDEX_DIR; new AddressIndex(new ScenarioIndex(sd)).applyVerification(job.uuid, cached.lat, cached.lon); } catch {} }
     return finish();
   }
   try {
@@ -443,7 +444,7 @@ function pumpAddressVerify(): void {
           if (Array.isArray(arr) && arr[0] && arr[0].lat && arr[0].lon) {
             const hit = { lat: String(arr[0].lat), lon: String(arr[0].lon) };
             addrVerifyCache.set(job.oneLine, hit);
-            const sd = path.join(__dirname, '../../../scenario/index');
+            const sd = SCENARIO_INDEX_DIR;
             new AddressIndex(new ScenarioIndex(sd)).applyVerification(job.uuid, hit.lat, hit.lon);
             addLog(`Address verified: ${job.uuid.slice(0,8)} (${job.oneLine.slice(0,30)})`);
           } else {
@@ -459,7 +460,7 @@ function pumpAddressVerify(): void {
 // Mint Address unit(s) + Profile.addresses[] (sync) then enqueue async OSM verify. Self-healing.
 function indexProfileAddress(token: string, name: string, addresses: string[]): void {
   try {
-    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const scenarioDir = SCENARIO_INDEX_DIR;
     const idx = new ScenarioIndex(scenarioDir);
     let unit = idx.get(token);
     if (!unit) {
@@ -479,7 +480,7 @@ function indexProfileAddress(token: string, name: string, addresses: string[]): 
 // Mint-or-reuse SHARED Company unit (dedup by domain then nameKey) + link into Profile.companies[].
 function indexProfileCompany(token: string, name: string, companies: Array<string | { name: string; domain?: string }>): void {
   try {
-    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const scenarioDir = SCENARIO_INDEX_DIR;
     const idx = new ScenarioIndex(scenarioDir);
     let unit = idx.get(token);
     if (!unit) {
@@ -503,7 +504,7 @@ function indexProfileCompany(token: string, name: string, companies: Array<strin
 // [impl:uuid:cc6df739-135f-46a9-a53b-e8441571abbc] R21.4 server.resolveKeyToProfile
 function resolveKeyToProfile(phone?: string, email?: string): string | null {
   try {
-    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const scenarioDir = SCENARIO_INDEX_DIR;
     const idx = new ScenarioIndex(scenarioDir);
     if (phone) {
       const hit = new PhoneIndex(idx).resolveToProfile(phone);
@@ -583,7 +584,7 @@ async function fetchScenario(uuid: string, sub: string, req: http.IncomingMessag
     res.writeHead(403); res.end('federation: no valid grant/signature'); return;
   }
   addLog(`[federation] fetch ${uuid.slice(0, 8)}/${sub || 'unit'} ← ${ip}`); // audit every federated fetch
-  const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+  const idx = new ScenarioIndex(SCENARIO_INDEX_DIR);
   const unit = idx.get(uuid);
   if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found' })); return; }
   const m = unit.model as any;
@@ -625,7 +626,7 @@ function fedGet(url: string): Promise<any> {
 // lazily (T26.4), (4) reconcile uuid conflicts (T26.5), (5) store locally with originHost provenance (T26.1).
 // [impl:uuid:3132c189-4027-49d5-ab1b-7da4a2e4bd87] R26.6 FederationApi.federationImport (/api/federation/import)
 async function federationImport(ref: any, roomId: string): Promise<{ uuid: string; action: string } | { error: string }> {
-  const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+  const idx = new ScenarioIndex(SCENARIO_INDEX_DIR);
   const originHost = String(ref?.originHost || '');
   const uuid = parseFederatedIor(String(ref?.ior || '')).uuid;
   if (!uuid) return { error: 'bad ref' };
@@ -641,7 +642,7 @@ async function federationImport(ref: any, roomId: string): Promise<{ uuid: strin
     else { try { const d = await fedGet(String(ref.fetchUrl)); unit = d?.unit || d; } catch (e: any) { return { error: `origin fetch failed: ${e?.message || e}` }; } }
   }
   if (!unit || !unit.ior) return { error: 'unit not resolved' };
-  const contentDir = path.join(__dirname, '../../../scenario/content');
+  const contentDir = path.join(SCENARIO_ROOT, 'content');
   const t = new Transfer({ index: idx, selfHost, hasContentHash: (h) => { try { return fsSync.existsSync(path.join(contentDir, `${h}.file.scenario.json`)); } catch { return false; } } });
   const remap = new Map<string, string>();
   const rc = t.reconcileConflict(unit, originHost, remap);                 // T26.5
@@ -1085,7 +1086,7 @@ function isOwnerKnownRealAccount(token: string): boolean {
 // by construction; a bystander is impossible = guard#5 declared-footprint, tester BITEs it) → shared .content blob KEPT
 // (removed only if no other unit references its contentHash) → 0-dangling re-scan. Idempotent (absent unit → ok, already gone).
 function deleteUnitWithScan(uuid: string, roomId: string, opts?: { explicitOwner?: boolean; dryRun?: boolean }): { ok: boolean; code?: number; error?: string; restoreSha?: string; refsCleaned?: number; danglingAfter?: number; blobAction?: string; published?: boolean; wouldRefuse?: boolean; reason?: string } {
-  const sdir = path.join(__dirname, '../../../scenario/index');
+  const sdir = SCENARIO_INDEX_DIR;
   const repoRoot = path.join(__dirname, '../../..');
   const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
   const uf = shard(uuid);
@@ -1162,7 +1163,7 @@ function deleteUnitWithScan(uuid: string, roomId: string, opts?: { explicitOwner
 // deleteUnitWithScan (pre-imaged + scan-unlink + 0-dangling each); SHARED (in another room) = UNLINK R's edge ONLY (the unit
 // + its /api/ior SURVIVE) → destroy the Room unit via deleteUnitWithScan. Reuses the INC-7a machinery (no 2nd delete path).
 function deleteRoomComposite(roomId: string): { ok: boolean; code?: number; error?: string; exclusiveDestroyed?: number; sharedUnlinked?: number; roomUnitGone?: boolean; danglingAfter?: number; restoreSha?: string } {
-  const sdir = path.join(__dirname, '../../../scenario/index');
+  const sdir = SCENARIO_INDEX_DIR;
   const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
   const bareRef = (r: string) => String(r || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
   const readUnit = (u: string): any => { try { return JSON.parse(fsSync.readFileSync(shard(u), 'utf-8')); } catch { return null; } };
@@ -1294,7 +1295,7 @@ function resolveSessionToken(req: http.IncomingMessage): string {
 // (INV-F5). Admin-only low-QPS path; a fresh ScenarioIndex per call keeps it revoke-immediate (no stale cache).
 function featureAllowedUsers(name: string): string[] {
   try {
-    const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
+    const fidx = new ScenarioIndex(SCENARIO_INDEX_DIR);
     for (const uuid of fidx.list()) {
       const u = fidx.get(uuid);
       if (u?.ior === 'ior:class:Feature' && String((u.model as { name?: string })?.name) === name) {
@@ -1337,7 +1338,7 @@ function featuresForToken(token: string): { uuid: string; name: string; icon: st
   if (!token) return out;
   const owner = ownerByToken(token) && hasDeviceKeyAuth(token); // R40.x + RCE fix: owner sees every feature — protected-identity AND a device-key challenge-authed session (never a bare public uuid)
   try {
-    const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
+    const fidx = new ScenarioIndex(SCENARIO_INDEX_DIR);
     for (const uuid of fidx.list()) {
       const u = fidx.get(uuid);
       if (u?.ior !== 'ior:class:Feature') continue;
@@ -1611,7 +1612,7 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
     // sunburst render from the real model and the Folder verbs (add-folder) appear with NO fallback. members/files stay
     // synthetic below (they are truly virtual). Fail-closed: a genuine miss → null (never a synthetic phantom).
     if (roomUuid && ck.startsWith('files/')) {
-      const pidx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')); // room + its files[] Folder units live in prod scenario/index (same source the children branch reads)
+      const pidx = new ScenarioIndex(SCENARIO_INDEX_DIR); // room + its files[] Folder units live in prod scenario/index (same source the children branch reads)
       const rUnit = pidx.get(roomUuid);
       const real = rUnit ? roomFolderByLocation(rUnit.model as Record<string, unknown>, ref, pidx) : null;
       if (!real) return null; // genuine miss → fail-closed (no synthetic phantom)
@@ -2062,7 +2063,7 @@ function sprintOverviewNodes(idx: ScenarioIndex): Array<{ uuid: string; name: st
 // Sprint→tasks→req→chain — a plain uuid ≠ a MOF ref → routes to the trace walk, no reinvented hierarchy, no fork).
 // Was flat-497 Requirement roots (drifted from /trace's sprint structure — the reopened DRY bug).
 function traceabilityRoots(): MofNode[] {
-  const tidx = new ScenarioIndex(path.join(__dirname, '../../..', 'scenario', 'index'));
+  const tidx = new ScenarioIndex(SCENARIO_INDEX_DIR);
   const out: MofNode[] = [];
   // CurrentSprint node — SAME singleton uuid /trace uses (rb-trace-tree) → its expand rides the identical CurrentSprint slots.
   out.push(mofFolder('current-sprint-singleton-0000-000000000001', 'CurrentSprint', 3, 'trace', 'currentsprint'));
@@ -2399,7 +2400,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // R40.11 slice-2/3 WIRING: the ONE served emitter — resolves the node's deploymentRefs to the REAL
           // slice-1 typed units (by sourceRole) + emits real 'deploymentUnit' rows. Replaces the deleted inline
           // synthetic 'depref:' construction (the row shape that hung the drawer). Same fn the gate asserts (path-unify).
-          roots = OtmuxBridge.buildServerManagerTree(sessions, new ScenarioIndex(path.join(__dirname, '../../../scenario/index')), NODE_UUID);
+          roots = OtmuxBridge.buildServerManagerTree(sessions, new ScenarioIndex(SCENARIO_INDEX_DIR), NODE_UUID);
         } catch (e: any) {
           console.warn(`[server-manager] WARN: WODA.prod re-root failed (${e?.message || e}) → tree DEGRADED to flat session list (fail-open).`);
           roots = [{ uuid: 'depnode:error', type: 'notice', name: '⚠ WODA.prod deployment node re-root failed — showing flat session list', hasChildren: sessionRows.length > 0, children: sessionRows }];
@@ -2787,7 +2788,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const before = urlObj.searchParams.get('before') || '';
       const limit = Math.min(parseInt(urlObj.searchParams.get('limit') || '5') || 5, 50);
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = SCENARIO_INDEX_DIR;
         const idx = new ScenarioIndex(scenarioDir);
         const messages: any[] = [];
         let cursor = before ? before.replace('ior:instance:', '') : (room.lastMessageIor || '').replace('ior:instance:', '');
@@ -2844,7 +2845,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // v0.6.98: authorize the requester as UPLOADER, member of the file's stored room, OR member of
         // ANY loaded room that references the file (files can be shared across rooms, and the stored
         // roomUuid may point at a room that is no longer loaded — that used to 403 valid viewers → broken image).
-        const fu0 = (() => { const idx2 = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')); return idx2.get(fileUuid); })();
+        const fu0 = (() => { const idx2 = new ScenarioIndex(SCENARIO_INDEX_DIR); return idx2.get(fileUuid); })();
         const fileRoomUuid = fu0 ? String((fu0.model as any).roomUuid || '') : '';
         const memberOf = (r: any) => !!r && (r.creatorToken === authToken || [...r.members.values()].some((m: any) => m.playerToken === authToken));
         // R40.22 step-1(a) RE-POINT (before scrub): authorize by OWNER-REF (room creator = owner) / room-membership ONLY.
@@ -2854,7 +2855,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (fileRoomUuid) authorized = memberOf(roomManager.getRoom(fileRoomUuid));
         if (!authorized) authorized = roomManager.roomsWithFile(fileUuid).some(memberOf);
         if (!authorized) { res.writeHead(403); res.end('Forbidden'); return; }
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = SCENARIO_INDEX_DIR;
         const idx = new ScenarioIndex(scenarioDir);
         const unit = idx.get(fileUuid);
         if (!unit) { res.writeHead(404); res.end('File not found'); return; }
@@ -2897,7 +2898,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // unit through the SAME path a FILE does — createFileUnit(kind:folder) + room.addFileUnit — model in scenario/index +
           // symlinked into the room files dir beside file siblings. NO MODEL_STORE mint (that second representation was the bug),
           // NO fs-enumeration in the listing (files[] is the single source). Nesting = the parent folder unit's ior + children[].
-          const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+          const idx = new ScenarioIndex(SCENARIO_INDEX_DIR);
           // resolve the NESTING parent: the room files[] Folder unit whose location == this nested path (null = top-level under Files)
           let parentIor: string | null = null; let parentUnitFile = '';
           if (nrel) {
@@ -2907,7 +2908,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             // as any).files` cast switched off the type-check that would have caught this → runtime TypeError. Iterate the real
             // typed field, no cast. Resolve each unit + match its recorded model.location to find the nesting parent folder.
             for (const pu of room.fileUnits) {
-              const puf = path.join(__dirname, '../../../scenario/index', ...pu.slice(0, 5).split(''), `${pu}.scenario.json`);
+              const puf = path.join(SCENARIO_INDEX_DIR, ...pu.slice(0, 5).split(''), `${pu}.scenario.json`);
               try { const j = JSON.parse(fsSync.readFileSync(puf, 'utf-8')); if (j.ior === 'ior:class:Folder' && String(j.model.location) === parentLoc) { parentIor = `ior:instance:${pu}`; parentUnitFile = puf; break; } } catch { /* skip */ }
             }
             if (!parentIor) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'parent-folder-not-found' })); return; }
@@ -2931,7 +2932,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
           const folderUuid = unit.model.uuid;
           room.addFileUnit(folderUuid);                            // register in the room's units EXACTLY as a file (items-tree reads these)
-          if (parentIor) FolderService.linkIn(path.join(__dirname, '../../../scenario/index'), parentIor, folderUuid); // R40.106 INC-5: ONE edge primitive — collapses the inline children[] RMW (parentIor set iff parentUnitFile, resolved above; behaviour-identical)
+          if (parentIor) FolderService.linkIn(SCENARIO_INDEX_DIR, parentIor, folderUuid); // R40.106 INC-5: ONE edge primitive — collapses the inline children[] RMW (parentIor set iff parentUnitFile, resolved above; behaviour-identical)
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid: folderUuid, name: cleanName, size: 0, mimeType: 'inode/directory' });
           publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files${nrel ? '/' + nrel : ''}`); // parent re-derives its direct children (live-insert, no reload)
           addLog(`[room] add-folder → unit ${folderUuid.slice(0, 8)} in scenario/index + symlink (room ${roomId.slice(0, 8)}, parent=${parentIor ? parentIor.slice(13, 21) : 'root'}) — folder-is-a-file`);
@@ -2952,7 +2953,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!/^[0-9a-fA-F-]{16,40}$/.test(uuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
           const nm = String(displayName || '').trim().slice(0, 200);
           if (!nm) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'empty-name' })); return; }
-          const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+          const idx = new ScenarioIndex(SCENARIO_INDEX_DIR);
           const u = idx.get(uuid);
           if (!u) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
           const m = u.model as Record<string, unknown>;
@@ -2979,7 +2980,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
           const movedUuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
           if (!/^[0-9a-fA-F-]{16,40}$/.test(movedUuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
-          const sdir = path.join(__dirname, '../../../scenario/index');
+          const sdir = SCENARIO_INDEX_DIR;
           const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
           const mf = shard(movedUuid);
           if (!fsSync.existsSync(mf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
@@ -3022,7 +3023,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
           const uuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
           if (!/^[0-9a-fA-F-]{16,40}$/.test(uuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
-          const sdir = path.join(__dirname, '../../../scenario/index');
+          const sdir = SCENARIO_INDEX_DIR;
           const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
           const uf = shard(uuid);
           if (!fsSync.existsSync(uf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
@@ -3112,7 +3113,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
           const linkedUuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
           if (!/^[0-9a-fA-F-]{16,40}$/.test(linkedUuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
-          const sdir = path.join(__dirname, '../../../scenario/index');
+          const sdir = SCENARIO_INDEX_DIR;
           const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
           const lf = shard(linkedUuid);
           if (!fsSync.existsSync(lf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
@@ -3158,7 +3159,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const dec = decodeBinaryUnit(jp?.unit || {}); // base64→bytes (BinaryUnit.fromUnit f7dc4bb3); createFileUnit re-hashes+dedups+writes the .content sidecar
             if (dec.content.length > 10 * 1024 * 1024) { captureUploadOutcome(_capId, 413, 'inline-over-10mb'); res.writeHead(413, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'file too large for inline upload, max 10MB' })); return; } // >10MB → SLICE-C NativeFileIngress streamed
             const jparentRef = String(jp?.parent || ''); const jrelated = String(jp?.relatedFile || '');
-            const jscenarioDir = path.join(__dirname, '../../../scenario/index');
+            const jscenarioDir = SCENARIO_INDEX_DIR;
             const jidx = new ScenarioIndex(jscenarioDir);
             const jNat = MimeType.from(dec.mimeType, dec.name); // T37.20 DEFECT-2 Factory: natural class by mime lens (WebItem/Image/Email/Contact/CalendarEntry/File) — replaces the uri-list?WebItem:File ternary
             let junit: any;
@@ -3234,7 +3235,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const room = roomManager.getRoom(roomId);
           if (!room) { captureUploadOutcome(_capId, 404, 'room-not-found'); addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
           addLog(`[upload] creating unit...`);
-          const scenarioDir = path.join(__dirname, '../../../scenario/index');
+          const scenarioDir = SCENARIO_INDEX_DIR;
           const idx = new ScenarioIndex(scenarioDir);
           // T37.20 DEFECT-2 Factory (GoF Factory Method): MimeType.from returns the natural class by its registered mime
           // lens — replaces the uri-list?WebItem:File ternary. WebItem = a remote-resource reference; Image/Email/Contact/
@@ -3695,7 +3696,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
     if (filepath === '/api/trace') {
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = SCENARIO_INDEX_DIR;
         const idx = new ScenarioIndex(scenarioDir);
         const graph = new TraceGraph();
         for (const uuid of idx.list()) {
@@ -3743,7 +3744,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // T187: /api/trace/sprints — Sprint navigation roots (Sprint→Tasks)
     if (filepath === '/api/trace/sprints') {
       try {
-        const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+        const idx = new ScenarioIndex(SCENARIO_INDEX_DIR);
         // R35.4 DRY: SAME shared ordered-Sprint source as the traceability folder (parity by construction). Shape unchanged.
         const sprints = sprintOverviewNodes(idx).map((s) => ({ uuid: s.uuid, type: 'Sprint', name: sprintDisplayName(s.name, s.number), number: s.number, hasChildren: s.taskCount > 0, childCount: s.taskCount })); // R40.4-phase2: compose display once at the server node → clients render verbatim
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
@@ -3755,7 +3756,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // T173: /api/trace/roots — Requirement roots for lazy tree
     if (filepath === '/api/trace/roots') {
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = SCENARIO_INDEX_DIR;
         const idx = new ScenarioIndex(scenarioDir);
         const roots = idx.list().map(uuid => {
           const u = idx.get(uuid);
@@ -3816,7 +3817,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // T37.21 defect-2: rcKind may be 'members', 'files' (root) OR 'files/<nested>' (a folder created under Files) → the
         // Files node must surface real nested folders too, else an Add-folder'd folder is invisible (never had a button before).
         if (rcRoom && (rcKind === 'members' || rcKind === 'files' || rcKind.startsWith('files/'))) {
-          const pidx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+          const pidx = new ScenarioIndex(SCENARIO_INDEX_DIR);
           const rUnit = pidx.get(rcRoom);
           if (!rUnit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
           const rmodel = rUnit.model as Record<string, unknown>;
@@ -4330,7 +4331,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
 
         if (filepath.startsWith('/api/phone/')) {
       const raw = decodeURIComponent(filepath.slice('/api/phone/'.length).split('/')[0]);
-      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const scenarioDir = SCENARIO_INDEX_DIR;
       const phoneIdx = new PhoneIndex(new ScenarioIndex(scenarioDir));
       const phoneIdx2 = phoneIdx;
       let profileUuid = phoneIdx2.resolveToProfile(raw);
@@ -4347,7 +4348,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
 
         if (filepath === '/api/company/suggest') {
       const q = urlParams.get('q') || '';
-      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const scenarioDir = SCENARIO_INDEX_DIR;
       const suggestions = q ? new CompanyIndex(new ScenarioIndex(scenarioDir)).suggest(q, 5) : [];
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       // AC-c2: always include a permanent "Create <typed>" bottom row
@@ -4357,7 +4358,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
 
         if (filepath.startsWith('/api/address/')) {
       const uuid = decodeURIComponent(filepath.slice('/api/address/'.length).split('/')[0]);
-      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const scenarioDir = SCENARIO_INDEX_DIR;
       const state = new AddressIndex(new ScenarioIndex(scenarioDir)).badgeState(uuid);
       if (!state) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found' })); return; }
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
@@ -5075,7 +5076,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       addLog(`${joinName} joined room ${room.name}`);
       // [impl:uuid:25b1a3ee-d97f-4525-b482-e203794fb47f] file-restore on JOIN_ROOM
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = SCENARIO_INDEX_DIR;
         const idx = new ScenarioIndex(scenarioDir);
         const seen = new Set<string>();
         for (const fuuid of room.fileUnits) {
@@ -5208,7 +5209,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         const text = msg.text.slice(0, 200);
         const member = room.members.get(clientId);
         const name = member?.name || 'Anonymous';
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = SCENARIO_INDEX_DIR;
         const chatIdx = new ScenarioIndex(scenarioDir);
         room.addChat(clientId, name, text, chatIdx, publishUnitChanged); // R37.11 slice-1: seam publisher for the new Message unit (complementary to CHAT_MESSAGE broadcast)
       }
