@@ -1,6 +1,7 @@
 // Returning user on a fresh browser: drop a vCard of an existing user → masked secret field with
 // show/hide toggle → correct code lands in the lobby as that user; wrong code keeps an error on the sheet.
-import { test, expect, Browser, Page } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
+import { identity, TESTER_2 } from './identities.js';
 
 const vcard = (name: string, phone: string) => `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEND:VCARD\n`;
 
@@ -9,21 +10,6 @@ async function openGate(page: Page): Promise<void> {
   await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
   await page.waitForTimeout(1500); // the app may reload once on first load (service worker activation)
   await page.waitForSelector('#pe-name', { timeout: 15000 });
-}
-
-async function createExistingUser(browser: Browser, name: string, phone: string): Promise<{ token: string; code: string }> {
-  const ctx = await browser.newContext({ ignoreHTTPSErrors: true });
-  const page = await ctx.newPage();
-  await openGate(page);
-  const code = await page.locator('#pe-code').inputValue();
-  expect(code).toMatch(/^\d{4}$/);
-  await page.fill('#pe-name', name);
-  await page.fill('#pe-phone', phone);
-  await page.click('#pe-save');
-  await page.waitForSelector('#pe-name', { state: 'hidden', timeout: 15000 });
-  const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id') || '');
-  await ctx.close();
-  return { token, code };
 }
 
 async function dropVCard(page: Page, text: string): Promise<void> {
@@ -37,9 +23,10 @@ async function dropVCard(page: Page, text: string): Promise<void> {
 test.describe('Returning user unlock via vCard drop', () => {
   test('secret is masked with a toggle, wrong code errors, correct code lands in the lobby', async ({ browser }) => {
     test.setTimeout(60000);
-    const name = 'E2E-Unlock';
-    const phone = `+49 170 ${Math.floor(1000000 + Math.random() * 8999999)}`;
-    const existing = await createExistingUser(browser, name, phone);
+    // R42.3: the "existing user" is the fixed SystemTester2 (signed up once by globalSetup), never a fresh random user
+    const { name, phone } = TESTER_2;
+    const existing = identity(2);
+    expect(existing.code).toMatch(/^\d{4}$/);
 
     const ctx = await browser.newContext({ ignoreHTTPSErrors: true });
     const page = await ctx.newPage();
