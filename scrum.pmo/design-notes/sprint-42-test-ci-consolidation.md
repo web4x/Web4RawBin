@@ -33,6 +33,6 @@ Full plan (phases, gates, risks): https://claude.ai/artifact/KjznypBaPXvB87JiDMW
 | R42.2 | releaseWorkflow.tagOnMerge | ReleaseWorkflow.tagOnMerge | .github/workflows/release.yml (planned) | open |
 | R42.3 | testIdentity.ensureSystemSession | TestIdentity.ensureSystemSession | test/e2e/helpers.ts | open |
 | R42.4 | ciWorkflow.runSuites | CiWorkflow.runSuites | .github/workflows/ci.yml | open |
-| R42.5 | room.createWithConnectionIdentity | RoomAuth.createRoomWithConnectionIdentity | src/ts/server/server.ts | open |
+| R42.5 | room.createWithConnectionIdentity | RoomAuth.createRoomWithConnectionIdentity | src/ts/server/connection-identity.ts | test/vitest/connection-identity.test.ts |
 
 Open chains are planned work. Their Impl and Test hops are added in the task that builds them (T42.2–T42.5).

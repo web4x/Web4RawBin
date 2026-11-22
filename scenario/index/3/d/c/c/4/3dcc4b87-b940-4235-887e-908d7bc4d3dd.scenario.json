@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:8c4e3334-5be8-41bf-9dbb-64bedc663fa3",
+  "model": {
+    "uuid": "3dcc4b87-b940-4235-887e-908d7bc4d3dd",
+    "name": "impl:RoomAuth.createRoomWithConnectionIdentity",
+    "sourceFile": "src/ts/server/connection-identity.ts",
+    "sourceLine": 12,
+    "methods": [
+      "ior:instance:8c4e3334-5be8-41bf-9dbb-64bedc663fa3"
+    ],
+    "tests": [
+      "ior:instance:9c2033b5-1023-4916-ad79-b2fa7ef2fb34"
+    ]
+  }
+}

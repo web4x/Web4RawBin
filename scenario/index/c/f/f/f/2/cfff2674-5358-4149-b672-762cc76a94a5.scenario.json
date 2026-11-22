@@ -6,10 +6,10 @@
     "altId": "T42.5",
     "name": "Task 42.5: Phase 4 — close the auth gaps, CI-made releases",
     "slug": "phase-4-close-auth-gaps",
-    "description": "CREATE_ROOM/JOIN_ROOM use the connection identity; device-key login required; tokens out of the repo and rotated; CI bumps version, stamps sw.js, tags and deploys on merge to main.",
+    "description": "CREATE_ROOM/JOIN_ROOM use the connection identity; device-key login required; tokens out of the repo and rotated; CI bumps version, stamps sw.js, tags and deploys on merge to main. DONE: CREATE_ROOM/JOIN_ROOM act as the connection's IDENTIFY identity (src/ts/server/connection-identity.ts), a foreign msg.playerToken is refused and no longer re-binds tokenToClient. OPEN: device-key login instead of bare-token IDENTIFY; tokens out of the repo + rotation (needs Tron: touches live users); CI-made release tags (with T42.2).",
     "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
     "waitingOn": "T42.2–T42.4 done; Tron's decision whether CI deploys.",
     "priority": "P0 — Tron-directed consolidation (2026-11-22)",
     "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
@@ -25,6 +25,7 @@
     "sprintName": "Sprint 42",
     "remainingIssues": "",
     "createdBy": "claude-code-consolidation-agent",
-    "createdAt": "2026-11-22"
+    "createdAt": "2026-11-22",
+    "lastAdvancedAt": "2026-11-22T12:55:00Z"
   }
 }

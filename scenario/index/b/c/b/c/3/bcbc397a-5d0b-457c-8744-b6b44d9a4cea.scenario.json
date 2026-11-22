@@ -5,7 +5,7 @@
     "uuid": "bcbc397a-5d0b-457c-8744-b6b44d9a4cea",
     "name": "RoomAuth",
     "description": "CREATE_ROOM and JOIN_ROOM take the identity of the authenticated connection and refuse a foreign playerToken. (Planned, phase 4.)",
-    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "sourceFile": "ior:file:src/ts/server/connection-identity.ts",
     "methods": [
       "ior:instance:8c4e3334-5be8-41bf-9dbb-64bedc663fa3"
     ],
