@@ -13,7 +13,7 @@ RADICAL CONSOLIDATION of test users, test targets, test suites, branches and rel
 ## Tasks
 
 - [ ] 🧪 [Task 42.1: Phase 1 — stop the bleeding (tests off prod, CI, pollution inventory)](./phase-1-stop-the-bleeding.md)
-- [ ] ⏳ [Task 42.2: Phase 2 — one trunk (main = prod line, protected, PR-only)](./phase-2-one-trunk.md)
+- [ ] ✅ [Task 42.2: Phase 2 — one trunk (main = prod line, protected, PR-only)](./phase-2-one-trunk.md)
 - [ ] 🧪 [Task 42.3: Phase 3a — one test identity (SystemTester + SystemTester2)](./phase-3-one-test-identity.md)
 - [ ] ✅ [Task 42.4: Phase 3b — two green suites (triage test/visual, fix known failures, clean tree)](./phase-3-two-green-suites.md)
 - [ ] 📝 [Task 42.5: Phase 4 — close the auth gaps, CI-made releases](./phase-4-close-auth-gaps.md)

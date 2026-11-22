@@ -8,13 +8,18 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing (archive old main, main = prod line, DEPLOY-STATE.md)
+  - [ ] implementing (branch protection — needs a repo admin)
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+Done 2026-11-22 on TRON's decision ('Yes, archive old main first'): old main archived as archive/main-orphan (d443674de); main force-moved to the hotfix head 471f0d5ee; DEPLOY-STATE.md rewritten. Open: branch protection; prod checkout switch; delete the hotfix branch after that; CI-made tags (R42.2 ci-tags, with T42.5).
 
 ## Task Description
 

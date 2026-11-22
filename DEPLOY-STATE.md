@@ -1,44 +1,27 @@
-# ⚠️ SERVED-REF DIVERGENCE — READ BEFORE ANY DEPLOY, `git checkout`, OR BRANCH DELETE
+# Deploy state — READ BEFORE ANY DEPLOY, `git checkout`, OR BRANCH DELETE
 
-**The live prod server (prod.wo-da.de:4444, pane `server:0.2`) is SERVING branch
-`hotfix/t40.1-checklist-band` (v0.8.143) — NOT `main`.** This is deliberate and temporary.
+## Since 2026-11-22 (Sprint 42, T42.2, TRON's decision): `main` IS the prod line
+- `main` was moved to the head of `hotfix/t40.1-checklist-band` (471f0d5ee, all Sprint 42 PRs #2–#8 merged).
+  The two branches point at the same commit. **New work branches from `main` and is merged into `main` by PR.**
+- The old orphan `main` (root c7924287f, snapshot of v0.8.139 + 49 planning-only commits) is kept as
+  `archive/main-orphan`. Do not merge it anywhere.
+- CI (`.github/workflows/ci.yml`) runs build, unit and e2e on every PR and on pushes to `main`.
 
-## ★ CORRECTED 2026-08-29 late (robbin-expert, per robbin-po + planner flag) — the prior "delete this branch" was a REVOKED-DIRECTIVE landmine
-The earlier version of this file (written when the branch held ONLY the cherry-picked band fix
-`b00984bab`) said the fix was already on `main` and the branch should be **DELETED**. **That is now
-FALSE and DANGEROUS.** MEASURED (`git merge-base --is-ancestor` + `origin/main..HEAD`): the branch
-now carries **14 commits UNIQUE to hotfix, NOT on `main`**, including:
-- **`3fb338004` — the SHIPPED DEPLOY of the R37.24 live-MVC traceability tree (v0.8.143)** — hotfix-only.
-- **`87a3e4134` (+ deploy `52547b90d`) — the RCE owner-credential closure** — hotfix-only.
-
-A fresh agent obeying "DELETE this branch" would **LOSE the deployed live-MVC tree AND the RCE fix.**
-
-## The branch
-- Base: v0.8.139 (`6666ebb05`). It has since GAINED the merge of `main`'s R37.24 live-MVC work, the
-  v0.8.143 deploy, and the RCE closure — **14 commits `origin/main` does not have.**
-- Serves: **v0.8.143.**
+## Prod
+- prod.wo-da.de:4444 still serves the checkout of `hotfix/t40.1-checklist-band` at **v0.8.247** (older than
+  `main`'s head: the Sprint 42 merges are not deployed).
+- Switching prod to `main` is a deploy step for TRON / the robbinTeam: on the prod box, `git fetch` then
+  `git checkout main` (it contains every commit of the hotfix line) and run the normal deploy.
 
 ## DO NOT
-- ❌ Do NOT `git checkout main` + restart/deploy. `main` is **BEHIND** this branch — it lacks the
-  v0.8.143 live-MVC deploy AND the RCE closure. Deploying `main` now would **REGRESS prod** (un-ship
-  both). (This inverts the old reason: it is no longer "main is ahead with ungated work" — it is
-  "main is behind, missing shipped work".)
-- ❌ Do NOT DELETE this branch. It holds 14 unique commits of shipped, Tron-facing work.
-- ❌ Do NOT merge `hotfix → main` YET — see the sequencing below.
+- ❌ Do NOT delete `hotfix/t40.1-checklist-band` until prod has been switched to `main`.
+- ❌ Do NOT push to `hotfix/t40.1-checklist-band` any more; it would split the line again.
+- ❌ Do NOT force-push `main` (needs TRON's explicit go). Branch protection for `main` (PR + CI required,
+  no force-push) still has to be enabled by a repo admin.
 
-## RETIRE / MERGE PLAN (PO ruling, robbin-po 2026-08-29 late — SUPERSEDES the old delete-trigger)
-- Direction is **merge `hotfix/t40.1-checklist-band` INTO `main`** (NOT delete, NOT duplicate — the
-  "already on main / would duplicate" note applied only to the old cherry-pick-only state).
-- **Merge is PENDING and HELD until the live-MVC tree actually WORKS on Tron's device** (fact-1 +
-  fact-2 clear on his real iOS). PO ruling: **repo surgery mid-live-defect blinds a future bisect** —
-  keep the branch topology stable while the live-MVC defects are open.
-- The old **"delete this branch" retire-trigger is SUPERSEDED** (it would destroy unique shipped work).
-
-## Provenance note (self-correcting record, retained)
-The artifact commit `098880909` is titled *"deploy: build artifacts v0.8.139"* but the artifacts
-ARE **v0.8.140** — `deploy.mjs` stamped its message from a `committedVersion()` read taken BEFORE
-its own build stamped `package.json` (the bump was made via the Config unit only, without a
-pre-build). **Content is correct** (verified four-way at the time); only the commit *title* is
-mislabeled. History NOT rewritten (immutable); corrected here.
-
-Owner: robbin-expert · Rulings: robbin-po (B, then merge-hold) · 2026-08-29
+## History (kept)
+Until 2026-11-22 prod served the hotfix branch while `main` was a re-rooted orphan without the shipped work
+(live-MVC tree v0.8.143, RCE owner-credential closure 87a3e4134). The robbin-po ruling of 2026-08-29 was
+"merge hotfix INTO main, never delete it"; T42.2 completed that by making `main` the hotfix line itself.
+The artifact commit `098880909` is titled "deploy: build artifacts v0.8.139" but contains v0.8.140 (stamp
+read before the build bumped package.json); content correct, history not rewritten.

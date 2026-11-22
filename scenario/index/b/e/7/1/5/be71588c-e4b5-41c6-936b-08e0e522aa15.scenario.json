@@ -8,9 +8,9 @@
     "slug": "phase-2-one-trunk",
     "description": "Carry main's 49 planning-only commits onto the hotfix line; back up main as archive/main-orphan; make main identical to the hotfix line (force-push, needs Tron's explicit go); protect main; tag v0.8.247; delete the hotfix branch once main points at it.",
     "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "status": "Planned",
-    "waitingOn": "Tron's go for the force-push of main and admin rights for branch protection.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing (archive old main, main = prod line, DEPLOY-STATE.md)\n  - [ ] implementing (branch protection — needs a repo admin)\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "waitingOn": "A repo admin enables branch protection on main (PR + CI required, no force-push); TRON/robbinTeam switch the prod checkout from hotfix/t40.1-checklist-band to main.",
     "priority": "P0 — Tron-directed consolidation (2026-11-22)",
     "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
     "coveredRequirements": [
@@ -21,7 +21,7 @@
     ],
     "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
     "sprintName": "Sprint 42",
-    "remainingIssues": "",
+    "remainingIssues": "Done 2026-11-22 on TRON's decision ('Yes, archive old main first'): old main archived as archive/main-orphan (d443674de); main force-moved to the hotfix head 471f0d5ee; DEPLOY-STATE.md rewritten. Open: branch protection; prod checkout switch; delete the hotfix branch after that; CI-made tags (R42.2 ci-tags, with T42.5).",
     "createdBy": "claude-code-consolidation-agent",
     "createdAt": "2026-11-22"
   }
