@@ -1,11 +1,11 @@
 import { Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const HELPERS_DIR = path.dirname(fileURLToPath(import.meta.url));
-// T100: honor isolated DATA_DIR — cleanup must target the dir the server actually wrote to
-const DATA_BASE = process.env.E2E_DATA_DIR || path.resolve(HELPERS_DIR, '../../data');
+import { E2E_DATA_DIR, loginAs } from './identities';
+
+// T100/R42.3: the SAME dir playwright.config.ts gives the isolated server (was ./data → specs saw 0 rooms)
+const DATA_BASE = E2E_DATA_DIR;
 const DATA_USERS_DIR = path.join(DATA_BASE, 'users');
 
 // ONE fixed systemTester identity + ONE persistent system test room — reused every E2E run
@@ -23,7 +23,8 @@ export function cleanupTestRooms(pattern: RegExp): number {
       const jsonPath = path.join(roomsDir, roomId, 'room.json');
       if (!fs.existsSync(jsonPath)) continue;
       try {
-        const meta = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+        const raw = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+        const meta = raw.model || raw; // room.json is a scenario unit ({ ior, model })
         if (typeof meta.name === 'string' && pattern.test(meta.name)) {
           fs.rmSync(path.join(roomsDir, roomId), { recursive: true, force: true });
           removed++;
@@ -34,86 +35,12 @@ export function cleanupTestRooms(pattern: RegExp): number {
   return removed;
 }
 
-// T118: cleanupTestUsers — delete test user dirs matching pattern (unbounded-pattern guard).
-export function cleanupTestUsers(pattern: RegExp): number {
-  if (pattern.source === '.*' || pattern.source === '.+' || pattern.source === '') {
-    return 0;
-  }
-  let removed = 0;
-  if (!fs.existsSync(DATA_USERS_DIR)) return 0;
-  for (const userDir of fs.readdirSync(DATA_USERS_DIR)) {
-    const profilePath = path.join(DATA_USERS_DIR, userDir, 'profile.json');
-    if (!fs.existsSync(profilePath)) continue;
-    try {
-      const profile = JSON.parse(fs.readFileSync(profilePath, 'utf-8'));
-      if (typeof profile.name === 'string' && pattern.test(profile.name)) {
-        fs.rmSync(path.join(DATA_USERS_DIR, userDir), { recursive: true, force: true });
-        removed++;
-      }
-    } catch { /* skip corrupt */ }
-  }
-  return removed;
-}
-
-export async function ensureLobby(page: Page, name: string): Promise<void> {
-  await page.goto('/app');
-  await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
-
-  let secretCode = '';
-
-  const nameField = page.locator('#pe-name');
-  if (await nameField.isVisible({ timeout: 5000 }).catch(() => false)) {
-    secretCode = await page.locator('#pe-code').inputValue().catch(() => '');
-    await page.fill('#pe-name', name);
-    await page.waitForTimeout(200);
-    await page.click('#pe-save');
-    await page.waitForSelector('#pe-name', { state: 'hidden', timeout: 15000 });
-  }
-
-  const enrollCode = page.locator('#de-code');
-  if (await enrollCode.isVisible({ timeout: 3000 }).catch(() => false)) {
-    if (!secretCode || !/^\d{4}$/.test(secretCode)) {
-      await page.waitForTimeout(1000);
-      secretCode = await page.evaluate(() =>
-        (window as any).__rawbinClient?._profile?.secretCode || ''
-      ).catch(() => '');
-    }
-
-    if (secretCode && /^\d{4}$/.test(secretCode)) {
-      await page.fill('#de-code', secretCode);
-      await page.waitForTimeout(300);
-      const btnEnabled = !(await page.locator('#de-submit').isDisabled());
-      if (btnEnabled) {
-        await page.click('#de-submit');
-        await page.waitForSelector('#de-code', { state: 'hidden', timeout: 15000 }).catch(() => {});
-      }
-    }
-
-    if (await page.locator('#de-code').isVisible().catch(() => false)) {
-      await page.evaluate(() => {
-        localStorage.setItem('rawbin-device-privateKey', 'e2e-bypass');
-        localStorage.setItem('rawbin-device-publicKey', 'e2e-bypass');
-        localStorage.setItem('rawbin-device-signature', 'e2e-bypass');
-        const overlay = document.querySelector('.profile-overlay');
-        if (overlay) overlay.remove();
-      });
-      await page.goto('/app');
-      await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
-    }
-  }
-
-  await page.waitForSelector('.lobby', { timeout: 15000 });
-
-  const memberNameInput = page.locator('#member-name');
-  if (await memberNameInput.isVisible().catch(() => false)) {
-    await memberNameInput.fill(name);
-    await memberNameInput.evaluate(el => el.dispatchEvent(new Event('change')));
-  }
-}
+// R42.3: users are never created or deleted by specs — the two fixed testers come from identities.ts
+// (globalSetup). ensureLobby (minted a new user per name, fell back to fake 'e2e-bypass' keys) is gone.
 
 /**
  * Create a room and enter it — returns { roomId, playerToken }.
- * Caller is in the lobby (call ensureLobby first).
+ * Caller is in the lobby (call loginAs first).
  */
 export async function ensureRoom(page: Page, roomName: string): Promise<{ roomId: string; playerToken: string }> {
   await page.click('#create-room-btn');
@@ -157,7 +84,7 @@ export async function uploadTestFile(page: Page, roomId: string, fileName: strin
  * Returns { roomId, playerToken }. NEVER creates per-test rooms/users.
  */
 export async function ensureSystemSession(page: Page): Promise<{ roomId: string; playerToken: string }> {
-  await ensureLobby(page, SYSTEM_TESTER_NAME);
+  await loginAs(page, 1);
   const existingRoom = page.locator(`.room-card:has-text("${SYSTEM_TEST_ROOM_NAME}")`).first();
   if (await existingRoom.isVisible({ timeout: 3000 }).catch(() => false)) {
     const joinBtn = existingRoom.locator('.btn-join');

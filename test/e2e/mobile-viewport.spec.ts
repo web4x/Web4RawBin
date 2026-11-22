@@ -1,13 +1,12 @@
 // [test:uuid:71396672-5795-47a9-8074-b314ecfe092d] T13 mobile viewport
 import { test, expect } from '@playwright/test';
-import { ensureLobby, cleanupTestUsers } from './helpers.js';
+import { loginAs } from './identities.js';
 
 test.describe('T13.8: Mobile Viewport', () => {
-  test.afterAll(() => { cleanupTestUsers(/^E2E-Mobile$/); });
   test.use({ viewport: { width: 375, height: 812 } });
 
   test('profile gate and room work on iPhone viewport', async ({ page }) => {
-    await ensureLobby(page, 'E2E-Mobile');
+    await loginAs(page, 1);
 
     const lobby = page.locator('.lobby');
     await expect(lobby).toBeVisible();

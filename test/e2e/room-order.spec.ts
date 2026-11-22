@@ -1,7 +1,8 @@
 // [test:uuid:c9e3bd8c-b143-40ac-ade5-8be74149a4ab] T95 lobby ordering E2E
 // [verifies:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e] R-R1 room ordering
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers';
+import { cleanupTestRooms} from './helpers';
+import { loginAs } from './identities';
 
 async function createRoom(page: Page, name: string): Promise<void> {
   await page.click('#create-room-btn');
@@ -30,12 +31,11 @@ test.describe('T95: Lobby newest-first ordering', () => {
 
   // Clean up the Alpha/Bravo/Charlie-T95-* rooms this spec creates (no prod flood)
   test.afterAll(() => {
-    cleanupTestUsers(/^OrderUser$/);
     cleanupTestRooms(/^(Alpha|Bravo|Charlie)-T95-/);
   });
 
   test('TS1: Alpha, Bravo, Charlie → list shows Charlie, Bravo, Alpha', async ({ page }) => {
-    await ensureLobby(page, 'OrderUser');
+    await loginAs(page, 1);
 
     // Unique suffix so this run's rooms are identifiable amid existing rooms
     const tag = `T95-${Date.now().toString().slice(-6)}`;

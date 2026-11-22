@@ -4,8 +4,8 @@
   "model": {
     "uuid": "fde92608-bf8e-487e-9cc4-78aa3e336be3",
     "name": "TestIdentity",
-    "description": "Every test logs in through TestIdentity as SystemTester (or SystemTester2 for a second person), seeded with real device keys; no test mints a new user. (Planned, phase 3a.)",
-    "sourceFile": "ior:file:test/e2e/helpers.ts",
+    "description": "Every e2e spec logs in through test/e2e/identities.ts (loginAs / testerContext) as SystemTester or SystemTester2; globalSetup signs both up once per isolated data dir with real device keys. scripts/check-test-identity.mjs (in npm run test:guard, so CI) fails on any other identity path.",
+    "sourceFile": "ior:file:scripts/check-test-identity.mjs",
     "methods": [
       "ior:instance:0a2b6c19-92fd-4083-8d9b-df98357fb4ae"
     ],

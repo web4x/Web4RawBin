@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:0a2b6c19-92fd-4083-8d9b-df98357fb4ae",
+  "model": {
+    "uuid": "a724a5c4-3d90-4159-88c7-5b4e204c9856",
+    "name": "impl:TestIdentity.checkTestIdentity",
+    "sourceFile": "scripts/check-test-identity.mjs",
+    "sourceLine": 19,
+    "methods": [
+      "ior:instance:0a2b6c19-92fd-4083-8d9b-df98357fb4ae"
+    ],
+    "tests": [
+      "ior:instance:ec18036c-49a9-4f30-aee9-0e91129be62d"
+    ]
+  }
+}
