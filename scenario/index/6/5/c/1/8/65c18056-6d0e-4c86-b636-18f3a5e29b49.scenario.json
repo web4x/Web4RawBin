@@ -6,11 +6,11 @@
     "altId": "T42.3",
     "name": "Task 42.3: Phase 3a — one test identity (SystemTester + SystemTester2)",
     "slug": "phase-3-one-test-identity",
-    "description": "Replace owner token (20 gates), Tron's profile 3effa1fc (3), synthetic member (8) and random users (21) with SystemTester / SystemTester2; seed both into the isolated server with real device keys; switch the 18 e2e specs to ensureSystemSession.",
+    "description": "Replace owner token (20 gates), Tron's profile 3effa1fc (3), synthetic member (8) and random users (21) with SystemTester / SystemTester2; seed both into the isolated server with real device keys; switch the 18 e2e specs to ensureSystemSession. DONE in this task: test/e2e/identities.ts (globalSetup signs up SystemTester + SystemTester2 once per isolated data dir via the real gate + device enrolment; loginAs/testerContext), all specs migrated off ensureLobby/cleanupTestUsers, helpers read the server's data dir, scripts/check-test-identity.mjs wired into test:guard. Open: the four first-visit specs (new-user, device-enrollment, negative-cases, returning-user-unlock) still sign up a fresh visitor because that flow is their subject; and test/visual gates are handled in T42.4.",
     "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "status": "Planned",
-    "waitingOn": "T42.1 merged.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "waitingOn": "Tron QA (Tron is QA and customer; the agent merges its own PRs).",
     "priority": "P0 — Tron-directed consolidation (2026-11-22)",
     "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
     "coveredRequirements": [
@@ -23,6 +23,7 @@
     "sprintName": "Sprint 42",
     "remainingIssues": "",
     "createdBy": "claude-code-consolidation-agent",
-    "createdAt": "2026-11-22"
+    "createdAt": "2026-11-22",
+    "lastAdvancedAt": "2026-11-22T12:40:00Z"
   }
 }

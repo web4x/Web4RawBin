@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:a724a5c4-3d90-4159-88c7-5b4e204c9856",
+  "model": {
+    "uuid": "ec18036c-49a9-4f30-aee9-0e91129be62d",
+    "name": "test:TestIdentity.checkTestIdentity",
+    "description": "AC systemtester-only + no-owner-no-real-users + real-device-keys: flags per-name sign-up, e2e-bypass keys, user deletion and fresh-visitor sign-up outside the first-visit specs; the real test/e2e suite is clean",
+    "sourceFile": "ior:file:test/vitest/check-test-identity.test.ts",
+    "implementations": [
+      "ior:instance:a724a5c4-3d90-4159-88c7-5b4e204c9856"
+    ],
+    "useCase": "ior:instance:f5c5e99b-9095-4aa3-9f97-f1937703f079",
+    "requirement": "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5",
+    "status": "pass",
+    "unitLinks": []
+  }
+}

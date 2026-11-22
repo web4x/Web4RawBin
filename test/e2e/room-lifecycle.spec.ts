@@ -1,16 +1,16 @@
 // [test:uuid:73ba7577-becc-4c43-be64-26a255872090] T13 room lifecycle
 import { test, expect } from '@playwright/test';
-import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers.js';
+import { cleanupTestRooms} from './helpers.js';
+import { loginAs } from './identities.js';
 
 test.describe('T13.3: Room Lifecycle', () => {
 
   test.afterAll(() => {
-    cleanupTestUsers(/^E2E-Room-Test$/);
     cleanupTestRooms(/^E2E-Room/);
   });
 
   test('create room, chat, leave, rejoin, delete', async ({ page }) => {
-    await ensureLobby(page, 'E2E-Room-Test');
+    await loginAs(page, 1);
 
     await page.click('#create-room-btn');
     await page.waitForSelector('#create-form', { state: 'visible', timeout: 3000 });

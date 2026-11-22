@@ -8,7 +8,8 @@
  * TS3 (self-tap → ProfileEditor); self-tap now opens `.user-sheet` with an Edit button.
  */
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers';
+import { cleanupTestRooms } from './helpers';
+import { loginAs, TESTER_1, TESTER_2 } from './identities';
 
 const RID = Date.now().toString(36);
 
@@ -44,22 +45,21 @@ async function hookVCard(page: Page): Promise<void> {
 
 test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
   test.afterAll(() => {
-    cleanupTestUsers(/^(SelfUser|EditSelf|VcardSelf|OwnerA|GuestB|RegUser|EditAvatarUser)$/);
     cleanupTestRooms(/^(SelfUser|EditSelf|VcardSelf|OwnerA|GuestB|RegUser|EditAvatarUser)/);
   });
 
   // ---- T83 self-flow (single client) ----
   test('T83 TS1: self-tap opens read-only .user-sheet (NOT ProfileEditor) with #us-vcard + #us-edit, no #us-link', async ({ page }) => {
-    await ensureLobby(page, 'SelfUser');
+    await loginAs(page, 1);
     await createRoom(page, `Self-${RID}`);
 
-    const ownBadge = page.locator('rb-member-badge', { hasText: 'SelfUser' }).first();
+    const ownBadge = page.locator('rb-member-badge', { hasText: TESTER_1.name }).first();
     await expect(ownBadge).toBeVisible({ timeout: 10000 });
     await ownBadge.click();
 
     await expect(page.locator('.user-sheet')).toBeVisible({ timeout: 5000 });
     await expect(page.locator('#pe-name')).toHaveCount(0); // editor must NOT open directly
-    expect((await page.locator('.user-sheet-name').textContent())).toContain('SelfUser');
+    expect((await page.locator('.user-sheet-name').textContent())).toContain(TESTER_1.name);
     await expect(page.locator('.user-sheet rb-avatar')).toHaveCount(1);
     await expect(page.locator('#us-vcard')).toBeVisible();
     await expect(page.locator('#us-edit')).toBeVisible();
@@ -67,21 +67,21 @@ test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
   });
 
   test('T83 TS2: self #us-edit opens ProfileEditor prefilled and closes the sheet', async ({ page }) => {
-    await ensureLobby(page, 'EditSelf');
+    await loginAs(page, 1);
     await createRoom(page, `EdSelf-${RID}`);
-    await page.locator('rb-member-badge', { hasText: 'EditSelf' }).first().click();
+    await page.locator('rb-member-badge', { hasText: TESTER_1.name }).first().click();
     await expect(page.locator('.user-sheet')).toBeVisible({ timeout: 5000 });
 
     await page.click('#us-edit');
     await expect(page.locator('#pe-name')).toBeVisible({ timeout: 5000 });
     await expect(page.locator('.user-sheet')).toHaveCount(0); // one overlay at a time
-    expect(await page.locator('#pe-name').inputValue()).toContain('EditSelf');
+    expect(await page.locator('#pe-name').inputValue()).toContain(TESTER_1.name);
   });
 
   test('T83 TS3: self #us-vcard builds a vCard blob with FN:<self>', async ({ page }) => {
-    await ensureLobby(page, 'VcardSelf');
+    await loginAs(page, 1);
     await createRoom(page, `VcSelf-${RID}`);
-    await page.locator('rb-member-badge', { hasText: 'VcardSelf' }).first().click();
+    await page.locator('rb-member-badge', { hasText: TESTER_1.name }).first().click();
     await expect(page.locator('.user-sheet')).toBeVisible({ timeout: 5000 });
 
     await hookVCard(page);
@@ -89,7 +89,7 @@ test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
     await page.waitForTimeout(1500);
     const vcard = await page.evaluate(() => (window as any).__vcard);
     expect(vcard).toContain('BEGIN:VCARD');
-    expect(vcard).toContain('FN:VcardSelf');
+    expect(vcard).toContain(`FN:${TESTER_1.name}`);
     expect(vcard).toContain('END:VCARD');
   });
 
@@ -102,21 +102,21 @@ test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
       if (typeof f.payload === 'string' && f.payload.includes('GET_USER_INFO')) guiSent++;
     }));
 
-    await ensureLobby(p1, 'OwnerA');
+    await loginAs(p1, 1);
     const roomName = `Contact-${RID}`;
     await createRoom(p1, roomName);
 
-    // GuestB joins the same room from the lobby
+    // SystemTester2 joins the same room from the lobby
     const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true });
     const p2 = await ctx2.newPage();
-    await ensureLobby(p2, 'GuestB');
+    await loginAs(p2, 2);
     const card = p2.locator('.room-card', { hasText: roomName }).first();
     await expect(card).toBeVisible({ timeout: 10000 });
     await card.locator('.btn-join').click();
     await p2.waitForSelector('.room-view', { timeout: 10000 });
 
-    // OwnerA sees GuestB in the member list
-    const guestBadge = p1.locator('rb-member-badge', { hasText: 'GuestB' }).first();
+    // SystemTester sees SystemTester2 in the member list
+    const guestBadge = p1.locator('rb-member-badge', { hasText: TESTER_2.name }).first();
     await expect(guestBadge).toBeVisible({ timeout: 10000 });
 
     // AC7/TS4 — no listener stacking: re-render twice (leave→rejoin), then exactly 1 GET_USER_INFO per tap
@@ -126,15 +126,15 @@ test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
       await p1.waitForSelector('.room-view', { timeout: 10000 });
       await p1.waitForTimeout(800);
     }
-    await expect(p1.locator('rb-member-badge', { hasText: 'GuestB' }).first()).toBeVisible({ timeout: 10000 });
+    await expect(p1.locator('rb-member-badge', { hasText: TESTER_2.name }).first()).toBeVisible({ timeout: 10000 });
     guiSent = 0;
-    await p1.locator('rb-member-badge', { hasText: 'GuestB' }).first().click();
+    await p1.locator('rb-member-badge', { hasText: TESTER_2.name }).first().click();
     await expect(p1.locator('.user-sheet')).toBeVisible({ timeout: 5000 });
     await p1.waitForTimeout(500);
     expect(guiSent).toBe(1);
 
     // sheet content (T81 AC4, T82 AC1/AC2)
-    expect(await p1.locator('.user-sheet-name').textContent()).toContain('GuestB');
+    expect(await p1.locator('.user-sheet-name').textContent()).toContain(TESTER_2.name);
     const vcardBtn = p1.locator('#us-vcard');
     await expect(vcardBtn).toBeVisible();
     expect((await vcardBtn.boundingBox())!.height).toBeGreaterThan(0);
@@ -163,7 +163,7 @@ test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
     const vcard = await p1.evaluate(() => (window as any).__vcard);
     expect(vcard).toContain('BEGIN:VCARD');
     expect(vcard).toContain('VERSION:3.0');
-    expect(vcard).toContain('FN:GuestB');
+    expect(vcard).toContain(`FN:${TESTER_2.name}`);
     expect(vcard.trim().endsWith('END:VCARD')).toBe(true);
 
     await ctx1.close();
@@ -172,7 +172,7 @@ test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
 
   // ---- regressions ----
   test('T82 TS3: lobby #refresh-rooms-btn (.btn-secondary on dark) stays light-on-dark (scope did not leak)', async ({ page }) => {
-    await ensureLobby(page, 'RegUser');
+    await loginAs(page, 1);
     const btn = page.locator('#refresh-rooms-btn');
     await expect(btn).toBeVisible();
     // the .user-sheet-scoped override paints text #667eea (rgb(102,126,234)); the lobby btn must NOT
@@ -181,7 +181,7 @@ test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
   });
 
   test('T81 TS5: lobby avatar (editable, NOT readonly) opens the editor overlay', async ({ page }) => {
-    await ensureLobby(page, 'EditAvatarUser');
+    await loginAs(page, 1);
     await page.locator('.lobby rb-avatar').first().click();
     await expect(page.locator('#ov-upload-btn')).toBeVisible({ timeout: 5000 });
   });

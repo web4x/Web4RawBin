@@ -1,14 +1,15 @@
 // [test:uuid:e906138a-581d-4c07-8198-eedaf0e20af4] T79 room identity E2E
 // [verifies:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e] R-R1 room identity
 import { test, expect } from '@playwright/test';
-import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers';
+import { cleanupTestRooms} from './helpers';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loginAs, E2E_DATA_DIR, TESTER_1 } from './identities';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // T100: honor isolated DATA_DIR so disk assertions read the same dir the server wrote to
-const DATA_DIR = process.env.E2E_DATA_DIR || path.resolve(__dirname, '../../data');
+const DATA_DIR = E2E_DATA_DIR; // R42.3: same dir as the isolated server
 
 function findUserRooms(token: string): string[] {
   const roomsDir = path.join(DATA_DIR, 'users', token, 'rooms');
@@ -22,13 +23,12 @@ test.describe('T79: Room Identity E2E', () => {
 
   // Clean rooms this spec creates: custom names + "<User>'s Room" defaults
   test.afterAll(() => {
-    cleanupTestUsers(/^(RoomE2E|SshE2E|NameE2E|DeleteE2E|VisibleE2E|SyncOwner|SyncViewer)$/);
     cleanupTestRooms(/(RoomE2E|SshE2E|NameE2E|DeleteE2E|VisibleE2E|VisibleRoom|SyncOwner|SyncTestRoom|SyncViewer)/);
   });
 
 
   test('(1) Create room → dir exists on disk', async ({ page }) => {
-    await ensureLobby(page, 'RoomE2E');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
     expect(token).toBeTruthy();
 
@@ -49,7 +49,7 @@ test.describe('T79: Room Identity E2E', () => {
   });
 
   test('(2) Room has .ssh/ with id_rsa', async ({ page }) => {
-    await ensureLobby(page, 'SshE2E');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
 
     await page.click('#create-room-btn');
@@ -74,8 +74,9 @@ test.describe('T79: Room Identity E2E', () => {
   });
 
   test('(3) Default name includes profile name', async ({ page }) => {
-    await ensureLobby(page, 'NameE2E');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
+    const before = new Set(findUserRooms(token!));
 
     await page.click('#create-room-btn');
     await page.waitForTimeout(500);
@@ -86,17 +87,22 @@ test.describe('T79: Room Identity E2E', () => {
     await page.waitForSelector('.room-view, rb-header', { timeout: 15000 });
     await page.waitForTimeout(2000);
 
-    const rooms = findUserRooms(token!);
-    const meta = JSON.parse(fs.readFileSync(
-      path.join(DATA_DIR, 'users', token!, 'rooms', rooms[0], 'room.json'), 'utf-8'
+    // R42.3: the tester owns many rooms — read the room this test just created, not rooms[0]
+    const created = findUserRooms(token!).filter((id) => !before.has(id));
+    expect(created.length).toBe(1);
+    const roomId = created[0];
+    const raw = JSON.parse(fs.readFileSync(
+      path.join(DATA_DIR, 'users', token!, 'rooms', roomId, 'room.json'), 'utf-8'
     ));
-    expect(meta.name).toContain('NameE2E');
+    const meta = raw.model || raw; // room.json is a scenario unit ({ ior, model })
+    expect(meta.name).toContain(TESTER_1.name);
     expect(meta.name).toContain('Room');
   });
 
   test('(5) Owner can delete room — dir removed', async ({ page }) => {
-    await ensureLobby(page, 'DeleteE2E');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
+    const before = new Set(findUserRooms(token!));
 
     await page.click('#create-room-btn');
     await page.waitForTimeout(500);
@@ -109,7 +115,10 @@ test.describe('T79: Room Identity E2E', () => {
 
     const roomsBefore = findUserRooms(token!);
     expect(roomsBefore.length).toBeGreaterThanOrEqual(1);
-    const roomId = roomsBefore[roomsBefore.length - 1];
+    // R42.3: the tester owns many rooms — delete the one this test just created, not the last dir listed
+    const created = roomsBefore.filter((id) => !before.has(id));
+    expect(created.length).toBe(1);
+    const roomId = created[0];
 
     // Delete via leave then delete, or find delete button
     const deleteBtn = page.locator('[data-action="delete"], .btn-delete, button:has-text("Delete")');
@@ -125,7 +134,7 @@ test.describe('T79: Room Identity E2E', () => {
         await page.waitForTimeout(2000);
       }
       // Find delete button in lobby room list
-      const lobbyDelete = page.locator(`.btn-delete[data-room="${roomId}"], .room-card button.btn-delete`).first();
+      const lobbyDelete = page.locator(`.btn-delete[data-room="${roomId}"]`); // R42.3: exactly this room, never the first card
       if (await lobbyDelete.isVisible({ timeout: 3000 }).catch(() => false)) {
         page.once('dialog', dialog => dialog.accept());
         await lobbyDelete.click();
@@ -138,7 +147,7 @@ test.describe('T79: Room Identity E2E', () => {
   });
 
   test('(7) Room visible when owner connected', async ({ page }) => {
-    await ensureLobby(page, 'VisibleE2E');
+    await loginAs(page, 1);
 
     await page.click('#create-room-btn');
     await page.waitForTimeout(500);
@@ -170,7 +179,7 @@ test.describe('T79: Room Identity E2E', () => {
     // First context — owner creates room
     const ctx1 = await browser.newContext({ ignoreHTTPSErrors: true });
     const page1 = await ctx1.newPage();
-    await ensureLobby(page1, 'SyncOwner');
+    await loginAs(page1, 1);
 
     await page1.click('#create-room-btn');
     await page1.waitForTimeout(500);
@@ -188,7 +197,7 @@ test.describe('T79: Room Identity E2E', () => {
     // Second context — different user sees the room
     const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true });
     const page2 = await ctx2.newPage();
-    await ensureLobby(page2, 'SyncViewer');
+    await loginAs(page2, 2);
     await page2.waitForTimeout(2000);
 
     const lobbyText = await page2.locator('.lobby').textContent();

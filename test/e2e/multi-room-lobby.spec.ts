@@ -11,14 +11,15 @@
  * rooms hidden from non-owners); verified and documented rather than asserted as all-visible.
  */
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers';
+import { cleanupTestRooms } from './helpers';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loginAs, E2E_DATA_DIR } from './identities';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // T100: honor isolated DATA_DIR so disk assertions read the same dir the server wrote to
-const DATA_DIR = process.env.E2E_DATA_DIR || path.resolve(__dirname, '../../data');
+const DATA_DIR = E2E_DATA_DIR; // R42.3: same dir as the isolated server
 
 function diskRoomIds(token: string): string[] {
   const roomsDir = path.join(DATA_DIR, 'users', token, 'rooms');
@@ -56,13 +57,12 @@ async function leaveToLobby(page: Page): Promise<void> {
 
 test.describe('T93: multi-room lobby (all owner rooms load + show)', () => {
   test.afterAll(() => {
-    cleanupTestUsers(/^(OwnerMulti|OwnerReconnect|OwnerDelete|OwnerVisible|OtherViewer)$/);
     cleanupTestRooms(/^(OwnerMulti|OwnerReconnect|OwnerDelete|OwnerVisible|OtherViewer)/);
   });
   const runId = Date.now().toString(36);
 
   test('AC1/AC6: owner creates 3 rooms → all 3 (and every on-disk room) appear in owner lobby', async ({ page }) => {
-    await ensureLobby(page, 'OwnerMulti');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
     expect(token).toBeTruthy();
 
@@ -82,7 +82,7 @@ test.describe('T93: multi-room lobby (all owner rooms load + show)', () => {
   });
 
   test('AC3: after reconnect (reload) owner still sees all their on-disk rooms', async ({ page }) => {
-    await ensureLobby(page, 'OwnerReconnect');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
 
     const names = [`RC-${runId}-1`, `RC-${runId}-2`];
@@ -100,7 +100,7 @@ test.describe('T93: multi-room lobby (all owner rooms load + show)', () => {
   });
 
   test('AC5: deleting one room leaves the others visible (disk + lobby)', async ({ page }) => {
-    await ensureLobby(page, 'OwnerDelete');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
 
     const names = [`DL-${runId}-1`, `DL-${runId}-2`, `DL-${runId}-3`];
@@ -129,7 +129,7 @@ test.describe('T93: multi-room lobby (all owner rooms load + show)', () => {
     // Owner creates a room and stays connected
     const ctx1 = await browser.newContext({ ignoreHTTPSErrors: true });
     const p1 = await ctx1.newPage();
-    await ensureLobby(p1, 'OwnerVisible');
+    await loginAs(p1, 1);
     const ownerToken = await p1.evaluate(() => localStorage.getItem('rawbin-player-id'));
     const rn = `AC4-${runId}`;
     await createRoom(p1, rn);
@@ -138,7 +138,7 @@ test.describe('T93: multi-room lobby (all owner rooms load + show)', () => {
     // Second user connects while owner is connected
     const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true });
     const p2 = await ctx2.newPage();
-    await ensureLobby(p2, 'OtherViewer');
+    await loginAs(p2, 2);
     await p2.waitForTimeout(1500);
     const otherSees = (await p2.locator('.lobby').textContent())?.includes(rn) ?? false;
 
