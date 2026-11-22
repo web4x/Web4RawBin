@@ -6,7 +6,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { execSync } from 'child_process';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const genv = { ...process.env, GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@x', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@x', GIT_AUTHOR_DATE: '2026-01-01T00:00:00', GIT_COMMITTER_DATE: '2026-01-01T00:00:00' };
 const g = (a, i) => execSync(`git -C ${REPO} ${a}`, { encoding: 'utf8', input: i, env: genv }).trim();

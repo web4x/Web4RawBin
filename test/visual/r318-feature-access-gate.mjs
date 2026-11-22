@@ -15,7 +15,7 @@ import { WebSocket } from 'ws';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const OWNER = OWNER_LITERAL, ST = 'ce981242-74fe-4d44-b5b6-43c641e224df', UNKNOWN = '00000000-0000-4000-8000-000000000000';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const get = (path, headers = {}) => new Promise((res) => { const q = https.request({ host: HOST, port: PORT, path, method: 'GET', headers, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res({ status: r.statusCode, body: b })); }); q.on('error', () => res({ status: 0, body: '' })); q.end(); });

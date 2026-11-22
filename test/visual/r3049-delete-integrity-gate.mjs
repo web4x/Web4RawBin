@@ -13,7 +13,7 @@ import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
 const BASE = RB_BASE;
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const REPOS_JSON = `${REPO}/data/repos.json`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 // a real .git worktree to register (same source r3049 uses; fallback to the RawBin repo root)

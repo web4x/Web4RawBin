@@ -13,7 +13,7 @@ import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 
 const ROOMS = [

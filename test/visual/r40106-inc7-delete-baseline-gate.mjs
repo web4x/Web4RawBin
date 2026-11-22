@@ -10,7 +10,7 @@ import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = RB_BASE, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', FIXED = '909f1bd6';
+const BASE = RB_BASE, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), FIXED = '909f1bd6';
 const bare = (r) => String(r || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
 const g = (u) => new Promise(r => { https.get(`${BASE}/api/ior/ior:instance:${u}`, { rejectUnauthorized: false }, s => { let b = ''; s.on('data', c => b += c); s.on('end', () => { try { r(JSON.parse(b)); } catch { r(null); } }); }).on('error', () => r(null)); });
 let served = '?'; try { served = JSON.parse(execSync(`curl -sk ${BASE}/api/config`, { encoding: 'utf8' })).version; } catch {}

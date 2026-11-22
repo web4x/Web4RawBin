@@ -6,7 +6,7 @@
 // ALL leading 'type:' prefixes. This gate = source-audit (the generic regex IS present) + functional (the real drag
 // refs strip to a clean uuid that PASSES the server regex). GREEN=fixed regression lock. Drag GESTURE splits to Tron.
 import fs from 'node:fs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const SERVER_UUID = /^[0-9a-fA-F-]{16,40}$/;                      // the exact regex the server enforces (server.ts:2083)
 
 const src = fs.readFileSync(`${REPO}/src/public/ts/trace/diagram-view-model.ts`, 'utf8');

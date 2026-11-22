@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const WT = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/r3113-wt';
 const NODE = '/root/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda/node';
 const sh = (cmd, cwd) => execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });

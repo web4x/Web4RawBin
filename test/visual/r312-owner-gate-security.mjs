@@ -43,7 +43,7 @@ const wsProbe = (headers = {}) => new Promise((resolve) => {
 
 // INV-G2 (static, correct-by-construction): the OWNER_TOKEN literal appears in EXACTLY one src location.
 const invG2 = () => {
-  const out = execSync(`grep -rn "${OWNER}" src/ || true`, { cwd: '/var/dev/Workspaces/web4x/Web4RawBin', encoding: 'utf8' });
+  const out = execSync(`grep -rn "${OWNER}" src/ || true`, { cwd: (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), encoding: 'utf8' });
   const lines = out.split('\n').filter(l => l.includes(OWNER));
   return { count: lines.length, where: lines.map(l => l.split(':').slice(0, 2).join(':')) };
 };

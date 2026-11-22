@@ -4,7 +4,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // claimClients→controllerchange→reload→new version (arm B). SW ALLOWED. Version via /api/config. ~5.5min hold.
 import { chromium } from '@playwright/test';
 const BASE = RB_BASE;
-const OUT = '/var/dev/Workspaces/web4x/Web4RawBin/test-results/merge-visual';
+const OUT = ((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/test-results/merge-visual');
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const ver = (page) => page.evaluate(async () => { try { return (await (await fetch('/api/config', { cache: 'no-store' })).json()).version; } catch { return '?'; } });
 const bannerState = (page) => page.evaluate(() => { const el = document.querySelector('rb-update-banner'); const b = el?.shadowRoot?.getElementById('banner'); return { present: !!b, visible: !!(b && b.getBoundingClientRect().height > 0), text: (b?.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60), hasBtn: !!el?.shadowRoot?.getElementById('update-now') }; });

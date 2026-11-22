@@ -48,7 +48,7 @@ function runOnce() {
     && parsed.relations.length === 3;
 
   // (4) INV-P4 isolation — pure module, NO fs/I-O (source-audit: the shared serializer imports/writes nothing)
-  const src = readFileSync(`${'/var/dev/Workspaces/web4x/Web4RawBin'}/src/ts/shared/puml-serializer.ts`, 'utf8');
+  const src = readFileSync(`${(new URL('../..', import.meta.url).pathname.replace(/\/$/, ''))}/src/ts/shared/puml-serializer.ts`, 'utf8');
   const pureNoIo = !/from ['"]node:fs['"]|require\(['"]fs['"]\)|writeFileSync|writeFile\(|fs\./.test(src);
 
   // ── PLANTED-DEFECT BITES ──

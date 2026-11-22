@@ -5,7 +5,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import { seedSystemTester } from './system-tester-setup.mjs';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 const DIR = `${ROOT}/test-results/r403b-keybar`;
 const REAL = `${DIR}/term.real.js`;

@@ -72,7 +72,7 @@ results.forEach((p, i) => console.log(`  iter ${i + 1}: ${p ? 'GREEN' : 'RED'}`)
 const green = results.length === 3 && results.every(Boolean);
 if (green) {
   const version = await servedVersion();
-  const head = execSync('git rev-parse --short HEAD', { cwd: '/var/dev/Workspaces/web4x/Web4RawBin', encoding: 'utf8' }).trim();
+  const head = execSync('git rev-parse --short HEAD', { cwd: (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), encoding: 'utf8' }).trim();
   fs.mkdirSync('test-results/r4019', { recursive: true });
   fs.writeFileSync('test-results/r4019/STAMP.json', JSON.stringify({ gate: 'r4019-history-back', result: 'GREEN', servedVersion: version, head, impls: ['6b4d7714', '197054f9'] }, null, 2) + '\n');
   console.log(`FRESHNESS STAMP: GREEN @ served ${version} / HEAD ${head} → test-results/r4019/STAMP.json`);

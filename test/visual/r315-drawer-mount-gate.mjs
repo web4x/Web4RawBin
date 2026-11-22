@@ -9,7 +9,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const TARGET = '0.7.94';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (path, headers = {}) => new Promise((r) => { const req = https.request({ host: HOST, port: PORT, path, method: 'GET', headers, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); req.on('error', () => r({ status: 0, body: '' })); req.end(); });

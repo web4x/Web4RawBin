@@ -78,7 +78,7 @@ try {
 finally { await browser.close(); }
 
 // (B) OCP confirmatory (already GREEN-DONE per PO — not re-gated, just a non-regression line)
-const linkRegistered = /registerAction\('link'/.test(execSync(`grep -a "registerAction('link'" /var/dev/Workspaces/web4x/Web4RawBin/src/public/ts/RoomView.ts || true`, { encoding: 'utf8' }));
+const linkRegistered = /registerAction\('link'/.test(execSync(`grep -a "registerAction('link'" ${new URL('../..', import.meta.url).pathname.replace(/\/$/, '')}/src/public/ts/RoomView.ts || true`, { encoding: 'utf8' }));
 
 console.log(`=== R40.106 INC-4 slice-4 LINK-here — SERVED v${served}, fixed room 909f1bd6 ===`);
 console.log(`  link-unit status: F→A=${R.lkA} F→B=${R.lkB} | F=${R.F} resolves-once=${R.fResolves}`);

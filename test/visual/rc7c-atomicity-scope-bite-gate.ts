@@ -14,7 +14,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const WT = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/rc7c-worktree';
 const sh = (cmd: string, cwd: string) => { try { return { code: 0, out: execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }) }; } catch (e: any) { return { code: e.status || 1, out: (e.stdout || '') + (e.stderr || '') }; } };
 

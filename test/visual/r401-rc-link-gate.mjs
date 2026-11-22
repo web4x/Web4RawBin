@@ -17,7 +17,7 @@ import { webkit, devices } from '@playwright/test';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 const HOST = RB_HOST, PORT = RB_PORT;
 const OWNER = OWNER_LITERAL;
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BUNDLE = `${ROOT}/test-results/r401-harness/rcl.bundle.js`;
 const iPhone = devices['iPhone 12'];
 

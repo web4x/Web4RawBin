@@ -12,7 +12,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 // Route the guard subprocess through the project's node-preflight so a wrong-node STANDALONE run cannot false-FAIL:
 // bare `node --import tsx` needs node18+, but the shell default is node16.11 (lacks --import → the subprocess crashes →
 // all cases false-FAIL). with-node20.mjs is node16-safe and re-runs the command under node20+/22 (same self-healing as

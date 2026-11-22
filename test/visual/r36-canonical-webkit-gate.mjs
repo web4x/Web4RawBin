@@ -13,7 +13,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const TARGET = process.env.R36_TARGET || '0.8.55';
 const SP = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad';
 const FACET_BUNDLE = fs.readFileSync(path.join(SP, 'facet-probe.bundle.js'), 'utf8');

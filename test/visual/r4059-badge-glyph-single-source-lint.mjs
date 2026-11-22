@@ -9,7 +9,7 @@
 // task-status.ts:121) but the CLIENT renderStatusBadge lowercases + looks up BADGE_MAP[lc] || BADGE_MAP[lc.replace(/[^a-z ]/g,'')]
 // || null (rb-object-item.ts:213/245) — the band matches NEITHER key → null → gray raw-text 'qa-review-with-open-cr', no 🔁.
 import fs from 'fs';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const rd = (p) => fs.readFileSync(`${ROOT}/${p}`, 'utf8');
 
 // (1) SERVER: every status a row can carry = STATUS_ORDER (task-status-constants.ts) + the band literal.

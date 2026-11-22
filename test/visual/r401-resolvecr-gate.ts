@@ -11,7 +11,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 
-const PROD_IDX = '/var/dev/Workspaces/web4x/Web4RawBin/scenario/index';
+const PROD_IDX = ((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/scenario/index');
 const SCRATCH = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/resolvecr-scratch/index';
 const T = '7a956c21-5f37-4062-b921-9bdd5a461546'; // T40.1 task (band: QA-Review-with-open-CR)
 const CRS = ['18ebe066','461d5db6','4babebb1','7286d45a','c27ae455']; // the 5 reachable Open CRs

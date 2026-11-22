@@ -10,7 +10,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { execSync } from 'child_process';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const DEMO = 'merge-demo.md';
 const baseC = `# Merge Demo\none\ntwo\nthree\nfour\nfive\nsix\nseven\n`, localC = `# Merge Demo\none\nTWO-local\nthree\nfour\nfive\nSIX-LOCAL\nseven\n`, remoteC = `# Merge Demo\none\ntwo\nthree\nFOUR-remote\nfive\nSIX-REMOTE\nseven\n`;

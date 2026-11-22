@@ -7,7 +7,7 @@ import { webkit, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'node:fs';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 const IOR = 'ior:instance:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb'; // a real unit (R40.8 req) with a traceability chain
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

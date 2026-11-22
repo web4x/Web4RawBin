@@ -21,3 +21,4 @@ data/users-staging/
 # durable gate/freshness records belong in a scenario UNIT (record-gates), not committed JSON. Files stay on disk.
 test-results/
 data/logs/
+test/visual/*.png

@@ -5,7 +5,7 @@ import { ScenarioIndex } from '../../src/ts/scenario/index.js';
 import fs from 'fs';
 import path from 'path';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const shard = (u: string) => path.join(REPO, 'scenario/index', ...u.slice(0, 5).split(''), u + '.scenario.json');
 const mkChain = () => new Chain(new ScenarioIndex(path.join(REPO, 'scenario/index')), path.join(REPO, 'src'), path.join(REPO, 'test')) as any;
 

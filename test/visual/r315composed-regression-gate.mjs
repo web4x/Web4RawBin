@@ -12,7 +12,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.132';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), TARGET = '0.7.132';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const DEEP = (r31) => `/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1${r31 ? '&layout=r31.5' : ''}`;

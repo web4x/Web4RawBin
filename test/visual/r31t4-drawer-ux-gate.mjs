@@ -11,7 +11,7 @@ import { chromium, devices } from '@playwright/test';
 import https from 'node:https';
 import { execSync } from 'node:child_process';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.132';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), TARGET = '0.7.132';
 const OWNER = OWNER_LITERAL;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p, h = {}) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });

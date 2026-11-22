@@ -14,7 +14,7 @@ import { modelToPuml, type PumlNode, type PumlRelation } from '../../src/ts/shar
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const PROD_INDEX = path.join(ROOT, 'scenario', 'index');
 const MODEL_STORE = path.join(ROOT, 'data', 'model-store', 'index');
 const SCRATCH = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/r328-resync';

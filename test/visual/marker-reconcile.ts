@@ -5,7 +5,7 @@ import { scanTestMarkers } from '../../src/ts/scenario/test-marker-attach.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 
 // nameOf: resolve a Test-unit uuid → its model.name from the sharded scenario index (for attachment matching)
 const nameOf = (uuid: string): string => {

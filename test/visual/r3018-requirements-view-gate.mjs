@@ -4,7 +4,7 @@
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const NODE18 = '/root/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda';
 const S30 = '2173e549-ca99-43e5-aea8-946b02141c13'; // Sprint 30 FULL uuid (idx.get needs full, not the 8-char prefix)
 const REQMD = path.join(REPO, 'scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md');

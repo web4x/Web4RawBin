@@ -13,7 +13,7 @@ import fs from 'node:fs';
 import https from 'node:https';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const SM = '16604eee-d844-4efb-bd4d-881433ca82a6';           // 'Server Manager' Feature
 const FM = '2980b7d9-a166-44ca-bf73-5dd1a4ba7b16';           // 'Feature Manager' Feature (viewing children needs THIS)
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';

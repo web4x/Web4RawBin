@@ -7,7 +7,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // Pollution-safe: the fixture file is deleted in finally. node22.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const EMPTY = 'e0000000-0000-4000-8000-000000003361'; // test-only empty diagram
 const CLASS = 'f51234b0-0233-4fd6-a802-5467f64accc2'; // 'Id' — a real MODEL_STORE element to add
 const EFILE = path.join(ROOT, 'data/model-store/index', ...EMPTY.slice(0, 5).split(''), `${EMPTY}.scenario.json`);

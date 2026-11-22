@@ -11,7 +11,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { webkit, devices } from '@playwright/test';
 import { execSync } from 'node:child_process';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 const BUNDLE = `${ROOT}/test-results/r403a-render/term.bundle.js`;
 const iPhone = devices['iPhone 12'];

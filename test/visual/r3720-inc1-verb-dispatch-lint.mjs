@@ -12,7 +12,7 @@ import { readFileSync, writeFileSync, mkdtempSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const INVOKE = 'src/public/ts/trace/universal-actions.ts';
 
 // Strip comments so prose mentioning "if(verb===)" (lines 15/45) is not counted — code only.

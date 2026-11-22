@@ -10,7 +10,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // Does NOT mutate the shared prod checkout. served self-verified.
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = RB_HOST, PORT = RB_PORT, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.135';
+const HOST = RB_HOST, PORT = RB_PORT, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), TARGET = '0.7.135';
 const getJson = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => { try { r(JSON.parse(b)); } catch { r({}); } }); }); q.on('error', () => r({})); q.end(); });
 
 // ── (A) source-audit: INV-V4 by construction ──

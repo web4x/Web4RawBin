@@ -48,7 +48,7 @@ try {
       const as = Array.from(fg.querySelectorAll('a'));
       return as.length === 2 && as.every(a => typeof a.onclick === 'function'); // each entry is interactive (cookie-mint→nav)
     });
-    if (i === 1) await page.screenshot({ path: '/var/dev/Workspaces/web4x/Web4RawBin/test-results/r31sliced/grants-390.png' });
+    if (i === 1) await page.screenshot({ path: ((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/test-results/r31sliced/grants-390.png') });
     await ctx.close();
 
     // (B) EMPTY membership: m.features=[] → NO entries (fail-closed; proves data-driven, not hardcoded SM)

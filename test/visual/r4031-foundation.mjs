@@ -16,7 +16,7 @@ import WebSocket from 'ws';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // scratch + prod are localhost self-signed; harness-local only
 
-const MAIN = '/var/dev/Workspaces/web4x/Web4RawBin';
+const MAIN = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const NODE22 = '/opt/node22/bin/node';
 const TSX = path.join(MAIN, 'node_modules/tsx/dist/cli.mjs');
 const HTTPS_PORT = Number(process.env.R4031_HTTPS_PORT || 4643);

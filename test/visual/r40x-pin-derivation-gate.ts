@@ -23,7 +23,7 @@ R.u_terminal      = isTerminalForCurrent(BAND, U1, U2) === true            // un
                  && isTerminalForCurrent('Planned', U1, '') === false;     // Planned never terminal (pre-start fallback)
 
 // ── 3-GATES: the ONE predicate wired at terminal-def + auto-filter + designation-override (no drifting inline check) ──
-const src = readFileSync('/var/dev/Workspaces/web4x/Web4RawBin/src/ts/scenario/CurrentSprint.ts','utf8').replace(/\000/g,'');
+const src = readFileSync(((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/src/ts/scenario/CurrentSprint.ts'),'utf8').replace(/\000/g,'');
 // v0.8.234: the predicate ABSORBS the designation (currentTaskUuid arg), so eligibility is the ONE predicate at 2 gates —
 // terminal-def (38) + auto-filter (310); the designation-override (337) is the consistent explicit-wins layer. No drifting
 // inline eligibility check that BYPASSES the predicate (the old 3-gate-disagreement root).

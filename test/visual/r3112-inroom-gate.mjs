@@ -81,7 +81,7 @@ try {
   //     `version !==` skew that fired on a client-only ship. Engine-independent + robust (a runtime toggle needs the
   //     component upgraded/shadowed, which the minimal fresh context lacks). A full genuine-newer runtime rides Tron's device.
   const { execSync } = await import('node:child_process');
-  const bsrc = execSync('cat src/public/ts/components/rb-update-banner.ts', { cwd: '/var/dev/Workspaces/web4x/Web4RawBin', encoding: 'utf8' });
+  const bsrc = execSync('cat src/public/ts/components/rb-update-banner.ts', { cwd: (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), encoding: 'utf8' });
   const dSemverOk = /function isSemverNewer/.test(bsrc) && /split\('\.'\)\.map/.test(bsrc) && /:host\(\[shown\]\)/.test(bsrc) && /:host\s*\{[^}]*display:\s*none/.test(bsrc) && (bsrc.match(/isSemverNewer/g) || []).length >= 2; // declared AND called (not dead); negative `version!==` check dropped — it lives only in the doc-comment
   console.log(`client-version=${cacheName} (verOk=${verOk}) | regression /trace=${trace.status} whoami=${whoami.status} (${regressionOk}) | (d) semver-newer guard source-audit=${dSemverOk}`);
   if (!verOk) { console.log(`ABORT phantom-guard: served client ${cacheName} != ${CLIENT_VER}`); process.exitCode = 1; }

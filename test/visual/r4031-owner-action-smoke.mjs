@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // localhost self-signed, harness-local only
 
-const MAIN = '/var/dev/Workspaces/web4x/Web4RawBin';
+const MAIN = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const shard = (root, uuid) => path.join(root, 'scenario/index', ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
 // locate the foundation's worktree (read-only) so refuse/non-owner atomicity is checked on the DISK unit bytes (the
 // served /api/ior response carries compute-on-read fields pinRole/taskMdHref that legitimately vary — not byte-stable).

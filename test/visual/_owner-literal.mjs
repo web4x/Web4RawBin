@@ -3,7 +3,7 @@
 // (chmod-600). This helper READS it at runtime so gates stay functional WITHOUT the value living in a test file.
 import fs from 'node:fs';
 
-const SRC = '/var/dev/Workspaces/web4x/Web4RawBin/src/ts/server/ServerManagerGuard.ts';
+const SRC = ((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/src/ts/server/ServerManagerGuard.ts');
 const LOCAL = '/var/dev/security-local/owner-token.value'; // preferred if present (post-rotation)
 
 function readOwnerLiteral() {

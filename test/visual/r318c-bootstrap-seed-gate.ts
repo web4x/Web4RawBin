@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const OWNER = OWNER_LITERAL;
 const SM = `${REPO}/scenario/index/1/6/6/0/4/16604eee-d844-4efb-bd4d-881433ca82a6.scenario.json`; // Server Manager Feature
 const FM = `${REPO}/scenario/index/2/9/8/0/b/2980b7d9-a166-44ca-bf73-5dd1a4ba7b16.scenario.json`; // Feature Manager Feature

@@ -23,7 +23,7 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 // PART C — GitApi.mergeBase live + reject-first (guardRef on refs), same-origin authorized
 const api = (pathq) => new Promise((res) => { const r = https.request({ host: RB_HOST, port: RB_PORT, path: pathq, method: 'GET', rejectUnauthorized: false, timeout: 8000, headers: { Origin: RB_BASE } }, (resp) => { let b = ''; resp.on('data', c => b += c); resp.on('end', () => res({ status: resp.statusCode, body: b })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); r.end(); });
 const NODE18 = '/root/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda';

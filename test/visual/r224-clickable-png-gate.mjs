@@ -20,12 +20,16 @@ const get = (p) => new Promise((res) => {
   }).on('error', () => res({ status: 0, ct: '', body: '' }));
 });
 
+// R42.4: the 124 test/visual screenshots were deleted (unreferenced, 159 MB); the listing now checks a committed
+// sprint folder that keeps its PNGs (38 diagrams/screenshots).
+const DIR = '/md/scrum.pmo/sprints/sprint-31-server-manager/';
+const esc = DIR.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const results = [];
 for (let run = 1; run <= 3; run++) {
-  const list = await get('/md/test/visual/');
+  const list = await get(DIR);
   // clickable PNG anchors in the listing
-  const pngAnchors = [...list.body.matchAll(/<a href="(\/md\/test\/visual\/[^"]+\.png)"/gi)].map(m => m[1]);
-  const svgAnchors = [...list.body.matchAll(/<a href="(\/md\/test\/visual\/[^"]+\.svg)"/gi)].map(m => m[1]);
+  const pngAnchors = [...list.body.matchAll(new RegExp(`<a href="(${esc}[^"]+\\.png)"`, 'gi'))].map(m => m[1]);
+  const svgAnchors = [...list.body.matchAll(new RegExp(`<a href="(${esc}[^"]+\\.svg)"`, 'gi'))].map(m => m[1]);
   // PNG filenames present as plain text but NOT inside an <a> (the old broken state)
   const pngNamesTotal = (list.body.match(/[^">/]+\.png/gi) || []).length;
   const imageIcon = /🖼/.test(list.body);
@@ -35,7 +39,7 @@ for (let run = 1; run <= 3; run++) {
   let pngOpens = false, sampleCode = 0, sampleCt = '';
   if (pngAnchors.length) { const r = await get(pngAnchors[0]); sampleCode = r.status; sampleCt = r.ct; pngOpens = r.status === 200; }
 
-  const pass = list.status === 200 && clickablePngs >= 100 && imageIcon && pngOpens;
+  const pass = list.status === 200 && clickablePngs >= 30 && imageIcon && pngOpens;
   results.push(pass);
   console.log(`run ${run}: listing=${list.status} clickablePNG<a>=${clickablePngs} svg<a>=${svgAnchors.length} imgIcon=${imageIcon} pngLinkOpens=${pngOpens} (HTTP ${sampleCode} ${sampleCt}) => ${pass ? 'GREEN' : 'RED'}`);
 }

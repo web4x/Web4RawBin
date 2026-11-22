@@ -15,7 +15,7 @@ import { existsSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const BASE = RB_BASE;
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const shard = (u) => `${REPO}/scenario/index/${u[0]}/${u[1]}/${u[2]}/${u[3]}/${u[4]}/${u}.scenario.json`;

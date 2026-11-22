@@ -13,7 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const PROD_INDEX = path.join(REPO, 'scenario/index');
 const shardOf = (u: string) => u.slice(0, 5).split('').join('/');           // INDEPENDENT shard rule (uuid-addressed, NOT slug)
 

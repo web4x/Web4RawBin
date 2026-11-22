@@ -12,7 +12,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // (svg.style.width='' + overflow:hidden) + CSS-scales; persist→restore unregressed. Measures PX (scale-only = the space false-green).
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');

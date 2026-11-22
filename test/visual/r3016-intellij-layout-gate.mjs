@@ -12,7 +12,7 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
 import path from 'path';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 const OUT = path.join(REPO, 'test-results/merge-visual');
 fs.mkdirSync(OUT, { recursive: true });

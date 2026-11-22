@@ -5,7 +5,7 @@ import { preserveRoomIdentity, assertRoomPersistInvariant, setGuardResolveToken,
 import { readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const throws = (fn: () => void): boolean => { try { fn(); return false; } catch { return true; } };
 let bad = 0; const ok = (c: boolean, m: string) => { if (!c) { console.error('  ✗ ' + m); bad++; } else console.log('  ✓ ' + m); };
 

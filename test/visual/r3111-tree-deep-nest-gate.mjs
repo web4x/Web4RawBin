@@ -13,7 +13,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.139';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), TARGET = '0.7.139';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const OWNERGUARD = '40802701-db2c-49d4-85cd-aa421f06e61d';   // S31 UC serverManager.ownerGuard
 const S30UC = 'e22113cd-022d-48f0-b434-9ec4636e2081';        // S30 UC currentSprintEagerLazy (de-dup case)

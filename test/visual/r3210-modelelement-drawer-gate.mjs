@@ -14,7 +14,7 @@ import { chromium, devices } from '@playwright/test';
 const BASE = RB_BASE;
 const CLASS = '54ea2a17-7b18-4d0f-ab41-feb6efe9ae64';        // seed ModelElement class Circle (4 members)
 const METHOD = 'c2fca9c2-5b77-4a1f-aae2-cf9cdf0c981c';       // a Circle member (→ signature branch)
-const BUNDLE = '/dist/' + (fs.readdirSync(path.join('/var/dev/Workspaces/web4x/Web4RawBin/src/public/dist')).find(f => /^model-.*\.js$/.test(f)) || 'model.js');
+const BUNDLE = '/dist/' + (fs.readdirSync(path.join(((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/src/public/dist'))).find(f => /^model-.*\.js$/.test(f)) || 'model.js');
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpStatus = (pth, token) => new Promise((res) => { const r = https.request({ host: RB_HOST, port: RB_PORT, path: pth, method: 'GET', rejectUnauthorized: false, headers: token ? { 'x-player-token': token } : {} }, x => { x.on('data', () => {}); x.on('end', () => res(x.statusCode)); }); r.on('error', () => res(0)); r.end(); });
 const version = () => new Promise((res) => { https.get(`${BASE}/api/config`, { rejectUnauthorized: false }, r => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res(''); } }); }).on('error', () => res('')); });

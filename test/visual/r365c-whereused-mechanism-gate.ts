@@ -12,7 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const TARGET = process.env.R365C_TARGET || '0.8.64';
 const USAGE = path.join(ROOT, 'data/model-store/usage-index.json');
 const OUT = path.join(ROOT, 'test-results/r365c-whereused') + '/'; fs.mkdirSync(OUT, { recursive: true });

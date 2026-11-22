@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const CANON = 'src/ts/scenario/sprint-label.ts';
 const DISPLAY_SITES = [ // every surface that ORDERS sprints for display must import + route through the canonical comparator
   'src/ts/server/server.ts',                        // :1524 sprintOverviewNodes → /model + traceability folder

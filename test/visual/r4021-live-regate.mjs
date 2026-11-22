@@ -15,7 +15,7 @@ import path from 'node:path';
 
 const EXPECT_VER = process.argv[2] || '0.8.166';
 const BASE = RB_BASE;
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const curl = (u) => { try { return execSync(`curl -s ${u} --insecure`, { encoding: 'utf8', timeout: 20000 }); } catch (e) { return ''; } };
 const R = (v) => console.log(v);
 

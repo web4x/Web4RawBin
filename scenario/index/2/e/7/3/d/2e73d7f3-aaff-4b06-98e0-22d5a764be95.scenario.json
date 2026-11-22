@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:1ec6afd4-8e5e-4a69-8e73-ce445c934053",
+  "model": {
+    "uuid": "2e73d7f3-aaff-4b06-98e0-22d5a764be95",
+    "name": "test:CiWorkflow.visualServerGates",
+    "description": "AC visual-triaged: the 8 identity-clean test/visual server gates run in the e2e suite against the isolated server and exit 0",
+    "sourceFile": "ior:file:test/e2e/visual-server-gates.spec.ts",
+    "implementations": [
+      "ior:instance:1ec6afd4-8e5e-4a69-8e73-ce445c934053"
+    ],
+    "useCase": "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad",
+    "requirement": "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a",
+    "status": "pass",
+    "unitLinks": []
+  }
+}

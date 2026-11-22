@@ -6,7 +6,7 @@
 // (d) BY-CONSTRUCTION: read (resolveReadDir→dirFor) AND write both route through the SAME modelDir() flag → they cannot diverge
 //     for ANY unit (dirFor: non-model→PROD_INDEX always; model→modelDir()=PROD_INDEX when flipped). Covers future units too.
 import { readdirSync, statSync, readFileSync, existsSync } from 'node:fs'; import path from 'node:path';
-const ROOT='/var/dev/Workspaces/web4x/Web4RawBin', IDX=path.join(ROOT,'scenario/index'), MODEL_STORE=path.join(ROOT,'data/model-store/index');
+const ROOT=(new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), IDX=path.join(ROOT,'scenario/index'), MODEL_STORE=path.join(ROOT,'data/model-store/index');
 const countJson=(d)=>{let n=0;const w=x=>{if(!existsSync(x))return;for(const e of readdirSync(x)){const f=path.join(x,e);const st=statSync(f);if(st.isDirectory())w(f);else if(e.endsWith('.scenario.json'))n++;}};w(d);return n;};
 const a_units = countJson(IDX);
 const envTxt = existsSync(path.join(ROOT,'.env')) ? readFileSync(path.join(ROOT,'.env'),'utf8') : '';

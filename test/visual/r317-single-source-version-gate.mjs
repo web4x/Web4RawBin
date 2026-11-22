@@ -15,7 +15,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const LIVE = '/var/dev/Workspaces/web4x/Web4RawBin';
+const LIVE = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const WT = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/r317wt';
 const NODE18 = '/root/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda/node';
 const CONFIG_UNIT = 'scenario/index/c/o/n/f/i/config-singleton-0000-000000000001.scenario.json';

@@ -16,7 +16,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const EMPTY = 'e0000000-0000-4000-8000-000000033610'; // test-only empty diagram (distinct from the expert repro's uuid)
 const CLASS = 'f51234b0-0233-4fd6-a802-5467f64accc2'; // 'Id' — a real MODEL_STORE element to add
 const BOGUS = 'f0000000-0000-4000-8000-0000000badf0'; // NOT in MODEL_STORE → add must NOT persist (planted-bite)

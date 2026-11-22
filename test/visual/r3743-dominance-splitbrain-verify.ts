@@ -11,7 +11,7 @@ import { UnitController } from '../../src/ts/scenario/unit-controller.ts';
 import '../../src/ts/scenario/task-policy.ts'; // auto-registers TaskPolicy (Policy #1)
 import { deriveStatusEnum } from '../../src/ts/scenario/task-status.ts';
 import { MvcBoundaryGuard } from '../../src/ts/scenario/mvc-boundary-guard.ts';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const show = (rel: string) => execSync(`git show HEAD:${rel}`, { cwd: ROOT, encoding: 'utf8' });
 const R: Record<string, boolean> = {}; const notes: string[] = [];
 

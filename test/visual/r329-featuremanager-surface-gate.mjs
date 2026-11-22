@@ -16,7 +16,7 @@ const HOST = RB_HOST, PORT = RB_PORT;                        // same server as p
 const OWNER = OWNER_LITERAL;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const MDA = 'Model-Driven Code Quality';
-const MDA_UNIT = '/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/9/0/1/e/0/901e0ece-c735-4c20-8652-1809069662c3.scenario.json';
+const MDA_UNIT = ((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/scenario/index/9/0/1/e/0/901e0ece-c735-4c20-8652-1809069662c3.scenario.json');
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 const mda = JSON.parse(fs.readFileSync(MDA_UNIT, 'utf8')).model;
