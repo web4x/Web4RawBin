@@ -44,6 +44,10 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run build
       - run: npm run test:e2e -- --trace off
+        env:
+          # Server (playwright.config.ts) and the disk-asserting specs must read the same
+          # isolated dir; without this the specs fall back to ./data and see 0 rooms.
+          E2E_DATA_DIR: ${{ runner.temp }}/rawbin-e2e-data
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
