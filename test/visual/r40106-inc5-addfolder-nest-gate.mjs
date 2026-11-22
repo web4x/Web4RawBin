@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 INC-5 (v0.8.221) — add-folder-NEST collapsed create-path check (PO named it explicitly).
 // The 3rd collapsed create path (add-folder-nest, alongside multipart-upload=native-nest + federation-import).
 // AUTHENTICATED via the seeded SystemTester browser session (raw https = 401, documented). Reuse 909f1bd6, no room creation.
@@ -5,7 +6,7 @@
 // FAILABLE: a control root-folder must NOT appear under the parent. Refactor = must land exactly as before.
 import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

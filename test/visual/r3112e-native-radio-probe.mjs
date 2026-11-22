@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R31.12 — TEST THE ASSUMPTION (Tron: 'how do you know it's an iOS problem?'). We never verified iOS-specificity.
 // Does a room-settings radio select by a PLAIN NATIVE CLICK in Chromium @390 (v0.7.146), WITHOUT the belt handler?
 // If native selection is broken in Chromium too → the 'iOS' theory is WRONG = a plain UNIVERSAL regression.
@@ -6,7 +7,7 @@
 // (D) elementFromPoint at the modal radio — is something intercepting the click? Non-host dnd modal (re-enable radios to click).
 import { devices, chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444', DND = '3231db71-d834-435a-a7f9-a801680ccd62';
+const BASE = RB_BASE, DND = '3231db71-d834-435a-a7f9-a801680ccd62';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

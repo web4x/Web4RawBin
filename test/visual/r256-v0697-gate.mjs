@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a8cde9fc-a227-454a-8ff3-aabb97d432b4] R25.6 scenarioLinkHref
 // [test:uuid:bcda71cb-351c-4b04-8371-e01f5418142c] R25.5 readAndRoute
 // [test:uuid:a7ae9ea8-940b-4125-a259-70b8f3b66785] R25.6 renderScenarioLink
@@ -17,7 +18,7 @@ import path from 'path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = __repo;
 const WEBITEM = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';   // existing message: WebItem (dnd room)
 const FILE_UUID = 'b57d2f42';                             // existing File (Volker engels.ics) — full resolved below

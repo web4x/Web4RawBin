@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:ee18399f-f40f-4b01-ad8f-b0672b6e883b] R25.4 minimize — ✕ to peek bar + grab-bar expand
 // [test:uuid:222969ea-e5fb-4dbd-8d40-06051e314d77] R25.4 onGrabBarPointer
 // [test:uuid:d82ebcf5-58ef-4227-b32a-7f4c3cfb5f80] R25.3 recognizeIdentity
@@ -17,7 +18,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const FULL = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';   // existing message: WebItem in dnd room
 const KNOWN_PHONE = '+4981422917723';                   // Tron primary 8f74dfba
 const PROFILES = path.join(__repo, 'data/profiles.json');

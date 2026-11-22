@@ -1,3 +1,4 @@
+import { RB_BASE } from '../visual/_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -36,7 +37,7 @@ async function main() {
 
   console.log('=== AVATAR BUG REPRODUCTION ===\n');
 
-  await page.goto('https://localhost:4444/app', { waitUntil: 'networkidle' });
+  await page.goto(RB_BASE + '/app', { waitUntil: 'networkidle' });
   await page.waitForTimeout(2000);
 
   // Gate

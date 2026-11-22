@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c4a7f1b9-2e63-4d08-b591-7a0e3c8d4f26] R40.8 ServerManagerApi.unitRealPath (Impl 3ee03bde) — the Files-tab path is MEASURED against the filesystem (idx.has() fail-closed + idx.filePath one-shard-rule == real disk location), NEVER composed from the slug; a bogus uuid returns null (stub-must-fail); /api/unit/<uuid>/path is non-owner-403 (no path leak). Owner-sees-path-@390 + browsable = Tron owner-device.
 /**
  * R40.8 — 'Files' shows the REAL on-disk file location (Impl 3ee03bde unitRealPath). Run:
@@ -57,7 +58,7 @@ for (let i = 1; i <= 3; i++) {
   const sourceAudit = /idx\.has\(uuid\)\)\s*return null/.test(src) && /idx\.filePath\(uuid\)/.test(src) && !/model\.name|slug|slugify/.test(src);
 
   // (4) [REAL·non-owner, served] /api/unit/<uuid>/path is owner-gated → 403, no path leaked to a non-owner (+ bogus 403, no oracle)
-  const q = (u: string) => execSync(`curl -s -o /dev/null -w "%{http_code}" "https://prod.wo-da.de:4444/api/unit/${u}/path" --insecure`, { encoding: 'utf8' }).trim();
+  const q = (u: string) => execSync(`curl -s -o /dev/null -w "%{http_code}" "${RB_BASE}/api/unit/${u}/path" --insecure`, { encoding: 'utf8' }).trim();
   const nonOwner403 = q(reals[0]) === '403' && q(BOGUS) === '403';
 
   const pass = pathMatches && failClosed && sourceAudit && nonOwner403 && reals.length === 8;

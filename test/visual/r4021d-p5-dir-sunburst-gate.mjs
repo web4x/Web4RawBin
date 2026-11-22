@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 P5 — DIR-FOLDER SUNBURST @390 (unblocked v0.8.165, R37.33 resolveDirRefAbs: dir refs uniformly repo-relative →
 // the puml directory leaves now populate by resolved-uuid; was sunburst-over-zero, which the hardened arc==children>0
 // assertion correctly refused before). Same renderer as the room Files gate (renderChildSizeSunburst a34f1a68, sizeOf
@@ -10,7 +11,7 @@
 // children (9 arcs==9 pumls, not over-zero). Verifies Impl a34f1a68 renderChildSizeSunburst on the dir surface. Also the
 // R37.33 proof rode here (arc-count==children>0). GREEN DET-3x, largest arc=6464B puml, 576B sliver, ratio 3.59, able-to-fail.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DIR_REF = 'dir:scrum.pmo/sprints/sprint-20-traceability-first/diagrams'; // 9 .puml, bytes 576..6464 (ratio 11.2)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,

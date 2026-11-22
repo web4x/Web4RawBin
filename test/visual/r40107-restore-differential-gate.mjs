@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.107 RESTORE DIFFERENTIAL gate (PO). The 9 corrupted rooms were restored disk-side from HEAD.
 // Independently confirm (do NOT trust relayed numbers):
 //   (1) DISK == HEAD for all 9 (git working-tree clean) — the restore landed correctly.
@@ -13,7 +14,7 @@ import { readFileSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 
 const ROOMS = [
   { u: '2b1921a9-3638-4f91-b9b0-9744ff710496', label: 'Christine Dawood' },

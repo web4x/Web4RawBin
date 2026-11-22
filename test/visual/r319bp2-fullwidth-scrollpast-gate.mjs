@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:f444ffa6-0be2-42c3-a40d-6668c85ff6c7] R31.9 round-2 full-width + scroll-past (ACs 4fcc23a14 full-width + 80448203a scroll-past) — GREEN DET-3x v0.7.134 @390+desktop, /trace AND Server Manager (DRY shared rb-detail-drawer). app.css:398 data-position=bottom → position:static;width:100% (reverted fixed-overlay): (a) drawer ~100vw full-width; (b) in-flow BELOW tree → last item reachable/not occluded (scroll-past); (c) grab-bar drag grows drawer; (d) non-regression = R31.9 round-1 wins hold (same DOM node across 1025 BP + desktop inline compartment). Credits the R31.9 drawer-position impl (observePosition 240c539f / applyPosition — req's call).
 // R31.9 round-2 fix (v0.7.134, app.css:398 rb-detail-drawer[data-position='bottom']{position:static;width:100%} — reverted
 // the fixed-overlay). RE-GATE @390 + intermediate + desktop, on /trace AND Server Manager (DRY shared rb-detail-drawer):
@@ -10,7 +11,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.134';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.134';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const smBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^server-manager-.*\.js$/.test(f));

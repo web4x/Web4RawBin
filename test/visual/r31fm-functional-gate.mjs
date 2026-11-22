@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:3a571c7e-04d0-4bbd-89ec-58b635e27866] R31.8c FeatureManager.featureRoots (Impl 79b22596) — FUNCTIONAL reframe AC surface, GREEN DET-3x @390 v0.7.119: real Feature scenario-unit ROOTS render in the shared rb-trace-tree + expand → allowedUsers LIVE granted-user child-nodes (opaque <featureUuid>:<16-hex> ref, no raw token) + Feature-select→rb-feature-detail grant (POST fires) + child-select→rb-profile-detail revoke (POST fires) + non-owner→403. Complements the data/security Tests (55d125ee opaque + f38f87af completeness on ad622052).
 // R31.8c FUNCTIONAL reframe — GATE-THE-WORKING-THING @390 iPhone-12, DET-3x, verify-by-PID. served v0.7.118.
 // The data/security axis is already Tested (55d125ee opaque + f38f87af completeness on allowedUsersChildren ad622052).
@@ -10,7 +11,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.119';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.119';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p, headers = {}) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', headers, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
 const fmBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^feature-manager-.*\.js$/.test(f));

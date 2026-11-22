@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4d9e2f81-7a3c-4b56-9e08-1c5a3f7b2d64] T37.26 / R40.4 SprintView.sprintDisplayName (Impl c0e32287) — the DISTINCT
 // intent from e7fb7e65/sprintLabel (that is the 'Sprint <number>' PREFIX atom, DASH format): this asserts EXACTLY the
 // COLON canon 'Sprint <n>: <title>' (and 'Task <n>.<m>: <title>') + NO-DOUBLING (feeding an already-prefixed name does NOT
@@ -8,7 +9,7 @@
 import { webkit, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import { sprintDisplayName, taskDisplayName } from '../../src/ts/scenario/sprint-label.ts';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const results = {};
 

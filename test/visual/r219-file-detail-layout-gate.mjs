@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:27d4d8ca-2d67-480d-8eae-4f96ba3e28c6] R21.9 renderActionsFirst — file-detail order buttons<preview<metadata + 75vh pan/zoom
 // R21.9 FINAL gate (Sprint 21) — file-detail pan/zoom on BOTH surfaces, v0.6.74.
 // Impl c22083798/v0.6.73-74 (rb-file-detail.ts / rb-preview-pane.ts / pan-zoom.ts /
@@ -14,7 +15,7 @@
 
 import { chromium } from '@playwright/test';
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const FILES = [
   '9026ef81-f1c3-4753-bdca-0f348bd73ef2',
   '9aa809eb-4c1a-4e17-b366-d4959abed94c',

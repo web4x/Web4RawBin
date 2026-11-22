@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:771e2e83-9109-4dc4-8d1f-70c2b4016d29] R30.45/UC7 RbDiffEditor.switchWorktree (Impl 1a86a852) — D3 no-checkout: a worktree 'use' ref-pick switches the active side's READ ref + header tracks otmux@<branch>, server does NO checkout / NO HEAD mutation (oosh `git worktree list` byte-identical before/after). GREEN DET-3x v0.7.72.
 // [test:uuid:73886c4b-c95f-4c06-849a-dd3f1052fbf7] R30.45/UC6 GitApi.worktrees (Impl dceff494) — the Manage panel renders the repo's worktree list (path+branch) from GET /api/git/repo-info worktrees[]; this gate reads + drives those .rm-wt 'use' buttons (5 oosh worktrees: dev/macos/macos.latest/mcdonges.latest/prod). READY for req mint (UC6 manageInfo worktrees).
 // R30.45/UC7 worktree-switch gate (D3) — v0.7.72, Tron's real deep-link. Impl RbDiffEditor.switchWorktree (1a86a852).
@@ -10,7 +11,7 @@
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import { execSync } from 'node:child_process';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3045-uc7';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

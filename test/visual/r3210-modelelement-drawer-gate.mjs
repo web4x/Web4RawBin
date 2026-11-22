@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c7b558ca-e582-4493-8eaa-84434a90064a] R32.10 ModelElement drawer INTERACTION — verifies RbModelElementDetail.render (Impl 7e147ad8): select a ModelElement → drawer routes 'modelelement:<uuid>' → class renders «kind»+members+'📐 Open diagram' affordance (link → real ior:class:Diagram unit) / method renders signature; non-member → /model 403 (INV-D4). Own-oracle drives the REAL model bundle + drawer renderDetailForRef flow with real /api/ior data @390. → req wires this Test onto Impl 7e147ad8 (render).
 // R32.10 ModelElement drawer INTERACTION @390 (select→drawer→detail/diagram/method), DET-3x. The interaction: a model
 // node → drawer routes 'modelelement:<uuid>' to rb-modelelement-detail (tagMap, R32.10 INV-M2) → class→members+«kind»+
@@ -10,12 +11,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const CLASS = '54ea2a17-7b18-4d0f-ab41-feb6efe9ae64';        // seed ModelElement class Circle (4 members)
 const METHOD = 'c2fca9c2-5b77-4a1f-aae2-cf9cdf0c981c';       // a Circle member (→ signature branch)
 const BUNDLE = '/dist/' + (fs.readdirSync(path.join('/var/dev/Workspaces/web4x/Web4RawBin/src/public/dist')).find(f => /^model-.*\.js$/.test(f)) || 'model.js');
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-const httpStatus = (pth, token) => new Promise((res) => { const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: pth, method: 'GET', rejectUnauthorized: false, headers: token ? { 'x-player-token': token } : {} }, x => { x.on('data', () => {}); x.on('end', () => res(x.statusCode)); }); r.on('error', () => res(0)); r.end(); });
+const httpStatus = (pth, token) => new Promise((res) => { const r = https.request({ host: RB_HOST, port: RB_PORT, path: pth, method: 'GET', rejectUnauthorized: false, headers: token ? { 'x-player-token': token } : {} }, x => { x.on('data', () => {}); x.on('end', () => res(x.statusCode)); }); r.on('error', () => res(0)); r.end(); });
 const version = () => new Promise((res) => { https.get(`${BASE}/api/config`, { rejectUnauthorized: false }, r => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res(''); } }); }).on('error', () => res('')); });
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

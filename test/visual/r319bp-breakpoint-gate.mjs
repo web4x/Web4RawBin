@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:ccb4a810-4397-4d68-9c7e-dc520d583a98] R31.9 RbDetailDrawer.observePosition (Impl 240c539f, Method e8097351, UC cc45a580) — responsive drawer position across the 1025px breakpoint, DET-3x @390+@desktop+@BP-drag, GREEN v0.7.133. Verifies all 5 ACs REAL-interactive: (1) no-jump SAME DOM node across BP (marker+handle persist, data-position flips inline↔bottom, no re-mount); (2) resize-continuous (.drawer-handle both sides + stale inline height CLEARED entering desktop); (3) desktop = 2-pane INLINE Details compartment (tree|Details side-by-side) / @390 = bottom drawer; (4) state-preserved (content+node intact across BP); (5) app.css regression clean (/trace+/edit+/room render @390+@desktop, @media(1025) retired).
 // R31.9 drawer responsive-position across the 1025px breakpoint — Impl 240c539f RbDetailDrawer.observePosition.
 // ONE instance transitions inline(≥1025 Details-compartment) ↔ bottom(≤1024 drawer) via CSS [data-position] driven by a
@@ -14,7 +15,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.133';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.133';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 

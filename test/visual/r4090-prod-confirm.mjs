@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.90 PROD CONFIRMATION — verify Tron's upload fix ON HIS REAL SURFACE (prod.wo-da.de:4444, served v0.8.190), not a
 // worktree build (served!=source burned us once today). SystemTester (the ONE canonical peer, token ce981242) + ONE room; the
 // exact request SHAPES that 401'd for a week — QUOTED boundary + ;charset param — in BOTH field orders, with a real binary PNG.
@@ -10,7 +11,7 @@ import crypto from 'node:crypto';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYSTEST = 'ce981242-74fe-4d44-b5b6-43c641e224df'; // the ONE fixed SystemTester peer — never mint a fresh identity
 const shaOf = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const B = '----WebKitFormBoundaryTRONprodR4090';

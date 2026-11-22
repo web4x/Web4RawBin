@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.3-A (AC-1/AC-2/AC-5) — COMPONENT HARNESS, @390 real-WebKit. Built from HEAD source (rb-keyboard-bar.ts, == served
 // 0.8.66), mocking nothing but the (owner-gated) ws by testing the controller's send callback directly.
 // ★★ SURFACE LABELLING (PO condition — harness ≠ real user-facing page; never let a harness pass read later as a real-page
@@ -22,7 +23,7 @@ execSync(`npx esbuild src/public/ts/trace/rb-keyboard-bar.ts --bundle --format=i
 // INV-PDG-4 (gate-reads-cache-not-deploy): HEAD-source harness + real endpoint via node-https (no served nav → no SW
 // cache). Tie the green to the DEPLOY (replaces the stale 'served 0.8.66' pin): served version MUST == committed, else NOT-RUN=RED.
 const COMMITTED_VER = execSync('node -p "require(\'./package.json\').version"', { cwd: ROOT }).toString().trim();
-const SERVED_VER = ((execSync('curl -s https://prod.wo-da.de:4444/api/config --insecure', { cwd: ROOT }).toString().match(/"version":"([^"]*)"/)) || [])[1] || '';
+const SERVED_VER = ((execSync('curl -s ${RB_BASE}/api/config --insecure', { cwd: ROOT }).toString().match(/"version":"([^"]*)"/)) || [])[1] || '';
 if (SERVED_VER !== COMMITTED_VER) { console.log(`NOT-RUN=RED (INV-PDG-4): served ${SERVED_VER || '?'} != committed ${COMMITTED_VER}`); process.exit(1); }
 console.log(`INV-PDG-4: served==committed==${COMMITTED_VER} — gate reads the DEPLOY.`);
 
@@ -30,7 +31,7 @@ console.log(`INV-PDG-4: served==committed==${COMMITTED_VER} — gate reads the D
 // wrapper {unit:{model:{keys}}} but rb-terminal-detail.ts:90 reads j.model.keys||j.keys → [] → keyboard bar NEVER
 // renders on the real page. serves-at-unit-path proves the DATA is real; component-read-path==0 IS the integration bug.
 const realKeymap = () => new Promise((resolve) => {
-  https.get('https://prod.wo-da.de:4444/api/ior/c16abc17-21cc-477f-b2ce-481bef773da1', { rejectUnauthorized: false }, (res) => {
+  https.get(RB_BASE + '/api/ior/c16abc17-21cc-477f-b2ce-481bef773da1', { rejectUnauthorized: false }, (res) => {
     let b = ''; res.on('data', c => b += c); res.on('end', () => {
       try {
         const j = JSON.parse(b);

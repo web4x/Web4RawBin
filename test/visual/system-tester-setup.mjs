@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 /**
  * Shared setup for all inline verification scripts.
  * Uses the ONE SystemTester identity (fixed token ce981242) — ZERO new prod users.
@@ -23,7 +24,7 @@ export async function seedSystemTester(context) {
 }
 
 export async function setupSystemTester(page) {
-  await page.goto('https://localhost:4444/app', { waitUntil: 'networkidle' });
+  await page.goto(RB_BASE + '/app', { waitUntil: 'networkidle' });
   await page.waitForTimeout(2000);
 
   // Handle profile editor if shown
@@ -37,7 +38,7 @@ export async function setupSystemTester(page) {
   // Handle device enrollment
   if (await page.locator('#de-code').isVisible({ timeout: 3000 }).catch(() => false)) {
     await page.evaluate(() => { document.querySelector('.profile-overlay')?.remove(); });
-    await page.goto('https://localhost:4444/app', { waitUntil: 'networkidle' });
+    await page.goto(RB_BASE + '/app', { waitUntil: 'networkidle' });
     await page.waitForTimeout(2000);
   }
 }

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a579f0f4-8035-437c-a787-6ae84174a9c3] R23.3 resolveToken
 // v0.6.84 gate — Heartspaces member list shows ONE Marcel Donges (was 2 consolidated
 // tombstones) + the Marcel badge carries the PRIMARY token (Link Account can't target a
@@ -10,7 +11,7 @@
 
 import WebSocket from 'ws';
 
-const WSS = 'wss://prod.wo-da.de:4444';
+const WSS = RB_WSS;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';      // SystemTester (canonical, reused)
 const HEARTSPACES = '6c04f959-f3d6-42eb-818f-5e2e4498bf91';
 const PRIMARY = '8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd';  // merged Marcel primary

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.5 item1 @390 own-oracle — ModelView.addDiagram reveal mechanism (ffdd9347). The full add (POST /create) is
 // behind the feature-gated /model page (SystemTester 403) → the CREATE half is the tester's owner-cookie real-gate.
 // This verifies the REVEAL half on served v0.8.19: mount rb-trace-tree, feed the mof roots, call the SAME
@@ -6,7 +7,7 @@
 // /api/trace/children is ungated (served). node22, @390.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r335-390') + '/'; fs.mkdirSync(OUT, { recursive: true });

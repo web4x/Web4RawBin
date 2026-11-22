@@ -1,0 +1,56 @@
+# Consolidation phase 1: every push and PR runs the build, unit tests and e2e tests
+# against an isolated server (playwright.config.ts: port 4445, temp DATA_DIR). Never prod.
+name: CI
+
+on:
+  push:
+    branches: [main, 'hotfix/**']
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04  # Playwright 1.60 has no chromium deps for ubuntu-latest (26.04)
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:guard
+
+  unit:
+    runs-on: ubuntu-24.04  # Playwright 1.60 has no chromium deps for ubuntu-latest (26.04)
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm test
+
+  e2e:
+    runs-on: ubuntu-24.04  # Playwright 1.60 has no chromium deps for ubuntu-latest (26.04)
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run test:e2e -- --trace off
+        env:
+          # Server (playwright.config.ts) and the disk-asserting specs must read the same
+          # isolated dir; without this the specs fall back to ./data and see 0 rooms.
+          E2E_DATA_DIR: ${{ runner.temp }}/rawbin-e2e-data
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-results
+          path: test-results/
+          retention-days: 7

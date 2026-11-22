@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:036a3f4d-b3cc-4083-bbc8-75b21d8bc72a] R23.2 embedYouTube
 // [test:uuid:06d3bba5-04ed-4b82-bda2-47dbf4b20ce1] R23.1 fillPreviewPane
 // R22.5 gate — fillPreviewPane (shared room+trace) audio + YouTube preview. v0.6.80.
@@ -18,7 +19,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const SCEN = path.join(__repo, 'scenario/index');
 const YT_UUID = '2746ab4a-55d5-4bae-83dc-b38c6968515e';   // Heartspaces YouTube .url (uri-list)
 const YT_ID = 'a-_CuBOu6BA';

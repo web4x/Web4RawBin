@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c7a2d5e8-4f19-4b63-8e07-2d9f6a1c3b58] R40.11 carve-out RbDetailView fail-loud — synthetic depref: ref → "⚠ unresolved: <ior>" not eternal spinner; isSynthetic guard does NOT over-fire on real units. req mints Impl→the failLoud carve-out.
 // R40.11 carve-out — FAIL-LOUD 'unresolved: <ior>' for a SYNTHETIC depref: deployment-ref, no more eternal spinner
 // (fix 2cf8f9866, rb-detail-view.ts !obj branch + isSynthetic guard). Real-WebKit @390 iPhone-12, DET-3x.
@@ -6,7 +7,7 @@
 // (B) ANTI-OVER-FIRE (a guard that fires too broadly = regression dressed as fix): tap a REAL unit (the Heartspaces
 //     mp3 file 63462717) → it RESOLVES normally (real name shown) and NEVER shows '⚠ unresolved'.
 import { webkit, devices } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYNTH = 'depref:ssh-host-identity';                 // OtmuxBridge: uuid = 'depref:'+role → isSynthetic
 const REAL = '63462717-1771-4775-aeda-d9947d7bcbd2';      // real File unit (Ed Sheeran mp3) → must resolve, must NOT fail-loud
 const iPhone = devices['iPhone 12'];

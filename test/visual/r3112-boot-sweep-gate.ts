@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c35f02c7-fba5-4a97-9dc0-952f5d543703] R31.4 boot-sweep-orphans — PtyBridge.reapOrphans (Impl 5d313828, Method 28d8158b). At boot (nothing attached) every sm_* grouped session is an orphan → reaped, zero left. GREEN DET-3x served==0.7.102: LIVE fresh-boot 0 stale sm_* (architect restart reaped) + attachPane spawns grouped sm_* → reapOrphans sweeps ALL injected orphans to 0 + non-sm sessions untouched (clean live tree) + boot-wired (server.ts:2212). Build-safe (no prod restart).
 // ★ LIVE EMPIRICAL PROOF (controlled experiment, expert+tester): seeded orphan sm_bootcheck_marker → RED-baseline: a
 //   '[r]' press = CLIENT rebuild only (server pid UNCHANGED 1217320, marker SURVIVES, reapOrphans did NOT run). GREEN:
@@ -22,7 +23,7 @@ const smNames = (): string[] => sh(['list-sessions', '-F', '#{session_name}']).t
 const nonSm = (): string[] => sh(['list-sessions', '-F', '#{session_name}\t#{window_width}x#{window_height}']).trim().split('\n').filter(l => l && !l.startsWith('sm_'));
 const killAllSm = () => { for (const n of smNames()) sh(['kill-session', '-t', n]); };
 const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
-const servedVersion = (): Promise<string> => new Promise((res) => { https.get({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }).on('error', () => res('?')); });
+const servedVersion = (): Promise<string> => new Promise((res) => { https.get({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }).on('error', () => res('?')); });
 function mockWs(): any { const h: Record<string, any> = {}; return { readyState: 1, sent: [] as any[], send(d: any) { this.sent.push(d); }, close() { (h.close || (() => {}))(); }, on(e: string, cb: any) { h[e] = cb; } }; }
 
 const served = await servedVersion();

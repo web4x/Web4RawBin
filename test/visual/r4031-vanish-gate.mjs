@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.31 LANDING-3 · HALF B (VANISH) — TRON'S #1 ACCEPTANCE ("live MVC not at all working"). Owner approves on client-1;
 // a GENUINELY PASSIVE client-2 (never clicked, no local emit) re-renders detail + status-badge + CONTROLS (Approve/Decline
 // VANISH at Done) from the BROADCAST ALONE, NO reload. Does NOT need graph-absence — runs on a NORMAL current-sprint QA-Review
@@ -15,7 +16,7 @@ import path from 'node:path';
 import { setupFoundation } from './r4031-foundation.mjs';
 
 const TARGET = process.env.VANISH_UUID || '97e8a6ad-46db-440f-a9be-cfb97ca64df4'; // Sprint 37 (current) QA-Review, graph-present → controls render
-const PROD = 'https://prod.wo-da.de:4444';
+const PROD = RB_BASE;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // C1 neuter — insert an early-return in publishUnitChanged's IMPLEMENTATION body. The old regex used [^=]* which stops at the
 // '=' in the type annotation '=> void' → never matched (grep -c=0). This matches the impl arrow specifically ([\s\S]*? spans the

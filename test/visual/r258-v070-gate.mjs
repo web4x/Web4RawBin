@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:6b97c836-ee97-4568-9419-3150b41d4a46] R25.7 addMember — resolve+dedup on add, Heartspaces 1 Marcel
 // [test:uuid:3b96a897-6d44-41ff-b20c-d5fadaedfb3c] R25.7 redirectTombstoneToPrimary — tombstone->primary, Heartspaces 1 Marcel
 // [test:uuid:c4b17a15-0e68-40e3-b2aa-23c048155c1c] R25.7 evictAbsorbedFromRooms — orphan-ghost skip, Heartspaces 1 Marcel
@@ -19,7 +20,7 @@ import path from 'path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = __repo;
 const SCEN = `${REPO}/scenario/index`;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';

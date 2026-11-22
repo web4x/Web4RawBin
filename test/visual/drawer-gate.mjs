@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 /**
  * Canonical drawer verification gate — uses SystemTester (ZERO new users).
  * Seed-before-WS: /api/health → localStorage.setItem(token) → /app
@@ -6,7 +7,7 @@ import { webkit, devices } from '@playwright/test';
 
 const TOKEN = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const NAME = 'SystemTester';
-const BASE = 'https://localhost:4444';
+const BASE = RB_BASE;
 const iPhone = devices['iPhone 14'];
 
 const browser = await webkit.launch({ headless: false });

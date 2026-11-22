@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.85 PWA-SPECIFIC repro (PO): a stale/buggy service worker that strips multipart bodies breaks EVERY installed PWA user;
 // Tron is just the one reporting. Prove it WITHOUT him: run the SAME prod upload but with the SERVICE WORKER REGISTERED +
 // ACTIVE + CONTROLLING the page (as an installed PWA has), vs blocked (r4025 = worked). If the body arrives EMPTY with the SW
@@ -5,7 +6,7 @@
 // Tests the CURRENTLY-SERVED sw.js (→ tells whether every PWA user is broken TODAY vs only stale-cached workers). MY OWN
 // SystemTester room, tiny + ~495KB, cleanup after. NEVER his room. Do NOT ask Tron to test anything.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,

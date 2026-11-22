@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:67697d86-b488-4e81-bd80-3e7b38674fda] (READY — GREEN on 0.8.79) R40.10 BUG-A — after a decline, the minted ChangeRequest must be REACHABLE as a child/itemView on
 // the TASK DETAIL surface, not merely existing in the store. GATE-THE-AC-SURFACE: the r4010 tsx gate proved the SERVER
 // effect (CR minted + status→In Progress) but never the USER-FACING outcome (Tron sees 'Forward Links: no links').
@@ -6,7 +7,7 @@
 // child/itemView on the task detail (architect diagnoses forwardOnly/task-detail; expert builds). Ready marker on GREEN.
 import { webkit, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const TASK = 'cec4747a-e235-4e65-b59b-3f82f0cbeee3';   // Tron's declined task (status In Progress)
 const CR = 'd12b4c7f-065a-49b6-acf9-92624aeaed44';     // the minted ChangeRequest it must surface
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

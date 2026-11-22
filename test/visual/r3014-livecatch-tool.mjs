@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R30.14 LIVE-CATCH (shadow-DOM aware) — park a real tab, watch for the expert's next deploy: rb-update-banner
 // (SHADOW DOM) 'Update Now' lights up (arm A pollForWorkerUpdate→updatefound) → tap #update-now → SKIP_WAITING →
 // claimClients→controllerchange→reload→new version (arm B). SW ALLOWED. Version via /api/config. ~5.5min hold.
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OUT = '/var/dev/Workspaces/web4x/Web4RawBin/test-results/merge-visual';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const ver = (page) => page.evaluate(async () => { try { return (await (await fetch('/api/config', { cache: 'no-store' })).json()).version; } catch { return '?'; } });

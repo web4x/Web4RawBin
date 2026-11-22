@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // v0.6.92 gate — 3 email-drop bug fixes (0f838b156). SystemTester ONLY, reuse dnd room
 // (3231db71, no create, no profile commit). IDENTICAL content across iters -> content-hash
 // dedup to ONE WebItem + ONE .eml (minimal footprint). Units are NOT deleted afterward —
@@ -19,7 +20,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';
 const SCEN = path.join(__repo, 'scenario/index');
 const RUN = randomUUID().slice(0, 8);

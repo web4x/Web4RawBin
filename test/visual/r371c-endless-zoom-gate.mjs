@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.7.1 BUG-1 endless zoom-out (Tron IMG_4795, v0.8.32 fix 8ad1ad537) @390 COMPONENT-harness, DET-3x independent.
 // The device regression: a hard MIN=0.25 floor capped REPEATED zoom-out. Fix: grow-mode floor = GROW_MIN 0.02 (near-none) so
 // repeated zoom-out KEEPS working and the SVG canvas grows EACH step, bounded only by MAX_CANVAS_PX=16000. AC-zoom-out-repeated-
@@ -7,7 +8,7 @@
 // DET-3x: repeated setScale steps 0.5→0.02 EACH grow svg.style.width px (no 0.25 floor; scale reaches ~0.02), capped ≤16000.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');

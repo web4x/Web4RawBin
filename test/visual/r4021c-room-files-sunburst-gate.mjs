@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 — ROOM FILES SUNBURST @390 (Tron's FIRST-LOOK MORNING GATE, THE single most important verification).
 // Tron's exact complaint + screenshot: the Heartspaces room "Files" sunburst rendered UNIFORM one-per-file arcs even
 // though the files are wildly different sizes (LinkedIn Banner.png ~10MB vs a 43-byte doc). The bytes now reach his
@@ -16,7 +17,7 @@
 // corrected childCount→bytes metric): rendered .dv-sunburst arcs proportional to /api/trace/children model.size (sunburst.ts
 // sizeOf accessor + (size/total)*360 segments), largest arc=png(10MB) tiny=doc(43B), able-to-fail. Verifies the sunburst-bytes Impl.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const ROOM = '6c04f959-f3d6-42eb-818f-5e2e4498bf91';          // Heartspaces (Tron's screenshot room)
 const FILES_REF = `roomcoll:${ROOM}:files`;                    // the ref the tree/drawer mounts (Tron's render path)
 const FILES_UUID = 'f0250bdc-bc79-4f21-a2ad-a78a96959fc1';     // resolved files-folder uuid (DATA path; full uuid — no 8-char false-negative)

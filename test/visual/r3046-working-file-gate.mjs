@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:eaaa2469-e73b-4efb-8790-530f2f388915] R30.46 W1 RbDiffEditor.loadSide working-ref b7b6fcb6 — a deep-link
 // left=latest (or no ref) loads the RAW ON-DISK WORKING file via /api/files (uncommitted changes visible), NOT git-show:
 // el.left.ref==='' and el.left.content === the fs working file, /api/files/otmux requested (not /api/git/file for the left).
@@ -14,7 +15,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
 import { execSync } from 'child_process';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OOSH = fs.realpathSync(process.env.HOME + '/oosh');
 const OTMUX = `${OOSH}/otmux`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

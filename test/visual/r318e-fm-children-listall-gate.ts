@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:f38f87af-26ba-42cb-9516-8e4447f98e4a] R31.8c AC-featuremanager-lists-all-members (51ee3d5b9) / FeatureManager.allowedUsersChildren (Impl ad622052) — a Feature with N allowedUsers renders EXACTLY N child user-nodes ON LOAD (no cap/subset/manual-refresh), name-resolved, OPAQUE ids (<featureUuid>:<sha256[:16]>), owner(Feature-Manager)-gated 200 / non-member 403. Both Features (Server Manager 16604eee + Feature Manager 2980b7d9), N=3→3. GREEN DET-3x verify-by-pid 1314979 v0.7.114. Distinct-intent from opaque-ref Test 55d125ee (same Impl ad622052).
 // R31.8c AC-featuremanager-lists-all-members (51ee3d5b9) — FeatureManager.allowedUsersChildren (Impl ad622052).
 // CONFIRM-EXISTING-BEHAVIOR (architect measured it MET): a Feature with N allowedUsers renders EXACTLY N itemView
@@ -12,7 +13,7 @@ import fs from 'node:fs';
 import https from 'node:https';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SM = '16604eee-d844-4efb-bd4d-881433ca82a6';           // 'Server Manager' Feature
 const FM = '2980b7d9-a166-44ca-bf73-5dd1a4ba7b16';           // 'Feature Manager' Feature (viewing children needs THIS)
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';

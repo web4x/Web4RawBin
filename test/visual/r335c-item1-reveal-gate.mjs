@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.5 item1 REVEAL — INDEPENDENT headless gate (PO-directed; measured differently than the expert's own-oracle 816ecad4f).
 // The reveal (addDiagram → tree shows the new diagram) is driven by rb-trace-tree.expandPath, which the expert fixed to
 // walk by UUID (was raw-uuid vs the tree's type:uuid open-keys — the mismatch this tester MEASURED). expandPath lazy-loads
@@ -14,9 +15,9 @@
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390 (WebKit≠chromium false-green class)
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const TARGET = process.env.R335C_TARGET || '0.8.37'; // PO: gate the SERVED bundle (phantom-guard). Override via env for a bumped served version.
-const servedVersion = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
+const servedVersion = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (servedVersion !== TARGET) console.log(`⚠ PHANTOM-GUARD: served=${servedVersion} != TARGET=${TARGET} — this is a DRY-RUN (validates the gate on the committed bundle); the SERVED verdict rides v${TARGET}. Set R335C_TARGET=${servedVersion} to credit the current served bundle.`);
 else console.log(`served==${TARGET} verified — SERVED verdict.`);
 const DIST = path.join(ROOT, 'src/public/dist');

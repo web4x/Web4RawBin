@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.7.2 — ModelView.discoverRelated (Impl 8e8c1d75) @390 COMPONENT-harness gate, DET-3x independent (served==HEAD==0.8.29).
 // AC: select an element → Discover → its 1-LEVEL neighbors (relatesTo ∪ relatedFrom, model-derived, dedup, exclude self) are
 // add-view'd to the OPEN diagram + a refresh fires (buildEdges auto-wires the edges). Trigger is EVENT-driven (wireDrawerActions):
@@ -12,13 +13,13 @@
 // Component-harness (event-driven wireDrawerActions, not authed /model); pollution-safe (add-view route-intercepted).
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const ELEM = '0ce4d2fb-4023-4db8-ac2d-4376ce16815c', NEIGHBOR = '54ea2a17-7b18-4d0f-ab41-feb6efe9ae64', DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r372-discover') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const TARGET = '0.8.29', sleep = ms => new Promise(r => setTimeout(r, ms));
-const served = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
+const served = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (served !== TARGET) console.log(`⚠ served=${served} != ${TARGET}`);
 const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">`
   + `<link rel="stylesheet" href="/app.css"></head><body><div class="trace-page"><rb-trace-tree id="model-tree"></rb-trace-tree><div id="err"></div></div>`

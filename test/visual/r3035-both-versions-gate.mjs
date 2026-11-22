@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:8a2f7d6c-4b91-4e05-a3d7-1f6c9e28b504] R30.35 (revised, Tron 'implement them all') — CENTER shows BOTH versions (dark=old / highlight=new); ≫ adds-Left, ≪ adds-Right and BOTH COEXIST (click both → both present in center); ✕ REMOVES a line ALWAYS (fixes the visual-only-dismiss gap). Grounded in otmux line 38.
 // GATE (DET-3x, SCREENSHOT+PIXEL per matrix cell, NEVER DOM-count): on the deterministic synthetic all-4-kinds fixture — (1) BOTH-VERSIONS: a change block shows an OLD line (dark/low-luma) AND a NEW line (highlighted/higher-luma) in center, both present; (2) ≫ inserts the LEFT version into center; (3) ≪ inserts the RIGHT version; (4) COEXIST: after ≫ then ≪, BOTH the left AND right versions are present in center; (5) ✕ removes a line (center line count strictly decreases). Read-only vs prod (fixture + actions are in-memory, no save).
 // STATUS: prep — pre-deploy the current model auto-merges (picks one side) so ≫/≪ no-op or one-side-only and ✕ is visual-only → RED; flips GREEN when the both-versions model + always-remove ✕ deploy.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3035-both/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

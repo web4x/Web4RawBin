@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // S33-P2a RawBin's OWN real M1 model — INDEPENDENT gate (own-oracle + planted-defect bite), DET-3x. Measured DIFFERENTLY
 // than the architect backstop: import the REAL TsToModel.generate on REAL RawBin source into an ISOLATED SCRATCH +
 // synthetic AC4 fixtures + the served tree + @390 drawer. ACs: P2-1 RawBin REAL classes populate the tree (TsToModel/
@@ -13,14 +14,14 @@ import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
 
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const PROD_INDEX = path.join(ROOT, 'scenario', 'index');
 const SCRATCH = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/r332a';
 const TSTOMODEL_UUID = '0aa95da5-352d-4444-a865-09815dfae184'; // real RawBin TsToModel class (served)
 const BUNDLE = '/dist/' + (fs.readdirSync(path.join(ROOT, 'src/public/dist')).find(f => /^model-.*\.js$/.test(f)) || 'model.js');
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const countModelEls = (dir) => { let n = 0; const walk = (d) => { if (!fs.existsSync(d)) return; for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) walk(p); else if (e.name.endsWith('.scenario.json')) { try { if (JSON.parse(fs.readFileSync(p, 'utf8')).ior === 'ior:class:ModelElement') n++; } catch { /* */ } } } }; walk(dir); return n; };
-const req = (pth, tok) => new Promise((res) => { const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: pth, method: 'GET', rejectUnauthorized: false, headers: tok ? { 'x-player-token': tok } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j, body: b }); }); }); r.on('error', () => res({ status: 0 })); r.end(); });
+const req = (pth, tok) => new Promise((res) => { const r = https.request({ host: RB_HOST, port: RB_PORT, path: pth, method: 'GET', rejectUnauthorized: false, headers: tok ? { 'x-player-token': tok } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j, body: b }); }); }); r.on('error', () => res({ status: 0 })); r.end(); });
 
 fs.rmSync(SCRATCH, { recursive: true, force: true }); fs.mkdirSync(SCRATCH, { recursive: true });
 // AC4 fixtures: two files each with a class 'Dup' (same name, different file); Widget (file A) references Dup → must resolve to file-A's Dup

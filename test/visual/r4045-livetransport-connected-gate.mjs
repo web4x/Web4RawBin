@@ -1,7 +1,8 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c5e08a31-7d4f-42b9-a6e1-3f9b28d5c0a7] R40.45 check-live-transport — every live SURFACE opens a CONNECTED ws (POSITIVE property, not "bootstrap didn't throw"). connectLiveBridge (live-bridge.ts:38) opens wss://<host>/ and sets window.__liveTransport.state='connected' ONLY in the ws 'open' handler (:39); /app SHORT-CIRCUITS (owns window.__rawbinClient, :33) so it never sets __liveTransport — assert its OWN signal there (the /app false-RED trap). A transport failure that is caught-and-SILENT ⇒ RED. Stub-must-fail: a live page whose ws is KILLED must NOT read connected.
 // @390 real-WebKit (Tron's engine), DET-3x, read-only (loads live surfaces, no mutation → no scratch/no SW-guard needed: pure connect-probe). RAW per-surface evidence emitted for the architect to interpret. node22: PATH=/opt/node22/bin:$PATH node test/visual/r4045-livetransport-connected-gate.mjs
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 // per-surface expected connected-probe: /app owns __rawbinClient; the socket-less pages (bootstrapPage) set __liveTransport
 const SURFACES = [

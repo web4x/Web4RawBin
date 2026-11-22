@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R36.1 UseCase → UmlUseCase M2 projection (= the T36.1 systemic fix) — INDEPENDENT tester gate, @390 real-WebKit + data,
 // DET-3x, served v0.8.64. projectUmlUseCase rides reconcileCanonical (server.ts:1289, compute-on-read) — UNIONs the
 // UmlUseCase metaclass facet into a UseCase's instanceOf at READ time so renderFacet draws the ELLIPSE, WITHOUT writing
@@ -14,7 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const TARGET = process.env.R361_TARGET || '0.8.64';
 const SP = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad';
 const FACET_BUNDLE = fs.readFileSync(path.join(SP, 'facet-probe.bundle.js'), 'utf8');
@@ -26,7 +27,7 @@ const NON_UC = '97d6e2bf-6c02-4c36-82f6-c0c6178d1163'; // a Class — must NOT g
 const shard = (u: string) => path.join(ROOT, 'scenario/index', ...u.slice(0, 5).split(''), `${u}.scenario.json`);
 
 const http = (p: string): Promise<{ status: number; text: string }> => new Promise((res) => {
-  const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method: 'GET', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => res({ status: r.statusCode || 0, text: b })); });
+  const q = https.request({ host: RB_HOST, port: RB_PORT, path: p, method: 'GET', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => res({ status: r.statusCode || 0, text: b })); });
   q.on('error', () => res({ status: 0, text: '' })); q.end();
 });
 const iorInstanceOf = async (u: string): Promise<{ has: boolean; raw: string }> => { const t = (await http(`/api/ior/${u}`)).text; let io: any[] = []; try { io = JSON.parse(t)?.unit?.model?.instanceOf || []; } catch { /* */ } return { has: io.some((x) => String(x).includes(UML_USECASE)), raw: t }; };

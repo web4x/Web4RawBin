@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:5d8b3f47-1a29-4e6c-b0d4-7f2e9a63c815] R30.35 diff coloring by KIND + per-block IntelliJ merge actions. computeMergedCenter (a0b30550) derives kind from the diff3 region — oLength==0→ADDITION(green), abLength==0→DELETION(red), both>0→MODIFICATION(blue), stable:false→CONFLICT(brown) — fixing the bug where ALL one-sided changes rendered BLUE (a deletion looked like an addition). acceptChange (843d79d4): '>>' take Local→Result (a DELETION '>>' RE-ADDS the deleted line), '<<' take Repo→Result, 'x' dismiss.
 // DETERMINISTIC SYNTHETIC FIXTURE (base + left + right, injected by overriding resolveBase) crafted so diff3 yields ALL 4 kinds in one file: a left-only MODIFY, a right-only DELETE (line local keeps, dev drops → result drops it → '>>'-take-local RE-ADDS it), a left-only ADD, and a both-diverge CONFLICT (stable:false). No prod-history hunt, no dependence on which kinds a real ref-pair happens to contain — the brown/conflict target is guaranteed.
 // GATE (AC-gate, DET-3x, SCREENSHOT+PIXEL, NEVER DOM/element-count): sample each kind's rendered gutter-strip color → assert add=GREEN / delete=RED-not-blue / modify=BLUE / conflict=BROWN by hue; then '>>' on the DELETION block RE-ADDS the deleted line to CENTER. Read-only vs prod (fixture is in-memory; merge actions mutate CENTER in-memory; no save). SystemTester-only.
@@ -5,7 +6,7 @@
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`; // just to MOUNT the 3-pane editor; content is replaced by the fixture
 const OUT = new URL('../../test-results/r3035-coloring/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

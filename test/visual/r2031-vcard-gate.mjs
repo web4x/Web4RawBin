@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 import { webkit, devices } from '@playwright/test';
 
 const browser = await webkit.launch({ headless: false });
@@ -18,7 +19,7 @@ const ctxDenied = await browser.newContext({
 const pageDenied = await ctxDenied.newPage();
 
 async function setupUser(page, name) {
-  await page.goto('https://localhost:4444/app', { waitUntil: 'networkidle' });
+  await page.goto(RB_BASE + '/app', { waitUntil: 'networkidle' });
   await page.waitForTimeout(2000);
   if (await page.locator('#pe-name').isVisible({ timeout: 3000 }).catch(() => false)) {
     await page.fill('#pe-name', name);
@@ -33,7 +34,7 @@ async function setupUser(page, name) {
       localStorage.setItem('rawbin-device-signature', 'e2e-bypass');
       document.querySelector('.profile-overlay')?.remove();
     });
-    await page.goto('https://localhost:4444/app', { waitUntil: 'networkidle' });
+    await page.goto(RB_BASE + '/app', { waitUntil: 'networkidle' });
     await page.waitForTimeout(2000);
   }
   await page.waitForSelector('.lobby', { timeout: 15000 });

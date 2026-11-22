@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // P2 LIVE RE-GATE (PO-scoped) — run the MOMENT prod reports LIVE at 0.8.166 after the single atomic restart.
 // A scratch GREEN is NOT a prod GREEN. This proves, READ-ONLY, that prod genuinely serves the fix, WITHOUT touching the
 // credential guard or building a proxy. Two parts + an explicit non-coverage statement IN the verdict:
@@ -13,7 +14,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const EXPECT_VER = process.argv[2] || '0.8.166';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const curl = (u) => { try { return execSync(`curl -s ${u} --insecure`, { encoding: 'utf8', timeout: 20000 }); } catch (e) { return ''; } };
 const R = (v) => console.log(v);

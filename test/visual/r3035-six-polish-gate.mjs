@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:1e6a4c93-7d25-4b80-9f31-6c08e5b2a4f7] R30.35 SIX polish fixes (independent close, v0.7.59). (A+D) ribbons CONTENT-BOUNDED — clean horizontal rectangles, no spanning empty/blank rows (_maxH centerLen-aware). (B) jumpToChange(1) walks ALL kinds, never skips (dead jumpToNextUnresolved removed). (C) NO false 'File not found' in 3-way (isDiffMode gate). (E) de-count = single 'X/Y open conflicts'. (F) a one-sided change shows its ✕ (per-side in-center gate) then ≫/≪ to re-add.
 // GATE (DET-3x, screenshot + SVG-geometry + pixel + the feature's displayed text, NOT DOM element-count). Real otmux 3-way deep-link for A/B/C/E; synthetic all-4-kinds fixture for F (deterministic one-sided).
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3035-sixpolish/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

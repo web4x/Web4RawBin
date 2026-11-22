@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:79bb0097-6735-4dab-acd0-c61583266395] R30.13 RbDiffEditor.renderInterPaneGutters (fd99c520) — inter-pane strips ≫ take Local / ≪ take Repo / ✕ ignore / 🪄 at conflicts, aligned to Result row (NOT bottom bar)
 // [test:uuid:f3300b75-8776-46c3-907f-83acef59eea1] R30.13 RbDiffEditor.renderConnectorRibbons (5051b2a4) — colored SVG diagonal bands source→Result (blue change / green one-sided / red-brown conflict)
 // [test:uuid:72808ca7-5eaf-4b40-a0e5-7907b5e4585e] R30.13 RbDiffEditor.jumpToChange (65c465fa) — toolbar 'N changes, M conflicts' counter + ▲/▼ change navigation
@@ -12,7 +13,7 @@ import fs from 'fs';
 import path from 'path';
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OUT = path.join(REPO, 'test-results/merge-visual');
 fs.mkdirSync(OUT, { recursive: true });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:2fe84858-7b0d-4062-b986-bbefae3390ee] Group-D f3 TAP-SWITCH — handleTapSelect cc1dcd0e (→selectionModel.replaceWith): real-WebKit @390 tap selects a node + SWITCHES off the previous (single-select). GREEN DET-3x.
 // [test:uuid:ff903752-3d69-4ec4-a555-f7ec09637ff6] Group-D f3 LONGPRESS-TOGGLE — simulateLongPress 4256aef7 (→selectionModel.toggle): real-WebKit @390 500ms-hold timer toggles a node in/out, OTHERS stay (multi-select). GREEN DET-3x. ⚠ req: the touch path is touchstart→500ms-timer→longPressToggle (rb-object-item.ts:66); verify it maps to Impl 4256aef7 (or its own impl) before wiring. 1fac9d23=TASK uuid.
 // Group-D f3 — rb-object-item selection tap-switch / longpress-toggle (task 1fac9d23 → impls handleTapSelect cc1dcd0e
@@ -7,7 +8,7 @@
 // WebKit — NOT emulation-Chromium (which fires taps real-WebKit won't). Client-only selection state = pollution-free,
 // no SystemTester/prod write. Phantom-guard: served==committed==HEAD v0.8.65. DET-3x.
 import { webkit, devices } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const iPhone = devices['iPhone 12'];
 

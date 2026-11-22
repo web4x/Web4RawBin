@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R31.4/R30.14 SW-fix tree-render gate (served==0.7.93), DET-3x. Verifies the SW fix that made /server-manager +
 // /profile network-first + retired the bespoke tree for the shared rb-trace-tree renderer.
 // (1) served sw.js = network-first for /server-manager AND /profile (navigationStrategy list) + CACHE_NAME rawbin-v0.7.93;
@@ -9,7 +10,7 @@
 // = Tron's real device (webkit unlaunchable here); this gate proves the network-first + renderer LOGIC is deployed.
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const TARGET = '0.7.93';
 const httpGet = (path) => new Promise((r) => {
   const req = https.request({ host: HOST, port: PORT, path, method: 'GET', rejectUnauthorized: false }, (res) => {

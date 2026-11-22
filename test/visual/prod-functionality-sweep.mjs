@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PROD FUNCTIONALITY SWEEP @390 (PO, Tron's width) — walk the real user paths, screenshot each, report what is
 // BROKEN / EMPTY / WRONG. Screenshot evidence, not DOM counts. SystemTester identity (ce981242) for room paths (HARD RULE).
 // Read-only walk (no room create, no real chat send, no file write to prod). Known suspect: T36.3 method-detail unenriched.
 import { webkit, devices } from '@playwright/test';
 import fs from 'node:fs';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const iPhone = devices['iPhone 12'];
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

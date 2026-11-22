@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:16c10d4d-94ba-49be-9db5-6f65211e3982] R32.9 FeatureManager surface — verifies the MDA feature is DISCOVERED + membership-gated (INV-D2 owner auto-seed via bootstrapSeed 03b2b1db; INV-D4 fail-closed serverModelPage 152c8e0f /model 403 + non-member featuresForToken list EXCLUDES MDA, non-vacuous). NON-member rendered-list exclusion + /model+/server-manager 403 (authenticated-non-member, live raw-ws IDENTIFY session) + INV-D2 disk. Owner-sees-📐 render = Tron device IMG_4715. → req wires this Test onto the R32.9 impl (row = serverModelPage 152c8e0f).
 // R32.9 FeatureManager SURFACE — NON-member rendered-list exclusion (the automatable half), DET-3x. The surface list a
 // user sees = MSG.PROFILE.features (featuresForToken, server-authoritative, data-driven launchPage INV-D3). This gate
@@ -11,7 +12,7 @@ import fs from 'node:fs';
 import { WebSocket } from 'ws';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
-const HOST = 'localhost', PORT = 4444;                        // same server as prod.wo-da.de:4444 on WODA.prod
+const HOST = RB_HOST, PORT = RB_PORT;                        // same server as prod.wo-da.de:4444 on WODA.prod
 const OWNER = OWNER_LITERAL;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const MDA = 'Model-Driven Code Quality';

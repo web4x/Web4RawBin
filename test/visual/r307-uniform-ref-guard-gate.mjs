@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c6f9a76b-6264-47dc-8633-15c20736f6e5] R30.7 GitApi.guardRef — uniform ref-guard: commits+file reject bad refs, no injection (RED->GREEN of my R30.6.7 finding)
 // R30.7 — GitApi.guardRef uniform ref-allowlist CHOKE POINT (impl 4e52b300, prod v0.7.17). Hardening
 // from MY R30.6.7 finding: /api/git/commits was LENIENT (200 on a bad ref) while /api/git/file
@@ -8,7 +9,7 @@
 //   VALID:             commits & file ref=main -> 200.  ABSENT: commits no-ref -> HEAD default -> 200.
 
 import https from 'https';
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const req = (pathq) => new Promise((res) => {
   const r = https.request({ host: HOST, port: PORT, path: pathq, method: 'GET', rejectUnauthorized: false, timeout: 8000,
     headers: { 'Origin': `https://${HOST}:${PORT}`, 'Referer': `https://${HOST}:${PORT}/edit` } },

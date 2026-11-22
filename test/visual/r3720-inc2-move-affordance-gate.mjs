@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.20 INC-2 (v0.8.208) — the explicit "📁 Move…" affordance, behavioural on prod, SystemTester.
 // Claim: on a room FILE detail a 'Move…' action SHOWS → a folder picker → picking a folder MOVES
 // the file INTO it via the SAME /api/room/<id>/move-unit path the drag uses (two affordances, ONE mechanism).
@@ -15,7 +16,7 @@ import { execSync } from 'node:child_process';
 import { writeFileSync, unlinkSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

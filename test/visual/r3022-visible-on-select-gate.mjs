@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:8cce5ae7-6f99-4e86-b84a-764601ab85ba] R30.22 RbDetailDrawer.onSelectionChanged/openExpanded (Impl e927ecfe) — content VISIBLE on first select: selecting a detail node opens the drawer EXPANDED (minimized=false, body display:flex, visible height — NOT peek), content visible IMMEDIATELY with no grab-bar click. Was (R30.22 bug): first-select opened to peek/minimized (body display:none) → rendered content clipped. X→minimize, grab-bar→toggle, ESC→close all UNCHANGED (R30.20).
 // R30.22 (v0.7.32, app-5Y3QK3GS.js). Behavior-first (real ref-select + real ✕/grab-bar/Escape → assert drawer VISIBLE state), DET-3x.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const TASK = 'task:9937a1f1-5674-48fb-92fe-6dc4a38089b0';
 

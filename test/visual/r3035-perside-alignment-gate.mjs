@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4b8d1f62-9c07-4e35-a1d8-7f6203b9e4c5] R30.35 A+D PER-SIDE alignment (closes the gate-gap: the prior gate measured total ribbon HEIGHT and missed the LEFT/Local half mapping EMPTY/blank rows). For a both-versions change the ribbon is TWO half-ribbons: LEFT = Local↔centerLeft(older), RIGHT = Repository↔centerRight(newer). EACH half must be CONTENT-BOUNDED ON BOTH ITS ENDPOINTS — the pane-side Y-span = that side's CONTENT line count (a.length local / b.length repo), the center-side Y-span = its sub-span (olderLen / newerLen) — and NEITHER endpoint may span/align to empty/blank rows (the alignPaneRows spacers).
 // GATE (DET-3x, SVG-geometry per side + screenshot, NOT DOM-count): synthetic all-4-kinds fixture. Per both-versions change, parse the ribbon <path> into half1/half2; for each half cluster the coords into pane-side vs center-side by x; assert pane-side rows == content lines AND center-side rows == sub-span lines (±0.5 row), for BOTH Local and Repo. Any over-span = maps empty rows → RED. Read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3035-perside/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

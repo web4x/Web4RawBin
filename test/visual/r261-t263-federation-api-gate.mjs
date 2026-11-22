@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:9907f272-0cfb-4c8e-8732-797fd679b9fb] R26.3 FederationApi.fetchScenario — grant auth + unit/content/children
 // T26.3 v0.7.4 gate — server-to-server federation fetch API (capability-grant auth). HTTP-only,
 // stateless HMAC grants (no storage) → ZERO pollution. SystemTester token mints grants. DET-3x.
@@ -13,7 +14,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const HOST = 'prod.wo-da.de', PORT = 4444, ORIGIN = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, ORIGIN = `https://${HOST}:${PORT}`;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const WEBITEM = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';   // unit JSON
 const ICS = 'b57d2f42-0cc4-4fa4-84c6-acaebe40a48a';       // File with content

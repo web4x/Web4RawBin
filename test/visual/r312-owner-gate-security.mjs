@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:87b040ee-08b2-44ea-a832-52da08f1fef9] R31.2 ServerManagerGuard.assertOwner (Impl 335dbf3d) — owner-gate REJECT foundation, DET-3x GREEN on served==HEAD==v0.7.84: non-owner/no-token/malformed/empty + LEAKED-owner-literal-not-live → 403 across ALL /api/server-manager/* (INV-G1 choke), ws terminal upgrade rejected socket-never-opens (INV-G3), OWNER_TOKEN literal ==1 (INV-G2), fail-closed, UI-force live-non-owner → 403, + R31.1 Server-Manager feature-grant ABSENT (markup forced, server-gated).
 // R31.2 Server-Manager OWNER-GATE — INDEPENDENT security gate (reject/foundation direction), DET-3x.
 // Measured DIFFERENTLY than the expert's build-check: raw HTTP + raw ws handshake probes + source-literal grep +
@@ -17,7 +18,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const OWNER = OWNER_LITERAL;               // leaked from ServerManagerGuard.ts — must STILL 403 (no live session)
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';                  // SystemTester (a real non-owner)
 const UNKNOWN = '00000000-0000-4000-8000-000000000000';

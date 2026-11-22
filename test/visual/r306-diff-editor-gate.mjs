@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:663de4ee-043a-43b1-9eed-60fef19c8691] R30.6.2 RbDiffEditor.pickFile — overlay reuses rb-file-tree; file-select -> loadSide(/api/files) sets path+lines
 // [test:uuid:1d64fd65-2ff6-4b5b-9b4d-5fd7df5adc23] R30.6.4 RbDiffEditor.pickRef — git branch/commit picker (GitApi) -> setSideRef -> loadSide(/api/git/file?ref=main) sets ref+lines
 // [test:uuid:2599c7a9-6747-43c6-b6a3-f406c48f620b] R30.6 RbDiffEditor.connectedCallback — mounting renders the diff-editor UI (.de-file/.de-swap + panes)
@@ -18,7 +19,7 @@
 //           setSideRef -> loadSide(GET /api/git/file?ref=main). ALL 6/6 GREEN (GitApi live post-restart).
 
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

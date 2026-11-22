@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 PARTS 1+4 COMBINED (v0.8.156, served==committed, architect+PO backstopped). ONE PASS @390 real-WebKit, read-only.
 // P1 discriminator: room Members/Files resolve to a REAL ior:class:Folder via the roomcoll ref (NOT a synthetic pseudo-node
 //   resolving to nothing) — /api/ior returns {ior:'ior:class:Folder', model:{kind:'folder', collectionKind, virtual}} +
@@ -9,7 +10,7 @@
 // rawbin:puml folder (also ior:class:Folder) has 25 dir children with VARIED childCounts [1..9] → it proves the
 // PROPORTIONAL discriminator LIVE (sprint-20, cc=9, must be the largest arc). Plus a synthetic failability control.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const ROOM = '99e6a422-9483-41f8-b8fa-8f842aca63e8'; // test room, 2 members (expert-verified)
 const PUML = 'rawbin:puml';                          // ior:class:Folder, 25 dir children, varied childCounts → proportional target
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

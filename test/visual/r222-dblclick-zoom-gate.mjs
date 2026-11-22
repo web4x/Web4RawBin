@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4d3c2969-107b-4cde-8cca-3287b8781093] R22.2 attachMouse
 // R22.2 gate — desktop double-CLICK toggles pan/zoom like double-TAP: dblclick zooms 2x
 // at the point, dblclick again resets to 1x. Mirrors pan-zoom.ts doubleTapToggle (AC-d3)
@@ -11,7 +12,7 @@
 
 import { chromium } from '@playwright/test';
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const IMG = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><rect width="600" height="600" fill="%234e342e"/></svg>';
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

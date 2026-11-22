@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R30.53 native-fold changes-focused folding — LOGIC-PROXY gate @ iPhone-12 (v0.7.78, edit-MMNL6FBX.js).
 // ★ ENGINE NOTE (PO/architect gateEnvironmentNote): the RENDER ACs (native codicon chevron + '…' placeholder = AC-native-folding(a),
 //   AC-mobile touch-tap) MUST be gated on real-WebKit / Tron's device — Playwright chromium-emulating-iPhone renders 0 fold-decoration
@@ -7,7 +8,7 @@
 //   regardless of codicon render; measured: model populates 20-33 regions/pane, 16-21 collapsed). Impls: foldByMethodBoundaries 2de3411f,
 //   keepChangeMethodsExpanded 640f8428, syncNativeFold b629c015. DET-3x. Read-only (no writes; fold toggles are in-memory view state).
 import { chromium, devices } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`; // a SHELL file (otmux), multi-method → foldable
 const OUT = 'test-results/r3053-fold';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

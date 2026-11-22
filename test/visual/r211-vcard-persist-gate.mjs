@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:068dbc4b-8a7b-483c-ba68-8467716ce68d] R21.1 dropVCard — vCard import persists (GET /api/vcard 200+FN)
 // R21.1 gate — vCard import PERSISTS .vcf in the user's data dir, retrievable via
 // GET /api/vcard/<token>. Fix/impl 0d931d17f (R21.1 profile.dropVCard) + storeVCard
@@ -14,7 +15,7 @@
 
 import { chromium } from '@playwright/test';
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const TAGBASE = 'r211persist';
 const results = [];
 

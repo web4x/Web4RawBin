@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:7ee23d27-3548-4be9-9025-30554150c451] R31.12 in-room @390 (v0.7.141) GREEN DET-3x: #1 in-room chat works + drawer opt-out (data-context=room-chat, data-position=null base bottom sheet); #2 room title-tap + ✏️ open the Edit Room Config modal, empty update-banner has ZERO footprint (title/✏️ centers hit the header not rb-update-banner, bannerH=0), semver-newer guard (isSemverNewer) doesn't over-suppress. → req mints R31.12 Test chain onto the verified impls (RoomView room-chat opt-out + rb-header title-tap affordance + rb-update-banner :host display:none/isSemverNewer).
 // R31.12 IN-ROOM @390 gate — the 2 Tron in-room regressions, DET-3x, iPhone-12 real mobile emulation.
 // (a) CHAT works in-room + the chat drawer (#room-file-preview data-context='room-chat') stays a VISIBLE BASE BOTTOM
@@ -13,7 +14,7 @@ import { devices, chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';          // Marcel dnd test room — JOIN-reusable (Tron's real room)
 const CLIENT_VER = 'rawbin-v0.7.141';   // R31.12 #2 banner fix (client-only)
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

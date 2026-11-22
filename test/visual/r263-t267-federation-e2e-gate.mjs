@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:638f94d3-2c51-40ae-8f43-b606e34d0ec0] R26.7 FederationApi.federationImport — e2e drag/drop scenario transfer
 // T26.7 v0.7.7 gate — federation END-TO-END import (/api/federation/import). Drag a file from one
 // RawBin, drop on another → the SCENARIO transfers (not a plain URL). Tests the real import endpoint
@@ -13,7 +14,7 @@ import path from 'path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const SCEN = path.join(__repo, 'scenario/index');
 const SYNTH = 'fed00000-0000-4000-8000-00000000e2e7';         // fixed synthetic uuid (deterministic + deletable)

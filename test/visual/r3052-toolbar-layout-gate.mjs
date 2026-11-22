@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:919d290d-e917-4cd1-a927-48470b582469] R30.52 toolbar re-layout (impl-edit on renderMergeGutter e24dc98a) — 'N selected' INLINE same row as ✨ Apply All + ▲▼ (no wrap), 'X/Y open conflicts' SPAN buffer between ▼ and ✓ (non-adjacent), whole toolbar ONE row (~32px). GREEN DET-3x v0.7.75 (RED→GREEN from the rejected v0.7.74 wrap). Distinct R30.52-layout Test on e24dc98a alongside 8fa42d89 (structural) + 0866205d (R30.50-A).
 // R30.52 toolbar re-layout gate — REFINED AC (Tron REJECTED v0.7.74: 'N selected' WRAPPED to a 2nd line under Apply All).
 // Tron's real 3-way deep-link, DOM-order + geometry at Tron viewport, DET-3x, screenshot. Impl-edit on renderMergeGutter e24dc98a.
@@ -8,7 +9,7 @@
 // STATUS: RED on v0.7.74 (the rejected wrap) → flips GREEN on the corrected inline build. Read-only. DET-3x.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3052-toolbar';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

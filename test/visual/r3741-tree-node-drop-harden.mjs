@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.41 (A10) — HARNESS-HARDEN the tree-NODE drop handler (PO: it IS mockable — you fired the app's real onDragStart for the
 // ROOM #rrc-drop target and asserted zero-fetch; do the SAME for a tree NODE). Converts T37.20.4 from 'Tron's drag closes it'
 // to MACHINE-VERIFIED so the caveat comes OFF the row. Feed the FOLDER tree-node drop handler a synthetic unit-ref DataTransfer
@@ -11,7 +12,7 @@ import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const post = (p, b) => new Promise((res) => { const u = new URL(`${BASE}${p}`); const data = Buffer.from(JSON.stringify(b)); const req = https.request({ hostname: u.hostname, port: u.port, path: u.pathname, method: 'POST', rejectUnauthorized: false, headers: { 'Content-Type': 'application/json', 'Content-Length': data.length } }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => res(d)); }); req.on('error', () => res('')); req.write(data); req.end(); });
 const iorLoc = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api/ior/ior:instance:${uuid}`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { res(String(JSON.parse(d)?.unit?.model?.location || '')); } catch { res(''); } }); }).on('error', () => res('')); });

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:9467b1c6-e414-4ec6-8e9f-236a1ece740f] R31.3 OtmuxBridge.readSessionTree (Impl 5c1701bc) — PARSE-MATCH + reject. DET-3x.
 // A1: the impl's parsed sessions→windows→panes tree reconstructs the SAME (session|window_index|pane_index|pane_id %N)
 //     tuples as raw `tmux list-panes -a -F`, and every pane carries a %-prefixed paneId + label `session:win.pane`.
@@ -11,7 +12,7 @@ import https from 'node:https';
 import { OtmuxBridge } from '../../src/ts/server/OtmuxBridge.ts';
 
 const execFileAsync = promisify(execFile);
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const FMT = ['#{session_name}', '#{window_index}', '#{window_name}', '#{window_active}',
   '#{pane_index}', '#{pane_id}', '#{pane_active}', '#{pane_title}'].join('\t');
 const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));

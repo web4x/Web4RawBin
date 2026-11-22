@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // SEPARATE INVESTIGATION — does the REAL save path preserve box-drawing/multibyte UTF-8 in oosh/otmux?
 // NON-DESTRUCTIVE (no writes): (1) server GET /api/files/otmux?repo=oosh preserves box-drawing chars intact (no U+FFFD);
 // (2) the real save PUT body (Monaco edCenter → JSON) preserves them too — captured via route-intercept, nothing written.
@@ -5,7 +6,7 @@
 // FileApi read (readFileSync utf-8, :87) + write (writeFileSync utf-8, :113) both use utf-8 → valid multibyte round-trips.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const BOX = /[─-╿←-⇿•×≥…—]/g;   // box-drawing + the arrows/bullets otmux uses

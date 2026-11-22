@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.71 (T36.3) GATE @390 — a Method with no own sourceFile now DERIVES its source file:line from its Implementation,
 // so a previously-bare method detail shows a "📂 file:line" source link. Demo: FileApi.writeFile → src/ts/server/FileApi.ts.
 // Server fix is Method-ONLY (server.ts:3120 type==='Method'); Classes are NOT derived → this gate ALSO checks classes to
@@ -7,7 +8,7 @@
 import { webkit, devices } from '@playwright/test';
 import fs from 'node:fs';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 fs.mkdirSync('test-results/r4071', { recursive: true });
 const FILEAPI_WRITEFILE = '00d63275-37c0-4d74-8ab8-d2bd9643ed2b'; // the demoed method

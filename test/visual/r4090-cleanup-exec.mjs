@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.90 cleanup exec — deleteRoom BOTH ours by KNOWN ID (no listing; direct), as SystemTester (owner). Live-memory drop +
 // ROOM_DELETED broadcast (Tron's view clears). Disk removal is a separate step. Verify each room no longer resolves via /api/ior.
 import { webkit } from '@playwright/test';
@@ -5,7 +6,7 @@ import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYSTEST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const ROOM_IDS = ['2d6ac765-4fa7-4504-b311-5ebe409ae04b', 'ae7e2adc-dbec-4ac8-850f-f504c3719e59'];
 const iorGet = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api/ior/ior:instance:${uuid}`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => res({ status: r.statusCode, hasUnit: /"unit"|"model"/.test(d) })); }).on('error', () => res({ status: 0, hasUnit: false })); });

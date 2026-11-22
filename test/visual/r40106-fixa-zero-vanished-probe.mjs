@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 FIX-A 0-VANISHED probe (PO) — READ-ONLY, no writes, no room creation. @served v0.8.218.
 // The union render exists SPECIFICALLY so legacy FOLDER-NESTED LOCATION-ONLY units (in a folder by physical location,
 // ABSENT from that folder's children[] edge) don't vanish. Expert baseline (r40106-pure-edge-backfill-endstate.md) = 4.
@@ -8,7 +9,7 @@ import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444', REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const BASE = RB_BASE, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const bare = (r) => String(r || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
 const rendered = (ref) => new Promise(res => { const x = new URL(`${BASE}/api/trace/children/${encodeURIComponent(ref)}`); https.get({ hostname: x.hostname, port: x.port, path: x.pathname, rejectUnauthorized: false }, r => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res((JSON.parse(b).children || []).map(c => bare(c.uuid || ''))); } catch { res([]); } }); }).on('error', () => res([])); });
 let served = '?'; try { served = JSON.parse(execSync(`curl -sk ${BASE}/api/config`, { encoding: 'utf8' })).version; } catch {}

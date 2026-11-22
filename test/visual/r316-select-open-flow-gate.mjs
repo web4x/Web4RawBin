@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c6791c06-a1f8-4815-9412-37b1a9170a6a] R31.4 RbTerminalDetail.mount (Impl 79a1ce7c) — CLIENT render: a REAL pane-node click on the served /server-manager (route-intercepted whoami/tree/page 200, real-shape roots) mounts rb-terminal-detail in the DEFAULT #sm-drawer via the /trace detail flow (grab-bar/scroll/minimize identical), LEFT-aligned, X-minimize KEEPS + ESC closes. AC surface (not static). Interactive RW/pty = Tron device.
 // R31.4 select→open FULL FLOW gate (served==0.7.96), DET-3x — THE AC SURFACE (not static/component).
 // Runs the REAL served server-manager bundle: route-intercept the owner-gated /server-manager PAGE (fulfill the real
@@ -10,7 +11,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.97';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.97';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const smBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^server-manager-.*\.js$/.test(f)); // content-hashed, matches served

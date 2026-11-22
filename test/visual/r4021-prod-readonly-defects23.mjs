@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PROD READ-ONLY defects 2 + 3 (PO 2026-09-03, v0.8.167) — gateable WITHOUT owner-auth / room-state (no create, no mutation).
 // Defect 2: does the room Files folder NOW render an Add-folder button? (fix: add-folder is UNIVERSAL in the shared drawer bar)
 // Defect 3: does the sunburst show HUMAN-READABLE sizes with a centre total and NO single-child blob?
 // Read via the /trace shared drawer (same bar the room uses). NO auth, NO create, NO cleanup needed.
 import { webkit } from '@playwright/test';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1' };
 const R = (v) => console.log(v);
 const FILES_REF = 'roomcoll:6c04f959-f3d6-42eb-818f-5e2e4498bf91:files';

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // BUG 88df8e4e — WebItem repair in room 3231db71 (live 0.8.211, read-only). The 4 restored units must be
 // present+resolving with the right class-names; the real human name preserved; the junk unit gone. DET-3x.
 //   files[]=33 · adf1a8c0+dc48165b='Youtube Watch' · cf45d317='Email message' · 96f54cc2 NAME PRESERVED
@@ -5,7 +6,7 @@
 // RED if any of the 4 missing/unresolved, junk present or resolvable, 96f54cc2 renamed to a class name, or files!=33.
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const ROOM = '3231db71-d834-435a-a7f9-a801680ccd62';
 const get = (u) => new Promise((r) => { https.get(`${BASE}/api/ior/ior:instance:${u}`, { rejectUnauthorized: false }, (s) => { let d = ''; s.on('data', c => d += c); s.on('end', () => { try { r(JSON.parse(d)); } catch { r(null); } }); }).on('error', () => r(null)); });
 const CLASS_NAMES = ['Youtube Watch', 'Email message']; // auto-derived class names — 96f54cc2 must NOT be one of these

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:1d469c7b-e3fa-4c8c-a972-26cf1ad6ba25] R21.8 mintOrReuseShared — company shared dedup + suggest + nameKey
 // R21.8 gate — companies as SHARED scenario units (ior:class:Company), v0.6.72.
 // Impl a52245de1. CompanyIndex: companyNameKey (legal-suffix strip), mintOrReuseShared
@@ -22,7 +23,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const HOST = 'prod.wo-da.de', PORT = 4444, WSS = `wss://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, WSS = `wss://${HOST}:${PORT}`;
 const SCEN = path.join(__repo, 'scenario/index');
 const RUN = randomUUID().slice(0, 8);
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

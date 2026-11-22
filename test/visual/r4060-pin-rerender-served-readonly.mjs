@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // Tron live-MVC pin defect — READ-ONLY served-prod evidence (no mutation). Server is CORRECT (current=Task 40.1);
 // the defect is the RENDERED pin slot is stale. Compare server-current (/api/trace/children/<CS>?mode=trace) vs the
 // pin slot the client actually RENDERS @390. Mismatch = the live RED specimen. Fail-closed: pin slot not found ≠ pass.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const CS = 'current-sprint-singleton-0000-000000000001';
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));

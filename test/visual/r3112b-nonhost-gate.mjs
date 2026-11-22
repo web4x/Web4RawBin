@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:3e57bca1-089e-43ea-b3cf-ae69144b2b33] R31.12 v0.7.144 non-host/read-only/server-guard — GREEN DET-3x engine-independent @390 (sw+/api/config 0.7.144): (1) title role=button+tabindex=0 (real interactive, not h2), (2) non-host title-tap UN-GATED opens Room Settings, (3) non-host READ-ONLY (inputs disabled + Save removed + save-handler host-only), (4) server REJECTS non-owner UPDATE_ROOM_CONFIG (ERROR owner, reject-first, pollution-safe). tap-FIRES-on-real-WebKit rides Tron device (like R30.53 codicon). Impls: read-only openRoomEditor f9b579c1 (direct) + role=button/non-host-tap rides rb-header T40 39074a59 (impl-edit) + server owner-guard UPDATE_ROOM_CONFIG @server.ts:2666 (NO marker yet -> req/architect mint or ride a message-handler impl).
 // R31.12 v0.7.144 — non-host title-tap + read-only settings + server owner-guard. Gates the ENGINE-INDEPENDENT parts
 // (Chromium can't validate 'tap FIRES on real iOS WebKit' — it false-greened the old <h2> click; that piece = Tron device).
@@ -11,7 +12,7 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import { WebSocket } from 'ws';
 import https from 'node:https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const CLIENT_VER = 'rawbin-v0.7.144';

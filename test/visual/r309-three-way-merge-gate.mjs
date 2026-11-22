@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:8fa42d89-0e86-45c4-b88b-f0a978782da0] R30.9 RbDiffEditor.renderMergeGutter — per-conflict gutter ◄/► controls rendered ([data-cid])
 // [test:uuid:555a3077-104a-4535-a8dc-4e4815d5a14e] R30.9 RbDiffEditor.acceptChange — accept RIGHT pushes that side hunk into CENTER Result (RIGHT_Q in, LEFT_P out)
 // [test:uuid:de62d07f-b366-4d60-82fa-5d916c1f8e31] R30.9 RbDiffEditor.syncScroll3 — 3-pane locked scroll: scroll LOCAL -> CENTER+REMOTE follow
@@ -24,9 +25,9 @@ import fs from 'fs';
 import path from 'path';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 // PART C — GitApi.mergeBase live + reject-first (guardRef on refs), same-origin authorized
-const api = (pathq) => new Promise((res) => { const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: pathq, method: 'GET', rejectUnauthorized: false, timeout: 8000, headers: { Origin: 'https://prod.wo-da.de:4444' } }, (resp) => { let b = ''; resp.on('data', c => b += c); resp.on('end', () => res({ status: resp.statusCode, body: b })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); r.end(); });
+const api = (pathq) => new Promise((res) => { const r = https.request({ host: RB_HOST, port: RB_PORT, path: pathq, method: 'GET', rejectUnauthorized: false, timeout: 8000, headers: { Origin: RB_BASE } }, (resp) => { let b = ''; resp.on('data', c => b += c); resp.on('end', () => res({ status: resp.statusCode, body: b })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); r.end(); });
 const NODE18 = '/root/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 // PART A — pure diff3Merge cases via a tsx eval (server-independent, deterministic)

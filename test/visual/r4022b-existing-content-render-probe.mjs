@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // A5b — RENDER-NESTED for TRON'S REAL EXISTING CONTENT (representative data, not my synthetic folders). READ-ONLY on live prod.
 // Tron's room 3231db71 ("Marcel dnd test room") has a real 'Trash' folder; the LIVE API nests a 'duplicates' folder under it
 // (GET /api/trace/children/roomcoll:3231db71…:files/Trash → child 'duplicates'). The question the PO asked: does the ITEMS-TREE
@@ -7,7 +8,7 @@
 // Files→Trash, judge by STRUCTURAL DEPTH (this tree indents via nested containers, not per-row padding). Read-only: GETs only,
 // no JOIN, no writes, no mint. Screenshot @390 (iPhone width Tron uses).
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const ROOM = '3231db71-d834-435a-a7f9-a801680ccd62';
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df'; // SystemTester (already a member of this room) — read-only render only
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.6.5 @390 own-oracle — items 5+6: action-bar IN the drawer, SELECTION-DRIVEN, shared-generic.
 // Part A (/model host): inject the model bundle (mounts drawer + runs wireDrawerActions), dispatch selection per
 //   TYPE → assert the .drawer-actionbar shows the type-matched buttons (diagram→Add/Re-Sync/Compile, class→Add to
@@ -6,7 +7,7 @@
 //   assert the action-bar stays HIDDEN/empty (INV-3 shared-generic: /trace registers no actions). node22, @390.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7', CLASS = 'f51234b0-0233-4fd6-a802-5467f64accc2';
 const DIST = path.join(ROOT, 'src/public/dist');
 const MODEL = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:eea279e4-1bae-4119-89e3-307bb252f8b2] R31.3 RbTraceTree.computeBadges (Impl 7e43dda4) — STD-REF badge: node.dataset.childRefCount (stamped at build), colon-immune by construction (NO nodeChildCount map / NO split(':')). Verifies SESSION badge=='2' ('otmuxsession:sess:robbinTeam2', the colon-in-uuid case that read 0 under the retired split patch) + WINDOW badges 2/1 == real child count. GREEN DET-3x @390 served v0.7.99. Paired with the R31.4 drawer /trace-identical bottom-overlay assert (same gate). NOT the retired split patch.
 // R31.4/R31.3 DRY-fix REAL gate (AC surface, NOT static), DET-3x @390 iPhone-12 (Tron's device). served==0.7.99.
 // (1) DRAWER BOTTOM-OVERLAY like /trace: the DRY client creates rb-detail-drawer#sm-drawer as a flex child of .trace-page
@@ -13,7 +14,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.99';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.99';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const smBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^server-manager-.*\.js$/.test(f));

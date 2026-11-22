@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:2f0f1b56-9d14-4124-b5d6-6dce3dababca] T24.2 CurrentSprint.setFocus — pin/CurrentSprint slots from current sprint
 // v0.6.85 getThreeSlots sprint-scope gate. Bug: nextBacklog showed a DONE Sprint-20 task
 // (T-drawer-full-width) from a global scan. FIX (f5d38bdb7/4aa2d913a): all 3 CurrentSprint
@@ -12,7 +13,7 @@ import https from 'https';
 const SINGLETON = 'current-sprint-singleton-0000-000000000001';
 const SPRINT = 24;
 const get = (p) => new Promise((res) => {
-  const req = https.get({ host: 'prod.wo-da.de', port: 4444, path: p, rejectUnauthorized: false, timeout: 8000 }, (r) => { let d = ''; r.on('data', c => d += c); r.on('end', () => { let j = null; try { j = JSON.parse(d); } catch {} res({ status: r.statusCode, json: j }); }); });
+  const req = https.get({ host: RB_HOST, port: RB_PORT, path: p, rejectUnauthorized: false, timeout: 8000 }, (r) => { let d = ''; r.on('data', c => d += c); r.on('end', () => { let j = null; try { j = JSON.parse(d); } catch {} res({ status: r.statusCode, json: j }); }); });
   req.on('error', () => res({ status: 0, json: null })); req.on('timeout', () => { req.destroy(); res({ status: 0, json: null }); });
 });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

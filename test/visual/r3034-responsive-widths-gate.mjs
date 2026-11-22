@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:2a7f5c94-8e13-4b6d-9f02-1c6e3a85d7b0] R30.34 refined AC-6 — ALWAYS 3 columns at EVERY width + ONE across-overlay spline that tracks on scroll. INDEPENDENT verify (screenshot+geometry+pixel, measured differently from the expert's own probe — the whole point after 3 verification misses). Tron ruled: 3 columns Local|Result|Repository at every width (the media query is REMOVED in v0.7.48; NO stacking at any width — 390 phone is columns/scroll, NOT stacked), and the connector is ONE continuous SVG overlay spline left→center→right at every width, tracking on horizontal scroll.
 // GATE (DET-3x, per width 1920/1600/1440/1280/1024/900/800/700/390 incl the 700-819 scaled band that regressed): (1) 3 side-by-side columns (L.right≤C.left≤R.left, outer tops aligned), NEVER stacked (center never below local); (2) .de-ribbons SVG overlay present with a spline sweeping ACROSS both gutters (L↔C + C↔R = one left→center→right mapping); (3) HORIZONTAL-SCROLL TRACK: after scrolling column content horizontally, the spline still overlays across (anchored to the column edges, doesn't break). Screenshots → test-results/r3034-widths/. Read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3034-widths/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

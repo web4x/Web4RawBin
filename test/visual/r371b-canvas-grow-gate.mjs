@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.7.1 CANVAS-GROW — RbPanZoom.onCanvasGrow/applyCanvasGrow (v0.8.31 fix 749b36335) @390, DET-3x independent.
 // ★ The space-problem test the PO demanded — assert the SVG CANVAS DIMENSIONS GROW IN PX on zoom-out (surface scrollWidth/
 // height + .dm-svg px INCREASE), and BOXES KEEP THEIR VISUAL PX SIZE. A scale-only pass (currentScale<1) = FALSE-GREEN (the
@@ -11,7 +12,7 @@
 // (svg.style.width='' + overflow:hidden) + CSS-scales; persist→restore unregressed. Measures PX (scale-only = the space false-green).
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');

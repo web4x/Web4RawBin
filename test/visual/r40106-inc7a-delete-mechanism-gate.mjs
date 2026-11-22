@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 INC-7a (v0.8.223) — the delete Command + /delete-unit route (deleteUnitWithScan). Gate the MECHANISM
 // is correct+safe BEFORE it is pointed at anything (PO). NAMED individual deletes only (standing order: NO sweep).
 // Reuse 909f1bd6, seeded SystemTester session (route is owner-authed; raw https = 401).
@@ -11,7 +12,7 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444', ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e', SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
+const BASE = RB_BASE, ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e', SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const shard = (u) => `${REPO}/scenario/index/${u[0]}/${u[1]}/${u[2]}/${u[3]}/${u[4]}/${u}.scenario.json`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

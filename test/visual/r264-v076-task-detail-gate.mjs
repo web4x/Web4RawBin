@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:dc94cff0-ec9d-416b-8d9f-cfca9f225f3f] R27.1 renderStatusChecklist — statusChecklist ☑/☐ hierarchy
 // v0.7.6 gate — task detail: 📄 Task-file MD link (serves 200) + visual statusChecklist (☑/☐
 // hierarchy). READ-ONLY mount of a real Task unit (0c1b375e, sourceFile→sprint-21 planning.md).
@@ -9,9 +10,9 @@
 import { chromium } from '@playwright/test';
 import https from 'https';
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const TASK = '0c1b375e-6a2a-4b35-bb64-b43adce88697'; // Task w/ statusChecklist + sourceFile (serves 200)
-const httpGet = (p) => new Promise((res) => { const r = https.get({ host: 'prod.wo-da.de', port: 4444, path: p, rejectUnauthorized: false, timeout: 8000 }, (x) => { let n = 0; x.on('data', c => n += c.length); x.on('end', () => res({ status: x.statusCode, size: n })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); });
+const httpGet = (p) => new Promise((res) => { const r = https.get({ host: RB_HOST, port: RB_PORT, path: p, rejectUnauthorized: false, timeout: 8000 }, (x) => { let n = 0; x.on('data', c => n += c.length); x.on('end', () => res({ status: x.statusCode, size: n })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); });
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
 const ctx = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 480, height: 900 } });

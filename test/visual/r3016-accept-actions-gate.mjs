@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:1892df56-ea20-49e7-be1a-4df9ff963b75] R30.16 accept-actions on the IntelliJ layout — CLICK ≫/≪/✕ must MUTATE the center Result content (not just render), correct row (no off-by-one), + no ghost ribbons after ignore
 // FUNCTION-FIRST guard (the assertion my r3016 VISUAL gate lacked — it checked DOM presence, not the ACTION).
 // Asserts the ACTION not just the DOM: click ≪ → CENTER content becomes Repository, ≫ → Local, ✕ → dismissed (no ghost ribbon),
@@ -9,7 +10,7 @@
 import { execSync } from 'child_process';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const DEMO = 'merge-demo.md';
 const baseC = `# Merge Demo\none\ntwo\nthree\nfour\nfive\nsix\nseven\n`, localC = `# Merge Demo\none\nTWO-local\nthree\nfour\nfive\nSIX-LOCAL\nseven\n`, remoteC = `# Merge Demo\none\ntwo\nthree\nFOUR-remote\nfive\nSIX-REMOTE\nseven\n`;

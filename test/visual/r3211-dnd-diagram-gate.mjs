@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:61e2696a-2be3-48d4-b923-eedf1c112601] R32.11 DnD-onto-diagram DROP — verifies the add-view drop effect: INV-R1 append view (box at drop coords) / INV-R2 dedup (re-drop→added:false, no dup, the BITE) / INV-R3 isolation (MODEL_STORE only, prod scenario/index untouched) / INV-R4 persist (survives re-open) + edges when a related class is added + select-class auto-grid complement. Own-oracle: real POST /api/model/diagram/add-view + real faa4acad on disk + imported buildEdges; pollution-safe (byte-snapshot+restore). → req wires this Test onto the R32.11 add-view/addView Impl once the chain is minted (#126 — do NOT wire while unminted).
 // R32.11 DnD onto diagram — the DROP effect (drag class → box ADDED), DET-3x. Gates POST /api/model/diagram/add-view
 // (what onDropAddView→addView calls): INV-R1 append view (box), INV-R2 dedup (re-drop same → NO dup = the BITE), INV-R3
@@ -19,7 +20,7 @@ const shardOf = (base, u) => path.join(base, ...u.slice(0, 5).split(''), `${u}.s
 const FAA_FILE = shardOf(MODEL_STORE, FAA);
 const KIND = { 'a1d2e3f4-0000-4a1b-8c2d-000000000010': 'association', 'a1d2e3f4-0000-4a1b-8c2d-000000000011': 'generalization', 'a1d2e3f4-0000-4a1b-8c2d-000000000012': 'dependency' };
 
-const req = (method, pth, body) => new Promise((res) => { const data = body ? JSON.stringify(body) : null; const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: pth, method, rejectUnauthorized: false, headers: body ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j }); }); }); r.on('error', () => res({ status: 0 })); if (data) r.write(data); r.end(); });
+const req = (method, pth, body) => new Promise((res) => { const data = body ? JSON.stringify(body) : null; const r = https.request({ host: RB_HOST, port: RB_PORT, path: pth, method, rejectUnauthorized: false, headers: body ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j }); }); }); r.on('error', () => res({ status: 0 })); if (data) r.write(data); r.end(); });
 const iorModel = (uuid) => req('GET', `/api/ior/ior:instance:${uuid}`).then(r => r.json?.unit?.model || null);
 const version = () => req('GET', '/api/config').then(r => r.json?.version);
 const readFaa = () => JSON.parse(fs.readFileSync(FAA_FILE, 'utf8'));

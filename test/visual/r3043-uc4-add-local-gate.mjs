@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4a253cea-8981-4804-9a6d-2255980fc3a2] R30.43 UC4-simple V1 add-local (GitApi.isGitRepo 3d1b156d) via
 // POST /api/git/repos {method:'local',path,label}: the SOLE check is .git-present (folder OR worktree file); NO allowlist
 // (assertAllowedRoot DORMANT §10 — backlog R30.48), NO admin-auth (read-auth only). Measured DIFFERENTLY than the expert's
@@ -14,7 +15,7 @@ import { execSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const REPOS_PATH = path.join(__repo, 'data/repos.json');
 const OOSH_WORKTREE = execSync('readlink -f ~/oosh').toString().trim();   // .git is a FILE here (linked worktree)

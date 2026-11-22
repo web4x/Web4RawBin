@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:7d0e3ff0-b6fe-4bfd-a444-e04a1506ed31] BUG-C — sw.js networkFirst must NOT Cache.put a non-GET request (POST/PUT/DELETE):
 // Cache.put on a POST throws 'Request method POST is unsupported'. Fix = guard cache.put with request.method==='GET'
 // (or skip non-GET at the fetch handler). Served-source audit (deterministic, no browser). RED until the guard lands.
 import https from 'node:https';
-const get = (p) => new Promise((res) => { https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method: 'GET', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => res(b)); }).on('error', () => res('')).end(); });
+const get = (p) => new Promise((res) => { https.request({ host: RB_HOST, port: RB_PORT, path: p, method: 'GET', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => res(b)); }).on('error', () => res('')).end(); });
 
 const results = [];
 for (let i = 1; i <= 3; i++) {

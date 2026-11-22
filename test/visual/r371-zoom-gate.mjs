@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.7.1 — RbPanZoom.setScale (Impl 301b71d4) @390 COMPONENT-harness gate, DET-3x independent (served==HEAD==0.8.28).
 // Mount rb-diagram-detail (NOT the authed /model; no self-grant) → drive the REAL RbPanZoom via the component's this.pz.
 // AC: (a) zoom-out GROWS the canvas (scale<1, INV-Z1 <1=grown); (b) scale=1 = WHOLE diagram (100%); (c) a user zoom
@@ -10,7 +11,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 → real Safari engine @390 (Tron's iPhone)
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');

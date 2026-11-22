@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a3adc5cf-83ac-4b30-b242-8d754211ce91] R30.53 FIX-A initial-render parity (Impl 640f8428 keepChangeMethodsExpanded) — at INITIAL render (no toggle), an UNCHANGED method DOWNSTREAM of a green ADD collapses in ALL 3 panes incl LEFT (no Math.max split-floor leaves it expanded on the left) + 0px downstream row-drift. Measured via the folding MODEL (isCollapsed), engine-independent; DISCRIMINATES RED 1/19 (v0.7.78) → GREEN 0/19 (v0.7.79) = real parity, not a codicon false-negative. Codicon chevron RENDER = Tron real-WebKit (separate).
 // [test:uuid:e3e64c49-eaaa-41ae-9524-3c3b8cbfa7e0] R30.53 FIX-B mirror-by-signature (Impl b629c015 syncNativeFold) — after a green ADD, toggling a shared unchanged method mirrors across L/C/R BY SIGNATURE (not raw index) + 0px row-drift. DISCRIMINATES RED 3/19 → GREEN 0/19 with the fix.
 // R30.53b — left-pane fold DESYNC after a green add-block (Tron device-QA bug my r3053 MISSED).
@@ -15,7 +16,7 @@
 // signature-UNION across panes → panes() expanded ×3, INITIAL parity 0/79 + toggle 0/79 + 0px drift, DET-3x. INV-A2 verified
 // (collapsed-set-by-sig identical L/C/R = 51/51/51). r3053c unregressed 104/104. R30.53 parity DONE; codicon RENDER → Tron device.
 import { chromium, devices } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3053b-parity';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

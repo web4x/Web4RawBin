@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 INC-4 slice-4 (v0.8.216) — additive "🔗 Link here…". A LINK adds a containment EDGE (folder.model.children[]
 // += ior:instance:F) and KEEPS other edges (N-link, unit in MULTIPLE containers); DRAG stays MOVE (single-location).
 // ★ DATA-SIDE containment (PO ruling): read the FOLDER UNIT's model.children[] via /api/ior — the RAW edge linkIn writes —
@@ -12,7 +13,7 @@
 import { execSync } from 'node:child_process';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

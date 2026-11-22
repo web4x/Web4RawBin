@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:91d0edca-9de6-4172-9d1c-8e268bb2dcb1] R22.3 renderChainNodeSourceLink
 // R22.3 gate — Traceability Chain shows a clickable 📂 source link per hop.
 // Fix 5a3e794d6: /api/trace/children returns sourceFile+sourceLine per child;
@@ -9,7 +10,7 @@
 // <a> to /md/ in blue, opening the source in the /md browser. DET-3x over Class/Method/Impl.
 
 import { chromium } from '@playwright/test';
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const NODES = [
   { type: 'class',          tag: 'rb-class-detail',          uuid: '88dcce3a-770b-4c61-b996-02a72f5d6bef', wantExt: '.puml' }, // ScenarioUnit (Class→.puml)
   { type: 'method',         tag: 'rb-method-detail',         uuid: '963b67a2-488c-4580-b5ba-697537f02754', wantExt: '.ts' },   // Method→.ts:line

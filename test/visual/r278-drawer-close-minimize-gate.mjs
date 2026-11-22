@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:fc9ed257-a711-4803-bf91-8279aa5f4fa7] R27.8 closeAndMinimize — X closes / first-open minimized / grab-bar expands (DET-3x GREEN)
 // R27.8 drawer UX fix (7029d8728). SystemTester ONLY, reuse dnd room + existing WebItem (no drop).
 // serviceWorkers:'block' bypasses the SW cache → loads the fresh bundle. DET-3x.
@@ -8,7 +9,7 @@
 
 import { chromium } from '@playwright/test';
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const WI = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:e7557a8c-b344-4c46-8773-8f5cf402e335] R32.5 GO-LIVE drop→generate→isolated-store→populated tree/diagram — verifies server.isModelUnit (Impl 010f3e23: model reads reroute to the ISOLATED store, prod scenario/index NEVER mutated) via a REAL served drop (POST /api/model/generate) on v0.8.5: tree populated from the store, diagram unit in store, ★prod scenario/index UNCHANGED (fixture uuids only in MODEL_STORE), idempotent re-drop 0-churn, @390 mobile reach. Companion own-oracle r325-golive-oracle-gate.ts (import TsToModel.generate 382f8644 + buildDiagramSvg ba96a744, isolated scratch, planted-defect bite). → req wires this Test onto Impl 010f3e23.
 // R32.5 GO-LIVE — LIVE axis on served==0.8.5 (self-verified). Drops a known .ts via the REAL served endpoint
 // POST /api/model/generate → the ISOLATED MODEL_STORE, then proves the store-backed pipeline the UI renders +
@@ -14,7 +15,7 @@ import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
 
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const PROD_INDEX = path.join(ROOT, 'scenario', 'index');
 const MODEL_STORE = path.join(ROOT, 'data', 'model-store', 'index');
 const FIXTURE_REL = 'test/fixtures/r325-golive-drop.ts';
@@ -24,7 +25,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 const req = (method, pth, body) => new Promise((resolve) => {
   const data = body ? JSON.stringify(body) : null;
-  const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: pth, method, rejectUnauthorized: false, headers: body ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (res) => {
+  const r = https.request({ host: RB_HOST, port: RB_PORT, path: pth, method, rejectUnauthorized: false, headers: body ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (res) => {
     let b = ''; res.on('data', c => b += c); res.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } resolve({ status: res.statusCode, json: j, body: b }); });
   });
   r.on('error', () => resolve({ status: 0, json: null, body: 'ERR' })); if (data) r.write(data); r.end();

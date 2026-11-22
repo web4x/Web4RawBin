@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:b70aa99f-28e3-460f-a793-986dceb3e156] R31.8 slice-d renderFeatureGrants (Impl f345b8ed) — DATA-DRIVEN m.features, GREEN DET-3x @390 v0.7.119: /profile #feature-grants renders EVERY membership (Server Manager 🖥️→/server-manager + Feature Manager 🔑→/feature-manager), each interactive (cookie-mint→nav); empty m.features → 0 entries (fail-closed, server-gated). Generalizes the R31.1 SM-only boolean. DISTINCT-intent on f345b8ed from a52393fb (boolean serverManager) + baee3c82 (viewer).
 // R31.8 slice-d generalized renderFeatureGrants (Impl f345b8ed, server.ts:940) — AC-INV, DET-3x @390. served v0.7.119
 // (pid 1314990). The /profile viewer's #feature-grants is DATA-DRIVEN by m.features (the server-computed PROFILE ws
@@ -8,7 +9,7 @@
 import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.119';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.119';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 

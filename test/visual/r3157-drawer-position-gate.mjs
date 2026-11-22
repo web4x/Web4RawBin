@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:db12e833-5d6a-4e17-a95d-16a5aed2cde8] R31.5.7 RbDetailDrawer.applyPosition (Impl 6e2d4b81) — GREEN DET-3x @390 v0.7.119: ONE drawer instance, applyPosition('inline')→data-position=inline→position:static (in-flow [D] segment) + applyPosition('bottom')→data-position=bottom→position:fixed;bottom:0 (today); SAME instance both positions, functional shell (grab-bar/.drawer-handle + X/.drawer-close + .drawer-body) intact, NO 2nd full-width fork. AC-INV-PRESENTATION positioning!=function.
 // R31.5.7 RbDetailDrawer.applyPosition (Impl 6e2d4b81) — AC-INV-PRESENTATION, DET-3x @390. served v0.7.118 (pid 1314990).
 // THE CRUX: ONE drawer instance, position=mode (NO 2nd full-width-drawer fork = Tron's regression). applyPosition('inline')
@@ -8,7 +9,7 @@
 import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.119';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.119';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 

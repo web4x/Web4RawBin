@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:9e1bfc3d-4a8a-45d5-8d7c-ffa19217ca7a] R30.50 B RbDiffEditor.openApplyAllMenu (Impl 288f469c) — 3-mode Apply-All popup opens with Non-conflicting / Local wins / Repo wins.
 // [test:uuid:4d2260ea-5164-4171-a235-a37b6069263a] R30.50 B RbDiffEditor.applyAllFromSide (Impl 6f5bd6a1) — Local wins → CENTER==Local, Repo wins → CENTER==Repo, openChangeCount→0.
 // [test:uuid:690f963c-f274-4ccd-8a68-781497a802c1] R30.50 C1 RbDiffEditor.saveOrJumpToConflict (Impl b741580e) — open>0 → jump next UNRESOLVED + 'resolve before saving' status, NO write.
@@ -15,7 +16,7 @@
 //   the r3042 non-writing pattern). The intercept also lets C1 assert NO write fired (putCount stays 0 on a guarded save).
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3050-merge-actions';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

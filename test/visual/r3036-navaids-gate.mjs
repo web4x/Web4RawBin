@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:3f7b9d21-6c48-4a0e-b1d5-8e2f4c69a730] R30.36 nav-aids — the CURRENT change (up/down nav) renders BRIGHTER than a non-current change of the SAME kind (pixel-distinguishable), with kind-IDENTITY intact (still the kind's hue); and an OPEN-COUNT that DECREMENTS on each ≫/≪/✕ down to 0.
 // GATE (DET-3x, SCREENSHOT+PIXEL, NEVER DOM-count): on the real 3-way diff — (1) nav to change A → sample its gutter color; A is BRIGHTER (higher luma) than a non-current same-kind change B, yet same HUE bucket (kind-identity intact); nav to B → B brightens, A dims. (2) OPEN-COUNT: read the count, resolve every change via ≫/≪/✕, assert it decrements monotonically to 0. Read-only vs prod (in-memory only, no save).
 // STATUS: prep — pre-deploy there is no current-brighter highlight (all same-kind changes render identically) + no decrementing open-count → RED; flips GREEN when R30.36 deploys.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3036-navaids/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

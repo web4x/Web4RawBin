@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.20.3 verify (PO ruling) — 'EVERY /model detail RENDERS' is NOT proven by the 5 natural classes. Sample the OTHER unit
 // types on the LIVE tree (/trace has requirement/task/usecase/class/method/implementation/test/sprint nodes) and flag ANY that
 // renders an EMPTY detail (the R30.21-class defect: unit in /api but the detail view shows nothing). Real select via the tree →
@@ -7,7 +8,7 @@ import { webkit } from '@playwright/test';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 
 const browser = await webkit.launch();
 let servedVersion = '?';

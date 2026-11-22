@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:68cf0aa6-ee7e-449c-ac00-4786d711d341] R31.8 RbFeatureDetail.mount (Impl 965e810c, Method 29130d6e, Class a085d2d1) — feature detail-view RENDERS @390: feature info (icon+name) + grant input + dropdown container, not stuck on Loading…. DET-3x GREEN v0.7.135.
 // [test:uuid:a708a9e3-263c-4890-ac5c-b358642cdef9] R31.8 RbFeatureDetail.userComplete (Impl 9b54bc91, Method ca286163, Class a085d2d1) — type → debounced /api/feature-manager/users?q= → dropdown POPULATES [data-hit] ranked/masked hits, visible. DET-3x GREEN @390.
 // [test:uuid:86930eae-e0ba-4e67-8819-8e9d4954d05c] R31.8 RbFeatureDetail.applyGrant (Impl cfde8f48, Method ee4143df, Class a085d2d1) — mousedown a hit → POST /api/feature-manager {action:'grant',feature,token} → fm-tree-refresh FLIP. DET-3x GREEN @390.
@@ -13,7 +14,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.135', REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.135', REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const FEATURE = '16604eee-d844-4efb-bd4d-881433ca82a6';
 const fmBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^feature-manager-.*\.js$/.test(f)); // defines rb-feature-detail
 // minimal shell that loads the feature-manager bundle (owner-gated page → intercepted) so rb-feature-detail is defined

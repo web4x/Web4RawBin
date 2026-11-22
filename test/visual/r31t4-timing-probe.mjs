@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // FOCUSED PROBE (not a gate): disambiguate the teardown "leak" — timing (grouped-session cleanup lag) vs REAL leak.
 // Open ONE pane terminal, record MY sm_, click Close, then poll the tmux census every 1s for 14s. If MY sessions
 // clear within a few seconds → timing (extend the gate's wait). If they persist → real INV-T1 leak (report the bug).
@@ -5,7 +6,7 @@ import { chromium, devices } from '@playwright/test';
 import https from 'node:https';
 import { execSync } from 'node:child_process';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, OWNER = OWNER_LITERAL;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, OWNER = OWNER_LITERAL;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const sm = () => { try { return execSync("tmux ls -F '#{session_name}' 2>/dev/null | grep '^sm_' || true", { encoding: 'utf8' }).split('\n').map(s => s.trim()).filter(Boolean); } catch { return []; } };
 const seedOwner = (ctx) => ctx.addInitScript((o) => { localStorage.setItem('rawbin-player-id', o); localStorage.setItem('rawbin-name', 'Owner'); localStorage.setItem('rawbin-device-privateKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-publicKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-signature', 'e2e-bypass'); }, OWNER);

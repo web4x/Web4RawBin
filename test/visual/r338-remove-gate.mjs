@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.8 Remove-from-diagram (INVERSE of add-view) @390 COMPONENT-harness gate, DET-3x independent (served==HEAD==0.8.33).
 // Impls: server persistRemoveView 2c64aa7b (drops a view-link from the Diagram unit, MODEL_STORE) + client removeFromDiagram
 // 4c9c3969 (/model drawer verb → POST /api/model/diagram/remove-view). Mount rb-diagram-detail (NOT authed /model, no
@@ -15,7 +16,7 @@
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444', TARGET = process.env.R338_TARGET || '0.8.37';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE, TARGET = process.env.R338_TARGET || '0.8.37';
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');
@@ -23,7 +24,7 @@ const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test
 const OUT = path.join(ROOT, 'test-results/r338-remove') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const BASELINE = fs.readFileSync(DFILE, 'utf8');
-const served = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
+const served = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (served !== TARGET) { console.log(`⚠ PHANTOM-GUARD: served=${served} != ${TARGET} — ABORT (won't gate a skewed server).`); process.exit(1); }
 console.log(`served==${TARGET} verified.`);
 

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.6.5 BUG-2 dup Re-Sync (Tron IMG_4795, v0.8.32 fix 8ad1ad537) @390 COMPONENT-harness, DET-3x independent.
 // The device bug: TWO Re-Sync buttons — the OLD in-diagram .dm-resync toolbar (rb-diagram-detail render) + the action-bar one.
 // Fix: removed the in-diagram .dm-resync BUTTON from render → EXACTLY ONE Re-Sync (the action-bar '⟳ Re-Sync', wired via the
@@ -7,7 +8,7 @@
 // (action-bar, verb 're-sync'); the removed in-diagram .dm-resync = 0. A count of 2 (the dup) = RED.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];

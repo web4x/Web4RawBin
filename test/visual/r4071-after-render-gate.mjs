@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.71/72 AFTER-RENDER GATE @390 (v0.8.152) — the PO bar is ZERO UNEXPLAINED BARE, not the flattering count.
 // Every one of the 78 previously-bare classes (+ 16 non-derivable methods) MUST render EITHER a real 📂 source link
 // OR the explicit italic-muted "source not available" marker — ZERO may render simply empty. A single empty-with-no-
@@ -9,7 +10,7 @@ import { webkit, devices } from '@playwright/test';
 import fs from 'node:fs';
 import { execSync } from 'node:child_process';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 fs.mkdirSync('test-results/r4071', { recursive: true });
 const bare = JSON.parse(fs.readFileSync('/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/bare78.json', 'utf8'));

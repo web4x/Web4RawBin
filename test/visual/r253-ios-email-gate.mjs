@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // v0.6.90 R25.x gate — iOS email drop. An Apple email drop carries BOTH a .eml file
 // (message/rfc822) AND a message: scheme URL. RoomView drop handler (v0.6.90): file -> File
 // (message/ now in dispatch allowlist) AND dispatchUrl(message:) -> WebItem (name=subject).
@@ -19,7 +20,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const SCEN = path.join(__repo, 'scenario/index');
 const DND_ROOM = '3231db71-d834-435a-a7f9-a801680ccd62';
 const RUN = randomUUID().slice(0, 8);

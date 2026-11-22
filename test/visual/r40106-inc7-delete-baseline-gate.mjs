@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 INC-7 (MOVE+DELETE) RED→GREEN differential — the SAME INSTRUMENT, run RED now @v0.8.222 (before INC-7),
 // re-run GREEN after. INC-7's whole claim is it fixes things ACTUALLY BROKEN; a delete gate green all along proves nothing.
 // PO/expert baselines (MEASURE, do not inherit; membership-filter everything — never flag a live member):
@@ -9,7 +10,7 @@ import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444', REPO = '/var/dev/Workspaces/web4x/Web4RawBin', FIXED = '909f1bd6';
+const BASE = RB_BASE, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', FIXED = '909f1bd6';
 const bare = (r) => String(r || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
 const g = (u) => new Promise(r => { https.get(`${BASE}/api/ior/ior:instance:${u}`, { rejectUnauthorized: false }, s => { let b = ''; s.on('data', c => b += c); s.on('end', () => { try { r(JSON.parse(b)); } catch { r(null); } }); }).on('error', () => r(null)); });
 let served = '?'; try { served = JSON.parse(execSync(`curl -sk ${BASE}/api/config`, { encoding: 'utf8' })).version; } catch {}

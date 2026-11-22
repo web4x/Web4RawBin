@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T40.1 DECLINE-BAND served-prod GUARANTEE (PO 2026-08-24, bounded — the ONLY job).
 // Served==committed proven by BUNDLE-HASH flip (app-IIJP4EUW → app-2TPDYGCK; version stayed 0.8.126 = phantom-guard trap
 // caught by hash not version). READ-ONLY on SERVED prod:4444 @390 real-WebKit — NO mutation, NO scratch, NO approve.
@@ -6,7 +7,7 @@
 //   (2) T40.1 does NOT regress to In Progress.
 // Output: I-GUARANTEE or NOT-GUARANTEED-because-X. Nothing else.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const TASK = '7a956c21-5f37-4062-b921-9bdd5a461546';
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));

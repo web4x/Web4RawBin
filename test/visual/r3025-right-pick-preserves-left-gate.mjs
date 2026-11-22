@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:2b9f6c17-8a4e-4d3c-b1f0-5e7a9c2d84b6] R30.25 (a604a1b5) "Picking a RIGHT ref preserves the LEFT side AND the RIGHT pick WINS" — impl-edits to populateLeftHistory (751934c1) + loadSide (c4da837c) + setSideRef/pickRef (f0b7ef57). THE Tron bug: opening a diff (working file → R30.17 auto-promote) then selecting a branch on the RIGHT must NOT (a) blank/reload the LEFT, NOR (b) let the promote overwrite the RIGHT pick (v0.7.36 subtle bug: LEFT preserved but promote clobbered RIGHT back to the working file). v0.7.37 (ec5d62dee) moves the right-reset into loadSide + early _rightUserPicked guard so RIGHT WINS.
 // TWO cases, DET-3x each: CASE A = pick RIGHT DURING the promote's history fetch (the real race — the fetch window is WIDENED deterministically by an in-page fetch() override that delays /api/git/file-history; page.route did NOT intercept so we override fetch directly). CASE B = pick RIGHT AFTER the promote fully settles. Instrumentation trace (timestamped loadSide/cmc/promote) asserts on BOTH: (1) LEFT byte-identical, (2) CENTER re-evaluated, (3) NO post-pick loadSide('left'), (4) RIGHT pick WINS (rightRef===picked, not overwritten). SystemTester-only, read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const FILE = 'package.json';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 

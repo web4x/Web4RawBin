@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:f494cdd4-ca11-4115-9981-108f7cf19d9a] R21.4 resolveOrEnroll — known-key -> KNOWN_KEY_CHALLENGE, no mint
 // R21.4 gate — connecting with a phone/email ALREADY in the alt-UUID index does NOT
 // mint a new user; the server challenges for the existing user's secret code instead.
@@ -21,7 +22,7 @@
 import WebSocket from 'ws';
 import { randomUUID } from 'crypto';
 
-const WSS = (process.env.GATE_BASE || 'wss://prod.wo-da.de:4444').replace(/^http/, 'ws');
+const WSS = (process.env.GATE_BASE || RB_WSS).replace(/^http/, 'ws');
 const KNOWN_PHONE = '+4915253844085';
 const TRON_UUID = '3effa1fc-a548-4619-a3ff-fb96382eca22';
 

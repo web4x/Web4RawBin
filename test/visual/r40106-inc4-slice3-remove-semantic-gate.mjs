@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 INC-4 slice-3 (v0.8.215) — Tron's "remove button on every file". THE SEMANTIC: REMOVE ≠ DELETE — the UNIT SURVIVES.
 // remove unlinks it HERE (unit + other links survive); delete destroys unit + all refs. Shipping delete-wearing-remove =
 // he loses content by a button that promised not to. FOUR assertions + the INVERSE-FAILABLE (a destroy must go RED).
@@ -6,7 +7,7 @@ import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

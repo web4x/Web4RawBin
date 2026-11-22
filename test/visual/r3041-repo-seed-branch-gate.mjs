@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:d3d9f8f5-c85b-487a-baa7-c276ec0ee4ee] R30.39 RbDiffEditor.populateRepos 2b7edf20 — a ?repo=oosh deep-link seeds BOTH the left AND right .de-repo selectors to 'oosh' on load, no manual set (AC-seed-both / AC-no-manual).
 // [test:uuid:48cf6080-491c-4b5c-ab6c-ed4e0d5dde17] R30.39 RbDiffEditor.populateHistory 0360d7e2 — on the ?repo deep-link the LEFT .de-history fills identically to a manual switch (git log --follow entries present), and the deep-link refs stay INTACT (no promote/auto-load clobber).
 // [test:uuid:9a59921f-36b6-4ee1-8b20-588a7311594f] R30.40 RepoRegistry.ROOTS.oosh 9b95b458 — the CENTER header reads otmux@<current branch of whatever ~/oosh resolves to>, verified DYNAMICALLY == `git -C $(readlink -f ~/oosh) branch --show-current` (tracks oo-mode; NOT hardcoded, NOT the wrong dev-teampush-astray).
@@ -5,7 +6,7 @@
 // /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1 (v0.7.63, edit-SHUJANVB.js). DET-3x, screenshots. SystemTester, read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = 'test-results/r3041-repo-branch';
 const EXPECT_BRANCH = (process.env.OOSH_BRANCH || '').trim();   // dynamic: git -C $(readlink -f ~/oosh) branch --show-current

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // Task 37.29 AC-4 — BUG18 PERMANENT REGRESSION GATE (it broke a SECOND time for lack of a test; this stops a third).
 // A file's own detail must render its REAL file detail (name + preview), NOT raw JSON and NOT a uuid-name.
 // Root (architect 316b60c15, RoomView.ts:393/401): the caller passed `file:${uuid}` (synthetic) → the drawer's
@@ -34,7 +35,7 @@ const renderDetail = (page, ref) => page.evaluate((r) => {
   }, 1600));
 }, ref);
 
-const BASE = process.env.R3729_BASE || 'https://prod.wo-da.de:4444'; // GREEN case on live (read-only); scratch base for stub
+const BASE = process.env.R3729_BASE || RB_BASE; // GREEN case on live (read-only); scratch base for stub
 const browser = await webkit.launch({ headless: true });
 const results = [];
 try {

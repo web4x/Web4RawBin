@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R21.3/R21.4 phone-as-identity gate — same phone = ONE identity. Pollution-free
 // (curl + wss probe with an ephemeral NON-minting token; no SystemTester user created).
 //
@@ -19,7 +20,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const HOST = 'prod.wo-da.de', PORT = 4444, WSS = `wss://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, WSS = `wss://${HOST}:${PORT}`;
 const ROOT = __repo;
 const PROFILES = `${ROOT}/data/profiles.json`;
 const LANDLINE = '+4981422917723';

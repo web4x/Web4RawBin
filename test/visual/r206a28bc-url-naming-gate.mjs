@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // BUG 206a28bc naming fix (live 0.8.211, SystemTester) — a FRESH URL with no displayName must be named by
 // its CLASS ('Youtube Watch'), NOT the raw URL tail ('watch?v='). Behavioural: drop a unique youtube URL via
 // the app's own #rrc-drop, find the newly-created unit in the room files[], assert its name. DET-3x.
@@ -6,7 +7,7 @@ import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const get = (u) => new Promise((r) => { https.get(`${BASE}/api/ior/ior:instance:${u}`, { rejectUnauthorized: false }, (s) => { let d = ''; s.on('data', c => d += c); s.on('end', () => { try { r(JSON.parse(d)); } catch { r(null); } }); }).on('error', () => r(null)); });
 const roomFiles = async (id) => ((await get(id))?.unit?.model?.files || []).map(String);

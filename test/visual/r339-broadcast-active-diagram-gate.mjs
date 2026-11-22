@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.9 — RbDiagramDetail.broadcastActiveDiagram (Impl 5150477e) @390 COMPONENT-harness gate, DET-3x independent.
 // The 5th chain: rb-diagram-detail connectedCallback → broadcastActiveDiagram(uuid) dispatches rb-active-diagram{uuid}
 // (this diagram is now the ACTIVE membership target); disconnectedCallback → broadcastActiveDiagram(null) (verbs hide).
@@ -8,7 +9,7 @@
 // mount → rb-active-diagram{uuid==diagram}; unmount → rb-active-diagram{uuid==null}. Component-harness, read-only.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];

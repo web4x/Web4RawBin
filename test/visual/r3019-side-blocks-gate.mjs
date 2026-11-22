@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a3ad0177-b80c-445a-9c87-72bf827b8c16] R30.19 RbDiffEditor.renderSideChangeBlocks (Impl eb994dcd) — colored change-block backgrounds in the Local(left) + Repository(right) SOURCE panes (Monaco deltaDecorations), SAME de-block-{kind} class as the center block + ribbon (color-match), ORIGIN-aware (a>0→Local, b>0→Repository), LINE-anchored on the real source lines (aStart/bStart, no off-by-one)
 // R30.19 (v0.7.28, hash edit-YCBWO635.js). Behavior-first, DET-3x, SystemTester. Fixture refs = local git plumbing, torn down.
 
 import { execSync } from 'child_process';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const genv = { ...process.env, GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@x', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@x', GIT_AUTHOR_DATE: '2026-01-01T00:00:00', GIT_COMMITTER_DATE: '2026-01-01T00:00:00' };
 const g = (a, i) => execSync(`git -C ${REPO} ${a}`, { encoding: 'utf8', input: i, env: genv }).trim();

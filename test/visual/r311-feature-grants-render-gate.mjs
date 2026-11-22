@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:96d0d227-2ac0-468b-8bb7-b3d3a0438fc7] R31.1 renderFeatureGrants (Impl f345b8ed, Class ProfilePage a3958f85, Method b4f03947) — RENDER + FILTER, DET-3x @390 real-WebKit. RETARGETED (2026-08-12): the impl MOVED from the ProfileEditor edit-form to the read-only /profile VIEWER, server-injected into #feature-grants from m.features in the PROFILE ws message (NO whoami round-trip). This gates the CLIENT RENDER+FILTER intent, distinct from R31.8 render-every-feature (b70aa99f) and from the SERVER-SIDE gate r312 (assertOwner 335dbf3d).
 // ★ CLIENT-ONLY by construction (PO security ruling): NO server surface, NO self-grant route, prod code UNCHANGED. The harness wraps the page's own WebSocket onmessage IN-PAGE to hand the REAL renderFeatureGrants snippet a SYNTHETIC m.features payload — the server is never asked to grant anything, the cookie-mint onclick is never fired (no writes). 8d9be587 (FeatureManager-not-ServerManager) is the READ-ONLY EXPECTED shape, never impersonated. Owner-VISIBLE-on-real-prod (server actually grants Server Manager) splits to Tron-device.
 // Engine-swap: WK=1 → real WebKit (Tron's Safari @390); default chromium. node22: PATH=/opt/node22/bin:$PATH WK=1 node test/visual/r311-feature-grants-render-gate.mjs
 import { chromium, webkit, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 const ENGINE = process.env.WK ? webkit : chromium;
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 // in-page: wrap WebSocket.onmessage so a PROFILE frame gets window.__injectFeatures spliced in → the REAL render runs on it.

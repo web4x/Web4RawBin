@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:73c7b7ba-19fd-4a6b-9c16-ac05eb0e36e3] R32.3 MDA model-tree GREEN DET-3x v0.8.3: modelFacetType (M2 instanceOf->Uml* node type/icon, else ModelElement) + /api/model/tree roots (M1 top-level, members->childCount badge, relatesTo NOT a child) shaped as .items for the SHARED rb-trace-tree (data-only reuse, no fork) + draggable + deterministic + /trace/SM unregressed. Own-oracle replica + planted-defect bites + source-audit + real client .items render. -> req wires onto Impl 449d830a (modelFacetType); expert places the impl-marker for 449d830a-d488-407c-8cc7-81a6bce649f2 @server.ts:36.
 // R32.3 MDA model-tree — INDEPENDENT gate (own oracle + planted-defect bite), DET-3x. served==HEAD==v0.8.3.
 // R32.3 = SERVER shapes the M1 model as {roots} for the SHARED rb-trace-tree (data-only REUSE, no client fork).
@@ -12,9 +13,9 @@ import { devices, chromium } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-const httpGet = (path) => new Promise((res) => { const rq = https.request({ host: 'prod.wo-da.de', port: 4444, path, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res({ status: r.statusCode, body: b })); }); rq.on('error', () => res({ status: 0, body: '' })); rq.end(); });
+const httpGet = (path) => new Promise((res) => { const rq = https.request({ host: RB_HOST, port: RB_PORT, path, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res({ status: r.statusCode, body: b })); }); rq.on('error', () => res({ status: 0, body: '' })); rq.end(); });
 
 // ── REPLICA of modelFacetType (server.ts:35) — byte-faithful; source-audit below proves the real fn matches ──
 const modelFacetType = (model, idx) => {

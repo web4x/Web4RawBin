@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a1e8d3f7-6b52-4c90-8d14-9f7e2a3c5b08] R40.9 EditorPreview.previewTraceability (Impl 0ed5cd75) — the Preview
 // tab REUSES the shared /trace + rb-detail-drawer surfaces (rb-trace-tree scoped via data-seed-ior + rb-detail-drawer),
 // NO bespoke preview renderer (DRY like R40.5); and @390 real-WebKit the Preview renders the unit's traceability chain +
@@ -7,7 +8,7 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'node:fs';
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const IOR = 'ior:instance:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb'; // a real unit (R40.8 req) with a traceability chain
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 

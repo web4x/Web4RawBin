@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:5c54dd62-a1b3-4e07-9c82-6f0d2a4b8e15] R40.50 (d) surface DESC @390 (Impl 5c54dd62 bySprintDisplayOrder) — /trace RENDERS DESC + /model FEED (/api/trace/sprints, the verbatim order /model renders) DESC + AGREE, DET-3x. NB the owner-gated /model DOM render @390 (403 for non-owners) = Tron's owner view; proven-by-construction here via source-invariant (no client re-sort) + feed-DESC + /trace-renders-faithfully.
 // R40.50 (d) SURFACE gate — the 6 display surfaces render sprints DESCENDING @390, and /model AND /trace AGREE.
 // The v0.8.118 defect was a per-surface CLIENT re-sort: /model ascending while /trace descending (disagreement). So this reads the
@@ -6,7 +7,7 @@
 // Real-WebKit @390 (Tron's Safari). SystemTester-only, READ-ONLY (only reads rendered order; no owner action, no mutation). DET-3x.
 import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // read the sprint numbers in RENDERED DOM order: rb-object-item whose name is exactly "Sprint N: ..." (NOT "CurrentSprint: Sprint 37")
 const readSprintOrder = (page) => page.evaluate(() => {

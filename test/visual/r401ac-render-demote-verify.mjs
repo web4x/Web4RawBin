@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T40.1 VERIFY (a) RENDER + (c) DEMOTE on served v0.8.126 — consumer-vs-consumer on the RENDERED artifact,
 // POST-BROADCAST, ORACLE-FREE (carry-forward, caught every real bug this week). Two consumers: the drawer action-bar
 // (barOffersSetCurrent) and the live resolver /api/trace/children (resolvedCurrent8 — the SAME path the pin uses).
@@ -17,7 +18,7 @@ const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTo
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 // PHANTOM-GUARD: prove served prod is the build we claim to verify (0.8.126)
-const prodVer = await fetch('https://localhost:4444/api/config').then(r => r.json()).then(j => j.version).catch(() => '?');
+const prodVer = await fetch(RB_BASE + '/api/config').then(r => r.json()).then(j => j.version).catch(() => '?');
 console.log(`phantom-guard: served prod = ${prodVer} (verifying T40.1 a/c on this build)`);
 
 const f = await setupFoundation({ commit: 'HEAD', buildDist: true });

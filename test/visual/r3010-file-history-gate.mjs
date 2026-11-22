@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:9c6cfdbc-107d-40af-adfc-90450149eb81] R30.10 GitApi.fileHistory — /api/git/file-history newest-first + cross-repo + reject-first (traversal/abs/bad-repo->400)
 // [test:uuid:16b2721a-dfac-4a8a-8433-f7fedfe5728e] R30.10 RbDiffEditor.populateRightHistory — Open Diff local file -> RIGHT .de-history auto-populates that file versions (newest loaded)
 // R30.10 — per-file git history (GitApi.fileHistory e9cfaab3 + RbDiffEditor.populateRightHistory
@@ -9,7 +10,7 @@
 
 import https from 'https';
 import { chromium } from '@playwright/test';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const api = (pathq) => new Promise((res) => { const r = https.request({ host: HOST, port: PORT, path: pathq, method: 'GET', rejectUnauthorized: false, timeout: 8000, headers: { Origin: BASE } }, (resp) => { let b = ''; resp.on('data', c => b += c); resp.on('end', () => res({ status: resp.statusCode, body: b })); }); r.on('error', () => res({ status: 0, body: '' })); r.on('timeout', () => { r.destroy(); res({ status: 0, body: '' }); }); r.end(); });
 const rej = (s) => s === 400 || s === 403;
 

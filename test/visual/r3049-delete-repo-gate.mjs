@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:e4741c65-67a9-4bb1-beb0-5f1a82c84d7a] R30.49 delete-for-removable (DELETE /api/git/repos?key= → RepoRegistry.unregister 559b508b builtin-protected) — dynamic repo register→DELETE→gone; builtin rawbin/oosh → 400 PROTECTED + still present; 🗑 Delete UI affordance (dynamic only); pollution-safe builtins-only. GREEN DET-3x v0.7.72. (req: map to the R30.49 impl — unregister 559b508b carries the builtin-protection; the DELETE endpoint handler is server.ts:1489.)
 // R30.49 delete-for-removable gate — v0.7.72, Tron's real deep-link. DELETE /api/git/repos?key=<key> (server.ts:1489,
 // RepoRegistry.unregister 559b508b: dynamic-only, builtin/unknown → 400) + Manage-panel 🗑 Delete affordance (dynamic only;
@@ -7,7 +8,7 @@
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import { execSync } from 'node:child_process';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3049-delete';
 const PROD_WT = execSync('readlink -f ~/oosh').toString().trim().replace(/mcdonges\.latest$/, 'prod'); // a real .git worktree to register

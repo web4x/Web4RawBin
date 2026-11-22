@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.10 — 123-ts folder-nav (sourceDirTree Impl cfb6acef) @390 WebKit gate, DET-3x. INV-T1: rawbin:ts expands to LEAF
 // [test:uuid:5d4b2fb5-11ef-47ca-8486-b171308643b6] R33.10 server.sourceDirTree (Impl cfb6acef) @390 WebKit — 123-ts folder-nav tree completeness (INV-T1-4); GREEN DET-3x. Independent tester credit.
 // .ts files (NOT {} — v0.8.36 fixed the PROJECT_ROOT ReferenceError). Two halves: (server, read-only, ungated) drill
@@ -7,7 +8,7 @@
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444', TARGET = process.env.R3310_TARGET || '0.8.37';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE, TARGET = process.env.R3310_TARGET || '0.8.37';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r3310-folder-nav') + '/'; fs.mkdirSync(OUT, { recursive: true });
@@ -16,7 +17,7 @@ const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="view
   + `<link rel="stylesheet" href="/app.css"><style>body{margin:0;background:#0d1117;color:#e6edf3;height:100dvh;display:flex;flex-direction:column}.trace-page{flex:1;min-height:0;overflow:auto}#err{color:#f85149}</style></head><body>`
   + `<div class="trace-page"><div class="trace-tree-panel"><rb-trace-tree id="model-tree"></rb-trace-tree></div><div id="err"></div></div>`
   + `<script type="module" src="${BUNDLE}"></script></body></html>`;
-const served = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
+const served = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (served !== TARGET) { console.log(`⚠ PHANTOM-GUARD: served=${served} != ${TARGET} — ABORT.`); process.exit(1); }
 console.log(`served==${TARGET} verified. engine=${process.env.WK ? 'webkit' : 'chromium'}`);
 

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.7.4 — RbTraceTree.onTreeReveal (Impl 9cdf5072) @390 COMPONENT-harness gate, DET-3x independent (served==HEAD==0.8.30).
 // [test:uuid:dac73307-6738-43b7-88aa-742f4069779f] R33.7.4 RbTraceTree.onTreeReveal (Impl 9cdf5072) @390 DET-3x: rb-tree-reveal
 // {ref} → onTreeReveal → revealModelElement (v0.8.30 RED-fix) builds an explicit mof path via /api/ior + R33.5 expandPath →
@@ -12,13 +13,13 @@
 // highlighted, was 0/absent before). PLANTED-DEFECT: reveal a bogus uuid → no reveal (revealNode SKIP, INV-TR3). Read-only.
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r374-reveal') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const TARGET = '0.8.30', sleep = ms => new Promise(r => setTimeout(r, ms)); // v0.8.30 = the revealModelElement/expandPath RED-fix (re-stamp restart done)
-const served = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
+const served = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (served !== TARGET) console.log(`⚠ served=${served} != ${TARGET} (verdict credits only on served==${TARGET})`);
 const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">`
   + `<link rel="stylesheet" href="/app.css"><style>body{margin:0;background:#0d1117;color:#e6edf3;height:100dvh;display:flex;flex-direction:column;font-family:system-ui}.trace-page{flex:1;min-height:0;overflow:auto}#err{color:#f85149}#dg{position:fixed;right:0;bottom:0;width:60%;height:45%;background:#0d1117;border:1px solid #333}</style></head><body>`

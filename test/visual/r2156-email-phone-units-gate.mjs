@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4c93e285-1cd5-4be2-a051-a3a1891b26ee] R21.3 registerSymlink — phone alt-symlink resolves (GET /api/phone -> token)
 // [test:uuid:1fd43df9-5703-4012-ad93-bc22da3548db] R21.5 mintAndLink — email unit minted + device-link challenge
 // [test:uuid:2d069fd0-ce5d-428f-a6df-01b021d0fad3] R21.6 mintAndLink — phone unit minted + Profile.phones[] + resolves
@@ -22,7 +23,7 @@ import WebSocket from 'ws';
 import https from 'https';
 import { randomUUID } from 'crypto';
 
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const WSS = `wss://${HOST}:${PORT}`;
 const TRON_UUID = '3effa1fc-a548-4619-a3ff-fb96382eca22';
 const TRON_PHONE = '+4915253844085';

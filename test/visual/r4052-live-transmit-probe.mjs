@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.52 TRANSMIT arm on the LIVE deployed bundle (v0.8.119), READ-ONLY, NO credential (random test token → 403/409, non-mutating).
 // Proves the headline defect is fixed: the deployed ownerActionFetch (Impl 4f85fa3e) attaches x-player-token from localStorage['rawbin-player-id']
 // on the owner-action sites. Dispatches the REAL rb-drawer-action event (exactly what the owner button fires → the deployed handler → ownerActionFetch)
 // and captures the outgoing request header. Identity-agnostic (a random TEST token, never Tron's). Server answers 403 (fail-closed) — no mutation, pin oracle untouched.
 import { webkit } from '@playwright/test';
-const PROD = 'https://prod.wo-da.de:4444';
+const PROD = RB_BASE;
 const TASK = '97e8a6ad-46db-440f-a9be-cfb97ca64df4'; // Sprint37 QA-Review
 const TESTTOK = '1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d'; // purpose-made random test token (NOT Tron's)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

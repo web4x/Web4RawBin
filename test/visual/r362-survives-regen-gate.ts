@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T36.2 usedIn SURVIVES a TsToModel re-generation — INDEPENDENT tester gate, served DET-3x.
 // R36.2 usedIn lives in data/model-store/usage-index.json (keyed by keyToUuid(sourceFile::qualifiedName)), OUTSIDE the
 // element file + outside the scanned index shards (server.ts:1247) → the generated element stays PRISTINE (INV-RM1) and
@@ -21,7 +22,7 @@ const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7'; // a stable real diagram �
 
 const http = (method: string, p: string, body?: any): Promise<{ status: number; json: any }> => new Promise((res) => {
   const data = body ? JSON.stringify(body) : undefined;
-  const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method, rejectUnauthorized: false, headers: data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: r.statusCode || 0, json: j }); }); });
+  const q = https.request({ host: RB_HOST, port: RB_PORT, path: p, method, rejectUnauthorized: false, headers: data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: r.statusCode || 0, json: j }); }); });
   q.on('error', () => res({ status: 0, json: null })); if (data) q.write(data); q.end();
 });
 const snapStore = (): Set<string> => { const s = new Set<string>(); const walk = (d: string) => { if (!fs.existsSync(d)) return; for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); e.isDirectory() ? walk(p) : s.add(p); } }; walk(STORE); return s; };

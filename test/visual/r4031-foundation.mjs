@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.31 ISOLATED SCRATCH-SERVER FOUNDATION (independent verifier; expert's owner-action smoke REUSES it — branch A, no dup).
 // Exports setupFoundation() → { base, ownerHeaders(), seeded:{qaReview,planned,refuse}, teardown() }.
 // Isolation: git worktree of HEAD (own scenario/index) + node_modules symlink + dist (symlink main's or build) + scratch
@@ -107,7 +108,7 @@ export async function setupFoundation(opts = {}) {
     try { execSync(`git -C ${MAIN} worktree remove --force ${scratch}`, { stdio: 'ignore' }); } catch {}
     try { if (fs.existsSync(scratch)) fs.rmSync(scratch, { recursive: true, force: true }); } catch {}
     // ASSERT: prod:4444 untouched (still serving) + 0 leftover scratch worktrees
-    let prodUp = false; try { const r = await fetch('https://localhost:4444/api/config'); prodUp = r.ok; } catch {}
+    let prodUp = false; try { const r = await fetch(RB_BASE + '/api/config'); prodUp = r.ok; } catch {}
     const leftover = execSync(`git -C ${MAIN} worktree list`, { encoding: 'utf8' }).split('\n').filter((l) => l.includes('r4031-scratch')).length;
     return { prodUp, leftover };
   };

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:6cb4c205-144a-47d4-a0b5-12fe07aed834] R32.11-MOBILE tap-to-add — verifies RbDiagramDetail.onSelectionChanged (the touch/iOS complement): a SINGLE tap on a class chip (document 'selection-changed' with one 'modelelement:' ref) with the diagram open → a UML box APPEARS (addView fires, POST 200). Drives the REAL event on the REAL mounted component (mounted as the drawer does: ref='diagram:<uuid>' + uuid='<stripped>') + network-captures the add-view POST. Bites: multi-select + non-modelelement are GUARDED (no box). Caught the diagram:-prefix 400 bug (8806b96c9) → fixed addView getAttribute('uuid') → RED→GREEN. → req wires this Test onto onSelectionChanged (marker-pending Impl).
 // R32.11-MOBILE tap-to-add — the @390 TOUCH INTERACTION (NOT endpoint, NOT desktop-DnD), DET-3x. On touch/iOS Safari
 // HTML5 DnD never fires, so a SINGLE tap on a class chip dispatches document 'selection-changed' → RbDiagramDetail.
@@ -11,7 +12,7 @@ import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
 
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const MODEL_STORE = path.join(ROOT, 'data', 'model-store', 'index');
 const FAA = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const ADDEL = 'f51234b0-0233-4fd6-a802-5467f64accc2';         // 'Id' — a store element NOT in faa4acad → a tap genuinely ADDS it (box appears)

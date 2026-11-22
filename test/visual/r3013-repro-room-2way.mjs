@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // REPRO of Tron's report: NO R30.13 gutters/ribbons on his REAL case — src/ts/server/Room.ts (LARGE file),
 // 2-way (no-merge-base), DESKTOP, on the new bundle. My money-shot was a tiny 8-line 3-way. This opens the
 // LARGE real file 2-way and measures whether the inter-pane gutters (≫/≪/✕/🪄) + ribbons ACTUALLY render —
@@ -8,7 +9,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import path from 'path';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OUT = path.join('/var/dev/Workspaces/web4x/Web4RawBin', 'test-results/merge-visual');
 fs.mkdirSync(OUT, { recursive: true });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
