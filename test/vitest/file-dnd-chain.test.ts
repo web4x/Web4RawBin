@@ -94,17 +94,16 @@ describe('[test:uuid:1e763397-5c56-4288-aac6-ee6f874b64a6] DropDispatcher routin
     expect(true).toBe(true);
   });
 
-  it('TC-7: unknown file type routes to routeUnknown → chat log', async () => {
+  it('TC-7: unknown file type is not claimed by any handler → uploaded by default (server classifies)', async () => {
+    // Behaviour changed: routeUnknown no longer posts "no handler registered" to chat; an unclaimed file is
+    // uploaded as-is and the SERVER Factory classifies it (drop-dispatcher.ts:114). Sprint 42 T42.4 update.
     const { DropDispatcher } = await import('../../src/public/ts/drop-dispatcher.js');
     const dd = new DropDispatcher();
-    const file = new File(['x'], 'weird.xyz', { type: 'application/x-unknown-test' });
-    // application/ goes to uploadFile, not routeUnknown
-    // Use a truly unknown type
     const file2 = new File(['x'], 'weird.xyz', { type: '' });
     let chatMsg = '';
-    await dd.dispatch(file2, 'room1', 'tok1', (msg) => { chatMsg = msg; });
-    expect(chatMsg).toContain('weird.xyz');
-    expect(chatMsg).toContain('no handler registered');
+    const handled = await dd.routeUnknown(file2, 'room1', 'tok1', (msg) => { chatMsg = msg; });
+    expect(handled).toBe(false);
+    expect(chatMsg).toBe('');
   });
 
   it('TC-8: registered handler intercepts matching mime prefix', async () => {

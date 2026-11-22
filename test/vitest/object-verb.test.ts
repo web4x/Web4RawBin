@@ -210,13 +210,14 @@ describe('HARD RULE: shared-impl gate + lintMarkers', () => {
 
   afterAll(() => { fs.rmSync(tmp, { recursive: true, force: true }); });
 
-  it('NEVER credits an Impl referenced by >1 Method (despite valid unit+marker)', () => {
+  // R30.11 (architect+planner joint verdict 2ebff228c, PO-ruled): the old hard block that un-credited every shared Impl
+  // was replaced — a shared Impl IS credited when it has a real marker and a real Test; the share is tagged on the row
+  // and lintMarkers still flags it for review.
+  it('credits a shared Impl per R30.11 but tags it shared-x2 on every row', () => {
     const r = chain.followUp([]);
-    expect(r.complete).toBe(0);
-    for (const row of r.rows) {
-      expect(row.impl).toMatch(/shared-impl\(x2\)/);
-      expect(row.openNodes[0].action).toMatch(/HARD RULE/);
-    }
+    expect(r.rows.length).toBe(2);
+    for (const row of r.rows) expect(row.impl).toMatch(/shared-x2\(R30\.11\)/);
+    expect(r.complete).toBe(2);
   });
 
   it('listComplete agrees with followUp.complete under the gate', () => {

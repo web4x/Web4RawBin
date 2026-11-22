@@ -49,8 +49,9 @@ describe('R32.1 MDA identity gate', () => {
     expect(seedModel()).toBe(0); // units already committed → nothing written/changed
   });
 
-  it('has 19 seed units (2 M3 reflexive + 17 M2)', () => {
+  // S40 R40.2 (UmlNode 0021) + R40.6 (12 deployment types 0022-0033) grew the seed from 19 to 33.
+  it('has 33 seed units (2 M3 reflexive + 31 M2)', () => {
     const idx = diskIndex();
-    expect(idx.list().length).toBe(19);
+    expect(idx.list().length).toBe(33);
   });
 });

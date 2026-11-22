@@ -93,25 +93,27 @@ test.describe('T73: Editor E2E', () => {
     await page.waitForSelector('rb-code-editor', { timeout: 15000 });
     await page.waitForTimeout(3000);
 
-    const original = await page.evaluate(() => (document.querySelector('rb-code-editor') as any)?.getValue?.());
+    // R42.4: read the original from the server (not from the editor, which may not have loaded) and ALWAYS restore it,
+    // awaited, so a run never leaves README.md changed.
+    const original: string = (await page.evaluate(() => fetch('/api/files/README.md').then(r => r.json()))).content;
+    expect(typeof original).toBe('string');
     const marker = `<!-- e2e-${Date.now()} -->`;
+    try {
+      await page.evaluate((m) => {
+        const ed = document.querySelector('rb-code-editor') as any;
+        if (ed?.editor) ed.editor.setValue(ed.editor.getValue() + '\n' + m);
+      }, marker);
+      await page.waitForTimeout(500);
 
-    await page.evaluate((m) => {
-      const ed = document.querySelector('rb-code-editor') as any;
-      if (ed?.editor) ed.editor.setValue(ed.editor.getValue() + '\n' + m);
-    }, marker);
-    await page.waitForTimeout(500);
+      await page.evaluate(() => document.querySelector('#tb-save')?.dispatchEvent(new MouseEvent('click')));
+      await page.waitForTimeout(2000);
 
-    await page.evaluate(() => document.querySelector('#tb-save')?.dispatchEvent(new MouseEvent('click')));
-    await page.waitForTimeout(2000);
-
-    const res = await page.evaluate(() => fetch('/api/files/README.md').then(r => r.json()));
-    expect(res.content).toContain(marker);
-
-    // Restore original
-    await page.evaluate((orig) => {
-      fetch('/api/files/README.md', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: orig }) });
-    }, original);
+      const res = await page.evaluate(() => fetch('/api/files/README.md').then(r => r.json()));
+      expect(res.content).toContain(marker);
+    } finally {
+      const status = await page.evaluate((orig) => fetch('/api/files/README.md', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: orig }) }).then(r => r.status), original);
+      expect(status).toBeLessThan(400);
+    }
   });
 
   test('(7) Preview shows rendered markdown', async ({ page }) => {

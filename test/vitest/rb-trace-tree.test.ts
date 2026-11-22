@@ -8,6 +8,10 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import { TraceGraph, Requirement, Task, UseCase } from '../../src/ts/shared/TraceModel.js';
 import { RbTraceTree } from '../../src/public/ts/trace/rb-trace-tree.js';
+
+// jsdom has no scrollIntoView; the tree calls it in a requestAnimationFrame after expanding a node, which can fire after a
+// test ends and surface as an unhandled error. Stub it like a browser no-op.
+if (!(Element.prototype as any).scrollIntoView) (Element.prototype as any).scrollIntoView = function () {};
 import { RbObjectItem } from '../../src/public/ts/trace/rb-object-item.js';
 import { setActiveRouter } from '../../src/public/ts/trace/nav.js';
 

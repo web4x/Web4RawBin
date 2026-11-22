@@ -8,13 +8,18 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing (unit suite, e2e specs, CI clean-tree gate)
+  - [ ] implementing (test/visual triage, server scenario/ writes into the data dir)
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+Done 2026-11-22: vitest 1081/1081 green (was 23 failing; stale tests updated to the ruling that changed them, R40.6 seed level fix); e2e 49/53 locally (the 4 editor tests need the Monaco CDN, green in CI); real bug fixed: leave + rejoin of a persistent room closed the user's own socket (Room.rejoinDedup); editor save test no longer empties README.md; unit runs leave the tree clean, CI enforces it (scripts/ci-suites.mjs). Open: triage the 439 test/visual scripts; the server still writes scenario/index and scenario/alt into the repo during e2e (~50 hard-coded paths), so the e2e job only warns on a dirty tree.
 
 ## Task Description
 

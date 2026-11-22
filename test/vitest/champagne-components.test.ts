@@ -13,6 +13,11 @@
 
 import { describe, it, expect, beforeEach } from 'vitest';
 
+// jsdom has no ResizeObserver; rb-detail-drawer observes its own size on connect (R31.x position re-fit).
+if (!(globalThis as any).ResizeObserver) {
+  (globalThis as any).ResizeObserver = class { observe() {} unobserve() {} disconnect() {} };
+}
+
 describe('rb-detail-drawer — T110 DetailViewContainer', () => {
   // [verifies:uuid:9186094e-0711-4859-b245-95cb514acfb2] R16.1
   beforeEach(() => { document.body.innerHTML = ''; });

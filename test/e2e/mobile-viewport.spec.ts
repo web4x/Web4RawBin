@@ -1,5 +1,6 @@
 // [test:uuid:71396672-5795-47a9-8074-b314ecfe092d] T13 mobile viewport
 import { test, expect } from '@playwright/test';
+import { sendChat, chatText } from './helpers.js';
 import { loginAs } from './identities.js';
 
 test.describe('T13.8: Mobile Viewport', () => {
@@ -21,25 +22,8 @@ test.describe('T13.8: Mobile Viewport', () => {
 
     await page.waitForSelector('.room-view', { timeout: 15000 });
     await expect(page.locator('.room-view')).toBeVisible();
-    await expect(page.locator('rb-chat-sheet')).toBeVisible({ timeout: 3000 });
-
-    await page.evaluate(() => {
-      const sheet = document.querySelector('rb-chat-sheet') as any;
-      const handle = sheet?.shadowRoot?.getElementById('handle');
-      if (handle) handle.click();
-    });
-    await page.waitForTimeout(500);
-    await page.evaluate(() => {
-      const sheet = document.querySelector('rb-chat-sheet') as any;
-      const input = sheet?.shadowRoot?.getElementById('input') as HTMLInputElement;
-      if (input) { input.value = 'mobile test'; input.dispatchEvent(new Event('input')); }
-      sheet?.shadowRoot?.getElementById('send-btn')?.click();
-    });
-    await page.waitForTimeout(1000);
-    const chatText = await page.evaluate(() => {
-      const sheet = document.querySelector('rb-chat-sheet') as any;
-      return sheet?.shadowRoot?.getElementById('messages')?.textContent || '';
-    });
-    expect(chatText).toContain('mobile test');
+    // v0.6.10: chat lives in the drawer's ChatPanel (rb-chat-sheet was deleted in 0b971ad94)
+    await sendChat(page, 'mobile test');
+    await expect.poll(() => chatText(page), { timeout: 5000 }).toContain('mobile test');
   });
 });

@@ -109,3 +109,20 @@ export async function ensureSystemSession(page: Page): Promise<{ roomId: string;
   const roomId = await page.evaluate(() => (window as any).__rawbinClient?._roomId || '');
   return { roomId, playerToken };
 }
+
+/** v0.6.10: the room chat is the ChatPanel inside rb-detail-drawer (light DOM: #cp-input/#cp-send/#cp-messages);
+ *  the old rb-chat-sheet was deleted (0b971ad94). Send works whether the drawer is expanded or minimized. */
+export async function sendChat(page: Page, text: string): Promise<void> {
+  await page.waitForSelector('rb-detail-drawer #cp-input', { state: 'attached', timeout: 10000 });
+  await page.evaluate((t) => {
+    const input = document.querySelector('rb-detail-drawer #cp-input') as HTMLInputElement;
+    input.value = t;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    (document.querySelector('rb-detail-drawer #cp-send') as HTMLElement).click();
+  }, text);
+}
+
+/** Text of the room chat messages (ChatPanel #cp-messages). */
+export async function chatText(page: Page): Promise<string> {
+  return page.evaluate(() => document.querySelector('rb-detail-drawer #cp-messages')?.textContent || '');
+}

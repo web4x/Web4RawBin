@@ -220,7 +220,10 @@ export class Room {
     const rtok = Room.resolveToken(member.playerToken || '') || member.playerToken;
     const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && Room.resolveToken(m.playerToken) === rtok) : undefined;
     if (!existing) return false;
-    if (existing.ws && existing.ws.readyState === 1) { try { existing.ws.close(); } catch {} }
+    // R42.4: close the OLD socket only when it is a DIFFERENT connection. Leave + rejoin over the SAME socket (persistent
+    // room: leave only marks the member disconnected) used to close the joiner's own socket → ROOM_JOINED was lost and
+    // the user stayed in the lobby.
+    if (existing.ws && existing.ws !== member.ws && existing.ws.readyState === 1) { try { existing.ws.close(); } catch {} }
     this.members.delete(existing.id);
     this.members.set(member.id, { ...member, playerToken: rtok, disconnected: false });
     this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.dedupCount() });

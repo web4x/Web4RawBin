@@ -12,8 +12,9 @@ const css = fsSync.readFileSync('src/public/app.css', 'utf-8');
 describe('[test:uuid:a7e34f12] R19.52 detailDrawer.fullWidth', () => {
   it('desktop drawer has flex:1 min-width:300px (no 480px cap)', () => {
     expect(css).toContain('rb-detail-drawer');
-    const desktopRule = css.match(/\.trace-page rb-detail-drawer \{[^}]+\}/);
-    expect(desktopRule).toBeDefined();
+    // the desktop rule is now scoped to the inline drawer position (data-position="inline")
+    const desktopRule = css.match(/\.trace-page rb-detail-drawer\[data-position="inline"\] \{[^}]+\}/);
+    expect(desktopRule).not.toBeNull();
     const rule = desktopRule![0];
     expect(rule).toContain('flex: 1');
     expect(rule).toContain('min-width: 300px');
