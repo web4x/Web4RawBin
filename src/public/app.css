@@ -256,6 +256,10 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
 .profile-fields label { font-size: 0.8rem; color: #666; margin-top: 4px; }
 .profile-fields input { padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; }
 .profile-fields input:focus { outline: none; border-color: #667eea; }
+.secret-field { position: relative; display: flex; }
+.secret-field input { flex: 1; width: 100%; padding-right: 44px; }
+.secret-toggle { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem; padding: 6px 8px; line-height: 1; opacity: 0.7; }
+.secret-toggle:hover, .secret-toggle:focus-visible { opacity: 1; }
 .profile-save { width: 100%; padding: 12px; font-size: 1rem; }
 
 /* User Profile Sheet (other-user view) */

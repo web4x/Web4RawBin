@@ -1,6 +1,7 @@
 // [impl:uuid:7a5752ae-3c8c-47b1-867e-1490db5796bf] T10 device enrollment
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
+import { bindSecretToggle } from './secret-toggle.js';
 
 export class DeviceEnrollDialog {
   private client: RawBinClient;
@@ -34,14 +35,18 @@ export class DeviceEnrollDialog {
       <div class="profile-sheet">
         <h3 style="margin-bottom:12px">Authorize This Device</h3>
         <p style="font-size:0.85rem;opacity:0.6;margin-bottom:16px">Enter your 4-digit secret code to authorize this device.</p>
-        <input type="text" id="de-code" pattern="[0-9]{4}" maxlength="4" placeholder="1234" inputmode="numeric"
-          style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:1.5rem;text-align:center;letter-spacing:8px">
+        <div class="secret-field">
+          <input type="password" id="de-code" pattern="[0-9]{4}" maxlength="4" placeholder="••••" inputmode="numeric" autocomplete="off"
+            style="width:100%;padding:12px 44px;border:1px solid #ddd;border-radius:8px;font-size:1.5rem;text-align:center;letter-spacing:8px">
+          <button type="button" class="secret-toggle" id="de-code-toggle" aria-label="Show secret code" aria-pressed="false">👁</button>
+        </div>
         <div id="de-error" style="display:none;color:#e74c3c;text-align:center;margin-top:8px;font-size:0.85rem"></div>
         <button class="btn btn-primary profile-save" id="de-submit" disabled style="margin-top:16px">Authorize</button>
         <button class="btn" id="de-remove-identity" style="width:100%;margin-top:12px;background:#e53935;color:white;border:none;padding:10px;border-radius:8px;font-size:0.9rem;cursor:pointer">Remove Local Identity</button>
       </div>`;
     document.body.appendChild(this.overlay);
 
+    bindSecretToggle('de-code', 'de-code-toggle');
     const codeInput = document.getElementById('de-code') as HTMLInputElement;
     const submitBtn = document.getElementById('de-submit') as HTMLButtonElement;
 
