@@ -10,7 +10,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // = Tron's real device (webkit unlaunchable here); this gate proves the network-first + renderer LOGIC is deployed.
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = RB_HOST, PORT = RB_PORT, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const TARGET = '0.7.93';
 const httpGet = (path) => new Promise((r) => {
   const req = https.request({ host: HOST, port: PORT, path, method: 'GET', rejectUnauthorized: false }, (res) => {

@@ -16,7 +16,7 @@ import fs from 'node:fs';
 import https from 'node:https';
 import { OtmuxBridge } from '../../src/ts/server/OtmuxBridge.js';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const NODE_UUID = 'fc327458-03d1-4b90-847d-ab52a7d82237';
 const httpGet = (p: string, h = {}): Promise<{ status: number; body: string }> => new Promise((res) => {
   const r = https.request({ host: RB_HOST, port: RB_PORT, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (x) => { let b = ''; x.on('data', (c) => b += c); x.on('end', () => res({ status: x.statusCode || 0, body: b })); });

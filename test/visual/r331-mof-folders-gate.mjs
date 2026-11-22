@@ -9,7 +9,7 @@ import https from 'node:https';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const PROD_INDEX = path.join(ROOT, 'scenario', 'index');
 const FAA = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';           // a MODEL_STORE Diagram unit (must NOT be in prod)
 const shardOf = (base, u) => path.join(base, ...u.slice(0, 5).split(''), `${u}.scenario.json`);

@@ -13,7 +13,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // Component-harness (event-driven wireDrawerActions, not authed /model); pollution-safe (add-view route-intercepted).
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const ELEM = '0ce4d2fb-4023-4db8-ac2d-4376ce16815c', NEIGHBOR = '54ea2a17-7b18-4d0f-ab41-feb6efe9ae64', DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];

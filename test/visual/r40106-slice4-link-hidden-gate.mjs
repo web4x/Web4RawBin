@@ -6,7 +6,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // GATE-WHEN-INC-6-LANDS: this flips — 'link' offered again once the tree renders the edge (re-run slice-4 render-obs).
 import { execSync } from 'node:child_process';
 import { writeFileSync, unlinkSync } from 'node:fs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const NODE = '/root/.vscode-server/bin/dc96b837cf6bb4af9cd736aa3af08cf8279f7685/node';
 let served = '?'; try { served = JSON.parse(execSync(`curl -sk ${RB_BASE}/api/config`, { encoding: 'utf8' })).version; } catch {}
 

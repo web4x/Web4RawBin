@@ -15,7 +15,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390 (WebKit≠chromium false-green class)
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const TARGET = process.env.R335C_TARGET || '0.8.37'; // PO: gate the SERVED bundle (phantom-guard). Override via env for a bumped served version.
 const servedVersion = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (servedVersion !== TARGET) console.log(`⚠ PHANTOM-GUARD: served=${servedVersion} != TARGET=${TARGET} — this is a DRY-RUN (validates the gate on the committed bundle); the SERVED verdict rides v${TARGET}. Set R335C_TARGET=${servedVersion} to credit the current served bundle.`);

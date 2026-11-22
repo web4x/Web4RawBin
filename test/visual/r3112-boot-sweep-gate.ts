@@ -17,7 +17,7 @@ import { execFileSync } from 'node:child_process';
 import https from 'node:https';
 import { PtyBridge } from '../../src/ts/server/PtyBridge.js';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.102';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), TARGET = '0.7.102';
 const sh = (a: string[]) => { try { return execFileSync('tmux', a, { encoding: 'utf8' }); } catch { return ''; } };
 const smNames = (): string[] => sh(['list-sessions', '-F', '#{session_name}']).trim().split('\n').filter(n => n.startsWith('sm_'));
 const nonSm = (): string[] => sh(['list-sessions', '-F', '#{session_name}\t#{window_width}x#{window_height}']).trim().split('\n').filter(l => l && !l.startsWith('sm_'));

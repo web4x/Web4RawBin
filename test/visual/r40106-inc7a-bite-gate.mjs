@@ -12,7 +12,7 @@ import { randomUUID } from 'node:crypto';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const BASE = RB_BASE, ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e', SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const relShard = (u) => `scenario/index/${u[0]}/${u[1]}/${u[2]}/${u[3]}/${u[4]}/${u}.scenario.json`;
 const shard = (u) => `${REPO}/${relShard(u)}`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

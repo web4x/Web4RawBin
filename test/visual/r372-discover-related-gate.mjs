@@ -12,7 +12,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // exactly the element's 1-level relatesTo∪relatedFrom neighbors add-viewed (self-excl, dedup) + refresh; no-diagram → 0 (bite).
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const ELEMENT = '92bf4d5f-4933-4b1c-af9d-b0c1a844f044'; // listComplete — has relatesTo (1-level neighbors)
 const DIST = path.join(ROOT, 'src/public/dist');

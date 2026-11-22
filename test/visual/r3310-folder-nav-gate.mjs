@@ -8,7 +8,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE, TARGET = process.env.R3310_TARGET || '0.8.37';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE, TARGET = process.env.R3310_TARGET || '0.8.37';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r3310-folder-nav') + '/'; fs.mkdirSync(OUT, { recursive: true });

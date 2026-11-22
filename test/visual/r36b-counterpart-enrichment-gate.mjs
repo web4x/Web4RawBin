@@ -10,7 +10,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // Chain 0bbe576f members=30 + 4 counterparts (ClassRegistry/AgentMessage/ScenarioIndex/TsToModel). renderFacet-paint + where-used
 // bidi + Scenario/Edit stay GREEN in r36-canonical-webkit-gate.mjs (same served 0.8.58).
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const TARGET = process.env.R36_TARGET || '0.8.58';
 const OUT = path.join(ROOT, 'test-results/r36b-counterpart') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const UML_CLASS = '000000000003', TS_CLASS = '000000000013';   // UNION facets (instanceOf tails)

@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import { renderFacet } from '../../src/public/ts/trace/diagram-view-model.js';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const node = (kind: string) => ({ uuid: 'u', name: 'N', kind, attrs: [], methods: [], refs: [], signature: '' } as any);
 const isEllipse = (svg: string) => /<ellipse|dm-facet-usecase/.test(svg);       // R36.1 UseCase facet = ellipse (NOT 'rx=' — a rounded class rect has that too)
 const isBox = (svg: string) => /<rect|dm-box/.test(svg) && !isEllipse(svg);

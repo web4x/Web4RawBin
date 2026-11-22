@@ -12,7 +12,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.136', REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.136', REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const UC = 'cc45a580-a401-4cee-9995-a10d7691bf40';        // UseCase drawer.observePosition (R31.9)
 const OBS = 'e8097351-f461-4d5b-a90d-5a384dec72af';        // Method observePosition (CORRECT)
 const SIBLING = 'onGrabBarPointer';                        // R25.4 sibling on the shared Class RbDetailDrawer (the bug)

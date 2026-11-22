@@ -5,7 +5,7 @@
 // PATH is broken (architect root-causing); repairing the DATA now would mask a live defect that re-orphans the next tap.
 // Widened to ALL scenario units (approval evidence may live off Task units). node22: PATH=/opt/node22/bin:$PATH npx tsx <this>
 import fs from 'node:fs'; import path from 'node:path';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin/scenario/index';
+const ROOT = ((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/scenario/index');
 const walk = (d: string): string[] => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(d, e.name)) : (e.name.endsWith('.scenario.json') ? [path.join(d, e.name)] : []));
 // approvedBy present ⇒ status MUST be 'Done' (and, when a checklist exists, its Done box ticked). Else = ORPHANED.
 const orphanedVerdict = (m: any): boolean => { if (!m.approvedBy) return false; const doneTicked = /- \[x\] Done/.test(String(m.statusChecklist ?? '')); return m.status !== 'Done' || (m.statusChecklist != null && !doneTicked); };

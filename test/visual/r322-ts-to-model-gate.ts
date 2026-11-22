@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const SCRATCH = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad';
 const FIXDIR = path.join(SCRATCH, 'r322-fix'), IDXDIR = path.join(SCRATCH, 'r322-idx');
 const UML_ASSOC = 'a1d2e3f4-0000-4a1b-8c2d-000000000010', UML_GEN = 'a1d2e3f4-0000-4a1b-8c2d-000000000011';

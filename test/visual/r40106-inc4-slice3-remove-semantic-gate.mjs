@@ -55,7 +55,7 @@ try {
   // leaving the unit + all OTHER container edges intact. Behavioural 2-container test not constructible in a single room
   // (no link-only endpoint; upload/move are single-location) → verified at code level (the definitive remove-here≠remove-there guarantee).
   const { execSync } = await import('node:child_process');
-  const unlinkSrc = execSync(`grep -aA12 'static unlink' /var/dev/Workspaces/web4x/Web4RawBin/src/ts/server/FolderService.ts`, { encoding: 'utf8' });
+  const unlinkSrc = execSync(`grep -aA12 'static unlink' ${new URL('../..', import.meta.url).pathname.replace(/\/$/, '')}/src/ts/server/FolderService.ts`, { encoding: 'utf8' });
   R.a3_singleEdgeUnlink = /\.children\s*=\s*[^;]*\.filter\([^;]*!==\s*ref/.test(unlinkSrc); // children = children.filter(c !== ref) → removes ONLY the one edge; other links survive
   R.removePass = R.a1_unitSurvives && R.a2_goneFromFolder && R.a3_singleEdgeUnlink && R.a4_noDangling;
 

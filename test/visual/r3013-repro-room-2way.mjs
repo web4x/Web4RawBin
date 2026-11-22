@@ -10,7 +10,7 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import path from 'path';
 import fs from 'fs';
 const BASE = RB_BASE;
-const OUT = path.join('/var/dev/Workspaces/web4x/Web4RawBin', 'test-results/merge-visual');
+const OUT = path.join((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), 'test-results/merge-visual');
 fs.mkdirSync(OUT, { recursive: true });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const ROOM = 'src/ts/server/Room.ts';

@@ -24,7 +24,7 @@ import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const NODE18 = '/root/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda';
 const SCRATCH = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad';
 const AXIS4_FIXTURE = path.join(REPO, 'test/visual/_r275_axis4_bogus.fixture.ts'); // temp, in-repo so --since HEAD sees it

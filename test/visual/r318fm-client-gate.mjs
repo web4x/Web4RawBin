@@ -14,7 +14,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.135', REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.135', REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const FEATURE = '16604eee-d844-4efb-bd4d-881433ca82a6';
 const fmBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^feature-manager-.*\.js$/.test(f)); // defines rb-feature-detail
 // minimal shell that loads the feature-manager bundle (owner-gated page → intercepted) so rb-feature-detail is defined

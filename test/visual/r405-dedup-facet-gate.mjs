@@ -3,7 +3,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const WT = path.join(REPO, '.gate-wt-r405');
 const LINT = 'PATH=/opt/node22/bin:$PATH node --import tsx scripts/check-detail-bespoke-actions.ts';
 const sh = (cmd, cwd) => { try { return { code: 0, out: execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }) }; } catch (e) { return { code: e.status || 1, out: (e.stdout || '') + (e.stderr || '') }; } };

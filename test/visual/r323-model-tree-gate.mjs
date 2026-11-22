@@ -12,7 +12,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { devices, chromium } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (path) => new Promise((res) => { const rq = https.request({ host: RB_HOST, port: RB_PORT, path, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res({ status: r.statusCode, body: b })); }); rq.on('error', () => res({ status: 0, body: '' })); rq.end(); });

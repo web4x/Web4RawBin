@@ -11,7 +11,7 @@ import { buildDiagramSvg, type ViewLink, type DiagramNode } from '../../src/publ
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
 import { chromium } from '@playwright/test';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const httpGet = (path: string): Promise<{ status: number; body: string }> => new Promise((res) => { const rq = https.request({ host: RB_HOST, port: RB_PORT, path, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => res({ status: r.statusCode || 0, body: b })); }); rq.on('error', () => res({ status: 0, body: '' })); rq.end(); });
 
 // ── Part A: run the REAL buildDiagramSvg against a synthetic view-set + PLANTED-DEFECT BITES (own oracle) ──

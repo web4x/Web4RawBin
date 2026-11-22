@@ -12,7 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const TARGET = process.env.R362_TARGET || '0.8.61';
 const STORE = path.join(ROOT, 'data/model-store/index');
 const USAGE = path.join(ROOT, 'data/model-store/usage-index.json');

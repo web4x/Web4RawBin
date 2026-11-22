@@ -14,7 +14,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const fakeIdx = (units: any[]) => { const m = new Map(units.map((u) => [u.model.uuid, u])); return { list: () => [...m.keys()], get: (u: string) => m.get(u) } as any; };
 const T = (uuid: string, status: string, checklist: any) => ({ ior: 'ior:class:Task', model: { uuid, name: 'T-' + uuid, status, statusChecklist: checklist } });
 

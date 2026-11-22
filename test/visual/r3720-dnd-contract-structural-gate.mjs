@@ -9,7 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const SRC = path.join(ROOT, 'src/public/ts');
 const CONTRACT = 'dnd-contract.ts'; // the ONE home (new module); allowed to hold get/setData
 

@@ -8,7 +8,7 @@
 import { webkit } from '@playwright/test';
 import { setupFoundation } from './r4031-foundation.mjs';
 import { execSync } from 'node:child_process';
-const MAIN = '/var/dev/Workspaces/web4x/Web4RawBin';
+const MAIN = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BROKEN = 'e977f1aa5'; // the deployed pre-fix worker that STILL intercepts POST — baseline for the no-collateral diff
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

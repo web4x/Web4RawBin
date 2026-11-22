@@ -7,7 +7,7 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const NODE = '/opt/node22/bin/node';
 const runGate = () => { try { execSync(`${NODE} --import tsx scripts/check-sprint-label.ts`, { cwd: ROOT, stdio: 'pipe' }); return 0; } catch (e) { return e.status || 1; } };
 const grepComposition = () => {

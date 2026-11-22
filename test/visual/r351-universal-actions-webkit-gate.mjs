@@ -12,7 +12,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const TARGET_BUNDLE = process.env.R351_BUNDLE || 'app-2UVCBLW6.js'; // gate the BUNDLE (client-only), not /api/config (v0.8.50 client: INV-2 residuals fixed)
 const OUT = path.join(ROOT, 'test-results/r351-universal-actions') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const sleep = ms => new Promise(r => setTimeout(r, ms));

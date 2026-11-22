@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from '@playwright/test';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 const MODEL_STORE = path.join(ROOT, 'data', 'model-store', 'index');
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';   // existing MODEL_STORE diagram (R32.11 fixture)

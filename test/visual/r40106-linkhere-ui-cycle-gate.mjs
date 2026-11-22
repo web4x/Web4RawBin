@@ -23,8 +23,8 @@ const rendered = (ref) => new Promise(res => { const x = new URL(`${BASE}/api/tr
 const roomMembers = async () => new Set(((await iorUnit(ROOM))?.files || []).map(bare));
 
 // (0) OFFERED — resolver (inverts hidden-gate)
-function offeredVerbs() { const tmp = `${REPO_TMP}`; const code = ["import { applicableActionsFor, UNIVERSAL_DECLS } from '../../src/public/ts/trace/action-applicability.ts';", "console.log(JSON.stringify(applicableActionsFor({ type: 'file' }, {}, UNIVERSAL_DECLS).offered.map((a)=>a.verb)));"].join('\n'); try { writeFileSync(tmp, code); const o = execSync(`npx tsx ${tmp}`, { cwd: '/var/dev/Workspaces/web4x/Web4RawBin', encoding: 'utf8', stdio: ['ignore','pipe','pipe'] }); return JSON.parse(o.trim().split('\n').pop()); } catch (e) { return ['(err)']; } finally { try { unlinkSync(tmp); } catch {} } }
-const REPO_TMP = '/var/dev/Workspaces/web4x/Web4RawBin/test/visual/.linkui-off.ts';
+function offeredVerbs() { const tmp = `${REPO_TMP}`; const code = ["import { applicableActionsFor, UNIVERSAL_DECLS } from '../../src/public/ts/trace/action-applicability.ts';", "console.log(JSON.stringify(applicableActionsFor({ type: 'file' }, {}, UNIVERSAL_DECLS).offered.map((a)=>a.verb)));"].join('\n'); try { writeFileSync(tmp, code); const o = execSync(`npx tsx ${tmp}`, { cwd: (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), encoding: 'utf8', stdio: ['ignore','pipe','pipe'] }); return JSON.parse(o.trim().split('\n').pop()); } catch (e) { return ['(err)']; } finally { try { unlinkSync(tmp); } catch {} } }
+const REPO_TMP = ((new URL('../..', import.meta.url).pathname.replace(/\/$/, '')) + '/test/visual/.linkui-off.ts');
 
 let served = '?'; const R = {};
 const browser = await webkit.launch();

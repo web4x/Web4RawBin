@@ -10,7 +10,9 @@
       "ior:instance:5041a3dc-e7f2-476c-8a52-9745b5412c82"
     ],
     "tests": [
-      "ior:instance:3b6b7389-3525-42db-94c4-b67a4c7d1789"
+      "ior:instance:3b6b7389-3525-42db-94c4-b67a4c7d1789",
+      "ior:instance:40c7c11b-8efb-48a6-8739-2c75bbad87fe",
+      "ior:instance:2e73d7f3-aaff-4b06-98e0-22d5a764be95"
     ]
   }
 }

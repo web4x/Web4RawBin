@@ -13,7 +13,7 @@ import fs from 'node:fs'; import path from 'node:path';
 // [test:uuid:2430c050-4c0d-479b-8ba4-b80214c5a2bb] R33.6.5 item5 RbDetailDrawer.setActions (Impl cef954eb) @390 DET-3x served v0.8.22: the GENERIC .drawer-actionbar renders the HOST-supplied {verb,label} .da-btn buttons and HIDES (display:none) when empty.
 // [test:uuid:a1e4c001-01ce-425a-9d72-a2048e1ba61c] R33.6.5 item6 host ModelView.wireDrawerActions (Impl 613bfb4a) @390 DET-3x: selection-driven ACTIONS_BY_TYPE mapping (diagram->[AddDiagram/ReSync/Compile], modelelement->[AddToDiagram], puml->[Import], default->[AddDiagram/ImportPUML]) + button click -> rb-drawer-action -> host handler fires.
 // [test:uuid:bd8c14fc-f6b9-42f1-affb-6322faa6dced] R33.6.5 item6 INV-3 shared-generic RbDetailDrawer.showActionsForType (Impl e6870858) @390 DET-3x: the rb-drawer-detail-shown{type} contract drives the bar; on /trace (NO host) the SAME drawer's bar stays HIDDEN (no model actions leak into the shared drawer). req maps markers to impls.
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r3365-drawer-actions') + '/'; fs.mkdirSync(OUT, { recursive: true });

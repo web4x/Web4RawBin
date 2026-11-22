@@ -4,7 +4,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 // READ-ONLY (no deletes). Selection = orphan (location→non-resolving room) AND NOT protected AND NOT real-owned.
 import { execSync } from 'node:child_process'; import { readFileSync, existsSync } from 'node:fs'; import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED='0';
-const BASE=RB_BASE; const REPO='/var/dev/Workspaces/web4x/Web4RawBin'; const IDX=REPO+'/scenario/index';
+const BASE=RB_BASE; const REPO=(new URL('../..', import.meta.url).pathname.replace(/\/$/, '')); const IDX=REPO+'/scenario/index';
 const bare=r=>String(r||'').replace(/^ior:instance:/,'').replace(/^[a-z][\w-]*:/i,'').split('@')[0];
 // REAL identities that must NEVER be swept (protected-set + known real accounts + their tombstones)
 const PROTECTED_IDS=(()=>{try{const j=JSON.parse(readFileSync('/root/.rawbin/protected-owner-identities.json','utf8'));return (Array.isArray(j)?j:j.protectedIdentities)||[]}catch{return[]}})();

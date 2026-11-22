@@ -6,7 +6,7 @@ import { proveBoardComplete } from '../../scripts/migrate-boards.ts';
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const S18 = '5b950725-a6f6-4d45-b802-4784ee6ef962'; // ior:class:Sprint "Sprint 18" (NOT the like-named Requirement 91a1c36a)
 const sh = (cmd: string) => { try { return { code: 0, out: execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }) }; } catch (e: any) { return { code: e.status || 1, out: (e.stdout || '') + (e.stderr || '') }; } };
 const gitDirty = () => sh('git status --porcelain scrum.pmo/sprints').out.trim();

@@ -14,7 +14,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const BASE = RB_BASE;
 const PROD_INDEX = path.join(ROOT, 'scenario', 'index');
 const MODEL_STORE = path.join(ROOT, 'data', 'model-store', 'index');

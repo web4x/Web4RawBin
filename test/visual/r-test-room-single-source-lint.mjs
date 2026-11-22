@@ -10,7 +10,7 @@
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const REPO = (new URL('../..', import.meta.url).pathname.replace(/\/$/, ''));
 const FIXED_ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';        // THE only test room any gate may use
 const FIXED8 = '909f1bd6';
 const SYS_TOKEN = 'ce981242-74fe-4d44-b5b6-43c641e224df';          // THE only test identity

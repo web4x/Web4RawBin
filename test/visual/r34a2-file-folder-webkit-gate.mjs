@@ -11,7 +11,7 @@ import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: i
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
+const ROOT = (new URL('../..', import.meta.url).pathname.replace(/\/$/, '')), BASE = RB_BASE;
 const TARGET = process.env.R34A2_TARGET || '0.8.44';
 const servedVersion = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 console.log(servedVersion === TARGET ? `served==${TARGET} verified — SERVED verdict on ${process.env.WK ? 'WebKit' : 'chromium'}.` : `⚠ PHANTOM-GUARD: served=${servedVersion} != ${TARGET}.`);
