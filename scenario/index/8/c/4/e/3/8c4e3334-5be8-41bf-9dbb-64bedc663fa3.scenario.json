@@ -6,9 +6,11 @@
     "name": "RoomAuth.createRoomWithConnectionIdentity",
     "className": "RoomAuth",
     "methodName": "createRoomWithConnectionIdentity",
-    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "sourceFile": "ior:file:src/ts/server/connection-identity.ts",
     "useCase": "ior:instance:13be1a82-54f9-449f-b148-6c9ace942800",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:3dcc4b87-b940-4235-887e-908d7bc4d3dd"
+    ],
     "parent": "ior:instance:bcbc397a-5d0b-457c-8744-b6b44d9a4cea",
     "unitLinks": []
   }

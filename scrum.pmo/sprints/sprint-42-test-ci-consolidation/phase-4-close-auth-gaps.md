@@ -8,9 +8,9 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
   - [ ] implementing
   - [ ] testing
 - [ ] QA Review
@@ -18,7 +18,7 @@
 
 ## Task Description
 
-CREATE_ROOM/JOIN_ROOM use the connection identity; device-key login required; tokens out of the repo and rotated; CI bumps version, stamps sw.js, tags and deploys on merge to main.
+CREATE_ROOM/JOIN_ROOM use the connection identity; device-key login required; tokens out of the repo and rotated; CI bumps version, stamps sw.js, tags and deploys on merge to main. DONE: CREATE_ROOM/JOIN_ROOM act as the connection's IDENTIFY identity (src/ts/server/connection-identity.ts), a foreign msg.playerToken is refused and no longer re-binds tokenToClient. OPEN: device-key login instead of bare-token IDENTIFY; tokens out of the repo + rotation (needs Tron: touches live users); CI-made release tags (with T42.2).
 
 ## Intention
 

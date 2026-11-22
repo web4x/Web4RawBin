@@ -425,7 +425,8 @@ describe('TC-53.2: No per-connection random avatar', () => {
   const serverTs = readFileSync(nodePath.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
 
   it('CREATE_ROOM handler references profile avatar not connection avatar', () => {
-    const createRoom = serverTs.match(/case MSG\.CREATE_ROOM[\s\S]*?break;/);
+    // whole handler up to the next case (R42.5 added early `break;` exits for unidentified/mismatched connections)
+    const createRoom = serverTs.match(/case MSG\.CREATE_ROOM[\s\S]*?(?=\n\s*case MSG\.)/);
     if (!createRoom) return;
     const block = createRoom[0];
     // Should reference profile avatar, not msg.clientAvatar or connection-level avatarUrl
