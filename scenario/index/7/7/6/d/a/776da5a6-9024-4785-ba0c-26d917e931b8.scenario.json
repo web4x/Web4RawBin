@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:3ce4f2c3-2d69-4dfa-b5d9-f43add29d9da",
+  "model": {
+    "uuid": "776da5a6-9024-4785-ba0c-26d917e931b8",
+    "name": "impl:ReleaseWorkflow.tagOnMerge",
+    "sourceFile": "scripts/tag-on-merge.mjs",
+    "sourceLine": 9,
+    "methods": [
+      "ior:instance:3ce4f2c3-2d69-4dfa-b5d9-f43add29d9da"
+    ],
+    "tests": [
+      "ior:instance:61dbfee5-60ad-49fd-8a57-efd3520b58cc"
+    ]
+  }
+}

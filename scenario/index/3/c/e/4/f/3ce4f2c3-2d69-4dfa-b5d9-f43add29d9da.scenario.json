@@ -6,9 +6,11 @@
     "name": "ReleaseWorkflow.tagOnMerge",
     "className": "ReleaseWorkflow",
     "methodName": "tagOnMerge",
-    "sourceFile": "ior:file:.github/workflows/release.yml",
+    "sourceFile": "ior:file:scripts/tag-on-merge.mjs",
     "useCase": "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:776da5a6-9024-4785-ba0c-26d917e931b8"
+    ],
     "parent": "ior:instance:de9a73c0-62a6-4e42-b434-664b3df455b3",
     "unitLinks": []
   }

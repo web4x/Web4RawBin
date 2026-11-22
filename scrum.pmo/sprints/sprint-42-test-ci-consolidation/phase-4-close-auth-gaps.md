@@ -11,10 +11,15 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] implementing (connection identity PR #6; CI-made release tags)
+  - [ ] implementing (device-key login instead of bare token; tokens out of the repo + rotation)
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+Done 2026-11-22: CREATE_ROOM/JOIN_ROOM use the connection's identity (PR #6); release tags are made by CI (.github/workflows/release.yml + scripts/tag-on-merge.mjs: tag v<version> only when a push to main bumps the version). Open: device-key login instead of a bare token; test/owner tokens out of the repo and rotated (needs TRON's go).
 
 ## Task Description
 
