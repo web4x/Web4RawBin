@@ -1,21 +1,15 @@
 /**
  * v0.6.24 champagne tests — R19.63 / R20.10 / R20.11 / R20.12
- * [test:uuid:22ca6dac-fde4-4751-8df1-db94422c8146] R19.63 renderFilePreview
  * [test:uuid:f0d21ea3-1b05-4a2c-8d31-21c916c5030a] R20.10 openForRef
  * [test:uuid:ef6a4fd9-3477-4f03-b986-505c93bbb4f4] R20.11 close
  * [test:uuid:c99f0a42-f1b8-4cac-b5de-fb4e27e1b7d4] R20.12 pinnedSprint
- * [test:uuid:4644dd3c-952d-47a3-828f-79c2ba1c932e] BUG8 collectionDetail.resolveViaParent
  */
 import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 
 describe('v0.6.24 drawer champagne', () => {
 
-  it('R19.63 renderFilePreview impl marker exists at rb-detail-view:136', () => {
-    const code = fs.readFileSync('src/public/ts/trace/rb-detail-view.ts', 'utf-8');
-    expect(code).toContain('[impl:uuid:71954a38-ec79-4bc6-8fd9-9cfdd9a8e1bd]');
-    expect(code).toContain('renderFilePreview');
-  });
+  // R19.63 renderFilePreview: removed in R35.1 (dead file-type fallback, see rb-detail-view.ts:101) — test deleted (Sprint 42 T42.4)
 
   it('R20.10 renderDetailForRef impl marker exists at rb-detail-drawer:83', () => {
     const code = fs.readFileSync('src/public/ts/trace/rb-detail-drawer.ts', 'utf-8');
@@ -38,12 +32,5 @@ describe('v0.6.24 drawer champagne', () => {
     expect(code).toContain('PinData');
   });
 
-  it('BUG8 collectionDetail: renderDetailForRef handles synthetic collection UUIDs via wrapper lookup', () => {
-    const code = fs.readFileSync('src/public/ts/trace/rb-detail-drawer.ts', 'utf-8');
-    expect(code).toContain('[impl:uuid:36934fe3');
-    // The fix: wrapper lookup (find matching collection by UUID, read ITS children)
-    expect(code).toMatch(/find.*uuid|children.*filter|wrapper|coll/);
-    // Collection UUID format: members-<roomUuid> / files-<roomUuid>
-    expect(code).toMatch(/members|files/);
-  });
+  // BUG8 collectionDetail: the marker + wrapper lookup were replaced by RbDetailBase synthetic-ref resolution in R37.24 (e55e5de7e) — test deleted (Sprint 42 T42.4)
 });

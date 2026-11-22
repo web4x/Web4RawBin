@@ -50,11 +50,12 @@ describe('R15.6: Task DetailView + planning overview', () => {
     const src = fs.readFileSync(path.resolve(__dirname, '../../src/public/ts/trace/rb-task-detail.ts'), 'utf-8');
     expect(src).toContain('class RbTaskDetail');
     expect(src).toContain('renderLinks');
-    expect(src).toContain('scenarioBrowserLinkFromIor');
+    expect(src).toContain('scenarioBrowserHref'); // link helper renamed (was scenarioBrowserLinkFromIor)
   });
 
   it('generated planning.md contains task list with checkboxes', () => {
-    const plannings = fs.readdirSync(path.join(SPRINTS_MD, 'sprint')).filter(f => f.includes('planning'));
+    // merged-sprint stubs carry no task list — check a real generated sprint planning
+    const plannings = fs.readdirSync(path.join(SPRINTS_MD, 'sprint')).filter(f => f.includes('planning') && f.endsWith('.md') && !f.startsWith('merged-')).sort();
     expect(plannings.length).toBeGreaterThan(0);
     const content = fs.readFileSync(path.join(SPRINTS_MD, 'sprint', plannings[0]), 'utf-8');
     expect(content).toMatch(/- \[.\]/);
@@ -109,7 +110,8 @@ describe('R17.8: Views generated from flat JSON', () => {
 
 describe('R17.9: planning.md is generated', () => {
   it('planning.md files exist for multiple sprints', () => {
-    const plannings = fs.readdirSync(path.join(SPRINTS_MD, 'sprint')).filter(f => f.includes('planning'));
+    // merged-sprint stubs carry no task list — check a real generated sprint planning
+    const plannings = fs.readdirSync(path.join(SPRINTS_MD, 'sprint')).filter(f => f.includes('planning') && f.endsWith('.md') && !f.startsWith('merged-')).sort();
     expect(plannings.length).toBeGreaterThanOrEqual(2);
   });
 });
@@ -190,10 +192,13 @@ describe('R16.4: Chain data diagnosis + fix', () => {
 });
 
 describe('R-RoomFlood: E2E cleanup', () => {
-  it('cleanupTestUsers helper exists in helpers.ts', () => {
+  // R42.3 (Sprint 42): specs no longer create or delete users — the two fixed testers come from identities.ts.
+  it('rooms are cleaned up, users are fixed (no cleanupTestUsers)', () => {
     const helpers = fs.readFileSync(path.resolve(__dirname, '../../test/e2e/helpers.ts'), 'utf-8');
-    expect(helpers).toContain('cleanupTestUsers');
+    expect(helpers).not.toMatch(/export function cleanupTestUsers/);
     expect(helpers).toContain('cleanupTestRooms');
+    const ids = fs.readFileSync(path.resolve(__dirname, '../../test/e2e/identities.ts'), 'utf-8');
+    expect(ids).toContain('export async function loginAs');
   });
 });
 

@@ -1839,7 +1839,7 @@ describe('R19.2: editOpen — room name click opens editor', () => {
     const root = nodePath.resolve(__dirname, '../../');
     const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomView.ts'), 'utf-8');
     expect(src).toContain('[impl:uuid:f9b579c1-7495-4f93-8dec-736a0410a69a]');
-    expect(src).toContain('editOpen');
+    expect(src).toContain('openRoomEditor'); // relabelled from editOpen in c1156ef85
   });
 });
 
@@ -1998,36 +1998,7 @@ describe('R19.90: self-healing element — all 3 orderings render', () => {
   });
 });
 
-describe('R19.87: preview-zoom-container touch-action=pan-y (CSS guard)', () => {
-  it('renderContentPreview for PDF produces container with touch-action:pan-y', async () => {
-    const { renderContentPreview } = await import('../../src/public/ts/trace/content-preview.js');
-    const html = renderContentPreview('test-uuid', 'application/pdf', 'test.pdf', 'tok');
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    const container = div.querySelector('.preview-zoom-container') as HTMLElement;
-    expect(container).not.toBeNull();
-    expect(container.style.touchAction).toBe('pan-y');
-  });
-
-  it('renderContentPreview for text/html produces container with touch-action:pan-y', async () => {
-    const { renderContentPreview } = await import('../../src/public/ts/trace/content-preview.js');
-    const html = renderContentPreview('test-uuid', 'text/html', 'page.html', 'tok');
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    const container = div.querySelector('.preview-zoom-container') as HTMLElement;
-    expect(container).not.toBeNull();
-    expect(container.style.touchAction).toBe('pan-y');
-  });
-
-  it('renderContentPreview for image does NOT use zoom container (no iframe)', async () => {
-    const { renderContentPreview } = await import('../../src/public/ts/trace/content-preview.js');
-    const html = renderContentPreview('test-uuid', 'image/jpeg', 'photo.jpg', 'tok');
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    expect(div.querySelector('.preview-zoom-container')).toBeNull();
-    expect(div.querySelector('img')).not.toBeNull();
-  });
-});
+// R19.87 preview-zoom-container: replaced by <rb-preview-pane> pan/zoom (R21.9 / R35.1, content-preview.ts) — tests deleted (Sprint 42 T42.4)
 
 // ═══════════════════════════════════════════════════════════════════════════
 // R19.88: BEHAVIORAL — whenDefined gate → created items are upgraded instances
@@ -2235,17 +2206,7 @@ describe('R19.92: seedIorTree — RoomView mounts trace-tree with data-seed-ior'
   });
 });
 
-// [test:uuid:fb907b0b-4844-411d-995f-2231bf882317] R19.93 createFilePreviewButton — extracted method at rb-detail-view.ts:122
-describe('R19.93: createFilePreviewButton — rb-detail-view renders preview button', () => {
-  it('rb-detail-view.ts has createFilePreviewButton method + content-preview import', () => {
-    const { readFileSync } = require('node:fs');
-    const nodePath = require("node:path");
-    const root = nodePath.resolve(__dirname, '../../');
-    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-view.ts'), 'utf-8');
-    expect(src).toContain('createFilePreviewButton');
-    expect(src).toContain('content-preview');
-  });
-});
+// R19.93 createFilePreviewButton: removed in R35.1 (rb-detail-view.ts:101) — test deleted (Sprint 42 T42.4)
 
 // [test:uuid:7cba34a6-03ab-41db-9ac2-d0e76d1d6f71] R20.6 SelectionModel.select — select/toggle/clear/dispatch
 describe('R20.6: SelectionModel.select + toggle + clear + dispatch', () => {

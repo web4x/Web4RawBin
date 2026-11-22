@@ -12,7 +12,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, '..');
-const SCENARIO_INDEX = path.join(PROJECT_ROOT, 'scenario/index');
+// R42.4: RAWBIN_SCENARIO_INDEX points the generator at another index (tests use a temp dir so a run never writes the repo)
+const SCENARIO_INDEX = process.env.RAWBIN_SCENARIO_INDEX || path.join(PROJECT_ROOT, 'scenario/index');
 const TEST_DIRS = [
   path.join(PROJECT_ROOT, 'test/vitest'),
   path.join(PROJECT_ROOT, 'test/e2e'),

@@ -32,12 +32,16 @@ function mk(type: string, title = 'T', status = ''): RbObjectItem {
 describe('T105 rb-object-item', () => {
   afterEach(() => { document.body.innerHTML = ''; setActiveRouter(null); });
 
-  // AC1: renders name + description for all 7 types (T112 two-line layout)
+  // AC1: renders name + description for all 7 types (T112 two-line layout).
+  // R40.4-phase2: the subtitle is the DESCRIPTION only, never a second copy of the title.
   it('renders name + description for all 7 types (AC1)', () => {
     for (const type of TYPES) {
       const el = mk(type, 'My ' + type, 'DONE');
       expect(el.querySelector('.oi-name')!.textContent).toBe('My ' + type);
-      expect(el.querySelector('.oi-desc')!.textContent).toBe('My ' + type);
+      expect(el.querySelector('.oi-desc')).toBeNull(); // no description → no subtitle (title not repeated)
+      el.setAttribute('description', 'Desc ' + type);
+      el.render();
+      expect(el.querySelector('.oi-desc')!.textContent).toBe('Desc ' + type);
       el.remove();
     }
   });
@@ -49,7 +53,7 @@ describe('T105 rb-object-item', () => {
     expect(el.querySelector('.oi-content')).toBeTruthy();
   });
 
-  // AC3/AC4: draggable on icon + 3 dataTransfer payloads
+  // AC3/AC4: draggable on icon; T37.20.2 — DndContract.serializeDragUnit writes the UNIT ref (never a #type.show URL)
   it('is draggable and sets all three dataTransfer payloads (AC3/AC4)', () => {
     const el = mk('task');
     const icon = el.querySelector('.oi-icon')!;
@@ -57,9 +61,9 @@ describe('T105 rb-object-item', () => {
     const store: Record<string, string> = {};
     const dt = { setData: (k: string, v: string) => { store[k] = v; }, effectAllowed: '' } as unknown as DataTransfer;
     icon.dispatchEvent(Object.assign(new Event('dragstart', { bubbles: true }), { dataTransfer: dt }));
-    expect(store['text/plain']).toBe(`#task.show?uuid=${UUID}`);
-    expect(store['text/uri-list'].endsWith(`/app#task.show?uuid=${UUID}`)).toBe(true);
-    expect(store['application/rb-object-ref']).toBe(`task:${UUID}`);
+    expect(store['text/plain']).toBe(`task:${UUID}`);
+    expect(store['text/uri-list']).toBeUndefined(); // the URL serialize was deleted in T37.20.2
+    expect(JSON.parse(store['application/rb-object-ref'])).toEqual([`task:${UUID}`]);
     expect((dt as any).effectAllowed).toBe('copyLink');
   });
 

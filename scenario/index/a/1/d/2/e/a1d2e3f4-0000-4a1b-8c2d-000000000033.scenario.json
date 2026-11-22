@@ -6,9 +6,10 @@
     "metaLevel": "M2",
     "kind": "interface",
     "instanceOf": [
-      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004"
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000001"
     ],
     "instances": [],
-    "sentinelReason": "M2 deployment-metamodel member — patterned uuid by design for a1d2e3f4 family lookup (registered sentinel, R5 exception, identity-detector exclusion)"
+    "sentinelReason": "M2 deployment-metamodel member — patterned uuid by design for a1d2e3f4 family lookup (registered sentinel, R5 exception, identity-detector exclusion)",
+    "levelNote": "R42.4: instanceOf corrected 0004->0001 (M3 Class). An M2 element must be an instance of exactly one level up (M3); IS-A UmlClass/UmlInterface is kept via kind + Relationship edges."
   }
 }

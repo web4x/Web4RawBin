@@ -33,16 +33,18 @@ describe('R32.5 drop→generate→view (go-live, isolated store)', () => {
     expect(readShard(STORE, circle!.model.uuid)).toBeTruthy();
     expect(r.diagramUuid).toBeTruthy();
   });
-  it('demo Diagram = Layer-2 view-links (class/interface, viewKind class, grid x,y on the link)', () => {
+  // R40.23 (c2f9089d1): viewKind is derived from the unit (deriveViewKind) — an interface box is 'interface', not a hardcoded 'class'.
+  it('demo Diagram = Layer-2 view-links (class/interface, viewKind from the unit kind, grid x,y on the link)', () => {
     const d = readShard(STORE, r.diagramUuid!);
     expect(d.ior).toBe('ior:class:Diagram');
     expect(d.model.views.length).toBe(3);
-    expect(d.model.views.every((v: any) => v.unit.startsWith('modelelement:') && v.viewKind === 'class' && Number.isFinite(v.x) && Number.isFinite(v.y))).toBe(true);
+    expect(d.model.views.every((v: any) => v.unit.startsWith('modelelement:') && ['class', 'interface'].includes(v.viewKind) && Number.isFinite(v.x) && Number.isFinite(v.y))).toBe(true);
     expect([d.model.views[1].x, d.model.views[1].y]).toEqual([240, 20]);
   });
   it('★ ISOLATION: prod scenario/index ModelElement count UNCHANGED (writes hit store only)', () => {
     expect(countME(PROD)).toBe(prodBefore);
-    expect(countME(STORE)).toBeGreaterThan(prodBefore);
+    // the store holds the copied seed PLUS the generated M1 (compared to the seed, not to prod: prod has grown far past it)
+    expect(countME(STORE)).toBeGreaterThan(countME(SEED));
   });
   it('idempotent re-drop: same UUIDs → 0 churn, same diagram', () => {
     const r2 = new TsToModel(ROOT).generate([FIXTURE], { indexDir: STORE, write: true, diagram: true });

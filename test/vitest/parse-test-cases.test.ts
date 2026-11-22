@@ -7,6 +7,7 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { execSync } from 'node:child_process';
 
 const INDEX_DIR = 'scenario/index';
@@ -23,9 +24,20 @@ describe('R20.20 parse-test-cases generator', () => {
     expect(count).toBeGreaterThan(900);
   });
 
+  // R42.4: the generator runs against a TEMP index (RAWBIN_SCENARIO_INDEX) so the test never writes scenario/index.
+  const tmpIndex = fs.mkdtempSync(path.join(os.tmpdir(), 'parse-test-cases-'));
+  const runGen = (): { found: number; created: number } => {
+    const out = execSync('npx tsx scripts/parse-test-cases.ts', { encoding: 'utf-8', timeout: 60000, env: { ...process.env, RAWBIN_SCENARIO_INDEX: tmpIndex } });
+    const m = out.match(/TestCases: (\d+) found, (\d+) created/);
+    return { found: Number(m?.[1]), created: Number(m?.[2]) };
+  };
+  let first = { found: 0, created: 0 };
+
   it('idempotent: re-run produces 0 new units', () => {
-    const output = execSync('npx tsx scripts/parse-test-cases.ts', { encoding: 'utf-8', timeout: 30000 });
-    expect(output).toContain('0 created');
+    first = runGen();
+    expect(first.created).toBeGreaterThan(900); // fresh index: every distinct case is created once (same-name duplicates hash to one)
+    expect(runGen().created).toBe(0);        // re-run: nothing new
+    fs.rmSync(tmpIndex, { recursive: true, force: true });
   });
 
   it('each TestCase unit has required fields (uuid, name, file)', () => {
@@ -40,7 +52,8 @@ describe('R20.20 parse-test-cases generator', () => {
   });
 
   it('TestCase count matches it()+test()+it.each blocks', () => {
-    const tcCount = countTestCaseUnits();
+    // compare what the generator FINDS now (the committed index is append-only and keeps renamed/deleted cases)
+    const tcCount = first.found;
     const itCount = parseInt(execSync("grep -r '^\\s*it(' test/vitest/ test/e2e/ --include='*.ts' --include='*.mjs' 2>/dev/null | wc -l", { encoding: 'utf-8' }).trim());
     const testCount = parseInt(execSync("grep -r '^\\s*test(' test/vitest/ test/e2e/ --include='*.ts' --include='*.mjs' 2>/dev/null | grep -v 'test\\.\\(describe\\|afterAll\\|afterEach\\|beforeEach\\|beforeAll\\)' | wc -l", { encoding: 'utf-8' }).trim());
     const totalBlocks = itCount + testCount;

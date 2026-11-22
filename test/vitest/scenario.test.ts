@@ -392,7 +392,7 @@ describe('T134: TraceLink', () => {
   it('ClassRegistry resolves TraceLink (8th class)', () => {
     const reg = new ClassRegistry();
     expect(reg.has(iorClass('TraceLink'))).toBe(true);
-    expect(reg.all().length).toBe(16);
+    expect(reg.all().length).toBe(17); // + AgentMessage (classes.ts registry list)
   });
 
   it('defaultTemplateRegistry renders TraceLink HTML+MD', () => {
