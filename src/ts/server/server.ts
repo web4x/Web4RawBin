@@ -10,6 +10,7 @@
 // [impl:uuid:eef80308-52d5-4ecf-93fe-c678ac04b412] server.sprintNameFormat
 
 // [impl:uuid:e94199c4-5c74-458e-92ad-2e75f8bc2926] T4 server core
+import { resolveConnectionIdentity } from './connection-identity.js';
 import https from 'node:https';
 import http from 'node:http';
 import fs from 'node:fs/promises';
@@ -5000,12 +5001,18 @@ function setupWebSocketServer(server: https.Server): void {
 
 // --- WS Message Handler ---
 
+// R42.5 connection-identity: see connection-identity.ts — room actions act as the connection's own identity.
+const connectionTokenOf = (clientId: string): string =>
+  [...wsClients].find(c => c.id === clientId)?.playerToken || '';
+
 function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
   const send = (data: object) => ws.send(JSON.stringify(data));
 
   switch (msg.type) {
     case MSG.CREATE_ROOM: {
-      const creatorToken = msg.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const creatorId = resolveConnectionIdentity(connectionTokenOf(clientId), msg.playerToken, redirectTombstoneToPrimary); // R42.5
+      if (creatorId.error) { send({ type: MSG.ERROR, message: creatorId.error }); break; }
+      const creatorToken = creatorId.token;
       const creatorProfile = creatorToken ? userProfiles.get(creatorToken) : undefined;
       if (!creatorProfile?.profileCommitted) { send({ type: MSG.ERROR, message: 'Profile required' }); break; }
       if (!creatorProfile?.sshKeysGenerated) { send({ type: MSG.ERROR, message: 'SSH keys required' }); break; }
@@ -5016,10 +5023,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const profileAvatar = creatorProfile?.avatar || '/icon-192.png';
       const member: RoomMember = {
         id: clientId, ws, name: memberName, avatarUrl: profileAvatar,
-        playerToken: msg.playerToken || '', disconnected: false,
+        playerToken: creatorToken, disconnected: false,
       };
-      const room = roomManager.createRoom(roomName, member, { isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '', creatorToken: creatorToken || '' });
-      if (msg.playerToken) tokenToClient.set(msg.playerToken, clientId);
+      const room = roomManager.createRoom(roomName, member, { isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '', creatorToken });
 
       createRoomHome(creatorToken!, room.id);
       const { publicKey: roomPubKey } = generateRoomKeypair(creatorToken!, room.id);
@@ -5036,7 +5042,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     }
 
     case MSG.JOIN_ROOM: {
-      const joinerToken = msg.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const joinerId = resolveConnectionIdentity(connectionTokenOf(clientId), msg.playerToken, redirectTombstoneToPrimary); // R42.5
+      if (joinerId.error) { send({ type: MSG.ERROR, message: joinerId.error }); break; }
+      const joinerToken = joinerId.token;
       const joinerProfile = joinerToken ? userProfiles.get(joinerToken) : undefined;
       if (!joinerProfile?.profileCommitted) { send({ type: MSG.ERROR, message: 'Profile required' }); break; }
 
@@ -5044,23 +5052,23 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (!room) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
       if (room.isPrivate && room.roomKey !== msg.roomKey) { send({ type: MSG.ERROR, message: 'Wrong room key' }); break; }
       const joinName = msg.playerName || 'User';
-      if (msg.playerToken) {
-        const oldId = tokenToClient.get(msg.playerToken);
+      {
+        const oldId = tokenToClient.get(joinerToken);
         if (oldId && oldId !== clientId && room.members.has(oldId)) {
           send({ type: MSG.ERROR, message: 'You are already in this room' }); break;
         }
-        tokenToClient.set(msg.playerToken, clientId);
+        tokenToClient.set(joinerToken, clientId); // R42.5: only ever the connection's own identity
       }
       const joinProfile = joinerToken ? userProfiles.get(joinerToken) : undefined;
       const joinAvatar = joinProfile?.avatar || '/icon-192.png';
       const member: RoomMember = {
         id: clientId, ws, name: joinName, avatarUrl: joinAvatar,
-        playerToken: msg.playerToken || '', disconnected: false,
+        playerToken: joinerToken, disconnected: false,
       };
       const joined = room.addMember(member);
       // [impl:uuid:c96d458c-af29-44c9-a309-15f689c0c0eb] R19.23 no room-full
       if (!joined) { send({ type: MSG.ERROR, message: 'Cannot join room' }); break; }
-      if (msg.playerToken && room.getCreatorId() === msg.playerToken) {
+      if (room.getCreatorId() === joinerToken) {
         room.setCreator(clientId);
         room.broadcast({ type: MSG.HOST_CHANGED, hostId: clientId });
       }

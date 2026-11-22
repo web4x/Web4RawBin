@@ -16,7 +16,9 @@
     "tasks": [
       "ior:instance:cfff2674-5358-4149-b672-762cc76a94a5"
     ],
-    "tests": [],
+    "tests": [
+      "ior:instance:9c2033b5-1023-4916-ad79-b2fa7ef2fb34"
+    ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-42-test-ci-consolidation/requirements.md",
     "unitLinks": [],
     "acceptanceCriteria": [
