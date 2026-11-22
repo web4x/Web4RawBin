@@ -6,9 +6,11 @@
     "name": "CiWorkflow.runSuites",
     "className": "CiWorkflow",
     "methodName": "runSuites",
-    "sourceFile": "ior:file:.github/workflows/ci.yml",
+    "sourceFile": "ior:file:scripts/ci-suites.mjs",
     "useCase": "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:1ec6afd4-8e5e-4a69-8e73-ce445c934053"
+    ],
     "parent": "ior:instance:834edff6-7c76-41a3-9bf5-ca26d041d654",
     "unitLinks": []
   }

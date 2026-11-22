@@ -1,6 +1,6 @@
 // [test:uuid:73ba7577-becc-4c43-be64-26a255872090] T13 room lifecycle
 import { test, expect } from '@playwright/test';
-import { cleanupTestRooms} from './helpers.js';
+import { cleanupTestRooms, sendChat, chatText } from './helpers.js';
 import { loginAs } from './identities.js';
 
 test.describe('T13.3: Room Lifecycle', () => {
@@ -22,28 +22,9 @@ test.describe('T13.3: Room Lifecycle', () => {
     const title = await page.locator('rb-header .rb-header-title').textContent();
     expect(title).toContain('E2E-Room');
 
-    await expect(page.locator('rb-chat-sheet')).toBeVisible({ timeout: 3000 });
-
-    await page.evaluate(() => {
-      const sheet = document.querySelector('rb-chat-sheet') as any;
-      const handle = sheet?.shadowRoot?.getElementById('handle');
-      if (handle) handle.click();
-    });
-    await page.waitForTimeout(500);
-    await page.evaluate(() => {
-      const sheet = document.querySelector('rb-chat-sheet') as any;
-      const input = sheet?.shadowRoot?.getElementById('input') as HTMLInputElement;
-      if (input) { input.value = 'hello e2e'; input.dispatchEvent(new Event('input')); }
-      const btn = sheet?.shadowRoot?.getElementById('send-btn');
-      if (btn) btn.click();
-    });
-    await page.waitForTimeout(1000);
-
-    const chatText = await page.evaluate(() => {
-      const sheet = document.querySelector('rb-chat-sheet') as any;
-      return sheet?.shadowRoot?.getElementById('messages')?.textContent || '';
-    });
-    expect(chatText).toContain('hello e2e');
+    // v0.6.10: chat lives in the drawer's ChatPanel (rb-chat-sheet was deleted in 0b971ad94)
+    await sendChat(page, 'hello e2e');
+    await expect.poll(() => chatText(page), { timeout: 5000 }).toContain('hello e2e');
 
     await page.evaluate(() => {
       const header = document.querySelector('rb-header');

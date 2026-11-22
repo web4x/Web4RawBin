@@ -31,7 +31,8 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
-      - run: npm test
+      # R42.4: green = the suite passes AND the run leaves the git tree unchanged
+      - run: node scripts/ci-suites.mjs unit
 
   e2e:
     runs-on: ubuntu-24.04  # Playwright 1.60 has no chromium deps for ubuntu-latest (26.04)
@@ -43,7 +44,8 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run build
-      - run: npm run test:e2e -- --trace off
+      # R42.4: --warn-dirty until the server writes scenario/ into its data dir (it still writes the repo's scenario/)
+      - run: node scripts/ci-suites.mjs e2e --warn-dirty -- --trace off
         env:
           # Server (playwright.config.ts) and the disk-asserting specs must read the same
           # isolated dir; without this the specs fall back to ./data and see 0 rooms.

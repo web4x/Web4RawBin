@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:1ec6afd4-8e5e-4a69-8e73-ce445c934053",
+  "model": {
+    "uuid": "3b6b7389-3525-42db-94c4-b67a4c7d1789",
+    "name": "test:CiWorkflow.runSuites",
+    "description": "AC ci-runs-both + clean-tree: runs unit or e2e, green only when the suite passes and git status is unchanged; reports the new lines",
+    "sourceFile": "ior:file:test/vitest/ci-suites.test.ts",
+    "implementations": [
+      "ior:instance:1ec6afd4-8e5e-4a69-8e73-ce445c934053"
+    ],
+    "useCase": "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad",
+    "requirement": "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a",
+    "status": "pass",
+    "unitLinks": []
+  }
+}

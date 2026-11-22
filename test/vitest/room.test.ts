@@ -483,4 +483,32 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
     const guestMembers = [...r.members.values()].filter(m => m.name === 'Guest');
     expect(guestMembers.length).toBeLessThanOrEqual(2);
   });
+
+  // R42.4: leave + rejoin over the SAME socket must not close that socket (it is the joiner's own connection)
+  it('T-persistent-retention: leave then rejoin on the same socket keeps the socket open and sends ROOM_JOINED', () => {
+    const creator = makeMember({ id: 'host' });
+    const r = new Room('SameWsRoom', creator, { mode: 'persistent' });
+    const ws = mockWs();
+    const guest = makeMember({ id: 'guest', name: 'Guest', ws });
+    r.addMember(guest);
+    r.retainOrPrune('guest'); // LEAVE_ROOM in a persistent room
+    (ws.send as ReturnType<typeof vi.fn>).mockClear();
+
+    r.addMember(makeMember({ id: 'guest', name: 'Guest', ws, playerToken: guest.playerToken })); // JOIN_ROOM, same socket
+
+    expect(ws.close).not.toHaveBeenCalled();
+    const types = (ws.send as ReturnType<typeof vi.fn>).mock.calls.map((c: any) => JSON.parse(c[0]).type);
+    expect(types).toContain('ROOM_JOINED');
+    expect(r.members.get('guest')?.disconnected).toBe(false);
+  });
+
+  it('T-persistent-retention: rejoin from a NEW socket still closes the old one', () => {
+    const creator = makeMember({ id: 'host' });
+    const r = new Room('NewWsRoom', creator, { mode: 'persistent' });
+    const oldWs = mockWs();
+    const guest = makeMember({ id: 'guest', ws: oldWs });
+    r.addMember(guest);
+    r.addMember(makeMember({ id: 'guest-2', playerToken: guest.playerToken })); // second tab / reconnect
+    expect(oldWs.close).toHaveBeenCalled();
+  });
 });

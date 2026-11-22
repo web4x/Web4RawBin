@@ -14,15 +14,20 @@ function browseLink(page: Page) {
 }
 
 test.describe('T84: editor back button → parent directory', () => {
-  test('TS1/AC1/AC5: deep file → Back href is parent /md/.../ and navigates there', async ({ page }) => {
+  // R40.7 (EditorHeaderNav): Back is genuine browser history; the folder navigation moved to the file-path label.
+  test('TS1/AC1/AC5: deep file → path label navigates to the parent /md/.../; Back goes back in history', async ({ page }) => {
+    await page.goto('/md/');
     await page.goto('/edit/scrum.pmo/sprints/sprint-9-room-identity/planning.md');
     const back = backLink(page);
     await expect(back).toBeVisible({ timeout: 10000 });
-    expect(await back.getAttribute('href')).toBe('/md/scrum.pmo/sprints/sprint-9-room-identity/');
 
-    await back.click();
-    await page.waitForLoadState('domcontentloaded');
-    expect(page.url()).toContain('/md/scrum.pmo/sprints/sprint-9-room-identity/');
+    await page.locator('#tb-path').click();
+    await page.waitForURL('**/md/scrum.pmo/sprints/sprint-9-room-identity/', { timeout: 10000 });
+
+    await page.goto('/edit/scrum.pmo/sprints/sprint-9-room-identity/planning.md');
+    await expect(backLink(page)).toBeVisible({ timeout: 10000 });
+    await backLink(page).click();
+    await page.waitForURL('**/md/scrum.pmo/sprints/sprint-9-room-identity/', { timeout: 10000 }); // history.back()
   });
 
   test('TS3/AC2: Back button label is "← Back" (not "← App")', async ({ page }) => {
@@ -34,13 +39,13 @@ test.describe('T84: editor back button → parent directory', () => {
     expect(await page.locator('rb-editor-toolbar a', { hasText: 'App' }).count()).toBe(0);
   });
 
-  test('TS2/AC6: root-level file → Back href is /md/ (guarded, no //)', async ({ page }) => {
+  test('TS2/AC6: root-level file → path label goes to /md/ (guarded, no //)', async ({ page }) => {
     await page.goto('/edit/README.md');
-    const back = backLink(page);
-    await expect(back).toBeVisible({ timeout: 10000 });
-    const href = await back.getAttribute('href');
-    expect(href).toBe('/md/');
-    expect(href).not.toMatch(/\/md\/\//); // PO guard: no double slash
+    await expect(page.locator('#tb-path')).toBeVisible({ timeout: 10000 });
+    await page.locator('#tb-path').click();
+    await page.waitForURL('**/md/', { timeout: 10000 });
+    expect(new URL(page.url()).pathname).toBe('/md/');
+    expect(page.url()).not.toMatch(/\/md\/\//); // PO guard: no double slash
   });
 
   test('TS4/AC4: 📂 browse button still goes to /md/', async ({ page }) => {

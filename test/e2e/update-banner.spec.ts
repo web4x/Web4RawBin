@@ -28,34 +28,51 @@ test.describe('T94: PWA update banner', () => {
     }
   });
 
-  test('AC1/AC6: version mismatch → update banner fires with "Update Now" (desktop Chromium)', async ({ page }) => {
-    await page.goto('/app');                                   // first visit caches live version (no banner)
-    await page.waitForTimeout(1000);
-    await page.evaluate(() => localStorage.setItem('rawbin-version', '0.0.1')); // simulate an older device
-    await page.reload();
-    await page.waitForTimeout(1500);                           // checkForUpdate: /api/config (0.5.4) vs 0.0.1
+  // R30.14 / R31.12 #2: the banner compares the SERVER version (/api/config) with the running bundle's __BUILD_VERSION__
+  // and fires only when the server is genuinely NEWER; the old localStorage 'rawbin-version' baseline is gone. The spec
+  // simulates a deploy by answering /api/config with a higher version.
+  // page.route cannot see requests a service worker makes, so these tests run without the SW (checkForUpdate does not need it)
+  async function serveNewerVersion(page: Page): Promise<void> {
+    await page.route('**/api/config', async (route) => {
+      const res = await route.fetch();
+      const cfg = await res.json();
+      const [maj] = String(cfg.version || '0.0.0').split('.').map((n: string) => parseInt(n, 10) || 0);
+      await route.fulfill({ response: res, json: { ...cfg, version: `${maj + 1}.0.0` } });
+    });
+  }
 
+  test.describe('server-version poll', () => {
+  test.use({ serviceWorkers: 'block' });
+
+  test('AC1/AC6: version mismatch → update banner fires with "Update Now" (desktop Chromium)', async ({ page }) => {
+    await serveNewerVersion(page);
+    await page.goto('/app');
+    await page.waitForTimeout(1500);                           // checkForUpdate: /api/config (bumped) vs bundle version
     expect(await bannerHasUpdateNow(page)).toBe(true);
   });
 
-  test('AC2: clicking "Update Now" stores the new version and dismisses the banner', async ({ page }) => {
+  test('AC1b: same server and bundle version → NO banner (no spurious prompt)', async ({ page }) => {
     await page.goto('/app');
-    await page.waitForTimeout(1000);
-    await page.evaluate(() => localStorage.setItem('rawbin-version', '0.0.1'));
-    await page.reload();
+    await page.waitForTimeout(1500);
+    expect(await bannerHasUpdateNow(page)).toBe(false);
+  });
+
+  test('AC2: clicking "Update Now" reloads and the banner is gone once the versions match', async ({ page }) => {
+    await serveNewerVersion(page);
+    await page.goto('/app');
     await page.waitForTimeout(1500);
     expect(await bannerHasUpdateNow(page)).toBe(true);
 
-    const liveVersion = await page.evaluate(async () => (await (await fetch('/api/config')).json()).version);
-    await page.evaluate(() => {
-      const b = document.querySelector('rb-update-banner') as any;
-      b?.shadowRoot?.getElementById('update-now')?.click();
-    });
-    await page.waitForTimeout(1500); // handler stores the new version, then reloads (no waiting SW → location.reload)
-
-    // after the reload, cached version == live version → no mismatch → banner gone
-    const cached = await page.evaluate(() => localStorage.getItem('rawbin-version'));
-    expect(cached).toBe(liveVersion);
+    await page.unroute('**/api/config');                      // the "deploy" is now what the bundle runs
+    await Promise.all([
+      page.waitForEvent('load', { timeout: 10000 }),
+      page.evaluate(() => {
+        const b = document.querySelector('rb-update-banner') as any;
+        b?.shadowRoot?.getElementById('update-now')?.click();
+      }),
+    ]);
+    await page.waitForTimeout(1500);
     expect(await bannerHasUpdateNow(page)).toBe(false);
+  });
   });
 });

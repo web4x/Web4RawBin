@@ -8,9 +8,9 @@
     "slug": "phase-3-two-green-suites",
     "description": "Triage the 439 test/visual scripts (convert / move / delete), fix or delete the ~22 failing vitest and 12 failing e2e tests, make test runs write scenario/ into the data dir.",
     "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "status": "Planned",
-    "waitingOn": "T42.1 merged; Tron's decision how much of test/visual may be deleted rather than converted.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing (unit suite, e2e specs, CI clean-tree gate)\n  - [ ] implementing (test/visual triage, server scenario/ writes into the data dir)\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "waitingOn": "Tron's decision how much of test/visual may be deleted rather than converted.",
     "priority": "P0 — Tron-directed consolidation (2026-11-22)",
     "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
     "coveredRequirements": [
@@ -21,7 +21,7 @@
     ],
     "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
     "sprintName": "Sprint 42",
-    "remainingIssues": "",
+    "remainingIssues": "Done 2026-11-22: vitest 1081/1081 green (was 23 failing; stale tests updated to the ruling that changed them, R40.6 seed level fix); e2e 49/53 locally (the 4 editor tests need the Monaco CDN, green in CI); real bug fixed: leave + rejoin of a persistent room closed the user's own socket (Room.rejoinDedup); editor save test no longer empties README.md; unit runs leave the tree clean, CI enforces it (scripts/ci-suites.mjs). Open: triage the 439 test/visual scripts; the server still writes scenario/index and scenario/alt into the repo during e2e (~50 hard-coded paths), so the e2e job only warns on a dirty tree.",
     "createdBy": "claude-code-consolidation-agent",
     "createdAt": "2026-11-22"
   }
