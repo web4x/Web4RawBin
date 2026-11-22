@@ -127,10 +127,18 @@ export class RawBinClient {
           }
           if (msg.type === MSG.TOKEN_REDIRECT && msg.newToken) {
             localStorage.setItem('rawbin-player-id', msg.newToken);
+            // R21.4: reload only once the redirected identity is stored (the server sends
+            // DEVICE_ENROLL_OK before TOKEN_REDIRECT; reloading on ENROLL_OK raced the redirect).
+            if (this._pendingKnownKeyLink) {
+              this._pendingKnownKeyLink = false;
+              if (typeof window !== 'undefined') window.location.reload(); // adopt redirected identity
+            }
           }
           // R21.4: a provided phone/email already belongs to an existing user → prompt for
           // their secret code and link THIS device to that profile (no new user).
-          if (msg.type === MSG.KNOWN_KEY_CHALLENGE && msg.profileUuid) {
+          // When a UI handler is registered (ProfileEditor's masked unlock sheet) it owns the challenge;
+          // the plain-text prompt is only a fallback.
+          if (msg.type === MSG.KNOWN_KEY_CHALLENGE && msg.profileUuid && !this.handlers.get(MSG.KNOWN_KEY_CHALLENGE)?.length) {
             const who = msg.maskedName || 'an existing user';
             const code = (typeof window !== 'undefined')
               ? window.prompt(`This contact already belongs to ${who}. Enter their 4-digit secret code to link this device:`)
@@ -139,10 +147,6 @@ export class RawBinClient {
               this._pendingKnownKeyLink = true;
               this.send({ type: MSG.DEVICE_ENROLL_REQUEST, profileUuid: msg.profileUuid, secretCode: code.trim() });
             }
-          }
-          if (msg.type === MSG.DEVICE_ENROLL_OK && this._pendingKnownKeyLink) {
-            this._pendingKnownKeyLink = false;
-            if (typeof window !== 'undefined') window.location.reload(); // adopt redirected identity
           }
           if (msg.type === MSG.DEVICE_ENROLL_FAILED && this._pendingKnownKeyLink) {
             this._pendingKnownKeyLink = false; // wrong/absent code → nothing created (AC4)
