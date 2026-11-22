@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "65c18056-6d0e-4c86-b636-18f3a5e29b49",
+    "altId": "T42.3",
+    "name": "Task 42.3: Phase 3a — one test identity (SystemTester + SystemTester2)",
+    "slug": "phase-3-one-test-identity",
+    "description": "Replace owner token (20 gates), Tron's profile 3effa1fc (3), synthetic member (8) and random users (21) with SystemTester / SystemTester2; seed both into the isolated server with real device keys; switch the 18 e2e specs to ensureSystemSession.",
+    "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "waitingOn": "T42.1 merged.",
+    "priority": "P0 — Tron-directed consolidation (2026-11-22)",
+    "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
+    "coveredRequirements": [
+      "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5"
+    ],
+    "useCases": [
+      "ior:instance:f5c5e99b-9095-4aa3-9f97-f1937703f079"
+    ],
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "sprintName": "Sprint 42",
+    "remainingIssues": "",
+    "createdBy": "claude-code-consolidation-agent",
+    "createdAt": "2026-11-22"
+  }
+}

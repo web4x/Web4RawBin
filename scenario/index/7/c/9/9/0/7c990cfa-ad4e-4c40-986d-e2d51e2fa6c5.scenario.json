@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30",
+  "model": {
+    "uuid": "7c990cfa-ad4e-4c40-986d-e2d51e2fa6c5",
+    "name": "testPollution.list",
+    "object": "testPollution",
+    "verb": "list",
+    "description": "The owner asks TestPollution for the users and rooms tests left in a data dir; it lists SystemTester, test-named and unnamed uncommitted users and their rooms, read-only.",
+    "coversRequirement": "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30",
+    "requirements": [
+      "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30"
+    ],
+    "tasks": [
+      "ior:instance:4a82b2e5-d4c3-455e-b75d-cfb0a4bc747b"
+    ],
+    "classes": [
+      "ior:instance:0b5ed865-f1da-4959-9f9b-13996302d362"
+    ],
+    "class": "ior:instance:0b5ed865-f1da-4959-9f9b-13996302d362",
+    "method": "ior:instance:e21c489b-4bd5-4c7b-b402-819fcbc5163f",
+    "implementations": [
+      "ior:instance:a5a1738a-4c47-4727-b31b-ce3582a28272"
+    ],
+    "tests": [
+      "ior:instance:9e705ae9-0038-4abc-9783-01dc51c8148a"
+    ],
+    "unitLinks": []
+  }
+}

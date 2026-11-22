@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5",
+  "model": {
+    "uuid": "f5c5e99b-9095-4aa3-9f97-f1937703f079",
+    "name": "testIdentity.ensureSystemSession",
+    "object": "testIdentity",
+    "verb": "ensureSystemSession",
+    "description": "Every test logs in through TestIdentity as SystemTester (or SystemTester2 for a second person), seeded with real device keys; no test mints a new user. (Planned, phase 3a.)",
+    "coversRequirement": "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5",
+    "requirements": [
+      "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5"
+    ],
+    "tasks": [
+      "ior:instance:65c18056-6d0e-4c86-b636-18f3a5e29b49"
+    ],
+    "classes": [
+      "ior:instance:fde92608-bf8e-487e-9cc4-78aa3e336be3"
+    ],
+    "class": "ior:instance:fde92608-bf8e-487e-9cc4-78aa3e336be3",
+    "method": "ior:instance:0a2b6c19-92fd-4083-8d9b-df98357fb4ae",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

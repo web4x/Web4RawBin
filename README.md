@@ -97,6 +97,7 @@ Individual sprints:
 - [Sprint 17 — Scenario Units / IOR Data Model & Class Views](./scrum.pmo/sprints/sprint-17-scenario-units/planning.md)
 - [Sprint 18 — Chain method-scope & role skills](./scrum.pmo/sprints/sprint-18-chain-method-scope/planning.md)
 - [Sprint 19 — Room Handling](./scrum.pmo/sprints/sprint-19-room-handling/)
+- [Sprint 42 — Test & CI Consolidation](./scrum.pmo/sprints/sprint-42-test-ci-consolidation/planning.md) — run by a separate Claude Code agent; read before touching tests, CI, branches or tags
 
 ## Traceability
 

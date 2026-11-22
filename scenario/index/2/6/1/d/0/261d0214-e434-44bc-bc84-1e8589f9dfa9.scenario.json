@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:182e9a87-9cf5-4439-a23c-b13325a94227",
+  "model": {
+    "uuid": "261d0214-e434-44bc-bc84-1e8589f9dfa9",
+    "name": "impl:RawbinTarget.resolveRawbinTarget",
+    "sourceFile": "scripts/rawbin-target.mjs",
+    "sourceLine": 6,
+    "methods": [
+      "ior:instance:182e9a87-9cf5-4439-a23c-b13325a94227"
+    ],
+    "tests": [
+      "ior:instance:7877086e-5326-4a39-82f2-3e623906b2c4"
+    ]
+  }
+}

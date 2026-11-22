@@ -1,0 +1,34 @@
+{
+  "ior": "ior:class:Sprint",
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+  "model": {
+    "uuid": "17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "name": "Sprint 42 — Test & CI Consolidation",
+    "number": 42,
+    "status": "Active",
+    "compoundSource": "scrum.pmo/sprints/sprint-42-test-ci-consolidation/requirements.md",
+    "goal": "RADICAL CONSOLIDATION of test users, test targets, test suites, branches and releases (Tron 2026-11-22). NOTE FOR THE oopTeam: this sprint is DRIVEN BY A SEPARATE CLAUDE CODE AGENT (subagent session outside the robbin fleet), not by robbin-planner/architect/expert/tester. Reason (Tron): the test-user and CI process was broken by the team — tests ran against prod and left rooms/users there, tests logged in as the owner, as Tron's own profile and as random new users, main became a stale orphan while prod ran an unmerged hotfix branch, tags were set by hand on untested direct commits, and nothing ran the suites automatically. Until this sprint is Done the team must NOT: add tests that reach prod or use any identity other than the two fixed test users SystemTester and SystemTester2 (Tron: 'two test users are acceptable, random temp user creation is not'); push or tag directly; change .github/workflows or test/visual/_target.mjs. Traceability (Tron: 'each test must be linked to the artifacts of the chain'): every requirement carries a UseCase -> Class -> Method chain, and every test is a Test unit wired Impl -> Method -> UseCase -> Requirement with a [test:uuid:] marker in its file. Target: one trunk (main = prod line, PR-only, protected), one test identity (SystemTester + SystemTester2), never test on prod, two green suites (vitest + Playwright) run by CI, CI-made tags. Plan: https://claude.ai/artifact/KjznypBaPXvB87JiDMW9eS. PRs: #2 unlock fix, #3 phase 1.",
+    "tronQuote": "we need to document for the oopTeam that a subagent runs a radical consolidation for the test users and CI process, that was screwed by the team. check how the sprints are handled and create a new sprint that the team later can read",
+    "designRef": "https://claude.ai/artifact/KjznypBaPXvB87JiDMW9eS",
+    "requirements": [
+      "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30",
+      "ior:instance:6a7aa5ca-fbea-4673-9f92-4a02afe95a41",
+      "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5",
+      "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a",
+      "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8"
+    ],
+    "tasks": [
+      "ior:instance:4a82b2e5-d4c3-455e-b75d-cfb0a4bc747b",
+      "ior:instance:be71588c-e4b5-41c6-936b-08e0e522aa15",
+      "ior:instance:65c18056-6d0e-4c86-b636-18f3a5e29b49",
+      "ior:instance:ba1a2444-d856-4143-9a0b-7b7b7a1adf7d",
+      "ior:instance:cfff2674-5358-4149-b672-762cc76a94a5"
+    ],
+    "createdAt": "2026-11-22",
+    "createdBy": "claude-code-consolidation-agent",
+    "joint": [
+      "claude-code-consolidation-agent"
+    ],
+    "rootDiagnosis": "PROCESS, not code: no gate between an agent's commit and prod. Without CI, PR-only merges and an isolated test target, every agent tested on the live server under whatever identity was at hand, and tags certified nothing."
+  }
+}

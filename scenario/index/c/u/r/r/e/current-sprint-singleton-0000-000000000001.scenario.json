@@ -2,31 +2,35 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 41.1 class File — CREATE the clean M1 File class (full MDA/MOF chain, top-down, zero migration) [Sprint 41 OOP Model Consistency; ⚠ PROVENANCE: set by a PO-ORDERED UNIT-WRITE (auto-derivation broken), NOT by Tron's owner set-as-current action — this is NOT his decision. Owner-gate bypass acknowledged (STANDING RULE: agents don't unit-write an owner-gated action); KEEP-not-revert per PO (value TRUE; INC-7 was a closed lie); the truthful-pin-that-holds still needs Tron's click]",
+    "name": "Current: Task 42.3 one test identity [Sprint 42 Test & CI Consolidation; set 2026-11-22 on Tron's explicit decision ('1 yes' = make Sprint 42 the team's current sprint), written by the consolidation agent]",
     "chain": {
-      "req": "993db1f3-bbca-4dc2-8004-43a47e6a8c98",
-      "uc": "59649d58-f4d6-4862-9fee-93eab5055982",
+      "req": "237ed0b0-1cff-4fde-82ac-e2059d8293f5",
+      "uc": "f5c5e99b-9095-4aa3-9f97-f1937703f079",
       "class": "",
       "method": "",
       "impl": "",
       "test": ""
     },
     "activeHop": 0,
-    "sprintName": "Sprint 41",
-    "taskName": "Task 41.1: class File — CREATE the clean M1 File class (methods renderSelf/moveTo/ownIor + owner-always + fully-qualified IOR; do NOT consolidate the 3 stubs)",
+    "sprintName": "Sprint 42",
+    "taskName": "Task 42.3: Phase 3a — one test identity (SystemTester + SystemTester2)",
     "hopStates": {
-      "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-13" }
+      "req": {
+        "status": "done",
+        "owner": "claude-code-consolidation-agent",
+        "updatedAt": "2026-11-22"
+      }
     },
-    "nextSprintName": "Sprint 41",
-    "nextBacklogOverride": "6128094d-3a43-4541-b050-71cd33a8f7c8",
+    "nextSprintName": "Sprint 42",
+    "nextBacklogOverride": "ba1a2444-d856-4143-9a0b-7b7b7a1adf7d",
     "lastCompletedUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
     "lastCompletedName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store (one-store ROOT closed v0.8.199, MODEL_STORE deleted ca0b4dd98) [R40.81]",
     "lastCompletedReqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
     "slots": {
       "current": {
-        "taskUuid": "a264c6a3-9732-4796-9aaa-dbd3b8e67dd6",
-        "taskName": "Task 41.1: class File — CREATE the clean M1 File class (Sprint 41 OOP Model Consistency; top-down, zero migration). PO-designated current; status stays Planned until work starts (per-action stamp).",
-        "reqUuid": "993db1f3-bbca-4dc2-8004-43a47e6a8c98"
+        "taskUuid": "65c18056-6d0e-4c86-b636-18f3a5e29b49",
+        "taskName": "Task 42.3: Phase 3a — one test identity (SystemTester + SystemTester2)",
+        "reqUuid": "237ed0b0-1cff-4fde-82ac-e2059d8293f5"
       },
       "lastCompleted": {
         "taskUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
@@ -34,12 +38,12 @@
         "reqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
       },
       "nextBacklog": {
-        "taskUuid": "6128094d-3a43-4541-b050-71cd33a8f7c8",
-        "taskName": "Task 41.2: class Folder — MINT the clean M1 Folder class (methods renderSelf/children/linkIn/unlink/ownIor). (R40.106 INC-7 delete-protection 740f8996 stays In-Progress off the pin — a 2nd in-flight item, not dropped.)",
-        "reqUuid": "0ac8c383-ec63-4515-b27a-6614546ed9ae"
+        "taskUuid": "ba1a2444-d856-4143-9a0b-7b7b7a1adf7d",
+        "taskName": "Task 42.4: Phase 3b — two green suites (triage test/visual, fix known failures, clean tree)",
+        "reqUuid": "f402d3ff-7ffc-460c-8b53-321247997e6a"
       }
     },
-    "currentTaskUuid": "a264c6a3-9732-4796-9aaa-dbd3b8e67dd6"
+    "currentTaskUuid": "65c18056-6d0e-4c86-b636-18f3a5e29b49"
   },
   "ownerIor": null
 }

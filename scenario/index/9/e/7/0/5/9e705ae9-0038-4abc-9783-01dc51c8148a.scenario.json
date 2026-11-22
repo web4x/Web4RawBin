@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:a5a1738a-4c47-4727-b31b-ce3582a28272",
+  "model": {
+    "uuid": "9e705ae9-0038-4abc-9783-01dc51c8148a",
+    "name": "test:TestPollution.listTestPollution",
+    "description": "AC no-prod-pollution: lists test users/rooms, never real ones, and never writes the data dir",
+    "sourceFile": "ior:file:test/vitest/list-test-pollution.test.ts",
+    "implementations": [
+      "ior:instance:a5a1738a-4c47-4727-b31b-ce3582a28272"
+    ],
+    "useCase": "ior:instance:7c990cfa-ad4e-4c40-986d-e2d51e2fa6c5",
+    "requirement": "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30",
+    "status": "pass",
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:f800850e-c029-45ff-8d86-4229119bc684",
+      "ior:instance:a31cf46e-3eb6-49bc-a716-2234d1d248b1",
+      "ior:instance:d1189d55-6b17-4fb3-9599-eedc6d965d57"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8",
+  "model": {
+    "uuid": "13be1a82-54f9-449f-b148-6c9ace942800",
+    "name": "room.createWithConnectionIdentity",
+    "object": "room",
+    "verb": "createWithConnectionIdentity",
+    "description": "CREATE_ROOM and JOIN_ROOM take the identity of the authenticated connection and refuse a foreign playerToken. (Planned, phase 4.)",
+    "coversRequirement": "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8",
+    "requirements": [
+      "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8"
+    ],
+    "tasks": [
+      "ior:instance:cfff2674-5358-4149-b672-762cc76a94a5"
+    ],
+    "classes": [
+      "ior:instance:bcbc397a-5d0b-457c-8744-b6b44d9a4cea"
+    ],
+    "class": "ior:instance:bcbc397a-5d0b-457c-8744-b6b44d9a4cea",
+    "method": "ior:instance:8c4e3334-5be8-41bf-9dbb-64bedc663fa3",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

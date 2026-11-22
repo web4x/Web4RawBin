@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "fde92608-bf8e-487e-9cc4-78aa3e336be3",
+    "name": "TestIdentity",
+    "description": "Every test logs in through TestIdentity as SystemTester (or SystemTester2 for a second person), seeded with real device keys; no test mints a new user. (Planned, phase 3a.)",
+    "sourceFile": "ior:file:test/e2e/helpers.ts",
+    "methods": [
+      "ior:instance:0a2b6c19-92fd-4083-8d9b-df98357fb4ae"
+    ],
+    "useCases": [
+      "ior:instance:f5c5e99b-9095-4aa3-9f97-f1937703f079"
+    ],
+    "unitLinks": []
+  }
+}

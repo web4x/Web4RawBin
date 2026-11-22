@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:ecdce8df-86cd-4457-adf8-13ab2ad554c2",
+  "model": {
+    "uuid": "182e9a87-9cf5-4439-a23c-b13325a94227",
+    "name": "RawbinTarget.resolveRawbinTarget",
+    "className": "RawbinTarget",
+    "methodName": "resolveRawbinTarget",
+    "sourceFile": "ior:file:scripts/rawbin-target.mjs",
+    "useCase": "ior:instance:64c2ab49-e60e-4936-a613-5277b42d5a42",
+    "implementations": [
+      "ior:instance:261d0214-e434-44bc-bc84-1e8589f9dfa9"
+    ],
+    "parent": "ior:instance:ecdce8df-86cd-4457-adf8-13ab2ad554c2",
+    "unitLinks": []
+  }
+}

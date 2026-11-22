@@ -1,0 +1,66 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "f402d3ff-7ffc-460c-8b53-321247997e6a",
+    "altId": "R42.4",
+    "name": "Two suites, both green: vitest (unit) and Playwright (e2e)",
+    "description": "Tests are spread over test/vitest (56), test/e2e (21), test/visual (439 scripts), test/manual, test/playwright and test/baseline. ~22 vitest and 12 e2e tests fail on the prod line and nobody notices because nothing runs them automatically. Target: npm test + npm run test:e2e cover every check that matters, CI runs both, both are green, and a test run leaves git status clean.",
+    "tronQuote": "plan a radical consolidation",
+    "poDirective": "Tron 2026-11-22: radical consolidation of test users and CI, run by a separate Claude Code agent (not the oopTeam fleet).",
+    "designRef": "https://claude.ai/artifact/KjznypBaPXvB87JiDMW9eS",
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "useCases": [
+      "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad"
+    ],
+    "tasks": [
+      "ior:instance:4a82b2e5-d4c3-455e-b75d-cfb0a4bc747b",
+      "ior:instance:ba1a2444-d856-4143-9a0b-7b7b7a1adf7d"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-42-test-ci-consolidation/requirements.md",
+    "unitLinks": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-two-green-suites-ci-runs-both",
+        "group": "ci-runs-both",
+        "text": "CI runs build, vitest and e2e on every PR (.github/workflows/ci.yml).",
+        "gateRef": {
+          "kind": "check",
+          "ref": "ci-runs-both",
+          "assertion": "open a PR → three checks appear"
+        }
+      },
+      {
+        "id": "AC-two-green-suites-all-green",
+        "group": "all-green",
+        "text": "Both suites are green on main; known failures are fixed or deleted, never skipped.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "all-green",
+          "assertion": "CI on main is green"
+        }
+      },
+      {
+        "id": "AC-two-green-suites-visual-triaged",
+        "group": "visual-triaged",
+        "text": "test/visual is triaged: behaviour checks become Playwright specs, source-text checks become vitest tests or are deleted, one-off probes are deleted.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "visual-triaged",
+          "assertion": "test/visual, test/manual, test/playwright, test/baseline no longer exist"
+        }
+      },
+      {
+        "id": "AC-two-green-suites-clean-tree",
+        "group": "clean-tree",
+        "text": "A test run never changes tracked files (scenario/ and README writes go to the test data dir).",
+        "gateRef": {
+          "kind": "check",
+          "ref": "clean-tree",
+          "assertion": "run both suites → git status clean"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:834edff6-7c76-41a3-9bf5-ca26d041d654",
+  "model": {
+    "uuid": "5041a3dc-e7f2-476c-8a52-9745b5412c82",
+    "name": "CiWorkflow.runSuites",
+    "className": "CiWorkflow",
+    "methodName": "runSuites",
+    "sourceFile": "ior:file:.github/workflows/ci.yml",
+    "useCase": "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad",
+    "implementations": [],
+    "parent": "ior:instance:834edff6-7c76-41a3-9bf5-ca26d041d654",
+    "unitLinks": []
+  }
+}

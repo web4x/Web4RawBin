@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a",
+  "model": {
+    "uuid": "d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad",
+    "name": "ciWorkflow.runSuites",
+    "object": "ciWorkflow",
+    "verb": "runSuites",
+    "description": "On every PR CI runs build, vitest and Playwright e2e against an isolated server; both suites green is the merge gate. (ci.yml exists since phase 1; green suites are phase 3b.)",
+    "coversRequirement": "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a",
+    "requirements": [
+      "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a"
+    ],
+    "tasks": [
+      "ior:instance:4a82b2e5-d4c3-455e-b75d-cfb0a4bc747b",
+      "ior:instance:ba1a2444-d856-4143-9a0b-7b7b7a1adf7d"
+    ],
+    "classes": [
+      "ior:instance:834edff6-7c76-41a3-9bf5-ca26d041d654"
+    ],
+    "class": "ior:instance:834edff6-7c76-41a3-9bf5-ca26d041d654",
+    "method": "ior:instance:5041a3dc-e7f2-476c-8a52-9745b5412c82",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

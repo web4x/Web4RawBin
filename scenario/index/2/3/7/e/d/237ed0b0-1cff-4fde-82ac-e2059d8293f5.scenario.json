@@ -1,0 +1,55 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "237ed0b0-1cff-4fde-82ac-e2059d8293f5",
+    "altId": "R42.3",
+    "name": "Two fixed test users only: SystemTester and SystemTester2, no random or temporary users",
+    "description": "Today 157 gates use SystemTester, 20 the owner token, 3 Tron's own profile 3effa1fc, 8 a synthetic member 11111111-…, 21 mint a new random user per run, and the 18 e2e specs each log in under their own name. Tron: all tests run as the same system user; two fixed test users are acceptable, random temp user creation is not (2026-11-22).",
+    "tronQuote": "all tests shall be done on as the same system user. ist that how its done consistently?",
+    "poDirective": "Tron 2026-11-22: radical consolidation of test users and CI, run by a separate Claude Code agent (not the oopTeam fleet).",
+    "designRef": "https://claude.ai/artifact/KjznypBaPXvB87JiDMW9eS",
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "useCases": [
+      "ior:instance:f5c5e99b-9095-4aa3-9f97-f1937703f079"
+    ],
+    "tasks": [
+      "ior:instance:65c18056-6d0e-4c86-b636-18f3a5e29b49"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-42-test-ci-consolidation/requirements.md",
+    "unitLinks": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-one-test-identity-systemtester-only",
+        "group": "systemtester-only",
+        "text": "Every test logs in as SystemTester; a test that needs a second person uses SystemTester2.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "systemtester-only",
+          "assertion": "grep test/ for any player token other than the two test users → 0 hits"
+        }
+      },
+      {
+        "id": "AC-one-test-identity-no-owner-no-real-users",
+        "group": "no-owner-no-real-users",
+        "text": "No test uses the owner token, a real person's profile, or a freshly minted random user.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "no-owner-no-real-users",
+          "assertion": "list-test-pollution.mjs after a full run shows only the two test users"
+        }
+      },
+      {
+        "id": "AC-one-test-identity-real-device-keys",
+        "group": "real-device-keys",
+        "text": "Test users are seeded with real device keys, not 'e2e-bypass'.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "real-device-keys",
+          "assertion": "grep test/ for e2e-bypass → 0 hits"
+        }
+      }
+    ]
+  }
+}

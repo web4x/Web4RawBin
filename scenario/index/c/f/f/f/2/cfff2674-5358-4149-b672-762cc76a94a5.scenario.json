@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "cfff2674-5358-4149-b672-762cc76a94a5",
+    "altId": "T42.5",
+    "name": "Task 42.5: Phase 4 — close the auth gaps, CI-made releases",
+    "slug": "phase-4-close-auth-gaps",
+    "description": "CREATE_ROOM/JOIN_ROOM use the connection identity; device-key login required; tokens out of the repo and rotated; CI bumps version, stamps sw.js, tags and deploys on merge to main.",
+    "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "waitingOn": "T42.2–T42.4 done; Tron's decision whether CI deploys.",
+    "priority": "P0 — Tron-directed consolidation (2026-11-22)",
+    "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
+    "coveredRequirements": [
+      "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8",
+      "ior:instance:6a7aa5ca-fbea-4673-9f92-4a02afe95a41"
+    ],
+    "useCases": [
+      "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75",
+      "ior:instance:13be1a82-54f9-449f-b148-6c9ace942800"
+    ],
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "sprintName": "Sprint 42",
+    "remainingIssues": "",
+    "createdBy": "claude-code-consolidation-agent",
+    "createdAt": "2026-11-22"
+  }
+}

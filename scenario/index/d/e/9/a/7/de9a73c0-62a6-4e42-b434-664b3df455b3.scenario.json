@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "de9a73c0-62a6-4e42-b434-664b3df455b3",
+    "name": "ReleaseWorkflow",
+    "description": "On a merge to the protected main, CI bumps the version, tags the merge commit and deploys; nobody tags by hand. (Planned, phase 2/4.)",
+    "sourceFile": "ior:file:.github/workflows/release.yml",
+    "methods": [
+      "ior:instance:3ce4f2c3-2d69-4dfa-b5d9-f43add29d9da"
+    ],
+    "useCases": [
+      "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75"
+    ],
+    "unitLinks": []
+  }
+}
