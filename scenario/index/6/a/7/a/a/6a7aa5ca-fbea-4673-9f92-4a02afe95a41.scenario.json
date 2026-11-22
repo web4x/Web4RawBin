@@ -1,0 +1,56 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "6a7aa5ca-fbea-4673-9f92-4a02afe95a41",
+    "altId": "R42.2",
+    "name": "One trunk, CI-gated merges, CI-made tags",
+    "description": "main is an orphan history (root c7924287f, 2026-08-29, v0.8.139) while prod runs hotfix/t40.1-checklist-band (v0.8.247). All 483 tags live only on the hotfix line, there was no CI and almost no merges: agents committed and tagged directly. Target: main = what prod runs, changes arrive only as PRs, CI must be green to merge, and only CI creates a release tag.",
+    "tronQuote": "plan a radical consolidation",
+    "poDirective": "Tron 2026-11-22: radical consolidation of test users and CI, run by a separate Claude Code agent (not the oopTeam fleet).",
+    "designRef": "https://claude.ai/artifact/KjznypBaPXvB87JiDMW9eS",
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "useCases": [
+      "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75"
+    ],
+    "tasks": [
+      "ior:instance:be71588c-e4b5-41c6-936b-08e0e522aa15",
+      "ior:instance:cfff2674-5358-4149-b672-762cc76a94a5"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-42-test-ci-consolidation/requirements.md",
+    "unitLinks": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-one-trunk-ci-gated-main-is-prod",
+        "group": "main-is-prod",
+        "text": "git merge-base main <prod commit> equals the prod commit.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "main-is-prod",
+          "assertion": "compare main HEAD with the deployed version"
+        }
+      },
+      {
+        "id": "AC-one-trunk-ci-gated-pr-only",
+        "group": "pr-only",
+        "text": "main is protected: PR required, CI required, no force-push.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "pr-only",
+          "assertion": "a direct push to main is rejected"
+        }
+      },
+      {
+        "id": "AC-one-trunk-ci-gated-ci-tags",
+        "group": "ci-tags",
+        "text": "Tags are created by CI on the merge commit after the version bump; nobody tags by hand.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "ci-tags",
+          "assertion": "the next release tag's creator is the CI workflow"
+        }
+      }
+    ]
+  }
+}

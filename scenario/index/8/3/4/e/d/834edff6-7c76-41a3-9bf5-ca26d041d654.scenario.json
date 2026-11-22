@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "834edff6-7c76-41a3-9bf5-ca26d041d654",
+    "name": "CiWorkflow",
+    "description": "On every PR CI runs build, vitest and Playwright e2e against an isolated server; both suites green is the merge gate. (ci.yml exists since phase 1; green suites are phase 3b.)",
+    "sourceFile": "ior:file:.github/workflows/ci.yml",
+    "methods": [
+      "ior:instance:5041a3dc-e7f2-476c-8a52-9745b5412c82"
+    ],
+    "useCases": [
+      "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad"
+    ],
+    "unitLinks": []
+  }
+}

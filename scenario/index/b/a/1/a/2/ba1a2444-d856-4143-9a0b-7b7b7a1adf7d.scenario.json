@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "ba1a2444-d856-4143-9a0b-7b7b7a1adf7d",
+    "altId": "T42.4",
+    "name": "Task 42.4: Phase 3b — two green suites (triage test/visual, fix known failures, clean tree)",
+    "slug": "phase-3-two-green-suites",
+    "description": "Triage the 439 test/visual scripts (convert / move / delete), fix or delete the ~22 failing vitest and 12 failing e2e tests, make test runs write scenario/ into the data dir.",
+    "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "waitingOn": "T42.1 merged; Tron's decision how much of test/visual may be deleted rather than converted.",
+    "priority": "P0 — Tron-directed consolidation (2026-11-22)",
+    "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
+    "coveredRequirements": [
+      "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a"
+    ],
+    "useCases": [
+      "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad"
+    ],
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "sprintName": "Sprint 42",
+    "remainingIssues": "",
+    "createdBy": "claude-code-consolidation-agent",
+    "createdAt": "2026-11-22"
+  }
+}

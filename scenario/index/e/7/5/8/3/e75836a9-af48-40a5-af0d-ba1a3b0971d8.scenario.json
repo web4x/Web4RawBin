@@ -1,0 +1,55 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "e75836a9-af48-40a5-af0d-ba1a3b0971d8",
+    "altId": "R42.5",
+    "name": "Close the auth gaps the tests leaned on",
+    "description": "CREATE_ROOM and JOIN_ROOM take the identity from msg.playerToken instead of the connection's own identity; a bare token logs a user in; the SystemTester token is public in the repo. Tests depended on all three.",
+    "tronQuote": "plan a radical consolidation",
+    "poDirective": "Tron 2026-11-22: radical consolidation of test users and CI, run by a separate Claude Code agent (not the oopTeam fleet).",
+    "designRef": "https://claude.ai/artifact/KjznypBaPXvB87JiDMW9eS",
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "useCases": [
+      "ior:instance:13be1a82-54f9-449f-b148-6c9ace942800"
+    ],
+    "tasks": [
+      "ior:instance:cfff2674-5358-4149-b672-762cc76a94a5"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-42-test-ci-consolidation/requirements.md",
+    "unitLinks": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-close-auth-gaps-connection-identity",
+        "group": "connection-identity",
+        "text": "CREATE_ROOM/JOIN_ROOM use the connection's authenticated identity and reject a different playerToken.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "connection-identity",
+          "assertion": "a test sending a foreign playerToken is refused"
+        }
+      },
+      {
+        "id": "AC-close-auth-gaps-no-token-only-login",
+        "group": "no-token-only-login",
+        "text": "A bare token no longer logs a user in; device-key login is required.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "no-token-only-login",
+          "assertion": "IDENTIFY with only a token → not authenticated"
+        }
+      },
+      {
+        "id": "AC-close-auth-gaps-rotated-secrets",
+        "group": "rotated-secrets",
+        "text": "Test and owner tokens are out of the repo and the public ones are rotated.",
+        "gateRef": {
+          "kind": "check",
+          "ref": "rotated-secrets",
+          "assertion": "grep the repo for the old tokens → 0 hits"
+        }
+      }
+    ]
+  }
+}

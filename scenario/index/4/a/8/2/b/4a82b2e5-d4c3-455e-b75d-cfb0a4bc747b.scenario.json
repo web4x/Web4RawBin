@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "4a82b2e5-d4c3-455e-b75d-cfb0a4bc747b",
+    "altId": "T42.1",
+    "name": "Task 42.1: Phase 1 — stop the bleeding (tests off prod, CI, pollution inventory)",
+    "slug": "phase-1-stop-the-bleeding",
+    "description": "test/visual/_target.mjs (isolated by default, RAWBIN_TARGET=prod opt-in) for 286 scripts; .github/workflows/ci.yml (build, vitest, e2e); scripts/list-test-pollution.mjs (read-only). PR #3 into hotfix/t40.1-checklist-band. Chain artifacts (this sprint): scripts/rawbin-target.mjs RawbinTarget.resolveRawbinTarget + test/vitest/rawbin-target.test.ts; scripts/list-test-pollution.mjs TestPollution.listTestPollution + test/vitest/list-test-pollution.test.ts. CI e2e job shares E2E_DATA_DIR with the server.",
+    "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "waitingOn": "Tron: merge PR #3 (https://github.com/web4x/Web4RawBin/pull/3); run scripts/list-test-pollution.mjs on the prod box and approve the cleanup list. CI is red only on pre-existing failures (fixed in T42.4).",
+    "priority": "P0 — Tron-directed consolidation (2026-11-22)",
+    "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
+    "coveredRequirements": [
+      "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30",
+      "ior:instance:f402d3ff-7ffc-460c-8b53-321247997e6a"
+    ],
+    "useCases": [
+      "ior:instance:64c2ab49-e60e-4936-a613-5277b42d5a42",
+      "ior:instance:7c990cfa-ad4e-4c40-986d-e2d51e2fa6c5",
+      "ior:instance:d5bdc62c-0ae3-49cc-a2d2-5d2038f0d0ad"
+    ],
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "sprintName": "Sprint 42",
+    "remainingIssues": "",
+    "createdBy": "claude-code-consolidation-agent",
+    "createdAt": "2026-11-22"
+  }
+}

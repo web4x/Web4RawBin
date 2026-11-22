@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "ecdce8df-86cd-4457-adf8-13ab2ad554c2",
+    "name": "RawbinTarget",
+    "description": "A test asks RawbinTarget where to connect; with no env it gets the isolated local server (4445), prod only with RAWBIN_TARGET=prod plus a warning.",
+    "sourceFile": "ior:file:scripts/rawbin-target.mjs",
+    "methods": [
+      "ior:instance:182e9a87-9cf5-4439-a23c-b13325a94227"
+    ],
+    "useCases": [
+      "ior:instance:64c2ab49-e60e-4936-a613-5277b42d5a42"
+    ],
+    "unitLinks": []
+  }
+}

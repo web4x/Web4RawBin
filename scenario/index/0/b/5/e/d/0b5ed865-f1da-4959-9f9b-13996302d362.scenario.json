@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "0b5ed865-f1da-4959-9f9b-13996302d362",
+    "name": "TestPollution",
+    "description": "The owner asks TestPollution for the users and rooms tests left in a data dir; it lists SystemTester, test-named and unnamed uncommitted users and their rooms, read-only.",
+    "sourceFile": "ior:file:scripts/list-test-pollution.mjs",
+    "methods": [
+      "ior:instance:e21c489b-4bd5-4c7b-b402-819fcbc5163f"
+    ],
+    "useCases": [
+      "ior:instance:7c990cfa-ad4e-4c40-986d-e2d51e2fa6c5"
+    ],
+    "unitLinks": []
+  }
+}

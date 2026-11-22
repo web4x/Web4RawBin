@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:6a7aa5ca-fbea-4673-9f92-4a02afe95a41",
+  "model": {
+    "uuid": "22888819-dbdc-4b82-b5bf-75b9bb82bf75",
+    "name": "releaseWorkflow.tagOnMerge",
+    "object": "releaseWorkflow",
+    "verb": "tagOnMerge",
+    "description": "On a merge to the protected main, CI bumps the version, tags the merge commit and deploys; nobody tags by hand. (Planned, phase 2/4.)",
+    "coversRequirement": "ior:instance:6a7aa5ca-fbea-4673-9f92-4a02afe95a41",
+    "requirements": [
+      "ior:instance:6a7aa5ca-fbea-4673-9f92-4a02afe95a41"
+    ],
+    "tasks": [
+      "ior:instance:be71588c-e4b5-41c6-936b-08e0e522aa15",
+      "ior:instance:cfff2674-5358-4149-b672-762cc76a94a5"
+    ],
+    "classes": [
+      "ior:instance:de9a73c0-62a6-4e42-b434-664b3df455b3"
+    ],
+    "class": "ior:instance:de9a73c0-62a6-4e42-b434-664b3df455b3",
+    "method": "ior:instance:3ce4f2c3-2d69-4dfa-b5d9-f43add29d9da",
+    "implementations": [],
+    "tests": [],
+    "unitLinks": []
+  }
+}

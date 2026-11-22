@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:de9a73c0-62a6-4e42-b434-664b3df455b3",
+  "model": {
+    "uuid": "3ce4f2c3-2d69-4dfa-b5d9-f43add29d9da",
+    "name": "ReleaseWorkflow.tagOnMerge",
+    "className": "ReleaseWorkflow",
+    "methodName": "tagOnMerge",
+    "sourceFile": "ior:file:.github/workflows/release.yml",
+    "useCase": "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75",
+    "implementations": [],
+    "parent": "ior:instance:de9a73c0-62a6-4e42-b434-664b3df455b3",
+    "unitLinks": []
+  }
+}

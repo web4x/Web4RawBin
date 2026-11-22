@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "be71588c-e4b5-41c6-936b-08e0e522aa15",
+    "altId": "T42.2",
+    "name": "Task 42.2: Phase 2 — one trunk (main = prod line, protected, PR-only)",
+    "slug": "phase-2-one-trunk",
+    "description": "Carry main's 49 planning-only commits onto the hotfix line; back up main as archive/main-orphan; make main identical to the hotfix line (force-push, needs Tron's explicit go); protect main; tag v0.8.247; delete the hotfix branch once main points at it.",
+    "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "waitingOn": "Tron's go for the force-push of main and admin rights for branch protection.",
+    "priority": "P0 — Tron-directed consolidation (2026-11-22)",
+    "acceptanceCriteria": "PROJECTS from the covered requirements' acceptance criteria.",
+    "coveredRequirements": [
+      "ior:instance:6a7aa5ca-fbea-4673-9f92-4a02afe95a41"
+    ],
+    "useCases": [
+      "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75"
+    ],
+    "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+    "sprintName": "Sprint 42",
+    "remainingIssues": "",
+    "createdBy": "claude-code-consolidation-agent",
+    "createdAt": "2026-11-22"
+  }
+}

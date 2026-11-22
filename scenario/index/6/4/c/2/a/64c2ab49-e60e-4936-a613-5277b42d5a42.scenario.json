@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30",
+  "model": {
+    "uuid": "64c2ab49-e60e-4936-a613-5277b42d5a42",
+    "name": "rawbinTarget.resolve",
+    "object": "rawbinTarget",
+    "verb": "resolve",
+    "description": "A test asks RawbinTarget where to connect; with no env it gets the isolated local server (4445), prod only with RAWBIN_TARGET=prod plus a warning.",
+    "coversRequirement": "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30",
+    "requirements": [
+      "ior:instance:fa353b30-0abf-40b4-9636-ca4bb02e7f30"
+    ],
+    "tasks": [
+      "ior:instance:4a82b2e5-d4c3-455e-b75d-cfb0a4bc747b"
+    ],
+    "classes": [
+      "ior:instance:ecdce8df-86cd-4457-adf8-13ab2ad554c2"
+    ],
+    "class": "ior:instance:ecdce8df-86cd-4457-adf8-13ab2ad554c2",
+    "method": "ior:instance:182e9a87-9cf5-4439-a23c-b13325a94227",
+    "implementations": [
+      "ior:instance:261d0214-e434-44bc-bc84-1e8589f9dfa9"
+    ],
+    "tests": [
+      "ior:instance:7877086e-5326-4a39-82f2-3e623906b2c4"
+    ],
+    "unitLinks": []
+  }
+}

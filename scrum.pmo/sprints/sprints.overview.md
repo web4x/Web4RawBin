@@ -38,6 +38,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 | # | Sprint | Status |
 |---|--------|--------|
+| 42 | Sprint 42 — Test & CI Consolidation | QA-pending |
 | 41 | Sprint 41 — OOP Model Consistency | QA-pending |
 | 40 | Server Manager — deployment-node model + mobile input control | Active |
 | 37 | Consistency by Construction | Active |
