@@ -2,6 +2,7 @@
 // of truth) so status + checklist cannot disagree BY CONSTRUCTION, plus a fail-loud CI detector for the existing
 // disagreements. ★ INV-S5a (no-status-invention): the detector NEVER auto-flips — it detects + lists; the OWNER
 // resolves each checklist↔status conflict. Scripts/CI-only module (no server import → no restart).
+import { SCENARIO_INDEX_DIR } from '../server/scenario-root.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from './index-store.js';
@@ -269,7 +270,7 @@ if (process.argv[1] && process.argv[1].endsWith('task-status.ts')) {
   if (process.argv.includes('--rollup-bite')) { runRollupBite(); process.exit(0); } // R40.1 (d): prove the rollup + child-resolver bite
   if (process.argv.includes('--band-bite')) { runBandBite(); process.exit(0); } // R40.59: prove the decline-band derivation + RED baseline
   if (process.argv.includes('--bite')) { runStatusScopeBite(); process.exit(0); } // meta-bite: prove the UNVERIFIABLE exclusion did not blind the gate
-  const idx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
+  const idx = new ScenarioIndex(SCENARIO_INDEX_DIR);
   const offenders = assertStatusConsistent(idx);
   const falseDone = offenders.filter((o) => o.kind === 'FALSE-DONE');
   const malformed = offenders.filter((o) => o.kind === 'MALFORMED');

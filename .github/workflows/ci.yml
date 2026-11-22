@@ -44,8 +44,8 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run build
-      # R42.4: --warn-dirty until the server writes scenario/ into its data dir (it still writes the repo's scenario/)
-      - run: node scripts/ci-suites.mjs e2e --warn-dirty -- --trace off
+      # R42.4: green = all specs pass AND the run leaves the git tree unchanged (the server works on a scenario/ copy)
+      - run: node scripts/ci-suites.mjs e2e -- --trace off
         env:
           # Server (playwright.config.ts) and the disk-asserting specs must read the same
           # isolated dir; without this the specs fall back to ./data and see 0 rooms.
