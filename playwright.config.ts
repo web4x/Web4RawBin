@@ -16,6 +16,8 @@ const BASE_URL = `https://localhost:${HTTPS_PORT}`;
 
 export default defineConfig({
   testDir: 'test/e2e',
+  // R42.3: sign up the two fixed testers (SystemTester, SystemTester2) once per isolated data dir
+  globalSetup: './test/e2e/identities.ts',
   timeout: 30000,
   retries: 0,
   workers: 1,

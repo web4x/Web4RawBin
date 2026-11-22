@@ -6,7 +6,7 @@
     "name": "testIdentity.ensureSystemSession",
     "object": "testIdentity",
     "verb": "ensureSystemSession",
-    "description": "Every test logs in through TestIdentity as SystemTester (or SystemTester2 for a second person), seeded with real device keys; no test mints a new user. (Planned, phase 3a.)",
+    "description": "Every test logs in through TestIdentity as SystemTester (or SystemTester2 for a second person), seeded with real device keys; no test mints a new user.",
     "coversRequirement": "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5",
     "requirements": [
       "ior:instance:237ed0b0-1cff-4fde-82ac-e2059d8293f5"
@@ -19,8 +19,12 @@
     ],
     "class": "ior:instance:fde92608-bf8e-487e-9cc4-78aa3e336be3",
     "method": "ior:instance:0a2b6c19-92fd-4083-8d9b-df98357fb4ae",
-    "implementations": [],
-    "tests": [],
+    "implementations": [
+      "ior:instance:a724a5c4-3d90-4159-88c7-5b4e204c9856"
+    ],
+    "tests": [
+      "ior:instance:ec18036c-49a9-4f30-aee9-0e91129be62d"
+    ],
     "unitLinks": []
   }
 }

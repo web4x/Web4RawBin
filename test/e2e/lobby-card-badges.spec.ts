@@ -5,14 +5,15 @@
  * Verifies the rendered DOM (RoomBrowser.ts:122-134) on a card the viewer owns.
  */
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers';
+import { cleanupTestRooms } from './helpers';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loginAs, E2E_DATA_DIR } from './identities';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // T100: honor isolated DATA_DIR so disk assertions read the same dir the server wrote to
-const DATA_DIR = process.env.E2E_DATA_DIR || path.resolve(__dirname, '../../data');
+const DATA_DIR = E2E_DATA_DIR; // R42.3: same dir as the isolated server
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 function diskRoomIds(token: string): string[] {
@@ -37,11 +38,10 @@ async function createRoomAndReturn(page: Page, name: string): Promise<void> {
 
 test.describe('T78: lobby room card badges', () => {
   test.afterAll(() => {
-    cleanupTestUsers(/^BadgeOwner$/);
     cleanupTestRooms(/^BadgeOwner/);
   });
   test('own room card: full UUID + 💾 Persistent badge + "you" owner attribution', async ({ page }) => {
-    await ensureLobby(page, 'BadgeOwner');
+    await loginAs(page, 1);
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));
     await createRoomAndReturn(page, `T78-${Date.now().toString(36)}`);
 

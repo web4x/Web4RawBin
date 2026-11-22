@@ -1,6 +1,6 @@
 # Sprint 42 — Test & CI Consolidation (design note)
 
-**For the oopTeam.** This sprint is run by a separate Claude Code agent working for Tron, not by the robbin fleet.
+**For the robbinTeam.** This sprint is run by a separate Claude Code agent working for Tron, not by the robbin fleet.
 Tron ordered it on 2026-11-22 because the team broke the test-user and CI process. Read this before you touch tests,
 CI, branches or tags.
 
@@ -31,7 +31,7 @@ Full plan (phases, gates, risks): https://claude.ai/artifact/KjznypBaPXvB87JiDMW
 | R42.1 | rawbinTarget.resolve | RawbinTarget.resolveRawbinTarget | scripts/rawbin-target.mjs | test/vitest/rawbin-target.test.ts |
 | R42.1 | testPollution.list | TestPollution.listTestPollution | scripts/list-test-pollution.mjs | test/vitest/list-test-pollution.test.ts |
 | R42.2 | releaseWorkflow.tagOnMerge | ReleaseWorkflow.tagOnMerge | .github/workflows/release.yml (planned) | open |
-| R42.3 | testIdentity.ensureSystemSession | TestIdentity.ensureSystemSession | test/e2e/helpers.ts | open |
+| R42.3 | testIdentity.ensureSystemSession | TestIdentity.checkTestIdentity | scripts/check-test-identity.mjs (+ test/e2e/identities.ts) | test/vitest/check-test-identity.test.ts |
 | R42.4 | ciWorkflow.runSuites | CiWorkflow.runSuites | .github/workflows/ci.yml | open |
 | R42.5 | room.createWithConnectionIdentity | RoomAuth.createRoomWithConnectionIdentity | src/ts/server/server.ts | open |
 

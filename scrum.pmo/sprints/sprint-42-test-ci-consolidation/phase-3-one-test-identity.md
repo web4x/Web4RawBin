@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Task Description
 
-Replace owner token (20 gates), Tron's profile 3effa1fc (3), synthetic member (8) and random users (21) with SystemTester / SystemTester2; seed both into the isolated server with real device keys; switch the 18 e2e specs to ensureSystemSession.
+Replace owner token (20 gates), Tron's profile 3effa1fc (3), synthetic member (8) and random users (21) with SystemTester / SystemTester2; seed both into the isolated server with real device keys; switch the 18 e2e specs to ensureSystemSession. DONE in this task: test/e2e/identities.ts (globalSetup signs up SystemTester + SystemTester2 once per isolated data dir via the real gate + device enrolment; loginAs/testerContext), all specs migrated off ensureLobby/cleanupTestUsers, helpers read the server's data dir, scripts/check-test-identity.mjs wired into test:guard. Open: the four first-visit specs (new-user, device-enrollment, negative-cases, returning-user-unlock) still sign up a fresh visitor because that flow is their subject; and test/visual gates are handled in T42.4.
 
 ## Intention
 

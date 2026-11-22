@@ -3,12 +3,14 @@
   "ownerIor": "ior:instance:fde92608-bf8e-487e-9cc4-78aa3e336be3",
   "model": {
     "uuid": "0a2b6c19-92fd-4083-8d9b-df98357fb4ae",
-    "name": "TestIdentity.ensureSystemSession",
+    "name": "TestIdentity.checkTestIdentity",
     "className": "TestIdentity",
-    "methodName": "ensureSystemSession",
-    "sourceFile": "ior:file:test/e2e/helpers.ts",
+    "methodName": "checkTestIdentity",
+    "sourceFile": "ior:file:scripts/check-test-identity.mjs",
     "useCase": "ior:instance:f5c5e99b-9095-4aa3-9f97-f1937703f079",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:a724a5c4-3d90-4159-88c7-5b4e204c9856"
+    ],
     "parent": "ior:instance:fde92608-bf8e-487e-9cc4-78aa3e336be3",
     "unitLinks": []
   }
