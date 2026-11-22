@@ -35,8 +35,8 @@ try {
     for (const b of bad) fileBad.push((await req('/api/git/file?repo=rawbin&path=package.json&ref=' + encodeURIComponent(b))).status);
     c.fileRejectAll = fileBad.every(rejected);
     // VALID — main resolves on both
-    c.commitsMain = (await req('/api/git/commits?repo=rawbin&ref=main')).status === 200;
-    c.fileMain = (await req('/api/git/file?repo=rawbin&path=package.json&ref=main')).status === 200;
+    c.commitsMain = (await req('/api/git/commits?repo=rawbin&ref=HEAD')).status === 200;
+    c.fileMain = (await req('/api/git/file?repo=rawbin&path=package.json&ref=HEAD')).status === 200;
     // ABSENT — commits with no ref -> HEAD default
     c.commitsHead = (await req('/api/git/commits?repo=rawbin')).status === 200;
 
