@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // v0.6.98 gate — R25.5 page-title names + name≠description + R25.6 photo-serve + UTF-8 + clipboard
 // first-line name. FULLY READ-ONLY on Tron's REAL shipped units in the dnd room — ZERO uploads,
 // ZERO pollution (the cleanest possible gate). SystemTester context only for the browser img-load.
@@ -15,7 +16,7 @@ import path from 'path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = __repo;
 const SCEN = `${REPO}/scenario/index`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';

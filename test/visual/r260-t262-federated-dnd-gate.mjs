@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:19fc1a8f-3dc9-4e80-ba0d-f48f25220c2b] R26.2 buildFederatedRef
 // T26.2 v0.7.3 gate — cross-origin DnD federated-reference. Dragging an rb-object-item sets
 // DataTransfer 'application/rb-federated-ref' = { ior: ior:instance:<uuid>@<origin>, fetchUrl:
@@ -6,7 +7,7 @@
 
 import { chromium } from '@playwright/test';
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const UUID = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

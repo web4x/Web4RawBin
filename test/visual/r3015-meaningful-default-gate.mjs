@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:553f77d2-8fa4-4e6f-b69a-cbcee31d3b6f] R30.15 RbDiffEditor.populateRightHistory NEW behavior (Impl 58c11039, distinct from R30.10's test):
 //   (a) MEANINGFUL-DEFAULT — a CLEAN file (working==HEAD) Open-Diff defaults RIGHT to the newest version that DIFFERS
 //       (HEAD~1, defaultIdx=1) → NON-ZERO diff (was Tron's '0 changes / no diff' cause when it defaulted to HEAD==working).
@@ -6,7 +7,7 @@
 
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const FILE = 'README.md';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 

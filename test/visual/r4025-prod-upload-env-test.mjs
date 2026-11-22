@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.85 DECISIVE ENV TEST (PO GO): does the multipart UPLOAD BODY arrive at the PROD endpoint from a working client?
 // Prod log for Tron's attempt read: "upload received 0b … file empty … size 0b token empty … ERROR auth failed token empty"
 // → the whole multipart body never arrived from HIS device (0 bytes + empty token; nothing to write, so NOT filesystem).
@@ -7,7 +8,7 @@
 //   body arrives EMPTY (0b/401)     → prod INGRESS problem (TLS-term / proxy / multipart buffering fronting 4444)
 // (A size split — tiny-ok/large-fail — additionally points at a body-size limit at the ingress.)
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df'; // SystemTester (canonical test identity; my own, established member on prod)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,

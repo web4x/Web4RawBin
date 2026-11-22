@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 import { webkit, devices } from '@playwright/test';
 const browser = await webkit.launch({ headless: false });
 const ctx = await browser.newContext({ ...devices['iPhone 14'], ignoreHTTPSErrors: true });
 const page = await ctx.newPage();
 
-await page.goto('https://localhost:4444/trace#class.show?uuid=0dd08b2f-30ba-433f-a9de-285065f3fb8e', { waitUntil: 'domcontentloaded', timeout: 60000 });
+await page.goto(RB_BASE + '/trace#class.show?uuid=0dd08b2f-30ba-433f-a9de-285065f3fb8e', { waitUntil: 'domcontentloaded', timeout: 60000 });
 await page.waitForTimeout(10000);
 
 for (let det = 1; det <= 3; det++) {

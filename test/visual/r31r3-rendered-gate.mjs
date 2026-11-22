@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:d1c63226-5a6d-4894-9019-4dafa611c3bc] R31.8c-r3 FeatureManager.profileUuidOf (Impl a1c4e5f0) — subtitle == the REAL profile uuid (resolver output: ce981242-… / owner 41ad88c4), a genuine UUID, NOT sha256[:16], NOT raw token, NOT masked-phone. Measured against the resolver's own tsx-computed output (not a literal). GREEN DET-3x @390 v0.7.125.
 // [test:uuid:5caf7cc3-bd40-4903-b188-5bb14beb56ca] R31.8c-r3 RbProfileView.render (Impl 4e1c8a92) — THE shared full-profile viewer with REAL UNMASKED data (Token/uuid, Secret Code, full Devices, phone rendered FULL) used by BOTH /profile (migration proof: /profile renders identical through it) AND the FM drawer (same component, Revoke under grab-bar). non-owner→403 sacred. Round-3 dropped owner-side masking. GREEN DET-3x @390 v0.7.125.
 // R31.8c ROUND-3 "DELIVER LITERALLY" RENDERED gate — DET-3x @390 iPhone-12, self-verify served+fresh. served v0.7.125.
@@ -13,7 +14,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.125';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.125';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
 const fmBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^feature-manager-.*\.js$/.test(f));

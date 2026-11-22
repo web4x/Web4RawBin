@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:7d3e1a52-9c48-4b6f-a0d1-6e2f8b5c3a94] R30.25 / R30.25.1 TRON'S EXACT FLOW — deep-link (openFromParams) then change the RIGHT ref. Tron's refs: left=516ebb3, right=dev (repo=oosh). Picking a RIGHT branch while the deep-link is still loading must NOT (a) blank the LEFT, NOR (b) let the deep-link's own right-load clobber the user's pick.
 // Two race WINDOWS: WIN-A = pick RIGHT during the deep-link's LEFT-load (delay ref=516ebb3) — this is the window R30.25.1 (v0.7.38 openFromParams token/guard) targets. WIN-B = pick RIGHT during the deep-link's own RIGHT-load (delay ref=dev) — the guard is checked BEFORE loadSide('right') so a pick landing inside it may still be clobbered. Each window (DET-3x) asserts: (1) LEFT byte-identical AND visually non-empty (edLocal.getValue()), (2) RIGHT pick WINS (ref AND content === the picked branch, not the deep-link dev), (3) CENTER re-evaluated, (4) NO post-pick loadSide('left'). SystemTester-only, read-only.
 // LEFT-EMPTY WATCH: leftVis (Monaco editor) is captured separately from left.content — Tron reports the LEFT PANE going blank, which is the visual, not necessarily the data model.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const LEFT_REF = '516ebb3', LEFT_LEN = 119373, DEEP_RIGHT = 'dev', DEEP_RIGHT_LEN = 133728;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

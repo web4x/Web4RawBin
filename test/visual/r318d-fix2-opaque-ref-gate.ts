@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:55d125ee-d76a-4fcd-8797-4a51e0e965b5] R31.8c FIX-2 opaque-ref — FeatureManager.allowedUsersChildren (Impl ad622052): a Feature's allowedUsers child ref = '<featureUuid>:<sha256(token)[:16]>' (opaque userId, e.g. 16604eee-…:ce39a9092cdafdf1), and the raw auth-token (ce981242) appears NOWHERE in /api/trace/children body. GREEN DET-3x, verify-by-pid 1314979 (v0.7.114), pollution-safe. + flip 403↔200 + P0 non-member→403 no-leak.
 // R31.8c FIX-2 — OPAQUE-REF (credential-leak fix), Impl FeatureManager.allowedUsersChildren (ad622052, Method 72c660f9).
 // VERIFY-BY-PID (fresh v0.7.114 pid 1314979 — NOT /api/config, which reads the manifest + lies via [r]). DET-3x,
@@ -12,7 +13,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import https from 'node:https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SM = '16604eee-d844-4efb-bd4d-881433ca82a6';
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const FEAT = `${REPO}/scenario/index/1/6/6/0/4/${SM}.scenario.json`;

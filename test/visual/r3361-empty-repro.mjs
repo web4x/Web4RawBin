@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.6.1 repro — WHY does add-view fail to show a box on a NEW/EMPTY diagram (server proven working)? @390.
 // Own-oracle: create a fresh EMPTY Diagram fixture in MODEL_STORE, mount rb-diagram-detail, exercise BOTH add
 // paths (tap = selection-changed 'modelelement:'; drop = drop event w/ application/rb-object-ref) and capture
@@ -6,7 +7,7 @@
 // Pollution-safe: the fixture file is deleted in finally. node22.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const EMPTY = 'e0000000-0000-4000-8000-000000003361'; // test-only empty diagram
 const CLASS = 'f51234b0-0233-4fd6-a802-5467f64accc2'; // 'Id' — a real MODEL_STORE element to add
 const EFILE = path.join(ROOT, 'data/model-store/index', ...EMPTY.slice(0, 5).split(''), `${EMPTY}.scenario.json`);

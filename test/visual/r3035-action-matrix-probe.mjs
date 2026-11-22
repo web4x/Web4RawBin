@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R30.35 VALIDATION PROBE (measure ACTUAL behavior, DO NOT change code) — for Tron's "let it be validated". Drives each
 // {ADD/DELETE/MODIFY/CONFLICT} × {✕ dismiss / ≫ take-Local / ≪ take-Repo} on a deterministic synthetic all-4-kinds
 // 3-way fixture (override resolveBase) + the edge states left-empty / right-empty, and reports what the action ACTUALLY
 // does to CENTER: local line lands? repo line lands? removed? no-op? dismissed? button present? Behavior/screenshot, NOT DOM-count.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3035-matrix/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

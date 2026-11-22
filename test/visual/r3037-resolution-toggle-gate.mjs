@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:6d2b9f84-3a17-4c50-b8e1-9f4c7a06e253] R30.37 explicit resolution toggle — the green ✓ (de-resolve, toggleResolved c86a104d) marks the CURRENT change RESOLVED (OUTLINED-green → SOLID-green), ONE per change. Resolution is EXPLICIT: clicking ANY ≫/≪/✕ (addSide/removeLine) does _resolved.delete → RESETS that change to UNRESOLVED. openChangeCount() = the UNRESOLVED count → DECREMENTS on ✓, INCREMENTS on a reset-action, 0 when all checkmarked. (Reworks the parked openChangeCount gate from the OLD decrements-on-action model to THIS.)
 // GATE (DET-3x, SCREENSHOT+PIXEL for the ✓ state + the feature's own displayed count, NEVER DOM element-count): (1) nav to a change → click ✓ → the de-resolve button goes SOLID green (pixel) + the change's ✓ badge; (2) the 'K to resolve' count DECREMENTS by 1; (3) then click ≫ (a reset-action) on that change → it RESETS to unresolved: ✓ button OUTLINED again (pixel) + count INCREMENTS back by 1. Read-only vs prod (in-memory, no save).
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3037-resolve/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

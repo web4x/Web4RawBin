@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R30.35 AC-two-per-side-blocks EXPERT VERIFY (v0.7.56): a both-versions change draws TWO half-ribbons
 // (Local<->centerLeft + Repository<->centerRight) + TWO center blocks (older dark + newer highlighted).
 // Reuses the r3035 synthetic fixture (line-conflict = both-versions). Screenshot is the primary evidence.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3035-two-per-side/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

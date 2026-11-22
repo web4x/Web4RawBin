@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 PART 3 — redundant body Scenario/Edit links GONE, action-bar buttons SURVIVE. Two directions, the SECOND is the
 // one that matters (removing the bar = a THIRD regression; R34.7/R33.6.5, Tron-verified v0.8.153 — assert it explicitly,
 // never assume). Fix (expert de73f5c18): detail-children.scenarioBrowserLinkFromIor now returns '' (body = DATA only),
@@ -7,7 +8,7 @@
 // reads 0.8.153 — deliberate batched restart (parts 3+4 client-only, live-served; process version syncs at the 3+4
 // restart). NOT a phantom: named, not hidden. Read-only on the live prod client (no writes, no identities). @390 webkit.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SPRINT37 = 'b86b53cc-13cb-409a-81d6-2025b5f2979e';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,

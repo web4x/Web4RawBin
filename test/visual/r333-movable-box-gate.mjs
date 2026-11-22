@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:73d267cf-e7e9-44e1-9e7c-561b16cdc7bb] R33.3 interactive diagram editor @390 — verifies diagram.renderCanvas (Impl 34dec13f: selectable box w/ attr/method compartments PIXEL-VISIBLE @390) + diagram.moveView (box-drag → POST /api/model/diagram/move-view 200 → view x,y PERSISTS in MODEL_STORE → survives a fresh re-mount). ONE round-trip gate credits BOTH R33.3 impls (render + moveView). Own-oracle: real rb-diagram-detail drawer-faithful mount + real MODEL_STORE diagram + real pointer drag; pollution-safe (byte-snapshot+restore). GREEN DET-3x v0.8.18. → req wires this Test onto 34dec13f (render) + the moveView impl.
 // R33.3 @390 OWN-ORACLE COMPONENT HARNESS (per PO) — mount rb-diagram-detail drawer-faithful (ref+uuid) with a
 // REAL MODEL_STORE diagram, prove the VISUAL "it must work": (1) a SELECTABLE box w/ attr/method COMPARTMENTS
@@ -11,7 +12,7 @@ import path from 'node:path';
 import { chromium } from '@playwright/test';
 
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const MODEL_STORE = path.join(ROOT, 'data', 'model-store', 'index');
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';   // existing MODEL_STORE diagram (R32.11 fixture)
 const ADDEL = 'f51234b0-0233-4fd6-a802-5467f64accc2';  // a class element to add if the diagram has no boxes

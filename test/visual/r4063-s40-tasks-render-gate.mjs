@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // Tron-facing: the 47 S40 task units must RENDER in the GUI he actually looks at — the /trace Sprint-40 view @390 mobile.
 // ★ Asserts the RENDERED ARTIFACT (rb-object-item rows in the live DOM), NOT disk presence (disk-presence is the proxy
 // error that let this ship — units were minted to main via a worktree, 0 in the served hotfix tree, so Tron saw nothing).
@@ -7,7 +8,7 @@
 // @390 iPhone-12 real-WebKit, authenticated (SystemTester seed). READ-ONLY (same-origin GET; no mutation).
 import { webkit, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const S40 = '8e8b32d6-22bf-46f7-bf5c-7da31ef41e19';           // Sprint 40 (from /api/trace/sprints)
 const MUST_RENDER = ['Task 40.19', 'Task 40.25', 'Task 40.45']; // representative of the 47 he can't see
 const iPhone = devices['iPhone 12'];

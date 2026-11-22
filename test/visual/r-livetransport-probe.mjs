@@ -1,7 +1,8 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // MEASURE (PO): is the live transport actually CONNECTED on Tron's /trace entry @390, and do broadcast frames arrive?
 // Hook WebSocket before load; report: ws opened? reached OPEN? any 'unit-changed' frames? RawBinClient present? READ-ONLY.
 import { webkit } from '@playwright/test';
-const BASE='https://prod.wo-da.de:4444';
+const BASE=RB_BASE;
 const IOS={viewport:{width:390,height:844},deviceScaleFactor:3,hasTouch:true,isMobile:false,userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',ignoreHTTPSErrors:true};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const WD=setTimeout(()=>{console.log('RED: WATCHDOG');process.exit(1);},90000);

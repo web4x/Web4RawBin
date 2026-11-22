@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 PART-2 CLIENT-HALF — COORDINATED READ-ONLY OBSERVER on PROD (PO-authorised; classifier-clean: this harness does
 // NO prod write). The classifier correctly blocks a tester-driven prod create, so the EXPERT fires the create (their
 // mutation, unblocked, and they own the measured cleanup + post-R40.78-restart re-verify). This gate ONLY observes: it
@@ -10,7 +11,7 @@
 // PROD renders the full drill (expert-verified mof-m1→project:RawBin→rawbin:ts→dir:src/shared) so a RED is a CLEAN verdict.
 import { webkit } from '@playwright/test';
 import fs from 'node:fs';
-const BASE = 'https://localhost:4444';
+const BASE = RB_BASE;
 const PARENT = 'dir:src/shared';
 const FOLDER = 'R4078-CLIENTGATE-DELETEME';      // the name the EXPERT will create
 const WINDOW_S = 55;                              // poll window for the expert to fire the create

@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:d81f4a06-3e57-4c92-b5a1-7f0c9e26a4b3] R40.11 slice-3 AC-5 — the drawer's ONE GENERIC type-driven default view renders CONTENT for a deployment typed-unit, NOT a perpetual 'Loading…'. Tron's DEVICE gate (real-WebKit @390, PIXEL — never headless-green). Distinct from the AC-3/AC-4/stub DATA-CONTRACT check (scripts/check-deployment-default-view.ts, disk): this proves the CLIENT actually RENDERS the served `fields` visibly. Impl: RbDetailView.render slice-3 field-view (rb-detail-view.ts) + server /api/trace/children `fields`.
 // PHANTOM-GUARD: asserts the served /api/trace/children serves `fields` (slice-3 DEPLOYED) FIRST — if not, RED (committed≠served; do not green a stale build). AC-4 fail-loud: a bogus ref → '⚠ unresolved', never perpetual Loading. Real-WebKit @390 (WK default; process.env.CHROME→chromium for a non-device smoke only). DET-3x. Read-only (same-origin GET; no mint).
 import { webkit, chromium } from '@playwright/test';
 const ENGINE = process.env.CHROME ? chromium : webkit;
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const CONFIGFILE = '71bd2de9-9819-4fde-a159-f75ff748888c'; // ConfigFile sshd_config — type-key manifestsAs
 const BOGUS = 'depunit-unresolved-00000000-0000-0000-0000-000000000000';

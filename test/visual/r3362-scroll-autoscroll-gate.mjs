@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.6.2 — INDEPENDENT @390 component-harness gate (expert skipped self-verify → this is authoritative). DET-3x.
 // INV-D1 suppress-page-scroll-on-drag: .dm-box has touch-action:none (a touch-drag moves the box, never scrolls the page).
 // INV-D2 diagram-EDGE-autoscroll: dragging a selected box to within EDGE(32px) of the surface edge → an rAF loop calls
@@ -16,7 +17,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');

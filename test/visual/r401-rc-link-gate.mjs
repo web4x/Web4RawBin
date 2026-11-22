@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4] R40.1 RcLinkResolver.resolveRcLink (Impl 45853b02) — fail-closed per-pane RC deep-link: the owner-gated endpoint 403s a non-owner with NO bridgeSessionId/session-URL leak, and the resolver returns {url:null,reason} (NEVER a synthesised session_ URL) while threading the SELECTED pane id. AC-1 visible+fireable + AC-2 server-side pane→agent isolation are owner-page-pending.
 // R40.1 — per-pane RC deep-link. SURFACE-LABELLED (PO condition).
 //   [REAL·NON-OWNER] AC-4 SECURITY: GET /api/server-manager/rc?pane=X → 403 for a non-owner (behind the R31.2 choke-point),
@@ -14,7 +15,7 @@ import https from 'node:https';
 import { execSync } from 'node:child_process';
 import { webkit, devices } from '@playwright/test';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const OWNER = OWNER_LITERAL;
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
 const BUNDLE = `${ROOT}/test-results/r401-harness/rcl.bundle.js`;
@@ -35,7 +36,7 @@ execSync(`npx esbuild src/public/ts/trace/rc-link-resolver.ts --bundle --format=
 // (no served browser nav → no SW cache to taint it). Still, tie the green to the DEPLOY: served /api/config version MUST
 // equal the committed build, else the HEAD source under test isn't what's shipped → NOT-RUN=RED, never a false green.
 const COMMITTED_VER = execSync('node -p "require(\'./package.json\').version"', { cwd: ROOT }).toString().trim();
-const SERVED_VER = ((execSync('curl -s https://prod.wo-da.de:4444/api/config --insecure', { cwd: ROOT }).toString().match(/"version":"([^"]*)"/)) || [])[1] || '';
+const SERVED_VER = ((execSync('curl -s ${RB_BASE}/api/config --insecure', { cwd: ROOT }).toString().match(/"version":"([^"]*)"/)) || [])[1] || '';
 if (SERVED_VER !== COMMITTED_VER) { console.log(`NOT-RUN=RED (INV-PDG-4): served ${SERVED_VER || '?'} != committed ${COMMITTED_VER}`); process.exit(1); }
 console.log(`INV-PDG-4: served==committed==${COMMITTED_VER} — gate reads the DEPLOY.`);
 

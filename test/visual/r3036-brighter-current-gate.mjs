@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:3f7b9d21-6c48-4a0e-b1d5-8e2f4c69a730] R30.36 (part 1, Tron-verified CORRECT) — the CURRENT change under up/down nav renders BRIGHTER, pixel-distinguishable from the same change when NOT current, with kind-HUE preserved. jumpToChange (65c465fa) sets _currentId + re-renders; .de-block-current = filter brightness(1.35) saturate(1.25) + 2px kind border + white glow (same hue, just brighter).
 // GATE (DET-3x, SCREENSHOT+PIXEL, NEVER DOM-count): nav to change A (jumpToChange → A current) → sample A's block-line region luma; nav on (A non-current) → sample the SAME block A again; assert A is BRIGHTER when current than when not (luma delta), and the HUE bucket is the SAME in both states (kind-identity preserved, not recolored). Same-block current-vs-non-current comparison = robust (no need for two blocks on-screen).
 // NOTE: the openChangeCount 'decrements-on-action' assertion is HELD (Tron's NEW model = green-checkmark toggle resolution; count = UNRESOLVED). That is a SEPARATE gate reworked after the expert reworks it — NOT here.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3036-brighter/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

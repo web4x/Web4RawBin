@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:ebf52aa4-a8d1-47d1-91fa-e18745af3d3b] R31.8 FeatureManager.grantFeature (Impl 5e2f6781) — owner grants a LIVE non-owner the Server Manager Feature → SAME session flips 403→200; MIRROR adds to BOTH Feature.allowedUsers (disk) + profile.features. GREEN DET-3x served v0.7.105 pid 667508 (verify-by-pid), pollution-safe (Feature unit byte-restored).
 // [test:uuid:8b79320f-51c0-4aec-be86-22256094e9be] R31.8 FeatureManager.revokeFeature (Impl 987a31a9) — revoke flips the SAME session 200→403; MIRROR removes from BOTH sides; + INV-F4 root-of-trust: a non-owner POST /api/feature-manager {grant} → 403 with allowedUsers UNCHANGED (no self-grant/escalation). GREEN DET-3x served v0.7.105 pid 667508.
 // R31.8 slice-(b) grant/revoke FLIP — FeatureManager.grantFeature (Impl 5e2f6781) + revokeFeature (Impl 987a31a9),
@@ -15,7 +16,7 @@ import fs from 'node:fs';
 import https from 'node:https';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SM = '16604eee-d844-4efb-bd4d-881433ca82a6';           // 'Server Manager' Feature unit
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const FEAT = `${REPO}/scenario/index/1/6/6/0/4/${SM}.scenario.json`;

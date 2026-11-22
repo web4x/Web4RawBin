@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.6.1 empty-diagram add-view — INDEPENDENT @390 gate (PO-directed; measured differently than the expert's DOM own-oracle).
 // FIX (a7ae1872d, v0.8.21 client bundle model-7OFPF33R.js — LIVE): stripRef now strips the 'diagram:' prefix, so a NEW/EMPTY
 // diagram opened with ref='diagram:<uuid>' no longer passes the unstripped ref → 400 → no box. PO phantom-guard: gate the
@@ -15,7 +16,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const EMPTY = 'e0000000-0000-4000-8000-000000033610'; // test-only empty diagram (distinct from the expert repro's uuid)
 const CLASS = 'f51234b0-0233-4fd6-a802-5467f64accc2'; // 'Id' — a real MODEL_STORE element to add
 const BOGUS = 'f0000000-0000-4000-8000-0000000badf0'; // NOT in MODEL_STORE → add must NOT persist (planted-bite)

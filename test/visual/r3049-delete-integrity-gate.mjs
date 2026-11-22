@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T30.49 repo-delete R40.106-INTEGRITY gate (planner-requested, pre-Tron-accept). r3049 already proves
 // gone-from-selector+registry-LIST; THIS proves the DURABLE-DELETE integrity r3049 doesn't:
 //   after DELETE /api/git/repos?key= → (1) gone from /api/git/repos list, (2) ★ GONE from the durable store
@@ -11,7 +12,7 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import https from 'node:https';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const REPOS_JSON = `${REPO}/data/repos.json`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

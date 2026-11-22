@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:ad86c3a0-8db2-446c-8e09-a9c7d0aee4b2] R31.16 read-only-notice (req/ior 8a584787) — GREEN DET-3x @390 stable v0.8.1 (sw rawbin-v0.8.1, bundle app-XEFVE7TV.js stable): non-host opens room settings -> visible read-only notice ('not the room owner') + NO Save + h3 'Room Settings' (3/3); host -> NO notice + Save + h3 'Edit Room Settings'; notice text present in the served bundle. Engine-independent (plain HTML5, no device -> Chromium valid oracle, no Tron). -> req wires onto the R31.16 read-only-notice render impl (RoomView !isHost gate).
 // R31.16 read-only-notice (ior 8a584787) — engine-independent @390 (plain HTML5, ZERO device code → Chromium is a
 // VALID oracle, certify WITHOUT Tron). NON-host opens room settings → visible '🔒 Read-only … not the room owner'
@@ -8,7 +9,7 @@ import { devices, chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((res) => { const r = https.request({ host: HOST, port: PORT, path: p, rejectUnauthorized: false }, (x) => { let b = ''; x.on('data', c => b += c); x.on('end', () => res(b)); }); r.on('error', () => res('')); r.end(); });

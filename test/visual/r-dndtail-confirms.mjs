@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // 3 DnD-tail ONE-MEASUREMENT confirms (planner) — does the SHIPPED path do it end-to-end? SystemTester, live 0.8.211.
 // (1) T-dnd-file-chain 7fca98ae: drop a file on #rrc-drop → FileUnit created + in Files tree + R40.81 one-store symlink (shard is a symlink).
 // (2) T-dropzone-highlight 5658ccd9: dragenter → #rrc-drop gets 'rrc-drop-active'; dragleave → cleared (class toggles).
@@ -8,7 +9,7 @@ import { lstatSync, existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const shard = (u) => `${REPO}/scenario/index/${u[0]}/${u[1]}/${u[2]}/${u[3]}/${u[4]}/${u}.scenario.json`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

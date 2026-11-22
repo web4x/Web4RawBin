@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:43f0c9f5-e657-419e-af4e-d0e3f7d4b90c] R30.6.6 RbEditorLayout.showDiff — [Open Diff] lazy-mounts diff LEFT=current file+buffer (DET-3x GREEN, read-only)
 // R30.6.6 gate — [🔀 Open Diff] toolbar button lazy-mounts rb-diff-editor with LEFT preselected to
 // the current file (path + CURRENT buffer, so unsaved edits show). RbEditorLayout.showDiff (impl
@@ -10,7 +11,7 @@
 //   AC-preselect: LEFT path = current file AND LEFT content = current buffer (incl. an unsaved edit).
 
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const FILE = 'package.json';
 const MARK = 'ZZ_UNSAVED_EDIT_MARKER_' ;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

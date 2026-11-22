@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R21.6 E.164 normalization edge gate — locks the architect's PDCA gap fix (normalizePhone,
 // PhoneIndex.ts). v0.6.72. Tests the EXACT cases the architect flagged.
 //
@@ -16,7 +17,7 @@
 // must produce the SAME key AND resolve to the SAME profile.
 
 import https from 'https';
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const TRON_UUID = '3effa1fc-a548-4619-a3ff-fb96382eca22';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 

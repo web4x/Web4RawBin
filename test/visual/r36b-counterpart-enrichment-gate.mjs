@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // S36 part-2 COUNTERPART-ENRICHMENT re-gate — reconcileCanonical merges a scenario Class with its ts-code counterpart
 // into ONE canonical node: instanceOf = UNION [UmlClass, ts-class-code], members = merged, usedIn = None until placed.
 // DET-3x, SERVED-verified (compute-on-read INV-T: 3 reads byte-identical, no write). Screenshots/results → DISK.
@@ -20,7 +21,7 @@ const UNITS = [
   { uuid: 'c8bdae18-88e1-4829-813b-0e5ecc21c56c', name: 'ScenarioIndex', members: 18 },
   { uuid: 'fc2f97c9-a2e2-4599-9c9a-a9657d31b051', name: 'TsToModel', members: 5 },
 ];
-const get = (p) => new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res(b)); }); q.on('error', () => res('')); q.end(); });
+const get = (p) => new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: p, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res(b)); }); q.on('error', () => res('')); q.end(); });
 const model = (raw) => { try { const j = JSON.parse(raw); const u = j.unit || {}; return u.model || u; } catch { return {}; } };
 
 const cfg = JSON.parse(await get('/api/config') || '{}');

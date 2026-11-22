@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:7c2e9b41-4d68-4a03-9f15-3e8b6c07d2a9] R30.14 ServiceWorker.navigationStrategy (impl 769bc9bc) — network-first shell (the clean-release ROOT-CAUSE fix). The mutable HTML shell + hashed bundles are fetched NETWORK-FIRST (fresh, cache-fallback only when offline); the prior cache-first shell served a STALE shell+bundle until a manual hard-reload and DEFEATED pollForWorkerUpdate+claimClients. Network-first is what makes a deploy actually reach a running client.
 // GATE (DET-3x, live prod): (1) the DEPLOYED sw.js routes the shell/navigation + /dist bundles through networkFirst (navigate|.html|/dist|/app|/edit|/trace|/scenario), and immutable static stays cache-first — the impl behavior on the served worker, not the source tree; (2) a REAL client parks then RELOADS (soft location.reload) and receives the CURRENT served bundle hash (network-first serves fresh, no stale-cache pin, no manual hard-reload). Version-confirm via served edit-*.js hash + /api/config, NEVER DOM-count. Read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const bundleHash = (html) => (html.match(/edit-[A-Z0-9]{8}\.js/) || [])[0] || '';
 

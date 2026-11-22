@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:cd6503cf-e79f-46ba-8ddc-7a19588ac436] R31.12 FINAL v0.7.147 radio — CERTIFIED DONE, GREEN DET-3x @390 (canonical HTML5 native radios, belt GONE = 0 pointerup in served app-H22AFE74.js). Each of the 5 radios (3 vis + 2 mode) plain click SELECTS + STICKS (no flicker/revert) + Save persists (reopen confirms). NO device-only caveat: zero device-specific code → native radios behave per HTML5 spec identically everywhere → Chromium is a VALID ORACLE (the device-specific belt that caused the earlier false-greens is removed; architect credited tester r3112e 4/4). Impl = RbRoomDetail.editOpen f9b579c1 (openRoomEditor radios+Save). Pollution-safe host room create+delete (rejoin-probe verified).
 // R31.12 FINAL v0.7.147 — CLEAN radio certification. The belt is GONE (0 pointerup in served app-H22AFE74.js); radios are
 // canonical HTML5 native input[type=radio] with explicit id + label[for]. ZERO device-specific code → native radios behave
@@ -9,7 +10,7 @@ import { devices, chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const CLIENT_VER = 'rawbin-v0.7.147';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((res) => { const r = https.request({ host: HOST, port: PORT, path: p, rejectUnauthorized: false }, (x) => { let b = ''; x.on('data', c => b += c); x.on('end', () => res(b)); }); r.on('error', () => res('')); r.end(); });

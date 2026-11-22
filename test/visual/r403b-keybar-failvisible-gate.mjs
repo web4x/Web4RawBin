@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:6e1a9d47-5c82-43b0-9f16-2a7e0c4b8d35] R40.3 keybar FAIL-VISIBLE (BUG-KEYBAR-READPATH family, closes 34b0b233) — RbTerminalDetail.mount (Impl 79a1ce7c). When /api/ior resolves 0 keys (keymap missing/unreadable), the keyboard bar region must NOT be a silently-empty area: it renders a role=status notice `.rb-keybar-unavailable` with the visible cause text "⚠ keyboard bar unavailable — 0 keys resolved from /api/ior". This gate FORCES the empty case (fetch-override → unit.model.keys=[]) and asserts the notice appears with its cause text and NO keybar buttons — the piece the 8-keys happy path (r403a) could not prove. STUB-MUST-FAIL: a bundle with the notice class stripped MUST make the suite RED (proves the assertion isn't vacuous). webkit @390 iPhone-12, esbuild-from-HEAD component, SW neutralised (block+unregister+cache-clear), served==committed asserted dynamically (no hardcoded version literal). DET-3x.
 import { webkit, devices } from '@playwright/test';
 import { execSync } from 'node:child_process';
@@ -5,7 +6,7 @@ import fs from 'node:fs';
 import { seedSystemTester } from './system-tester-setup.mjs';
 
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DIR = `${ROOT}/test-results/r403b-keybar`;
 const REAL = `${DIR}/term.real.js`;
 const STUB = `${DIR}/term.stub.js`;

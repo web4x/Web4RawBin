@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:53731d96-ce8f-498b-8381-1a64c2ad1e40] R30.52 mobile visibility (impl-edit on renderMergeGutter e24dc98a) — at 390px REAL MOBILE (iPhone emulation, isMobile) + Tron's end-state (post ✨Apply All→Repository wins, 0 open, N=14), '.de-selected' renders '14 selected' SINGLE-LINE (white-space:nowrap, not wrapped to 2), non-zero width, PAINTED (pixel), topmost, inline between Apply All and ▲; toolbar single-row (flex-wrap:nowrap). GREEN DET-3x v0.7.76 (fixes the mobile text-WRAP that made it invisible on Tron's phone). Distinct mobile-visibility Test alongside 8fa42d89/0866205d/919d290d on e24dc98a.
 // R30.52 '.de-selected' MOBILE visibility gate — ★ Tron is on a 390px PHONE. v0.7.76 mobile-wrap fix (white-space:nowrap +
 // flex-shrink:0 + toolbar flex-wrap:nowrap + overflow-x:auto). Impl renderMergeGutter e24dc98a.
@@ -10,7 +11,7 @@
 import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import { promises as fs } from 'node:fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3052-toolbar';
 const N = 14;

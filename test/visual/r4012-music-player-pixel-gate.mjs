@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:b3e9f1a4-7c28-4d6b-9f03-1a5e8c2d94b7] R40.12 RbFileDetail.autoRenderMediaPreview — media subtypes auto-render a PAINTED player on select (pixel, not container), fail-loud on throw. req mints Impl→autoRenderMediaPreview.
 // R40.12 — File MEDIA subtypes AUTO-RENDER a real player on SELECT (Tron's empty-black-box regression, fix 57555d2ff,
 // autoRenderMediaPreview @ rb-file-detail.ts). ★ PIXEL not DOM: the FAILING case still had an audio CONTAINER in the DOM
@@ -8,7 +9,7 @@
 // tagMap file→rb-file-detail); the bug was in the component's dropped-eager-call, context-independent. Heartspaces mp3
 // unit 63462717 'Ed Sheeran - I See Fire (Music Video).mp3' (audio/mpeg). Anti-vacuity: an unfilled/empty pane FAILS.
 import { webkit, devices } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const FILE = '63462717-1771-4775-aeda-d9947d7bcbd2';
 const iPhone = devices['iPhone 12'];
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

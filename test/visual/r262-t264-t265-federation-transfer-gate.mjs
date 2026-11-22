@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:5ad927a9-4229-47bc-bb8c-21e52d6a923c] R26.5 reconcileConflict
 // [test:uuid:f6de8f4d-78b9-472e-8f1d-4aab2944304c] R26.4 resolveChildrenLazily
 // T26.4+T26.5 v0.7.5 gate — federation Transfer (lazy child resolve + conflict reconcile).
@@ -18,7 +19,7 @@ function transferChecks() {
   const out = execSync(`npx tsx -e "` +
     `import {Transfer} from './src/ts/server/federation-transfer.ts';` +
     `import {ScenarioIndex} from './src/ts/scenario/index.ts';` +
-    `const self='https://prod.wo-da.de:4444';const remote='https://other.host';` +
+    `const self=RB_BASE;const remote='https://other.host';` +
     `const idx=new ScenarioIndex('${REPO}/scenario/index');` +
     `const t=new Transfer({index:idx,selfHost:self,hasContentHash:()=>false});` +
     `const file={ior:'ior:class:File',model:{uuid:'gate-file',children:['ior:instance:child-1'],contentHash:'deadbeef'}};` +

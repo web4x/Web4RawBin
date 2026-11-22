@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:PENDING] R31.1 owner-ACCEPT path (REAL, NO mock) — the PRIMARY happy-path on Impl f345b8ed.
 // ★ LESSON this gate exists for: r311v MOCKED the owner path (whoami-intercept 200) → verified the render but HID
 // Tron's real 'owner sees NO entry' bug. This gate verifies the REAL accept against REALITY: it registers the owner
@@ -12,7 +13,7 @@
 // both halves, then Tron re-auths. Expected GREEN once v0.7.89 fixes the owner tree ticket.
 import { chromium } from '@playwright/test';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OWNER = OWNER_LITERAL;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // ⛔⛔ CHAIN-CREDIT HELD — NOT DONE. This gate is ENGINE-INDEPENDENT GREEN (belt sets checked + change fires + Save reads it
 //   in CHROMIUM) but Tron's REAL iOS DEVICE (v0.7.145) shows FLICKER-REVERT: the radio checks then REVERTS, does NOT stick.
 //   Chromium CANNOT reproduce the iOS state-revert → this GREEN is a FALSE-GREEN for device-correctness, and the belt-handler
@@ -17,7 +18,7 @@ import { devices, chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';
 const CLIENT_VER = 'rawbin-v0.7.145';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

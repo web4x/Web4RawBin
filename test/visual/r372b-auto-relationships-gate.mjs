@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.7.2 UC1 addAutoRelationships — RbDiagramDetail.buildEdges (Impl 8c68b925) @390 COMPONENT-harness, DET-3x independent.
 // AC: adding an element to a diagram → buildEdges AUTO-WIRES its edges to the EXISTING related boxes (assert the SVG .dm-edge
 // RENDERS, not just refresh-fires). Distinct from the r372 discover Test (which asserts refresh-FIRES; add-view is mocked there
@@ -9,7 +10,7 @@
 // element's view → its edge to an existing related box auto-renders (.dm-edge data-rel, count 2→3); control 2 edges (no fabricate).
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7', ADD = 'c2fca9c2-5b77-4a1f-aae2-cf9cdf0c981c', EXISTING = '6b9bf49f';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];

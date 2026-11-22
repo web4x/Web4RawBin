@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PROBE: minimize path — is the leak real (minimize teardown doesn't kill sm_) or my trigger not firing (handle click
 // didn't minimize)? Open pane → record sm_ → click .drawer-handle → measure {minimized attr, rb-terminal-detail present,
 // drawer height} → poll sm_ 8s.
 import { chromium, devices } from '@playwright/test';
 import { execSync } from 'node:child_process';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, OWNER = OWNER_LITERAL;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, OWNER = OWNER_LITERAL;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const sm = () => { try { return execSync("tmux ls -F '#{session_name}' 2>/dev/null | grep '^sm_' || true", { encoding: 'utf8' }).split('\n').map(s => s.trim()).filter(Boolean); } catch { return []; } };
 const seedOwner = (ctx) => ctx.addInitScript((o) => { localStorage.setItem('rawbin-player-id', o); localStorage.setItem('rawbin-name', 'Owner'); localStorage.setItem('rawbin-device-privateKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-publicKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-signature', 'e2e-bypass'); }, OWNER);

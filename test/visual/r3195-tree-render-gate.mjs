@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:eb324c68-7a5b-4b69-96f4-e3a0aa1d2f1b] R31.3 RbTraceTree.buildSeedNode (Impl 5b3d9f1a) — tree RENDER behavior (v0.7.95), DET-3x.
 // SEPARATE from the readSessionTree DATA Test (9467b1c6). Per architect design-server-manager.md:213 + IMG_4598.
 // Drives the SERVED rb-trace-tree (registered on /trace) with an otmux fixture (session→window→pane inline children) —
@@ -8,7 +9,7 @@
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.95';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.95';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (path) => new Promise((r) => { const req = https.request({ host: HOST, port: PORT, path, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); req.on('error', () => r('')); req.end(); });
 

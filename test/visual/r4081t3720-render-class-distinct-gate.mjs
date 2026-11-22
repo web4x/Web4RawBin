@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.20 DEFECT-2 inc-2 (JOB3) — per-class RENDER: each natural class must render AS ITSELF, not a generic file row. inc-1 proved
 // each unit is VISIBLE; inc-2 must prove Image renders an actual <img>, and Email/Contact/CalendarEntry render class-DISTINCT cards
 // that DIFFER from each other AND from a generic file row. All-same-generic-markup = FAIL even if every node is visible ('renders
@@ -9,7 +10,7 @@ import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const roomFiles = (roomId) => new Promise((res) => { const u = new URL(`${BASE}/api/trace/children/roomcoll:${roomId}:files`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { res(JSON.parse(d).children || []); } catch { res([]); } }); }).on('error', () => res([])); });
 
 // class-distinct markers: each kind must render its OWN chrome; image must carry a real <img>.

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:1c68c169-d599-4a9c-96f0-9302c1f1c8ad] r41-1 file render-proof — the pixel gate for File.renderSelf (Method 3feca893 / UC file.renderSelf 59649d58): AC1 SVG-glyph-consistent · AC2 NAME==model.name/title (not uuid) · AC4 uuid-fallback ONLY on genuine name+title absence. ★ req to MINT the Test unit + wire this marker (expert does not self-mint Tests). Strengthened both-directions + AC4 (80→0 wrong-fallback) on v0.8.237.
 // T41.1 RENDER-PROOF (delivery-blocking): File INSTANCES render in the ROOM FILES view (NOT /model). @served v0.8.237.
 // PIXEL fact, not a proxy: screenshot the room files view + measure the rendered rb-object-item[type=file] glyph+name.
@@ -7,7 +8,7 @@
 import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
-const BASE='https://prod.wo-da.de:4444', ROOM='909f1bd6-1f97-4542-b02b-242cfcc41f5e';
+const BASE=RB_BASE, ROOM='909f1bd6-1f97-4542-b02b-242cfcc41f5e';
 const SHOT='/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/r41-1-files-view.png';
 const iorName=(u)=>new Promise(r=>{https.get(`${BASE}/api/ior/ior:instance:${u}?_cb=${Math.random()}`,{rejectUnauthorized:false},x=>{let b='';x.on('data',c=>b+=c);x.on('end',()=>{try{r(JSON.parse(b)?.unit?.model?.name)}catch{r(undefined)}})}).on('error',()=>r(undefined))});
 const R={};

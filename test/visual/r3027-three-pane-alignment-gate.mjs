@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:3c8a5f19-2e74-4d61-b9a3-7f0c6e28d5b4] R30.27/R30.29 3-pane rows align — corresponding lines share ONE visual row across Local/Center/Repository, and drift can't ACCUMULATE past any blank line (R30.29 per-blank resync). R30.23 regression put one-sided spacers at line 0; R30.27 (v0.7.40) fixed the top big-drift but drift still accumulated per-change; R30.29 (Tron's algorithm) resyncs at every blank line — the next full line after each blank re-aligns across all 3 panes.
 // LANGUAGE-AGNOSTIC + ASSERTION-GRADE: anchors are unique-common lines (appear exactly once in each pane) — NO method/syntax parsing (method names in the report are just readable reference points). For EVERY such anchor, getTopForLineNumber must be EQUAL (±1px) across edLocal/edCenter/edRemote (AC-5). Checks ALL anchors (not a sample — a 1-row residual hides at one line) with a monotonic false-anchor filter, and separately reports the blank-resync witnesses (first full line after a blank) which must all align. DET-3x. SystemTester-only, read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const TOL = 1; // px — Monaco line height ~16px; a real misalignment is ≥1 line. ±1 absorbs sub-pixel rounding only.
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

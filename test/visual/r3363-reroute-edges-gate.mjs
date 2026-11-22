@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.6.3 — INDEPENDENT @390 component-harness gate (expert skipped self-verify → authoritative). DET-3x.
 // INV-R1 reroute-connectors-on-move: moving a box → rerouteEdges (Impl 83b9922b) recomputes BOTH endpoints (x1,y1,x2,y2)
 // of every .dm-edge whose data-rel-from/to == the moved box's modelelement → the connector LINES follow LIVE, no stale
@@ -11,7 +12,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');

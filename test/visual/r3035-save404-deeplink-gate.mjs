@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4e2c8f10-6b9d-47a3-a5e1-8c3f0d29b7a4] R30.35 save-404 FIX on Tron's REAL deep-link
 // /edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1 (v0.7.61, edit-CYBX5O6I.js). The diff/merge Save
 // [test:uuid:8c68c361-86c3-4fb0-8a04-bb311b432149] R30.38 setCenterTitle 41504f5f - center header renders filename@currentBranch (otmux@<branch>), asserted in M3.
@@ -14,7 +15,7 @@
 // DET-3x, screenshot the toolbar. SystemTester-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3035-save404';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

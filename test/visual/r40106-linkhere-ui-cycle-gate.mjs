@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 Link-here RE-ENABLE (v0.8.220) — FULL CYCLE THROUGH THE UI (what Tron actually does, NOT the endpoint).
 // Reuses fixed room 909f1bd6 via joinRoom (ZERO room creation). SystemTester. Version-stamped.
 //   (0) OFFERED: applicableActionsFor(file) includes 'link' (+ move/remove/rename intact) — inverts the 217 hidden-gate.
@@ -13,7 +14,7 @@ import { execSync } from 'node:child_process';
 import { writeFileSync, unlinkSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444', SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df', ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';
+const BASE = RB_BASE, SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df', ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const bare = (r) => String(r || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
 const iorUnit = (u) => new Promise(res => { https.get(`${BASE}/api/ior/ior:instance:${u}`, { rejectUnauthorized: false }, r => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b)?.unit?.model || null); } catch { res(null); } }); }).on('error', () => res(null)); });

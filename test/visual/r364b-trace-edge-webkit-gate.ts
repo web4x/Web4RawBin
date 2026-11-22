@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R36.4 r364b — buildTraceEdge (Impl dc101d02, diagram-view-model.ts:141) VISUAL gate. Run: PATH=/opt/node22/bin:$PATH WK=1 npx tsx test/visual/r364b-trace-edge-webkit-gate.ts
 // PART 1 (engine-independent, DET-by-construction): tsx-import the REAL buildTraceEdge → the trace pass emits a dashed
 //   .dm-edge-trace / dm-arrow-trace line ONLY when BOTH endpoints on-diagram; off-diagram / non-trace → none; de-dup
@@ -12,7 +13,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { webkit, chromium, devices } from '@playwright/test';
 import { buildTraceEdge, type ViewLink, type DiagramNode } from '../../src/public/ts/trace/diagram-view-model.ts';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
 const DIST = path.join(ROOT, 'src/public/dist');

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:7b37982c-11a8-4ff9-9353-58e136a3b84b] R30.1 RbTraceTree.renderCurrentSprintEagerLazy — eager-lazy trace tree (DET-3x GREEN)
 // T30.1 gate — eager-lazy traceability tree (RbTraceTree.renderCurrentSprintEagerLazy, impl
 // e649a695, LIVE prod v0.7.10 6ededd4bb). READ-ONLY, 0 pollution (trace page, no user/room).
@@ -12,7 +13,7 @@
 //   (6) shares the R26.1 loader (fetchAndRenderChildren) — proven by the lazy expand loading tasks
 
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const childUuid = (url) => { const m = /\/api\/trace\/children\/([^?]+)/.exec(url); return m ? decodeURIComponent(m[1]) : null; };
 

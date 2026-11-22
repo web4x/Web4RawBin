@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:0802991c-b3af-4e70-a5bb-cdc8ddde57c0] R21.7 mintAndVerifyAsync — address unit + async OSM verify flip + badge
 // R21.7 gate — addresses as scenario units + async OSM (Nominatim) verify, v0.6.71.
 // Impl 3cf79d5d3. Server (server.ts): committed UPDATE_PROFILE{addresses[]} ->
@@ -23,7 +24,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const HOST = 'prod.wo-da.de', PORT = 4444, WSS = `wss://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, WSS = `wss://${HOST}:${PORT}`;
 const SCEN = path.join(__repo, 'scenario/index');
 const RUN = randomUUID().slice(0, 8);
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:7f3e9b14-ec33-4b5e-afa1-80292acf947b] R33.1 MOF-folder structure — verifies mofLayerRoots (Impl 5afeafe9): /api/model/tree returns MOF-LAYER FOLDER roots (INV-MOF1 M2·UML Profile + M1·Projects, not flat) + M2 metaclass→M1 instances via reverse instanceOf (INV-MOF2 cross-level) + M1→project→classes+members+Diagram + INV-MOF3 no-dup/same-uuid identity + INV-MOF4 isolation (store-only + /model 403). Own-oracle: real tree structure + /api/ior + prod-shard-absence, read-only. → req wires this Test onto Impl 5afeafe9 (mofLayerRoots).
 // R33.1 MOF-folder STRUCTURE + cross-level nav, DET-3x. /api/model/tree now returns MOF-LAYER FOLDER roots (grouped by
 // metaLevel), not a flat list. INV-MOF1 folders (M2·UML Profile + M1·Projects); INV-MOF2 M2 metaclass → its M1 instances
@@ -13,7 +14,7 @@ const PROD_INDEX = path.join(ROOT, 'scenario', 'index');
 const FAA = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';           // a MODEL_STORE Diagram unit (must NOT be in prod)
 const shardOf = (base, u) => path.join(base, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
 const strip = (r) => String(r).replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
-const req = (pth, tok) => new Promise((res) => { const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: pth, method: 'GET', rejectUnauthorized: false, headers: tok ? { 'x-player-token': tok } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j }); }); }); r.on('error', () => res({ status: 0 })); r.end(); });
+const req = (pth, tok) => new Promise((res) => { const r = https.request({ host: RB_HOST, port: RB_PORT, path: pth, method: 'GET', rejectUnauthorized: false, headers: tok ? { 'x-player-token': tok } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j }); }); }); r.on('error', () => res({ status: 0 })); r.end(); });
 const iorModel = (u) => req(`/api/ior/ior:instance:${u}`).then(r => r.json?.unit?.model || null);
 
 // collect (uuid → count) + per-node child-uuid uniqueness over the whole tree

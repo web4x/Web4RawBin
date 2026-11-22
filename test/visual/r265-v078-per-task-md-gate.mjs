@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:dfd28fdd-0fd4-4c3a-8fc4-0d9db43fb221] R27.3 generateTaskMd — per-task-MD gate (every 📄 resolves 200, no collapse, roundtrip)
 // v0.7.8 R27.3 gate — per-task-MD 404 fix (slug drift + planning.md collapse). READ-ONLY, 0 pollution.
 //   (1) AC-resolve: rb-task-detail 📄 link for a task WITHOUT sourceFile (previously 404) now serves 200
@@ -13,14 +14,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = __repo;
 const S26_TASK = '026af82c-3668-4d94-ae01-51e5276f851b'; // sprint-26 task-26.6 (no sourceFile — 404'd before)
 const S27_TASK = '788bc972-145d-476a-877b-8fecbf037ef4'; // sprint-27 task (no sourceFile)
 const S26 = '1d98197d-87ee-4355-8858-406961b2f19d';
 const S27 = 'c1c63a2e-7b62-48b0-a031-bd91bab14d2a';
 
-const httpGet = (p) => new Promise((res) => { const r = https.get({ host: 'prod.wo-da.de', port: 4444, path: p, rejectUnauthorized: false, timeout: 8000 }, (x) => { let n = 0; x.on('data', c => n += c.length); x.on('end', () => res({ status: x.statusCode, size: n })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); });
+const httpGet = (p) => new Promise((res) => { const r = https.get({ host: RB_HOST, port: RB_PORT, path: p, rejectUnauthorized: false, timeout: 8000 }, (x) => { let n = 0; x.on('data', c => n += c.length); x.on('end', () => res({ status: x.statusCode, size: n })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); });
 const checkSprint = (uuid) => { try { const o = execSync(`npx tsx scripts/generate-sprint-md.ts --check ${uuid}`, { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }); return /byte-match/i.test(o) && !/drift|mismatch|✗/i.test(o); } catch (e) { return /byte-match/i.test((e.stdout || '') + '') && !/drift|✗/i.test((e.stdout || '') + ''); } };
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:ff91ca36-1bd4-417e-a103-af85c15ef50c] R31.7 INV-V4 boot-frozen version (the version-lie killer) — getVersion() returns BOOT_VERSION, a module-load const (server.ts:62/68), NOT a per-request fs read → /api/config CANNOT change without a real restart, BY CONSTRUCTION. GREEN DET-3x v0.7.135: source-audit (getVersion=return BOOT_VERSION, module-const IIFE, /api/config uses getVersion, exactly 1 module-scope package.json read) + runtime (served==committed==build-manifest==0.7.135, /api/config==/api/health single-source, stable across 5 polls no drift). Independent + NON-mutating (anti-circular vs architect decoy-injection, PO-approved). → req mints onto the R31.7 getVersion/INV-V4 impl.
 // R31.7 INV-V4 — the version-lie killer. /api/config must return the BOOT-frozen version, NOT a per-request read, so a
 // rebuild-without-restart (or a decoy package.json/build-manifest edit) CANNOT change /api/config until a REAL restart.
@@ -9,7 +10,7 @@
 // Does NOT mutate the shared prod checkout. served self-verified.
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.135';
+const HOST = RB_HOST, PORT = RB_PORT, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.135';
 const getJson = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => { try { r(JSON.parse(b)); } catch { r({}); } }); }); q.on('error', () => r({})); q.end(); });
 
 // ── (A) source-audit: INV-V4 by construction ──

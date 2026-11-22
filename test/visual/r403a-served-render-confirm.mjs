@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:f2c7b3e9-4d81-4a06-b5e2-9c14f8d3a670] R40.3-A AC-1 RbKeyboardBar.suppressSoftKeyboard (Impl c3a56e56) — the terminal input target is configured to suppress the OS keyboard (inputmode=none + readonly) without losing the controller input path; verified on served 0.8.67 @390 real-WebKit.
 // [test:uuid:b8e4a1c2-7f39-4d5b-a061-2e9c6f04b8d1] R40.3-A AC-2+AC-5 RbKeyboardBar.renderKeyMap (Impl dbdcc42d) — the keyboard bar RENDERS 8 data-driven keys read from the config unit (j.unit.model.keys) and a key tap dispatches its byte sequence to the PTY ws (suppression did not break typing); served 0.8.67.
 // R40.3-A — SERVED-RENDER CONFIRMATION on 0.8.67 (wrapper fix live). The r403a RED baseline proved the keyboard bar was
@@ -11,7 +12,7 @@ import { webkit, devices } from '@playwright/test';
 import { execSync } from 'node:child_process';
 import { seedSystemTester } from './system-tester-setup.mjs';
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const BUNDLE = `${ROOT}/test-results/r403a-render/term.bundle.js`;
 const iPhone = devices['iPhone 12'];
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

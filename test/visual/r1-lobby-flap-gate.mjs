@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R1 lobby-flap gate — SERVED v0.8.240, SystemTester + EXISTING rooms ONLY, ZERO prod creation. Raw WS = authoritative
 // (observes the exact server ROOM_LIST sequence, above the client render). edd7fa61=Marcel(c09087ec) PRIVATE room.
 // AC2 non-owner-exclusion: SystemTester (non-owner) NEVER receives edd7fa61 in any list. AC3 reconnect-stability: N reconnects,
@@ -5,7 +6,7 @@
 // PAYOFF: hold a real session, capture the actual server-initiated close code+reason (root of the reconnect storm).
 import WebSocket from 'ws';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED='0';
-const WSS='wss://prod.wo-da.de:4444', ST='ce981242-74fe-4d44-b5b6-43c641e224df';
+const WSS=RB_WSS, ST='ce981242-74fe-4d44-b5b6-43c641e224df';
 const EDD='edd7fa61-186d-4737-8ded-66dd6128f7e0', MINE=['909f1bd6-1f97-4542-b02b-242cfcc41f5e','68d0f039-8668-4d2f-a904-2a23c5d6ecc3'];
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const ids=rooms=>new Set((rooms||[]).map(r=>r.id||r.roomId).filter(Boolean));

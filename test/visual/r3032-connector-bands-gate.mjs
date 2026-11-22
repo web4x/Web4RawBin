@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:6b1d4e83-5a29-4c7f-9e14-8d3f0a72c561] R30.32 IntelliJ connector bands + box-outlines. renderConnectorRibbons (5051b2a4) draws a filled SVG band Local↔Center where a change has local lines (a>0) and Center↔Repository where it has repo lines (b>0) — so a MODIFICATION (a>0 && b>0) shows BOTH bands, a one-sided INSERTION shows ONE. R30.32 also boxes each change block with a de-block-outline-<kind> inset border in ALL 3 panes (center via renderCenterChangeBlocks, Local/Repository via renderSideChangeBlocks). Tron "WE NEED THESE".
 // Gate (DET-3x, deep-link 516ebb3/dev 3-way): (1) L↔C + C↔R connector bands present, band width >20px; (2) box-outline elements on change blocks in all 3 panes; (3) modification=both-bands / insertion=one-band (band count == Σ (a>0)+(b>0) over non-dismissed conflicts, ≥1 of each kind); (4) ribbon SVG pointer-events:none + re-rendered after scroll (scroll-tracked). SystemTester-only, read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 

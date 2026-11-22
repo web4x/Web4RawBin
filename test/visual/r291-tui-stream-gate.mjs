@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:fdd45d61-71d7-4a48-8218-63cba35f761c] R29.1 runServerForeground — AC-2 foreground handoff (TUI stream ⟹ foreground, not silent)
 // [test:uuid:d03c8ac3-6a5a-4bb6-bf8a-b35deddd3bb1] R29.1 selfHealingStart — TUI stream proves foreground self-healed start (integration)
 // [test:uuid:76fa996e-97c9-4605-bf15-d6b5d653ef80] R29.1 addLog — AC-4 TUI streams in remoteShells:0.2
@@ -13,7 +14,7 @@
 
 import { execSync } from 'child_process';
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const PANE = 'remoteShells:0.2';
 const CAP_LINES = 60;                                    // big window — live pane scrolls fast
 const sh = (c) => { try { return execSync(c, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }); } catch (e) { return (e.stdout || '') + ''; } };

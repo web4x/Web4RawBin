@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 RE-MEASURE (PO: 5-day-old open-part claims DECAY — verify on LIVE PROD v0.8.206, do not repeat a stale claim). Three
 // parts: (2) Add-folder → creates + live-MVC renders (client-half); (5) nested physical-folder tree = R40.78 (folder in folder
 // renders as a unit); (4) the MISSING sunburst renders in the room-collection detail. Per-part verdict: CLOSED or STILL-OPEN + evidence.
@@ -8,7 +9,7 @@ import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const post = (p, b) => new Promise((res) => { const u = new URL(`${BASE}${p}`); const data = Buffer.from(JSON.stringify(b)); const req = https.request({ hostname: u.hostname, port: u.port, path: u.pathname, method: 'POST', rejectUnauthorized: false, headers: { 'Content-Type': 'application/json', 'Content-Length': data.length } }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => res(d)); }); req.on('error', () => res('')); req.write(data); req.end(); });
 

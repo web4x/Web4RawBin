@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:fb804b87-b381-487f-b220-fdf972c8db87] R31.5.1 RbCompartment.applyPresentation (Impl 4d7e2a91) — AC-INV-PRESENTATION: expanded↔bar flip branches ONLY presentation (attr + bar strip); the .rbc-content children are NEVER reparented (same node identity across flips, isConnected) + the bar item PROXIES the source element's behavior (click→source.click). GREEN DET-3x @390.
 // [test:uuid:14df64cd-a8af-4c40-aaf8-f742ab91ea5f] R31.5.2 RbStrip.renderDescriptors (Impl 8f1b6c3d) — ordered row from descriptors, DIFF/PATCH: reuse a segment by id (node identity preserved on re-order-in-place a,b,c→c,a,b), rebuild ONLY on kind-change, drop removed. GREEN DET-3x @390.
 // [test:uuid:f4419019-11a6-401b-bd12-af9344d47d13] R31.5.4 RbStrip.applyViewportMode (Impl 2a9c5e17) — data-mode branch landscape↔portrait (app.css flex-all-visible vs scroll-snap) + focus-restore: on a real flip (prev set + activeId) scrollIntoView the ACTIVE compartment. GREEN DET-3x @390.
@@ -8,7 +9,7 @@
 // identity preserved — never reparented/rebuilt except on kind-change; behavior proxied; order diff-patched).
 import { chromium, devices } from '@playwright/test';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const BUNDLE = fs.readFileSync('/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/r315-bundle.js', 'utf8');
 const SHELL = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/app.css"></head><body><div id="host"></div><script type="module">${BUNDLE}</script></body></html>`;
 

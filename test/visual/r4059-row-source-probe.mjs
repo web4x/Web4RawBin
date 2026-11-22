@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // BOUNDED row-vs-detail probe (PO 2026-08-24, authorized). ONE question only:
 // does the IN-PROGRESS tree ROW resolve the SAME unit (7a956c21=T40.1) reading status from a DIFFERENT source than the
 // detail (real divergence = Tron's original complaint), OR is it a selector artifact (a different/wrong row whose ref
@@ -5,7 +6,7 @@
 // the tree-source status for that node vs the detail-source (/api/ior) status. STOP THERE — no mechanism diagnosis.
 // READ-ONLY on served prod @390 real-WebKit. No mutation.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const UUID = '7a956c21-5f37-4062-b921-9bdd5a461546';
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));

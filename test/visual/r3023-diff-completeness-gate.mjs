@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:ab33b3e8-f3ce-4140-a212-79f66cd2ae43] R30.23 diff-completeness — computeOneSidedHunks on computeMergedCenter (Impl a0b30550): a 3-way merge now SURFACES one-sided auto-applied changes (local-only + repo-only, no true conflict) as kind:'change' Conflicts, ORIGIN-EXACT (local-only→a>0,b=0 Local block+ribbon; repo-only→a=0,b>0 Repository block+ribbon), NO double-count (false conflict = both-same → ok, not surfaced). jumpToChange COUNTS them (N changes ⊇ M conflicts, not '0 changes clean auto-merge'). A true conflict still kind:'conflict'. Merge RESULT byte-identical (visibility-only). Reproduces IMG_4522 (one-sided line now highlighted).
 // R30.23 (v0.7.33, edit-BMERY5NZ.js). Behavior-first, DET-3x, SystemTester. Fixture refs = local git plumbing, torn down.
 import { execSync } from 'child_process';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const genv = { ...process.env, GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@x', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@x', GIT_AUTHOR_DATE: '2026-01-01T00:00:00', GIT_COMMITTER_DATE: '2026-01-01T00:00:00' };
 const g = (a, i) => execSync(`git -C ${REPO} ${a}`, { encoding: 'utf8', input: i, env: genv }).trim();

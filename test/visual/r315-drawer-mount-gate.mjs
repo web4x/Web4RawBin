@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R31.4 terminal drawer-mount gate (served==0.7.94), DET-3x. Client-only fix: the terminal mounts in the SHARED
 // rb-detail-drawer (RbDetailDrawer.showElement) — LEFT-aligned — instead of the bespoke centered .sm-term-overlay,
 // and minimize KEEPS the ws (onClose NOT fired) while FULL close fires onClose→teardown→ws.close (kills pty+session).
@@ -8,7 +9,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const TARGET = '0.7.94';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (path, headers = {}) => new Promise((r) => { const req = https.request({ host: HOST, port: PORT, path, method: 'GET', headers, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); req.on('error', () => r({ status: 0, body: '' })); req.end(); });

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T34.3 in-room UNIT-delete R40.106-INTEGRITY gate (planner-requested, Done-hit measure).
 // A unit delete DOES touch scenario/index → test the room finding's closest analog. On a SystemTester scratch room,
 // upload a file F (→ canonical scenario/index unit + F in room.files[]), then DELETE F via the destroy-unit endpoint
@@ -13,7 +14,7 @@ import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

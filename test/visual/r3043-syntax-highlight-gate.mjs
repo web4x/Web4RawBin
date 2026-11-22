@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:db352d49-0850-4ddc-a077-ecaca77f3ef3] R30.41 RbDiffEditor.applyLanguage 5e0e5cd5 — per-filetype syntax
 // highlighting in ALL 3 panes (Local/Result/Repository) of the 3-way merge editor, DETERMINISTIC after full mount
 // (applyLanguage runs at the END of both mountThreePane + loadSide, idempotent — .ts must not lose the Monaco-loader race).
@@ -7,7 +8,7 @@
 // v0.7.65 (edit-YLYSV5RK.js). DET-3x per filetype. SystemTester, read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OUT = 'test-results/r3043-syntax';
 const EXPECT_BRANCH = (process.env.OOSH_BRANCH || '').trim();
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

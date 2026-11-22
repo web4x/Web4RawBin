@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:055b26f5-8f4b-41ba-a114-7f254f643531] R22.4 renderImageLink
 // R22.4 gate — PNGs in /md/ file browser are clickable (🖼 <a href>) and open like SVGs.
 // Fix 9c052bd9a (listing clickable, server.ts:1222) + 4e3c3df0d (raster-image serve handler,
@@ -12,7 +13,7 @@
 //     testing hop: GREEN/CLEARED.
 
 import https from 'https';
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const get = (p) => new Promise((res) => {
   https.get({ host: HOST, port: PORT, path: p, rejectUnauthorized: false, timeout: 8000 }, (r) => {
     const ct = r.headers['content-type'] || ''; let d = ''; r.on('data', c => d += c); r.on('end', () => res({ status: r.statusCode, ct, body: d }));

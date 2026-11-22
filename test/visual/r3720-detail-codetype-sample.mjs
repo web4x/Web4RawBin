@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.20.3 verify (PO, code-model R30.21-risk set) — 'EVERY /model detail RENDERS'. The governance types (req/task/sprint)
 // rendered; this samples the CODE-MODEL types that a tree-expand does not surface: Class/Method/Implementation/Test/File/WebItem.
 // Drive the REAL detail path: mount rb-detail-drawer, set ref=<type>:<uuid> → resolveDetailUnit fetches /api/ior → the type's
@@ -6,7 +7,7 @@ import { webkit } from '@playwright/test';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SAMPLES = [
   { type: 'class', uuid: '015b1ac0-eb5d-4b4b-9749-84d3b2214421' },
   { type: 'method', uuid: '00d63275-37c0-4d74-8ab8-d2bd9643ed2b' },

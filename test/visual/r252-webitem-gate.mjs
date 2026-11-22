@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:3458dd89-5a4d-443c-8e29-ac91cb795ad2] R27.7 previewByType — type-router regression (http/pdf→preview-first, mailto/message/tel/calendar→launcher)
 // [test:uuid:b0a7a27d-8205-4399-a574-c39472a409fa] R25.2 WebItem.createAndLaunch — bare/scheme URL + .url/.webloc drop -> WebItem + launcher card (DET-3x GREEN)
 // v0.6.88 R25.2 WebItem gate. URLs dropped into a room now become ior:class:WebItem (not
@@ -24,7 +25,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const SCEN = path.join(__repo, 'scenario/index');
 const RUN = randomUUID().slice(0, 8);
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

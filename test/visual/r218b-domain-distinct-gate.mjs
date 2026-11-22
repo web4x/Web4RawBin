@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R21.8 AC-b3 RE-GATE — present-but-unmatched domain mints a DISTINCT Company unit
 // (does NOT fall through to nameKey reuse). Fix c22083798 v0.6.73, on top of 446d39d3e.
 //
@@ -20,7 +21,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const HOST = 'prod.wo-da.de', PORT = 4444, WSS = `wss://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, WSS = `wss://${HOST}:${PORT}`;
 const SCEN = path.join(__repo, 'scenario/index');
 const RUN = randomUUID().slice(0, 8);
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

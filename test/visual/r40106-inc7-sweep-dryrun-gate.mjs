@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PO belt-and-braces LIFT CONDITION: DRY-RUN the 45-debris sweep SELECTION — PRINT THE UUID SET it would delete, prove
 // = exactly the test-provenance orphans, 0 Tron/real-identity units selected, owner-clause LIVE in shipped code.
 // READ-ONLY (no deletes). Selection = orphan (location→non-resolving room) AND NOT protected AND NOT real-owned.
 import { execSync } from 'node:child_process'; import { readFileSync, existsSync } from 'node:fs'; import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED='0';
-const BASE='https://prod.wo-da.de:4444'; const REPO='/var/dev/Workspaces/web4x/Web4RawBin'; const IDX=REPO+'/scenario/index';
+const BASE=RB_BASE; const REPO='/var/dev/Workspaces/web4x/Web4RawBin'; const IDX=REPO+'/scenario/index';
 const bare=r=>String(r||'').replace(/^ior:instance:/,'').replace(/^[a-z][\w-]*:/i,'').split('@')[0];
 // REAL identities that must NEVER be swept (protected-set + known real accounts + their tombstones)
 const PROTECTED_IDS=(()=>{try{const j=JSON.parse(readFileSync('/root/.rawbin/protected-owner-identities.json','utf8'));return (Array.isArray(j)?j:j.protectedIdentities)||[]}catch{return[]}})();

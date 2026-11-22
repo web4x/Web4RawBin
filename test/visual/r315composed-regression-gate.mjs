@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:2b20035d-9f90-4518-aaf8-49d46dd21de1] R31.5.5 /edit-swap composed regression (Impl 3b8e6c24 RbEditorLayout.editorStripDescriptor) — GREEN DET-3x @390 v0.7.132: /edit?layout=r31.5 hosts the UNCHANGED rb-diff-editor via the [L,C,R] strip descriptor → FULL R30 diff/merge UNREGRESSED (deep-link restore + 3 panes co-visible always-3-col portrait + spline ribbons + 49/61 conflicts + folding + toolbar) AND layout=r31.5 == default /edit (presentation-only). Distinct composed-regression intention Test alongside the structural Test 432beb1a.
 // R31.5 FINAL composed gate (Sprint-31): /edit?layout=r31.5 hosts the UNCHANGED rb-diff-editor → the FULL R30 diff/merge
 // must be UNREGRESSED @390, and the MERGE stays ALWAYS-3-COLUMNS in portrait (TRON RULING #2, never snap). Guardrail is
@@ -11,7 +12,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.132';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.132';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const DEEP = (r31) => `/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1${r31 ? '&layout=r31.5' : ''}`;

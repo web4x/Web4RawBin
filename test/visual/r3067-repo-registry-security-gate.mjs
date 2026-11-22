@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:462c8bf4-ae51-4d97-8c92-3fcf6d3eb986] R30.6.7 RepoRegistry.resolve — security-probe reject-first (bad-key/abs/traversal/PUT-non-rawbin REJECT) (DET-3x GREEN)
 // R30.6.7 — RepoRegistry SECURITY-PROBE (reject-first, same discipline as R27.7 SSRF). prod v0.7.16.
 // The server exposes multi-repo file/git access via ?repo=<KEY> (rawbin|oosh). Security invariants:
@@ -10,7 +11,7 @@
 
 import https from 'https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444;
+const HOST = RB_HOST, PORT = RB_PORT;
 const req = (method, pathq, body) => new Promise((res) => {
   const data = body != null ? JSON.stringify(body) : null;
   const r = https.request({ host: HOST, port: PORT, path: pathq, method, rejectUnauthorized: false, timeout: 8000,

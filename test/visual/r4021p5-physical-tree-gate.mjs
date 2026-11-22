@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 PART 5 — puml PHYSICAL directory tree (v0.8.156, architect+PO backstopped). @390 real-WebKit, read-only.
 // THE DISCRIMINATOR (Tron's whole point): beneath the VIRTUAL puml collection, the same filename appears under DISTINCT
 // physical directory nodes — class-diagram.puml resolves under ≥4 distinct dir:<relpath> nodes (a virtual view shows it
@@ -6,7 +7,7 @@
 // duplicate Folder minted on re-open). Failability: a UNIQUE filename appears under exactly ONE dir (proves the
 // multi-dir reveal is a real discriminator, not "any file counts"); and distinct dirs carry distinct uuids (no collapse).
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const PUML = 'rawbin:puml';
 const TARGET = 'class-diagram.puml';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

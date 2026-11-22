@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:1dfe3d0f-6193-4525-b6f1-b63cebfd1812] R30.53 BUG-2 fold-affordance (Impl 2de3411f foldByMethodBoundaries) — every method-def at ALL scroll positions (incl the all-unchanged tail below the last change) has a foldable range: computeMethodRanges (its FoldingRangeProvider helper) must NOT desync the brace-parser on the CENTER both-versions duplication. Measured via the folding MODEL (engine-independent): detection reaches the tail, gap(methods−foldRanges)≤50 all panes. RED v0.7.79 (CENTER 20/104, gap 2528) → GREEN v0.7.81 (104/104, gap 0, signature/indent boundaries). Codicon chevron RENDER → Tron real-WebKit device.
 // R30.53 BUG-2 — fold affordance MISSING for methods below a boundary (Tron device-QA v0.7.79).
 // Root (measured DET): computeMethodRanges' NAIVE brace-depth parser desyncs on the CENTER both-versions render
@@ -10,7 +11,7 @@
 // SIGNATURE/INDENT (not brace-depth) → CENTER 104/104, gap 0 all panes. DET-3x. (NOTE: the fix EXPOSED a pre-existing
 // FIX-A residual parity desync in r3053b — a change-method 'private.complete.panes()' collapsed-in-LEFT below the old boundary.)
 import { chromium, devices } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const PROBE = `(async () => {

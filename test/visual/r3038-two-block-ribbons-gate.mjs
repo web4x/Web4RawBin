@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:5c9e2a71-8d34-4b0f-a6e2-3f71c085d946] R30.35 2-block render (the LAST gate of the merge-editor arc) — a BOTH-VERSIONS change draws TWO per-side HALF-ribbons (Local↔centerLeft OLDER + Repository↔centerRight NEWER, each to ITS center sub-span), NEVER one merged ribbon spanning both; a ONE-SIDED change is UNCHANGED (still 1 ribbon). Center shows 2 decos: older = de-block (dark tint) + newer = de-newer-<kind> (brighter 0.36 fill + accent bar).
 // GATE (DET-3x, SCREENSHOT + SVG-geometry + PIXEL, NOT DOM element-count): on the synthetic all-4-kinds fixture — for each change, parse its ribbon <path> d and count SUBPATHS (M commands): a both-versions change (a>0 && b>0) => 2 half-ribbons; a one-sided change (a>0 XOR b>0) => 1. AND center 2-decos: a both-versions change's center span has a DARKER (older de-block) row and a BRIGHTER (newer de-newer) row — pixel luma delta. Plus a real-diff spot-check at otmux line 73/74. Read-only vs prod (in-memory).
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3038-twoblock/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

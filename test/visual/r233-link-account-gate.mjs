@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T23.3 — Link Account (CONSOLIDATE) flow. Tron's original complaint: "link did not work
 // though my secret number was correct." Gate (DET-3x), SystemTester = the LINKER:
 //   (3) Link with CORRECT secret code -> CONSOLIDATE_OK.
@@ -15,7 +16,7 @@ import { randomUUID } from 'crypto';
 import { fileURLToPath } from 'node:url';
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const WSS = 'wss://prod.wo-da.de:4444';
+const WSS = RB_WSS;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const ROOM = '68d0f039-8668-4d2f-a904-2a23c5d6ecc3'; // System Test Room (SystemTester's)
 const PROFILES = path.join(__repo, 'data/profiles.json');

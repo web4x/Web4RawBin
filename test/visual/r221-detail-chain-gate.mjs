@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a392d306-4b01-40ff-bfc8-db74d8e1e720] R22.1 renderChainPathSection
 // R22.1 gate — detail views: ONE 'Traceability Chain' section (no duplicate 'No chain') +
 // Forward Links are clickable <a href> (orange) to the scenario MD browser. v0.6.75.
@@ -13,7 +14,7 @@
 
 import { chromium } from '@playwright/test';
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const VIEWS = [
   { type: 'task',        tag: 'rb-task-detail',        uuid: '0c1b375e-6a2a-4b35-bb64-b43adce88697' }, // T21.1
   { type: 'requirement', tag: 'rb-requirement-detail', uuid: '661836fd-2db8-4863-8556-0d698c897cd5' }, // R22.1

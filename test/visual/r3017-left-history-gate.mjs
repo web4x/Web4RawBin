@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9] R30.17 RbDiffEditor.populateLeftHistory (Impl 751934c1, supersedes populateRightHistory 58c11039) — file-history selector on the LOCAL pane; Open-Diff promotes working→RIGHT, LEFT auto-defaults to older-that-DIFFERS (HEAD~1 when clean) → non-zero diff older-on-LEFT; explicit LEFT pick wins (_leftUserPicked)
 // [test:uuid:9f755c32-12da-4d24-bc39-8e0c0a775120] R30.17 RbDiffEditor.renderInterPaneGutters one-sided origin-gating (Impl fd99c520, R30.17 TRON2/3) — ≫ (Take Local) shows ONLY where the hunk has local lines (a>0), ≪ (Take Repository) ONLY where it has repo lines (b>0) → a one-sided change shows an arrow on ONE side only
 // R30.17 (v0.7.27, hash edit-53EHOESP.js). Behavior-first, DET-3x, SystemTester. Fixture refs = local git plumbing, torn down.
@@ -5,7 +6,7 @@
 import { execSync } from 'child_process';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const REPO = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const genv = { ...process.env, GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@x', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@x', GIT_AUTHOR_DATE: '2026-01-01T00:00:00', GIT_COMMITTER_DATE: '2026-01-01T00:00:00' };
 const g = (a, i) => execSync(`git -C ${REPO} ${a}`, { encoding: 'utf8', input: i, env: genv }).trim();

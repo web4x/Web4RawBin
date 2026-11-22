@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a1d38f6e-4a8f-4877-af38-76063a772ecd] R31.10 (Req 797113c5) tree method-resolution in ALL modes — a UseCase with model.method SET resolves to THAT method in EVERY view (trace + non-trace/scenario), NEVER a sibling. Acceptance: UC drawer.observePosition (cc45a580) → observePosition (e8097351), NOT onGrabBarPointer. FIX server.ts:1644-1646 (chainMethod=UC.method un-gated on queryMode). DET-3x GREEN v0.7.136: API trace resolves + source-audit fix-un-gated + /trace+/scenario render @390 + onGrabBarPointer never resolved. → req mints onto the R31.10 resolver Impl.
 // R31.10 tree method-resolution across ALL modes — the IMG_4647 fix (req 797113c5). A UseCase whose model.method is SET
 // must resolve to THAT method (+ its chain) in EVERY view — trace-mode AND non-trace/scenario — NEVER a sibling on the
@@ -11,7 +12,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.136', REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, TARGET = '0.7.136', REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const UC = 'cc45a580-a401-4cee-9995-a10d7691bf40';        // UseCase drawer.observePosition (R31.9)
 const OBS = 'e8097351-f461-4d5b-a90d-5a384dec72af';        // Method observePosition (CORRECT)
 const SIBLING = 'onGrabBarPointer';                        // R25.4 sibling on the shared Class RbDetailDrawer (the bug)

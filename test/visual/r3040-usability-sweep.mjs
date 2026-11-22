@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R30 END-TO-END USABILITY SWEEP of the 3-way merge editor on Tron's REAL deep-link (v0.7.61, edit-CYBX5O6I.js).
 // Screenshots the ACTUAL rendered view (not fixtures/DOM-count) and collects gaps ranked by severity.
 // Areas: (1) 3-col multi-viewport incl sub-820, (2) SVG spline L→C→R + scroll-track, (3) merge actions ≫≪✕,
@@ -5,7 +6,7 @@
 // (8) edge cases (clean/one-sided/large/many), (9) mobile 3-col. Non-destructive (save via route-intercept). SystemTester.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3040-sweep';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:65cb5a36-1fb6-42d1-bf83-319600012d79] R30.51 Fold1 RbDiffEditor.applyChangesOnlyFolding (Impl 9493c08a) — on load all non-change gaps collapsed, only change regions visible (ruler jumps, 30/4004 lines), '▸ ⋯ N lines' chevrons. GREEN DET-3x @390 mobile v0.7.77.
 // [test:uuid:c42fceb6-01d5-470d-9969-2b369e5e15bf] R30.51 Fold2 RbDiffEditor.applyFold (Impl 2d7a0103) — one _collapsedGaps set → setHiddenAreas ×3 → tap a gap chevron reveals its lines in ALL 3 panes (Local/Center/Repository rulers all change) + chevron flips '▾'; re-collapse all 3. GREEN DET-3x @390 mobile.
 // [test:uuid:6259acfb-c6ed-4de7-a543-f8299dbf169f] R30.51 Fold3 guard RbDiffEditor.computeFoldRegions (Impl 23b416c2) — K=0 gaps = non-change ranges ONLY; native folding OFF (no native fold markers) → change/conflict regions have NO chevron = structurally uncollapsible; change-blocks+ribbons+syntax coexist. GREEN DET-3x @390 mobile.
@@ -12,7 +13,7 @@
 // DET-3x, PIXEL screenshots at 390 mobile.
 import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;   // Tron's real URL (PO directive)
 const OUT = 'test-results/r3051-iphone';
 const IPHONE = devices['iPhone 12'];

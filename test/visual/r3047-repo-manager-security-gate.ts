@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R30.47 repo-manager FOUNDATION security gate (UC3 registry + UC8 guards D2/D4) — RE-GATED at v0.7.71 (edit-CFIREFTX.js).
 // ★ SPINE CHANGED since the v0.7.67 gate (V1 §10/§10.1 simplification — re-gated to the SERVED code, served==gated law):
 //   • D1 assertAllowedRoot is now DORMANT — the FUNCTION still exists (logic preserved for backlog D1) but register/resolve/load
@@ -135,7 +136,7 @@ try {
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
   const ctx = await browser.newContext({ ignoreHTTPSErrors: true });
   const page = await ctx.newPage();
-  await page.goto('https://prod.wo-da.de:4444/app', { waitUntil: 'domcontentloaded' });
+  await page.goto(RB_BASE + '/app', { waitUntil: 'domcontentloaded' });
   const liveRepos = await page.evaluate(async () => { try { return await (await fetch('/api/git/repos')).json(); } catch { return null; } });
   await browser.close();
   const arr = Array.isArray(liveRepos) ? liveRepos : (liveRepos?.repos || []);

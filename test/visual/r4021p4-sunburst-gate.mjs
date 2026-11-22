@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.21 PART 4 — child-size SUNBURST (sunburst.ts renderChildSizeSunburst, v0.8.155 40545ce9d). Architect discriminators
 // (c165e2506): arc-count == direct-child-count · LARGEST-childCount child = LARGEST arc (MEASURED from rendered geometry:
 // longest path getTotalLength, NOT re-derived) · deterministic order == API child order (architect: renderer does NOT sort
@@ -7,7 +8,7 @@
 // unit's real /api/trace/children). No auth, no writes, no identities. FAILABILITY: arc-count bites (drop a path) +
 // proportional bites (unequal-size/equal-len → largest≠largest). (Real folder-TYPE triggering is P1's job; P4 = renderer.)
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,
   userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1' };

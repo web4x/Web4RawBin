@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R36.4 authored-trace — ENGINE-INDEPENDENT MECHANISM gate (PO: gate the mechanism, not a fragile click-fire), DET-3x.
 // (1) IDEMPOTENT mint: authorTrace uuid = keyToUuid('umltrace::<from>::<to>::<relation>') → same triple = SAME uuid (re-draw
 //     never dups); ANY component change (from/to/relation) = DIFFERENT uuid. Imports the REAL keyToUuid (TsToModel) — the
@@ -14,12 +15,12 @@ import https from 'node:https';
 import { keyToUuid } from '../../src/ts/scenario/TsToModel.js';
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df'; // SystemTester = a real NON-owner (feature-gate must still 403)
 const req = (method: string, p: string, headers: Record<string, string> = {}) => new Promise<{ status: number }>((res) => {
-  const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method, headers, rejectUnauthorized: false }, (r) => { r.on('data', () => {}); r.on('end', () => res({ status: r.statusCode || 0 })); });
+  const q = https.request({ host: RB_HOST, port: RB_PORT, path: p, method, headers, rejectUnauthorized: false }, (r) => { r.on('data', () => {}); r.on('end', () => res({ status: r.statusCode || 0 })); });
   q.on('error', () => res({ status: 0 })); if (method === 'POST') q.end('{}'); else q.end();
 });
 const V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
-const cfg = await new Promise<string>((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res(b)); }); q.on('error', () => res('{}')); q.end(); });
+const cfg = await new Promise<string>((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res(b)); }); q.on('error', () => res('{}')); q.end(); });
 console.log(`served ${JSON.parse(cfg).version} (mechanism gate is engine-independent — served-verified for the 403 probe)`);
 
 const runs: boolean[] = [];

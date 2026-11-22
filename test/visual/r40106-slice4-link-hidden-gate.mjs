@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // v0.8.217 — "Link here" affordance GATED OFF (offered⟺succeeds; hidden until INC-6 edge-aware render lands, since
 // a link's children[] edge does not yet render under the target folder = no visible effect = broken promise).
 // Gate (resolver-only, no room): applicableActionsFor for a FILE does NOT offer 'link', but STILL offers move + rename
@@ -7,7 +8,7 @@ import { execSync } from 'node:child_process';
 import { writeFileSync, unlinkSync } from 'node:fs';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const NODE = '/root/.vscode-server/bin/dc96b837cf6bb4af9cd736aa3af08cf8279f7685/node';
-let served = '?'; try { served = JSON.parse(execSync('curl -sk https://prod.wo-da.de:4444/api/config', { encoding: 'utf8' })).version; } catch {}
+let served = '?'; try { served = JSON.parse(execSync(`curl -sk ${RB_BASE}/api/config`, { encoding: 'utf8' })).version; } catch {}
 
 // resolver: offered verbs for a file
 const tmp = `${REPO}/test/visual/.link-hidden.ts`;

@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:9e4c1a67-3b82-4d05-a1f6-2c7e5b90d834] R30.34 responsive connector SPLINE — INDEPENDENT PIXEL gate (screenshot + pixel sampling, NEVER DOM-count; measured differently from the expert's orientation-probe). renderConnectorRibbons (5051b2a4) draws ONE continuous spline per change Local→Result→Repo: HORIZONTAL sweep on desktop (>820px, both inter-pane gutters filled) / VERTICAL left-margin flow when stacked (≤820px). fill-opacity 0.30 (the rejected boxes were 0.28 = near-identical, Tron called faint a defect).
 // Asserts (DET-3x, both orientations): (1) STRUCTURE — desktop: a COLORED ribbon is present in BOTH the L↔C and C↔R gutters (spline sweeps ACROSS); mobile 390px: panes STACK (center below local) and a colored ribbon flows DOWN the left margin. (2) PROMINENCE — our ribbon-fill pixel vs its gutter bg, compared to the Rider TARGET's ribbon-vs-bg (diagrams/R30.32-TARGET-rider-merge-connectors.png): report both numbers + verdict (as-prominent vs FAINTER). Ribbon detection uses a CHROMA filter (max−min channel > 25) so gray line-number text is never mistaken for a colored ribbon. SystemTester-only, read-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const TARGET = new URL('../../scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.32-TARGET-rider-merge-connectors.png', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

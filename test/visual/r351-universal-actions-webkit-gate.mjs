@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // S35 R35.1 — legacy per-detail buttons → universalActionBar actions. registerUniversalActions (Impl b8f284c6,
 // universal-actions.ts): the shared drawer self-registers a TYPE-CONDITIONAL provider + handler on EVERY page (room/
 // trace/model), converting the 4 bespoke buttons (vcard/preview/new-tab/proxy) into bar verbs. CLIENT-ONLY change →
@@ -11,12 +12,12 @@
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const TARGET_BUNDLE = process.env.R351_BUNDLE || 'app-2UVCBLW6.js'; // gate the BUNDLE (client-only), not /api/config (v0.8.50 client: INV-2 residuals fixed)
 const OUT = path.join(ROOT, 'test-results/r351-universal-actions') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 // served-bundle guard (client-only): confirm /app serves the TARGET bundle (== committed) before crediting.
-const appHtml = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/app', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res(b)); }); q.on('error', () => res('')); q.end(); });
+const appHtml = await new Promise((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/app', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res(b)); }); q.on('error', () => res('')); q.end(); });
 const servedBundle = (appHtml.match(/app-[A-Z0-9]+\.js/) || ['?'])[0];
 console.log(servedBundle === TARGET_BUNDLE ? `served /app bundle == ${TARGET_BUNDLE} verified — SERVED (client-bundle) verdict on ${process.env.WK ? 'WebKit' : 'chromium'}.` : `⚠ BUNDLE-GUARD: served=${servedBundle} != ${TARGET_BUNDLE}.`);
 

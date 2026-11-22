@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c1a2e5b7-6f30-4d18-9a7c-3e8b1f0d24a9] R30.9/R30.10/R30.12 3-way merge VISUAL proof — Tron screenshot request
 // CASE 1 (R30.12): README.md current vs FIRST version (f552593, via file-history) → 2-way TAKE-OVER now WIRED
 //   (computeTwoWayHunks def2c0f2, v0.7.20). ◄/► arrows render; ► pulls the first-version line into CENTER. DET-3x.
@@ -14,7 +15,7 @@ import fs from 'fs';
 import path from 'path';
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OUT = path.join(REPO, 'test-results/merge-visual');
 fs.mkdirSync(OUT, { recursive: true });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

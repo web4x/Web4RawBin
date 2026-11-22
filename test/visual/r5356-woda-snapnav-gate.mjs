@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:432beb1a-a6fe-44d2-8e68-c76b36617566] R31.5.5 RbEditorLayout.editorStripDescriptor (Impl 3b8e6c24) — GREEN DET-3x @390 v0.7.119: pure descriptor [C:Left, bar:leftCB, C:Center, bar:rightCB, C:Right] (nav Left/Center/Right) drives an rb-strip INSTANCE → 3 compartments + 2 bars (one-model-two-instances alongside WODA 5.6). AC-INV-PRESENTATION.
 // [test:uuid:d826997d-dd96-4b52-95fe-d3e269cc8edf] R31.5.6 RbWoda.wodaStripDescriptor (Impl 5f9d2a7c) — GREEN DET-3x @390 v0.7.119: pure descriptor [bar:What, C:Overview, C:Details, bar:Actions] (exact shape) drives an rb-strip INSTANCE → 2 compartments + 2 bars (one-model-two-instances). AC-INV-PRESENTATION.
 // [test:uuid:99ab8d5e-5def-4763-9efa-889bfb45c34d] R31.5.3 RbSnapNav.render (Impl 7c1f9a3e) — GREEN DET-3x @390 v0.7.119: one .rb-snap-btn per COMPARTMENT of the bound strip (Alpha|Gamma), BARS NOT buttons (Bar1 excluded), labels from descriptor, click → native scrollIntoView snap fires. AC-INV-PRESENTATION.
@@ -7,7 +8,7 @@
 // rb-strip instance); snap-nav = one button per COMPARTMENT (bars are NOT buttons), click → native scrollIntoView snap.
 import { chromium, devices } from '@playwright/test';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const SCRATCH = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad';
 const BUNDLE = fs.readFileSync(`${SCRATCH}/r5356-bundle.js`, 'utf8');
 const SHELL = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/app.css"></head><body><div id="host"></div><script type="module">${BUNDLE}</script></body></html>`;

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R33.5 item1 — ModelView.addDiagram (Impl ffdd9347, Method 85a36ec2, UC diagram.addDiagramRefresh) @390 GATE, DET-3x.
 // AC-add-diagram-creates-itemview: on /model, clicking the action-bar "＋ Add Diagram" → a NEW diagram itemview renders
 // under diagrams/ WITHOUT a full reload (the fix: load()+tree.expandPath reveal; old bug = full reload collapsed it out).
@@ -16,7 +17,7 @@
 import { chromium, webkit, devices } from '@playwright/test';
 const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390 (WebKit≠chromium false-green class)
 import fs from 'node:fs'; import path from 'node:path';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r335b-item1') + '/'; fs.mkdirSync(OUT, { recursive: true });
@@ -34,7 +35,7 @@ const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="view
 
 async function runOnce(browser, i, { failCreate }) {
   const ctx = await browser.newContext({ ...devices['iPhone 12'], ignoreHTTPSErrors: true, serviceWorkers: 'block' });
-  await ctx.addCookies([{ name: 'sm_session', value: 'test-owner-session', domain: 'prod.wo-da.de', path: '/' }]); // R31.4 by-construction owner marker
+  await ctx.addCookies([{ name: 'sm_session', value: 'test-owner-session', domain: RB_HOST, path: '/' }]); // R31.4 by-construction owner marker
   const page = await ctx.newPage();
   let created = false;
   await page.route(u => u.pathname === '/model', r => r.fulfill({ status: 200, contentType: 'text/html', body: SHELL }));

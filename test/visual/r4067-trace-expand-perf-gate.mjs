@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // /trace TREE EXPAND PERF GATE (P0, Tron regression B) — the perf/lazy AC (req 94c1211c 'eager-lazy Sprints collection',
 // ~100ms) had NO gate on the USER's surface: r301 gates /trace STRUCTURE (STALE Sprint-30-era hardcode, PHANTOM — invoked
 // by no runner, no fetch-count assert), r332b gates the /MODEL tree perf. So the /trace tree's fan-out regressed silently.
@@ -46,7 +47,7 @@ function structuralAssertion() {
 
 // BASE: prod (read-only, default) OR — GATE_BUILDDIST=1 — a buildDist-from-HEAD scratch (contains the expert's fan-out fix;
 // verifies count===1 + isolates task-latency WITHOUT fan-out pressure = the PO's coupling test done with the REAL fix).
-let BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+let BASE = process.env.GATE_BASE || RB_BASE;
 let foundation = null;
 if (process.env.GATE_BUILDDIST) { const { setupFoundation } = await import('./r4031-foundation.mjs'); foundation = await setupFoundation({ buildDist: true }); BASE = foundation.base; console.log(`(buildDist scratch from HEAD ${foundation.worktreeSha}, v${foundation.servedVersion})`); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

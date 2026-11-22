@@ -1,9 +1,10 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:9b4e7c25-6f81-4a30-b5d2-8c1f3e07a964] Conflict-merge optimization (reconcile-corrected, derived + override) — resolution is DERIVED-primary (one version in center = resolved / both coexist = unresolved) with a MANUAL OVERRIDE (✓ force-resolves a 2-line KEEP-BOTH, or re-opens a 1-line); any ≫/≪/✕ re-derives. A 2-line both-versions change shows only ✕ (remove each side), a missing side shows its ≫/≪ add-back; dropping a side auto-resolves + AUTO-JUMPS to the next unresolved; openChangeCount = derived-unresolved minus overrides.
 // GATE (DET-3x, screenshot+pixel for the ✓ solid state + feature model/count, NOT DOM element-count): synthetic all-4-kinds fixture (modify/conflict = 2-line both-versions; add/delete = one-sided). (1) a 2-line change offers BOTH ✕ (rm-left+rm-right), NO ≫/≪; (2) ✕ drops a side → 1 line → derived-RESOLVED (✓ solid) → auto-jump to next unresolved; (3) after the drop, that side's ≫/≪ add-back appears; (4) openChangeCount = 2-line-unresolved minus overrides, decrements correctly; (5) OVERRIDE: ✓ on a 2-line KEEP-BOTH → both lines REMAIN + ✓ solid + count decremented. Read-only vs prod (in-memory).
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`;
 const OUT = new URL('../../test-results/r3037-derived/', import.meta.url).pathname;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

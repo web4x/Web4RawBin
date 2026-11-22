@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:5c7e0a91-4d38-4b6f-9a02-8e13f6c7b5d4] T40.11 AC-1(graph)/AC-2(source-crown)/AC-3(generic-view)/AC-4(fail-loud) — THIRD INDEPENDENT measurement. The expert measured the RENDER (r4011c drawer @390) and the architect the EMITTER ROWS (check:tree-emitter); this measures the GRAPH + DISK, a dimension neither touched: typed IOR edges read from the graph (not strings) + the crown FileBacked→real-on-disk-file resolution BY QUERY, cross-referenced to the served render-data. Deterministic (disk graph + fs + served /api/trace/children), DET-3x. Read-only.
 // PHANTOM-GUARD FIRST: served==committed (package.json version == /api/config) — never a back-version (my own catch, now doctrine). AC-5-DEVICE (Tron taps→pixel @390) is NOT here (Tron-only device-pending). AC-5-AUTO split to a next-phase req. META-BITE: a stub FileBacked realizer with a bogus manifestsAs MUST make the crown go RED (a check that can't fail certifies nothing). node22: PATH=/opt/node22/bin:$PATH npx tsx test/visual/r4011-graph-disk-gate.ts
 import fs from 'node:fs';
@@ -6,7 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from '../../src/ts/scenario/index-store.ts';
 
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const idx = new ScenarioIndex(path.join(ROOT, 'scenario/index'));
 const FILEBACKED = 'a1d2e3f4-0000-4a1b-8c2d-000000000031'; // M2 FileBacked interface sentinel (instanceOf a realizer)

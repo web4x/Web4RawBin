@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R27.8 FULL-LIFECYCLE gate (Tron + architect repro). Every transition, DET-3x on prod. Catches the
 // 2 REAL bugs on REAL paths (architect: synthetic click didn't reproduce — the bugs are visibility/state,
 // not remove/close):
@@ -11,7 +12,7 @@
 // existing WebItems (no drop), SW-cache bypassed. READ-ONLY, 0 pollution.
 
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const A = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';   // WebItem A
 const B = 'b57d2f42-0cc4-4fa4-84c6-acaebe40a48a';   // File B (Volker.ics)
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4bc24d24-ffcb-4adc-a3bb-27819ae63b7d] R30.4 RoomBrowser.applyProfileName — lobby resolves saved profile name on initial load (DET-3x GREEN)
 // R30.4 gate — lobby resolves the saved profile name on initial load (RoomBrowser.applyProfileName,
 // impl 9b9732be, prod v0.7.12). Fix: subscribe BOTH MSG.PROFILE (initial) + MSG.PROFILE_UPDATED ->
@@ -13,7 +14,7 @@
 // MSG.PROFILE → applyProfileName) resolves it to the real 'SystemTester'. Assert that resolution.
 
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const PROFILE_NAME = 'SystemTester';   // ce981242's committed server profile name
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

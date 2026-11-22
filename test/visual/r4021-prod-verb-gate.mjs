@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PROD REAL-VERB-UI GATE (PO 2026-09-03, v0.8.167) — gate defect-1 (bad-parent-loc) the way TRON does it: the exact
 // Add-folder VERB-UI click-flow on PROD @390, ts AND shared, NOT a hand-built POST. Capture the real request+response per node.
 // ★ If the harness must DEVIATE from his click-flow to run (e.g. auth-blocked, verb button absent), the DEVIATION IS THE FINDING —
@@ -9,7 +10,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1' };
 const R = (v) => console.log(v);
@@ -28,7 +29,7 @@ const created = []; // {uuid, location} to clean up
 let verdict = [];
 try {
   const ctx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
-  if (smSession) await ctx.addCookies([{ name: 'sm_session', value: smSession, domain: 'prod.wo-da.de', path: '/' }]);
+  if (smSession) await ctx.addCookies([{ name: 'sm_session', value: smSession, domain: RB_HOST, path: '/' }]);
   await ctx.addInitScript((t) => { try { localStorage.setItem('rawbin-player-id', t); } catch {} }, OWNER);
   const page = await ctx.newPage();
   // capture the REAL verb's network call

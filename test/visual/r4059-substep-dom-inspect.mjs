@@ -1,7 +1,8 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // DEFINITIVE: where does 'processing change requests' actually render in T40.1's detail? Structured .dv-status-checklist
 // (⇒ my reader scoping is wrong) or only raw md (⇒ real 'sub-step not shown structurally' gap)? Inspect the DOM, don't guess.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const TASK = '7a956c21-5f37-4062-b921-9bdd5a461546';
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));

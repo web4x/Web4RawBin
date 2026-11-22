@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T36.5 Where-used DISPLAY mechanism — INDEPENDENT tester gate, @390 real-WebKit, DET-3x, served v0.8.64.
 // The display is built in rb-modelelement-detail.ts:70-84 (impl 7e147ad8): a "Where used" section that LISTS m.usedIn as
 // .dv-link rows (diagram → drill diagram:<uuid> via selectionModel.replaceWith) or "Not used" when empty. m.usedIn is the
@@ -11,7 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const TARGET = process.env.R365C_TARGET || '0.8.64';
 const USAGE = path.join(ROOT, 'data/model-store/usage-index.json');
 const OUT = path.join(ROOT, 'test-results/r365c-whereused') + '/'; fs.mkdirSync(OUT, { recursive: true });
@@ -23,10 +24,10 @@ const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="view
 
 const http = (method: string, p: string, body?: any): Promise<number> => new Promise((res) => {
   const data = body ? JSON.stringify(body) : undefined;
-  const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method, rejectUnauthorized: false, headers: data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (r) => { r.on('data', () => { }); r.on('end', () => res(r.statusCode || 0)); });
+  const q = https.request({ host: RB_HOST, port: RB_PORT, path: p, method, rejectUnauthorized: false, headers: data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (r) => { r.on('data', () => { }); r.on('end', () => res(r.statusCode || 0)); });
   q.on('error', () => res(0)); if (data) q.write(data); q.end();
 });
-const served = await new Promise<string>((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
+const served = await new Promise<string>((res) => { const q = https.request({ host: RB_HOST, port: RB_PORT, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 console.log(served === TARGET ? `served==${TARGET} verified — SERVED verdict on real-WebKit.` : `⚠ PHANTOM-GUARD: served=${served} != ${TARGET}.`);
 
 async function iter(page: any, shot: boolean) {

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.10 — TaskQaVerdict approve/decline (Tron's one-tap QA sign-off). approveByOwner 36b6ce2e + declineToChangeRequest
 // 90089602, endpoint POST /api/task/<uuid>/{approve,decline}. INDEPENDENT device+integrity gate, DET-3x.
 // Run: /opt/node22/bin/node --import tsx test/visual/r4010-qa-verdict-gate.ts   (served==committed==HEAD==0.8.76 verified).
@@ -45,7 +46,7 @@ const approveStub = (idx: any, taskUuid: string, tok8: string, now: string) => {
 const mkTask = (uuid: string, status: string) => ({ ior: 'ior:class:Task', model: { uuid, name: 'scratch task ' + status, status, requirements: ['ior:instance:11111111-1111-4111-8111-111111111111'] }, ownerIor: 'ior:instance:req' });
 
 const httpsPost = (p: string, headers: Record<string, string> = {}) => new Promise<number>((res) => {
-  const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method: 'POST', headers, rejectUnauthorized: false }, (rs) => { rs.on('data', () => {}); rs.on('end', () => res(rs.statusCode || 0)); });
+  const r = https.request({ host: RB_HOST, port: RB_PORT, path: p, method: 'POST', headers, rejectUnauthorized: false }, (rs) => { rs.on('data', () => {}); rs.on('end', () => res(rs.statusCode || 0)); });
   r.on('error', () => res(0)); r.end();
 });
 

@@ -1,3 +1,4 @@
+import { RB_BASE } from '../visual/_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PRE-MIGRATION BEHAVIOURAL BASELINE — the runtime OUTPUTS git cannot replay (file-state is covered by the model-store
 // snapshot + git-tracked scenario/index). Captures the ACTUAL /api/trace/children output for every ref reachable in the
 // MODEL subtree (mof-m1 → projects → dirs → classes → methods/attributes — the paths that READ MODEL_STORE) plus the authored
@@ -7,7 +8,7 @@
 import fs from 'node:fs';
 import https from 'node:https';
 
-const BASE = process.env.BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.BASE || RB_BASE;
 const NODE_CAP = Number(process.env.NODE_CAP || 1200);   // bound the model-subtree walk
 const agent = new https.Agent({ rejectUnauthorized: false });
 

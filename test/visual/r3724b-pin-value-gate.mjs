@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:3a6f0d92-8c14-4e7b-a5d0-9f2e1b7c6a48] T37.24 / R40.18 slice-1 AC-1 — CurrentSprint pin @390 real-WebKit VALUE + RENDER gate. Family: real-time-MVC / pin-correctness / payload-is-not-pixels.
 // ★ CATCHES a false-green I made: the pin name RENDERED "📌 Current — Task 37.24:…" with a LITERAL "…" while the payload was FULL, so a DOM-string/clamp check passes while Tron sees truncation. Assert the RENDERED innerText (what's on screen), never the payload/textContent (a hidden full copy + "…" fooled the first pass).
 // ★ ROOT CAUSE (MEASURED by expert+architect, 2026-08-17 — corrects my earlier GUESS of a server slot-label string-truncation, and the PO's same guess): rb-object-item generateName() = words.slice(0,5)+'…' = a RENDER-side truncation. The item received the FULL title; generateName clipped it. NOT the slot-label string, NOT CSS. Fix: the pin row passes the full name so getAttribute('name') wins and generateName is bypassed. LESSON (mine): my innerText discipline correctly CAUGHT the defect, but I GUESSED the mechanism — measure the WHY, don't relay a guess as diagnosis. served==committed dynamic phantom-guard. DET-3x @390 real-WebKit.
@@ -5,7 +6,7 @@
 import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'node:fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const OUT = 'test-results/r3724b-pin-value'; fs.mkdirSync(OUT, { recursive: true });
 const ELLIPSIS = /[…]|\.\.\./; // literal ellipsis char OR three dots in the RENDERED name

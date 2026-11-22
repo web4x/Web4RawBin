@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:501f17ad-5e4b-4746-8aa1-8b7c3669955b] R40.28 AC-6 RbDetailDrawer.onUniversalAction new-tab actual-open (Impl 7557bd7c) — a real tap-seam (rb-drawer-action) on ◆Scenario/✎Edit opens a NEW browsing context (page event, NOT a target=_blank DOM attr), verified on real WebKit @390 for BOTH the sync-uuid path and the synthetic-ref about:blank→pointed path (empty-container killed). AC-7 iOS silent-block = device-only (Tron). GREEN DET-3x.
 // R40.28 AC-6 — ◆Scenario/✎Edit open a NEW TAB. GATE the ACTUAL open (a NEW browsing context really opens, page
 // event — NOT a target=_blank DOM attr: the empty-container trap), on REAL WebKit @390 (iPhone context). Impl
@@ -10,7 +11,7 @@
 // AC-7 (iOS silently blocks a NON-sync open) is DEVICE-ONLY — headless WebKit does not enforce the sync-gesture rule
 // (measured in r4028-newtab-mechanism-selftest) → Tron device-verify, not here. served==0.8.84==HEAD (no phantom). DET-3x.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false,
   userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const UUID = '005dbd3e-19e3-473f-944b-96c4e8053b4a';   // a real scenario-unit uuid → sync-uuid path builds /scenario?ior=<uuid>

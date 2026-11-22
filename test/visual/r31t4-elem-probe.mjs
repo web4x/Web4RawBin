@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PROBE: pin WHY 2 sm_ still spawn on v0.7.131. (a) which server-manager bundle does the served page reference
 // (U45YYYE7 = fixed / SN3PT4WW = stale)? (b) how many <rb-terminal-detail> elements exist after one pane open
 // (1 = single-element double-mount [fix should apply] / 2 = drawer double-render [element self-teardown can't help])?
@@ -5,7 +6,7 @@ import { chromium, devices } from '@playwright/test';
 import https from 'node:https';
 import { execSync } from 'node:child_process';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, OWNER = OWNER_LITERAL;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`, OWNER = OWNER_LITERAL;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const sm = () => { try { return execSync("tmux ls -F '#{session_name}' 2>/dev/null | grep '^sm_' || true", { encoding: 'utf8' }).split('\n').map(s => s.trim()).filter(Boolean); } catch { return []; } };
 const seedOwner = (ctx) => ctx.addInitScript((o) => { localStorage.setItem('rawbin-player-id', o); localStorage.setItem('rawbin-name', 'Owner'); localStorage.setItem('rawbin-device-privateKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-publicKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-signature', 'e2e-bypass'); }, OWNER);

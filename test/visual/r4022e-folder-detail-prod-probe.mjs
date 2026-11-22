@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // PROD folder-detail EMPTY-BODY probe (Tron's 0.8.174 screenshot: duplicates SELECTED, verbs present, body BLANK). READ-ONLY.
 // Distinct from the scratch verb-gap: on PROD folders carry REAL uuids → /api/ior RESOLVES (verbs show) but the detail body
 // is empty. Characterize WHY: mount rb-detail-view for a top-level folder (duplicates real uuid, then Trash), record which
 // /api/trace/children ref it fetches + status, and dump which body sections render (.dv-fields / .dv-scenario-children /
 // .dv-sunburst) vs blank. Read-only: GETs only, no writes, no folders, no touching Tron's data. Screenshot @390.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 // Mount by the ROOMCOLL LOCATION ref — the ref the (fixed) items-tree hands a room folder, i.e. what Tron's REAL selection
 // uses. On the OLD build /api/ior for this ref is null → empty; on the FIXED build it resolves → children+sunburst. So this
 // is both faithful-to-Tron AND a clean RED→GREEN discriminator. (Real uuids 3344ade1/3e041bff kept in comments for reference.)

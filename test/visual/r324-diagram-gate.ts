@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:d41e0030-6175-40e5-9f3f-32b5d15b4938] R32.4 SVG-diagram-in-drawer GREEN DET-3x v0.8.4: buildDiagramSvg (nodes from view-LINKS R25.7, UML name/attr/method compartments, M2-facet kind->interface stereotype, EDGES EXCLUDED R32.6, box data-ref select-target) + additive tagMap diagram->rb-diagram-detail (standard renderDetailForRef, no overlay/fork) + RbPanZoom reuse + resize-fit + /trace/SM regression. Own-oracle (import real buildDiagramSvg ba96a744) + planted-defect bites. -> req wires onto Impl ba96a744.
 // R32.4 MDA SVG-diagram-in-drawer — INDEPENDENT gate (own oracle + planted-defect bite), DET-3x. served==HEAD==v0.8.4.
 // R32.4 = the diagram surface is a DRAWER detail-view (rb-diagram-detail, additive tagMap, standard renderDetailForRef —
@@ -11,7 +12,7 @@ import { readFileSync } from 'node:fs';
 import https from 'node:https';
 import { chromium } from '@playwright/test';
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const httpGet = (path: string): Promise<{ status: number; body: string }> => new Promise((res) => { const rq = https.request({ host: 'prod.wo-da.de', port: 4444, path, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => res({ status: r.statusCode || 0, body: b })); }); rq.on('error', () => res({ status: 0, body: '' })); rq.end(); });
+const httpGet = (path: string): Promise<{ status: number; body: string }> => new Promise((res) => { const rq = https.request({ host: RB_HOST, port: RB_PORT, path, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => res({ status: r.statusCode || 0, body: b })); }); rq.on('error', () => res({ status: 0, body: '' })); rq.end(); });
 
 // ── Part A: run the REAL buildDiagramSvg against a synthetic view-set + PLANTED-DEFECT BITES (own oracle) ──
 function partA() {
@@ -56,7 +57,7 @@ async function partC(browser: any) {
   // AC1/AC4: the additive component actually ships + is a registered custom element on the shared /trace surface (no fork).
   const ctx = await browser.newContext({ ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   const page = await ctx.newPage();
-  await page.goto('https://prod.wo-da.de:4444/trace', { waitUntil: 'domcontentloaded' });
+  await page.goto(RB_BASE + '/trace', { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => !!customElements.get('rb-detail-drawer'), { timeout: 15000 }).catch(() => {});
   const defined = await page.evaluate(() => ({ diagram: !!customElements.get('rb-diagram-detail'), drawer: !!customElements.get('rb-detail-drawer') }));
   await ctx.close();

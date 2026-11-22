@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:8f3a1d05-4e72-4b96-a3c1-6d0f9e2b7a48] R40.4 SprintLabel.sprintLabel (Impl e7fb7e65) — the all-surfaces RENDER
 // half (the single-source half is r404-sprint-label-single-source-gate.mjs): the 'Sprint N' number is RENDERED on the
 // tree row (rb-trace-tree:475) AND the detail-header (rb-detail-drawer:309), @390 real-WebKit, fully visible + NOT
 // truncated (pixel/geometry, never a DOM-count). This is the row I pulled OFF Tron's device list as automatable — honoring it.
 import { webkit, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 const browser = await webkit.launch();

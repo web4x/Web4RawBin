@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:e5b1c9a3-4d72-4e18-b90f-3a6c8d2e71f4] R40.19 + T40.7 (R40.7 6ce80195) SHARED — back-nav behaviour: (A) genuine history.back returns to prior VIEW not folder (Impl historyBack 6b4d7714) + (B) path-label navigates to containing FOLDER (Impl pathLabelNav 197054f9) + DISTINCT (neither does the others job, one flow). ONE Test serves feature-works (T40.7) AND does-not-regress (R40.19); do NOT mint a 2nd — same behaviour, same 2 impls.
 // R40.19 — History back-navigation regression gate (architect design 31f40eb32). Protects rb-editor-toolbar.ts
 // historyBack (Impl 6b4d7714, #tb-back → window.history.back) + pathLabelNav (Impl 197054f9, #tb-path → /md/<parent>/).
@@ -10,7 +11,7 @@ import { webkit, devices } from '@playwright/test';
 import { execSync } from 'node:child_process';
 import https from 'node:https';
 import fs from 'node:fs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const A = 'scripts/check-sprint-label.ts';   // in a folder → containingFolderHref = /md/scripts/
 const B = 'package.json';                     // root file → distinct history entry
 const iPhone = devices['iPhone 12'];

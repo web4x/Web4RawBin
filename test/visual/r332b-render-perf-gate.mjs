@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:96a4bda8-e87b-4dd8-afc4-b03311725f55] S33-P2b/R33.2 render-perf — verifies the bounded/lazy model tree (mofLayerRoots extended): initial /api/model/tree = 2 COLLAPSED MOF-layer roots (≪1195), each expand = ONE bounded /api/trace/children fetch (M1→projects, RawBin→~25 file-folders, NOT 1195), classes reachable (P2-1), /model 403. BITE: initial ≤12 ≪1195 (non-vacuous, full model ~1195). Own-oracle real lazy API walk, read-only. → req wires this Test onto the R33.2 impl (mofLayerRoots-extended lazy/children).
 // S33-P2b (R33.2) render-perf — the BOUNDED/LAZY model tree (my S33-P2a 1195-node perf-flag drove this fix), DET-3x.
 // /api/model/tree now returns the TOP MOF layer COLLAPSED (no eager children) + each expand = ONE bounded
@@ -7,8 +8,8 @@
 // The @390 model-tree VISUAL render is on the owner-gated /model page = Tron device; this gates the perf MECHANISM the render depends on.
 import https from 'node:https';
 
-const BASE = 'https://prod.wo-da.de:4444';
-const req = (pth, tok) => new Promise((res) => { const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: pth, method: 'GET', rejectUnauthorized: false, headers: tok ? { 'x-player-token': tok } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j, body: b }); }); }); r.on('error', () => res({ status: 0 })); r.end(); });
+const BASE = RB_BASE;
+const req = (pth, tok) => new Promise((res) => { const r = https.request({ host: RB_HOST, port: RB_PORT, path: pth, method: 'GET', rejectUnauthorized: false, headers: tok ? { 'x-player-token': tok } : {} }, x => { let b = ''; x.on('data', c => b += c); x.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: x.statusCode, json: j, body: b }); }); }); r.on('error', () => res({ status: 0 })); r.end(); });
 const nodeCount = (body) => (String(body || '').match(/"uuid"/g) || []).length;
 const BOUND = 12;                                              // "≪1195" — a meaningful bound (full model ~1195); a regression to eager would blow past it
 

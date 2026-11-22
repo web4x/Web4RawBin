@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:c470b1c1-856b-484a-b777-17be1a600e8b] R30.2 RbTraceTree.eagerChildCountBadges — collapsed sprint badges = real task-count before expand (==live childCount, no false-0, content lazy)
 // [test:uuid:3f583965-6bef-4c38-ba98-6d9fc8768d97] R30.3 RbDetailDrawer.renderSprintDetail — sprint body-click populates detail name/goal/tasks; expander-click toggles only
 // S30 tree fixes gate — prod v0.7.11. READ-ONLY, 0 pollution (trace page). serviceWorkers:'block'
@@ -11,7 +12,7 @@
 //     expander-click only TOGGLES (does NOT select) — the architect caveat.
 
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const childUuid = (url) => { const m = /\/api\/trace\/children\/([^?]+)/.exec(url); return m ? decodeURIComponent(m[1]) : null; };
 const CS = 'current-sprint-singleton-0000-000000000001';

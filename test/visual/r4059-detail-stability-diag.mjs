@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // DIAGNOSE the T40.1 detail-sub-step INSTABILITY (PO 2026-08-29): decide (i) my capture RACES the render (measurement
 // defect → fix method: wait on a deterministic signal, never sleep) vs (ii) the detail GENUINELY empties after tree-nav
 // when the row is not visible (a REAL content-vanish defect on Tron's nav path). NOT re-capture-until-green: open the
 // drawer ONCE and WAIT on a deterministic load signal (panel shows 'Task 40.1' + a Status field), bounded. loads ⇒ (i);
 // times out ⇒ (ii). Compare no-nav vs post-nav. READ-ONLY served prod @390. Termination pattern applied.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const TASK = '7a956c21-5f37-4062-b921-9bdd5a461546';
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:158bdfc7-eef1-4ee3-9899-96fc521e69c9] R30.42 UC1 sentinel + UC2 openRepoManager (Impl bfb92645) — add-via-dialog UI flow: ➕ Add repository FIRST option opens the Repo Manager → add-local(.git)→registers+selects→Manage(repo@branch/path/worktrees)→Clone HIDDEN. GREEN DET-3x v0.7.71, pollution-safe (POST route-intercepted, live registry builtins-only).
 // R30.42 add-via-dialog UI FLOW gate (UC1 sentinel + UC2 dialog), v0.7.71, on Tron's real deep-link.
 // FLOW: .de-repo select → '➕ Add repository…' is the FIRST option (__add__) → opens the Repo Manager dialog →
@@ -10,7 +11,7 @@
 //   (r3043-uc4-add-local-gate). A final FRESH un-routed context asserts LIVE /api/git/repos == builtins-only (proof of no pollution).
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
 const OUT = 'test-results/r3042-add-repo';
 const MOCK_KEY = 'rb-uitest-mock', MOCK_LABEL = 'UI Test Mock';

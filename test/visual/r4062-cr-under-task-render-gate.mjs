@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.62 CR-under-task render — RED BASELINE on TRON'S SURFACE FROM HIS ENTRY (CMM3 step 1 + step 4 in one capture).
 // Tron opens T40.1 on /trace and sees NO ChangeRequest. Measured (structural): his 5 CRs hang 5 expand-steps deep under
 // the Test (T40.1→UC→Method→Impl→Test c4f8a1d6→CR) — invisible from his entry. THIS gate renders it @390 real-WebKit
@@ -6,7 +7,7 @@
 // model, no data migration) must flip this GREEN: expand one level from T40.1 → his CRs ARE visible. DET-3x.
 // ★ Asserts the PROPERTY ON HIS SURFACE (rendered tree row), never the reachable-graph proxy that just burned us.
 import { webkit } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const TASK = '7a956c21-5f37-4062-b921-9bdd5a461546';        // T40.1
 const HIS_CRS = ['18ebe066', '461d5db6', '4babebb1', '7286d45a', 'c27ae455']; // the 5 CRs that ARE T40.1's (under Test c4f8a1d6)
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };

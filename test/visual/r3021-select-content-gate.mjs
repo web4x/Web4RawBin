@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:cc76beea-de3f-46ba-9aad-09728ebd803a] R30.21 graph-independent detail render (RbDetailDrawer.resolveDetailUnit 159fb8f0 — /api/ior fetch-fallback + self-registered detail elements) — Tron's 'select task/class → no content': selecting ANY node type in the drawer renders REAL detail CONTENT, not an empty ~125-char shell. Was: only sprint (renderSprintDetail) rendered; task/req/class/method/impl/test/usecase/file/webitem were EMPTY (this.graph.get()→not-found, elements UNDEFINED on /app). Now all render via the graph-independent fetch.
 // R30.21 (v0.7.31, app-XYZSNPGH.js). ALL 10 detail types. Behavior-first (setAttribute ref → assert real content), DET-3x. SystemTester.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 // one real unit per type (sprint = renderSprintDetail control; the other 9 use type-specific detail elements)
 const REFS = [

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.20 remaining inputs (JOB1 completion). Each dropped input must instantiate its CORRECT CLASS (Tron: no shapes — a unit is
 // a class instance) via the app's OWN #rrc-drop handler, and resolve via /api/ior as that class. URL→WebItem; image→Image;
 // .eml→Email; .vcf→Contact; .ics→CalendarEntry. iOS photo/Mail are DESKTOP-WEBKIT repros (flagged, NOT real iOS). PASS = right
@@ -8,7 +9,7 @@ import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const roomFiles = (roomId) => new Promise((res) => { const u = new URL(`${BASE}/api/trace/children/roomcoll:${roomId}:files`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { res(JSON.parse(d).children || []); } catch { res([]); } }); }).on('error', () => res([])); });
 const iorClass = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api/ior/ior:instance:${uuid}`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { res(JSON.parse(d).className); } catch { res(null); } }); }).on('error', () => res(null)); });

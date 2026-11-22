@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:5ef5b43f-aa5d-49d6-b79d-e5247bdc80d2] R30.5 RbFileTree.loadDir — /edit full project tree on load (DET-3x GREEN, read-only)
 // R30.5 gate — /edit Files pane populates the full project tree on load (RbFileTree.loadDir,
 // impl 0b026300, prod v0.7.13). Fix: root dirPath stays '' (dropped ||'/') → /api/files/ hits
@@ -10,7 +11,7 @@
 //   (c) REGRESSION: expanding a subdir (src) loads its children (subdirs send their real path).
 
 import { chromium } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const EXPECT_DIRS = ['src', 'scenario', 'scrum.pmo', 'test'];
 

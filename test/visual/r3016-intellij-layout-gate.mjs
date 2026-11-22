@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:4ca2ff58-1f79-4299-80c9-4dd6edf9c725] R30.16 RbDiffEditor.alignPaneRows (impl 17c71adf) — viewZone blank-row spacers align each change row L↔C↔R (near-horizontal ribbons) + scrollBeyondLastLine
 // [test:uuid:ae075854-70b7-4760-96a1-2ee6b84b3e4e] R30.16 RbDiffEditor.renderCenterChangeBlocks (impl 37c9694c) — colored ROUNDED center blocks (de-block-conflict #a5603a / change #3a6ea5 / resolvable #3a8a5a) color-matched to the connector ribbons (shared CONFLICT_PALETTE)
 // R30.16 full IntelliJ merge layout (v0.7.23): (1) ribbons VISIBLE in the widened 34px gutter, (2) colored rounded center
@@ -12,7 +13,7 @@ import fs from 'fs';
 import path from 'path';
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const OUT = path.join(REPO, 'test-results/merge-visual');
 fs.mkdirSync(OUT, { recursive: true });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

@@ -1,5 +1,6 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 import { chromium } from '@playwright/test';
-const BASE='https://prod.wo-da.de:4444';
+const BASE=RB_BASE;
 const b=await chromium.launch({headless:true,args:['--no-sandbox','--ignore-certificate-errors']});
 const ctx=await b.newContext({ignoreHTTPSErrors:true,viewport:{width:480,height:900}});
 await ctx.addInitScript(()=>{localStorage.setItem('rawbin-player-id','ce981242-74fe-4d44-b5b6-43c641e224df');localStorage.setItem('rawbin-name','SystemTester');['privateKey','publicKey','signature'].forEach(k=>localStorage.setItem('rawbin-device-'+k,'e2e'));});

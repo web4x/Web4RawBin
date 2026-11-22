@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R31.12 v0.7.146 radio DE-DUPE — WIRING gate only. ⛔ CREDIT HELD: this validates the de-dupe STRUCTURE in Chromium;
 // it does NOT and CANNOT prove the radio STICKS on real iOS-WebKit (Chromium can't reproduce the iOS state-revert — that
 // is the DEVICE oracle, Tron). Root of the v0.7.145 flicker-revert = DOUBLE-activation (belt on click+pointerup AND for=+wrap
@@ -9,7 +10,7 @@ import { devices, chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
+const HOST = RB_HOST, PORT = RB_PORT, BASE = `https://${HOST}:${PORT}`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';
 const CLIENT_VER = 'rawbin-v0.7.146';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:79643883-2892-4894-a0d7-7601fb3bf055] R26.1 resolveFederated
 // T26.1 v0.7.2 gate — federated IOR (provenance + pluggable resolver). PURE-FUNCTION tests on
 // federated-ior.ts (parseFederatedIor / isLocalOrigin / federatedIor / resolveFederated) + one
@@ -16,7 +17,7 @@ const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..
 
 const REPO = __repo;
 const REAL_IOR = 'ior:instance:c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d'; // existing WebItem
-const httpGet = (p) => new Promise((res) => { const r = https.get({ host: 'prod.wo-da.de', port: 4444, path: p, rejectUnauthorized: false, timeout: 8000 }, (x) => { let d = ''; x.on('data', c => d += c); x.on('end', () => res({ status: x.statusCode, body: d })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); });
+const httpGet = (p) => new Promise((res) => { const r = https.get({ host: RB_HOST, port: RB_PORT, path: p, rejectUnauthorized: false, timeout: 8000 }, (x) => { let d = ''; x.on('data', c => d += c); x.on('end', () => res({ status: x.statusCode, body: d })); }); r.on('error', () => res({ status: 0 })); r.on('timeout', () => { r.destroy(); res({ status: 0 }); }); });
 
 function pureFns() {
   const out = execSync(`npx tsx -e "` +

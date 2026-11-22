@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:8f464c84-cb62-41b7-aa55-55344725e075] R21.2 renderNameOnConnect
 // R21.2 gate — lobby #member-name LIVE-updates after vCard import, NO reload.
 // Fix: fb369d340 (v0.6.63). RoomBrowser subscribes to PROFILE_UPDATED and patches
@@ -19,7 +20,7 @@
 
 import { chromium } from '@playwright/test';
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+const BASE = process.env.GATE_BASE || RB_BASE;
 const TAGBASE = 'r212gate';
 const results = [];
 

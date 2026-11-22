@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R36.3 method-facet signature render — INDEPENDENT tester gate, @390 real-WebKit + served re-generate, DET-3x.
 // Chains (req mint 1470075c8): enrichMethodSignature 68d1997e RIDES generate 382f8644 (data) + renderMethodFacet d8818494
 // RIDES renderFacet 94ad4f50 (render). 3 distinct-intent Tests to wire on GREEN: T1 data-extract@382f8644,
@@ -21,7 +22,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = RB_BASE;
 const TARGET = process.env.R363_TARGET || '0.8.59';
 const SP = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad';
 const FACET_BUNDLE = fs.readFileSync(path.join(SP, 'facet-probe.bundle.js'), 'utf8');
@@ -34,7 +35,7 @@ const U_GREET = keyToUuid(`${FIXREL}::Greeter.greet`), U_TALLY = keyToUuid(`${FI
 
 const http = (method: string, p: string, body?: any): Promise<{ status: number; json: any }> => new Promise((res) => {
   const data = body ? JSON.stringify(body) : undefined;
-  const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method, rejectUnauthorized: false, headers: data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: r.statusCode || 0, json: j }); }); });
+  const q = https.request({ host: RB_HOST, port: RB_PORT, path: p, method, rejectUnauthorized: false, headers: data ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } : {} }, (r) => { let b = ''; r.on('data', (c) => b += c); r.on('end', () => { let j = null; try { j = JSON.parse(b); } catch { /* */ } res({ status: r.statusCode || 0, json: j }); }); });
   q.on('error', () => res({ status: 0, json: null })); if (data) q.write(data); q.end();
 });
 const served: string = (await http('GET', '/api/config')).json?.version || '?';

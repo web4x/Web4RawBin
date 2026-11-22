@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:a3f9c1d7-2b48-4e91-8c05-6f1a9d3b74e2] R40.2-root graceful-degradation-is-LOUD — DISTINCT intent (not the
 // render-contract e9b21f74): OtmuxBridge.buildRootedTree fail-opens LOUD — a missing / non-`node` unit yields a VISIBLE
 // ⚠ notice row naming the uuid + a server WARN, flat sessions still wrapped, NEVER a silent slide to the bare flat list.
@@ -18,7 +19,7 @@ import { OtmuxBridge } from '../../src/ts/server/OtmuxBridge.js';
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
 const NODE_UUID = 'fc327458-03d1-4b90-847d-ab52a7d82237';
 const httpGet = (p: string, h = {}): Promise<{ status: number; body: string }> => new Promise((res) => {
-  const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (x) => { let b = ''; x.on('data', (c) => b += c); x.on('end', () => res({ status: x.statusCode || 0, body: b })); });
+  const r = https.request({ host: RB_HOST, port: RB_PORT, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (x) => { let b = ''; x.on('data', (c) => b += c); x.on('end', () => res({ status: x.statusCode || 0, body: b })); });
   r.on('error', () => res({ status: 0, body: 'ERR' })); r.end();
 });
 

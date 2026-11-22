@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // NEXT-GATE READINESS for the room-folder RENDER fix (delete the eager Room-type flatten branch; route Files through the
 // existing roomcoll lazy branch). Covers THREE of the PO's four (A5a/A5b live in r4022 / r4022b). Dual-mode:
 //   ARM_COMMIT=<sha> [ARM_BUILD=1] → spin an isolated SCRATCH build (pre-deploy gate); else BASE=prod (baseline / post-deploy).
@@ -16,7 +17,7 @@ const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, is
   userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1' };
 
 const ARM = process.env.ARM_COMMIT || '';
-let base = process.env.BASE || 'https://prod.wo-da.de:4444';
+let base = process.env.BASE || RB_BASE;
 let foundation = null;
 if (ARM) {
   const { setupFoundation } = await import('./r4031-foundation.mjs');

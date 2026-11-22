@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R31.8c P0 SECURITY — /api/trace/children Feature-branch owner-gate (credential-leak fix 6c6359285, v0.7.113).
 // verify-by-pid: gated ONLY on a server whose pid POST-dates the fix commit (the earlier 2h-old pid was the version-lie
 // phantom I caught). DET-3x. INDEPENDENT of the architect's backstop (I probe raw, assert no leak + no over-gate).
@@ -7,7 +8,7 @@
 // by my r318b flip; the P0 here is the PUBLIC LEAK (must be 403+no-leak).
 import https from 'node:https';
 import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
-const HOST = 'prod.wo-da.de', PORT = 4444, OWNER = OWNER_LITERAL;
+const HOST = RB_HOST, PORT = RB_PORT, OWNER = OWNER_LITERAL;
 const SM = '16604eee-d844-4efb-bd4d-881433ca82a6', FM = '2980b7d9-a166-44ca-bf73-5dd1a4ba7b16';
 const NONFEATURE = '2173e549-ca99-43e5-aea8-946b02141c13'; // Sprint 30 (non-Feature scenario unit → public)
 const get = (path) => new Promise((res) => { const q = https.request({ host: HOST, port: PORT, path, method: 'GET', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res({ status: r.statusCode, body: b })); }); q.on('error', () => res({ status: 0, body: '' })); q.end(); });

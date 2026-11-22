@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.20 INC-3 / R40.104 — the '✎ Rename…' affordance. A unit rename sets model.displayName (WINS), keeps the
 // uuid/ior STABLE, and PRESERVES originalName (the pre-rename name). Live 0.8.209+, SystemTester, via the SAME
 // /api/room/<id>/rename-unit route the affordance calls (UnitController.apply seam). DET-3x.
@@ -6,7 +7,7 @@ import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const post = (path, body) => new Promise((res) => { const u = new URL(`${BASE}${path}`); const data = Buffer.from(JSON.stringify(body)); const req = https.request({ hostname: u.hostname, port: u.port, path: u.pathname, method: 'POST', rejectUnauthorized: false, headers: { 'Content-Type': 'application/json', 'Content-Length': data.length } }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { let j = {}; try { j = JSON.parse(d); } catch {} res({ status: r.statusCode, body: j }); }); }); req.on('error', (e) => res({ status: 0, body: { error: String(e.message) } })); req.write(data); req.end(); });

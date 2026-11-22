@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.106 INC-6 (edge-aware tree render + per-edge remove) — PRE-BUILT gate, ready to flip GREEN the moment INC-6 deploys.
 // Uses the link-unit ENDPOINT directly (the "Link here" affordance is hidden on 0.8.217, but the data path works).
 // Reuses fixed room 909f1bd6, ZERO room creation. Each assertion FAILABLE BOTH WAYS. Version-stamped.
@@ -13,7 +14,7 @@ import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444', SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df', ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';
+const BASE = RB_BASE, SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df', ROOM = '909f1bd6-1f97-4542-b02b-242cfcc41f5e';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const bare = (r) => String(r || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
 const iorUnit = (u) => new Promise(res => { https.get(`${BASE}/api/ior/ior:instance:${u}`, { rejectUnauthorized: false }, r => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b)?.unit?.model || null); } catch { res(null); } }); }).on('error', () => res(null)); });

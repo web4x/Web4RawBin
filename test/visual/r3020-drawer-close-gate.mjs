@@ -1,8 +1,9 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // [test:uuid:ea1e97b8-1fbf-4687-a6cd-c181580873b5] R30.20 RbDetailDrawer.closeOrReturn (Impl 65f43714) — mode-aware ✕: (1) TRACE+detail (no chat panel) → ✕ MINIMIZES; (2) IN-ROOM+detail (chat panel exists) → ✕ returns to CHAT (setMode chat, room preserved, not minimized); (3) IN-ROOM+chat → ✕ MINIMIZES; (4) ESC → fully CLOSES (separate handler, removes 'open'). in-room = this.chatPanel non-null.
 // R30.20 (v0.7.29, app-XL7BPWFG.js). Behavior-first (real page.click ✕ / real Escape → assert drawer STATE), DET-3x. SystemTester.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

@@ -1,3 +1,4 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // R40.62 recorder-survival POST-DEPLOY gate (PO method) — the END-TO-END pairing IS the gate: the client TRIGGER
 // and the server SINK must BOTH be live, or Tron's reload captures ZERO (existence of either half alone proves nothing).
 // Per surface: parse the SERVED page for the bundle it NOW references (hashes changed in the rebuild — NEVER reuse a
@@ -6,7 +7,7 @@
 // UNPROVEN-not-skip on any unreadable surface. Any surface ABSENT => RED => expert restores backup, no fix-forward.
 import fs from 'fs';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const MARKER = '/api/diag/live-mvc';
 const raw = {}; let pass = 0, fail = 0, unproven = 0;
 const A = (c, m) => { if (c) pass++; else { fail++; console.log('  FAIL:', m); } };

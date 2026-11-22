@@ -1,10 +1,11 @@
+import { RB_HOST, RB_PORT, RB_BASE, RB_WSS } from './_target.mjs'; // phase 1: isolated by default, RAWBIN_TARGET=prod to opt in
 // T37.20.3 File-type disambiguation: the code-type sample showed file:03110815 render '⚠ unresolved' (a stale evidence unit,
 // size=undefined). Is the FILE TYPE detail broken (R30.21) or just that unit? Re-render REAL content-bearing File units.
 import { webkit } from '@playwright/test';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const R = (v) => console.log(v);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const BASE = 'https://prod.wo-da.de:4444';
+const BASE = RB_BASE;
 const FILES = [
   { uuid: '03110815-a754-468e-bbfc-8bba7c41d1e8', note: 'evidence (size=undefined)' },
   { uuid: '051a6371-a4cf-4dd2-85ba-d3769ab98b16', note: 'champagne.txt (27b)' },
