@@ -57,3 +57,4 @@
   - [ ] **(no-token-only-login)** A bare token no longer logs a user in; device-key login is required.
   - [ ] **(rotated-secrets)** Test and owner tokens are out of the repo and the public ones are rotated.
   -> room.createWithConnectionIdentity [uc:uuid:13be1a82-54f9-449f-b148-6c9ace942800]
+  -> user.loginWithDeviceKey [uc:uuid:b8d2fb96-dcd1-428d-9c39-15b2ab28e2aa]

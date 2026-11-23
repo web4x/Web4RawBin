@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:26581474-bebb-4009-80f9-473efd0a0a97",
+  "model": {
+    "uuid": "9afcb4d5-37f6-485b-bc6a-e79ec7c6f5c4",
+    "name": "impl:UserKeys.authorizedKeyEntries",
+    "sourceFile": "src/ts/server/UserKeys.ts",
+    "sourceLine": 201,
+    "methods": [
+      "ior:instance:26581474-bebb-4009-80f9-473efd0a0a97"
+    ],
+    "tests": [
+      "ior:instance:ac8c40f7-1768-45c3-8a01-fdd9004a7818"
+    ]
+  }
+}

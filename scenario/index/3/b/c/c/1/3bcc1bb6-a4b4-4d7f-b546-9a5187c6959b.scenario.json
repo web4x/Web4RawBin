@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "3bcc1bb6-a4b4-4d7f-b546-9a5187c6959b",
+    "name": "LoginGate",
+    "description": "IDENTIFY with only a token logs into no account that has keys; the connection is parked until the device key or the secret code is proven (R42.5 no-token-only-login).",
+    "sourceFile": "ior:file:src/ts/server/login-gate.ts",
+    "methods": [
+      "ior:instance:b9d5c76b-4e37-4c89-87d3-d95a6a0d9519"
+    ],
+    "useCases": [
+      "ior:instance:b8d2fb96-dcd1-428d-9c39-15b2ab28e2aa"
+    ],
+    "unitLinks": []
+  }
+}

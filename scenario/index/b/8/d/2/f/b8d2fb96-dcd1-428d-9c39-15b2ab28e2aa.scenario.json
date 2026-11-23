@@ -1,0 +1,34 @@
+{
+  "ior": "ior:class:UseCase",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "b8d2fb96-dcd1-428d-9c39-15b2ab28e2aa",
+    "name": "user.loginWithDeviceKey",
+    "object": "user",
+    "verb": "loginWithDeviceKey",
+    "description": "A returning user is logged in only by an enrolled device key (or by enrolling this device with the secret code); a token alone logs into no account that has keys.",
+    "coversRequirement": "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8",
+    "requirements": [
+      "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8"
+    ],
+    "tasks": [
+      "ior:instance:cfff2674-5358-4149-b672-762cc76a94a5"
+    ],
+    "classes": [
+      "ior:instance:3bcc1bb6-a4b4-4d7f-b546-9a5187c6959b",
+      "ior:instance:f9a8bc7c-00a1-41c2-bbdb-9824bb1844f6"
+    ],
+    "class": "ior:instance:3bcc1bb6-a4b4-4d7f-b546-9a5187c6959b",
+    "method": "ior:instance:b9d5c76b-4e37-4c89-87d3-d95a6a0d9519",
+    "implementations": [
+      "ior:instance:1a22f1be-3c5e-4333-b8e3-8d333ca34629",
+      "ior:instance:9afcb4d5-37f6-485b-bc6a-e79ec7c6f5c4"
+    ],
+    "tests": [
+      "ior:instance:6b08038b-5e76-4f06-a9c2-982463c2b55b",
+      "ior:instance:348cc607-d3b8-4d97-a81c-c1d9043dbc79",
+      "ior:instance:ac8c40f7-1768-45c3-8a01-fdd9004a7818"
+    ],
+    "unitLinks": []
+  }
+}

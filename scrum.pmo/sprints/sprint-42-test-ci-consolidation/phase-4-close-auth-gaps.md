@@ -12,14 +12,15 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing (connection identity PR #6; CI-made release tags)
-  - [ ] implementing (device-key login instead of bare token; tokens out of the repo + rotation)
+  - [x] implementing (device-key login instead of bare token: IDENTIFY parked until DEVICE_AUTH or secret-code enrollment)
+  - [ ] implementing (tokens out of the repo + rotation)
   - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Done 2026-11-22: CREATE_ROOM/JOIN_ROOM use the connection's identity (PR #6); release tags are made by CI (.github/workflows/release.yml + scripts/tag-on-merge.mjs: tag v<version> only when a push to main bumps the version). Open: device-key login instead of a bare token; test/owner tokens out of the repo and rotated (needs TRON's go).
+Done 2026-11-22: CREATE_ROOM/JOIN_ROOM use the connection's identity (PR #6); release tags are made by CI (.github/workflows/release.yml + scripts/tag-on-merge.mjs: tag v<version> only when a push to main bumps the version). Open: device-key login instead of a bare token; test/owner tokens out of the repo and rotated (needs TRON's go). | 2026-11-23 (Tron: "no users automatically log in with a token only" — "with a key only"): an account with keys is entered only with an enrolled device key or by enrolling the device with the secret code (src/ts/server/login-gate.ts). Found while doing it: device-key login had never worked — authorized_keys holds multi-line PEM keys but was matched line by line (fixed in UserKeys.authorizedKeyEntries). Still open: tokens out of the repo + rotation (needs Tron's go), HTTP endpoints that accept ?token=.
 
 ## Task Description
 

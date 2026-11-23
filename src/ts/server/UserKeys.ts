@@ -140,7 +140,7 @@ export function addAuthorizedKey(token: string, devicePublicKey: string): void {
   const p = getAuthorizedKeysPath(token, { mint: true });
   const existing = getAuthorizedKeys(token);
   const trimmed = devicePublicKey.trim();
-  if (existing.includes(trimmed)) return;
+  if (authorizedKeyEntries(existing.join('\n')).some(k => sameKey(k, trimmed))) return;
   const content = existing.length > 0 ? existing.join('\n') + '\n' + trimmed + '\n' : trimmed + '\n';
   writeKeySafe(p, content);
 }
@@ -193,10 +193,23 @@ export function enrollDevice(userToken: string, deviceId: string): { devicePubli
   return { devicePublicKey: publicKey, devicePrivateKey: privateKey, signature };
 }
 
+/**
+ * R42.5: the keys in an authorized_keys file. Device keys are multi-line PEM blocks, so the file is NOT one key per
+ * line: each PEM block is one key, and any other non-empty line (an OpenSSH one-liner) is one key. Splitting by line
+ * (getAuthorizedKeys) never matched a PEM device key, so DEVICE_AUTH always failed and token login hid it.
+ */
+// [impl:uuid:9afcb4d5-37f6-485b-bc6a-e79ec7c6f5c4] UserKeys.authorizedKeyEntries — one entry per key (PEM block or one-line key)
+export function authorizedKeyEntries(content: string): string[] {
+  const pem = content.match(/-----BEGIN [A-Z ]+-----[\s\S]*?-----END [A-Z ]+-----/g) || [];
+  const rest = content.replace(/-----BEGIN [A-Z ]+-----[\s\S]*?-----END [A-Z ]+-----/g, '').split('\n').map(l => l.trim()).filter(Boolean);
+  return [...pem, ...rest];
+}
+const sameKey = (a: string, b: string) => a.replace(/\s+/g, '') === b.replace(/\s+/g, '');
+
 export function verifyChallenge(userToken: string, devicePublicKey: string, challenge: string, signedChallenge: string): boolean {
-  const authorizedKeys = getAuthorizedKeys(userToken);
-  const trimmedKey = devicePublicKey.trim();
-  if (!authorizedKeys.some(k => k.trim() === trimmedKey)) return false;
+  if (!userToken || !devicePublicKey || !challenge || !signedChallenge) return false;
+  let content = ''; try { const p = getAuthorizedKeysPath(userToken); if (fs.existsSync(p)) content = fs.readFileSync(p, 'utf-8'); } catch { return false; }
+  if (!authorizedKeyEntries(content).some(k => sameKey(k, devicePublicKey))) return false;
   try {
     return crypto.verify('sha256', Buffer.from(challenge, 'hex'), devicePublicKey, Buffer.from(signedChallenge, 'base64'));
   } catch { return false; }
