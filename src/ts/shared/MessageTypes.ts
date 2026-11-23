@@ -52,6 +52,7 @@ export const MSG = {
   KNOWN_KEY_CHALLENGE: 'KNOWN_KEY_CHALLENGE',
   DEVICE_AUTH_OK: 'DEVICE_AUTH_OK',
   DEVICE_AUTH_FAILED: 'DEVICE_AUTH_FAILED',
+  AUTH_REQUIRED: 'AUTH_REQUIRED', // R42.5: this token's account has device keys — log in with the device key (or the secret code)
   BUG_REPORT_OK: 'BUG_REPORT_OK',
   PAIR_OK: 'PAIR_OK',
 } as const;

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "ownerIor": "ior:instance:9afcb4d5-37f6-485b-bc6a-e79ec7c6f5c4",
+  "model": {
+    "uuid": "ac8c40f7-1768-45c3-8a01-fdd9004a7818",
+    "name": "test:UserKeys.authorizedKeyEntries",
+    "description": "AC no-token-only-login: a challenge signed by an enrolled PEM device key verifies on the real module",
+    "sourceFile": "ior:file:test/vitest/device-key-auth.test.ts",
+    "implementations": [
+      "ior:instance:9afcb4d5-37f6-485b-bc6a-e79ec7c6f5c4"
+    ],
+    "useCase": "ior:instance:b8d2fb96-dcd1-428d-9c39-15b2ab28e2aa",
+    "requirement": "ior:instance:e75836a9-af48-40a5-af0d-ba1a3b0971d8",
+    "status": "pass",
+    "unitLinks": []
+  }
+}

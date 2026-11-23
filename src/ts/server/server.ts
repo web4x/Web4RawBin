@@ -75,6 +75,7 @@ import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { detailScalarFields } from '../shared/detail-fields.js';
 import { createUserHome, getUserHomeDir, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { identifyGate } from './login-gate.js';
 import { initStorageMap, REKEY_APPLIED, homeKeyFor } from './storage-id.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir, setGuardResolveToken } from './RoomKeys.js';
 import { legacyGenHitsCleanClassR0 } from './clean-class-guard.js'; // R0 containment (oopPO-ranked): refuse legacy generate over a scenario clean-class (dup-hazards the live model)
@@ -218,6 +219,8 @@ interface WebSocketClient {
   authenticated: boolean;
   authMethod: 'none' | 'token' | 'device-key';
   challenge: string;
+  pendingToken?: string;   // R42.5: IDENTIFY parked until the device key (or secret code) is proven
+  pendingIdentify?: any;
   isAlive?: boolean;      // WS KEEPALIVE: reset true on every pong
   missedPongs?: number;   // WS KEEPALIVE: consecutive unanswered pings → terminate at KEEPALIVE_MAX_MISSED_PONGS
 }
@@ -5006,6 +5009,17 @@ function setupWebSocketServer(server: https.Server): void {
 const connectionTokenOf = (clientId: string): string =>
   [...wsClients].find(c => c.id === clientId)?.playerToken || '';
 
+// R42.5 (LoginGate.identifyGate, login-gate.ts): complete a parked IDENTIFY once the device is proven
+function completeDeviceKeyLogin(client: WebSocketClient, clientId: string, ws: WebSocket): void {
+  const parked = client.pendingIdentify;
+  client.authenticated = true;
+  client.authMethod = 'device-key';
+  client.playerToken = client.pendingToken || client.playerToken;
+  client.pendingToken = undefined;
+  client.pendingIdentify = undefined;
+  if (parked) handleMessage(clientId, ws, parked); // identifyGate now answers 'already-proven'
+}
+
 function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
   const send = (data: object) => ws.send(JSON.stringify(data));
 
@@ -5230,6 +5244,19 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (isRevoked(token, revokedTokens)) {
         addLog(`Revoked token rejected at IDENTIFY: ${token.slice(0, 8)}`);
         break;
+      }
+      // R42.5 no-token-only-login (Tron 2026-11-23: "no users automatically log in with a token only" — "with a key
+      // only"): an account with keys is entered by proving the device key. Park this IDENTIFY: the connection stays
+      // anonymous (no tokenToClient, no playerToken, nothing about the account sent) until DEVICE_AUTH or
+      // DEVICE_ENROLL_REQUEST proves it, which then completes it.
+      {
+        const gateClient = [...wsClients].find(c => c.id === clientId);
+        if (identifyGate(userProfiles.get(token), gateClient, token) === 'device-key-required') {
+          if (gateClient) { gateClient.pendingToken = token; gateClient.pendingIdentify = { ...msg, playerToken: token }; }
+          send({ type: MSG.AUTH_REQUIRED, reason: 'device-key' });
+          addLog(`IDENTIFY parked until device-key auth: ${token.slice(0, 8)}`);
+          break;
+        }
       }
       tokenToClient.set(token, clientId);
       const thisClient = [...wsClients].find(c => c.id === clientId);
@@ -5476,7 +5503,8 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     case MSG.DEVICE_ENROLL_REQUEST: {
       // R21.4: if msg.profileUuid is set, this is a known-key device-link — enroll the
       // new device under the EXISTING profile (not the connecting fresh token).
-      const connectingToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const connectingToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0]
+        || [...wsClients].find(c => c.id === clientId)?.pendingToken; // R42.5: a parked IDENTIFY re-enrolls with the secret code
       const targetUuid = (typeof msg.profileUuid === 'string' && msg.profileUuid) ? msg.profileUuid : connectingToken;
       const enrollToken = targetUuid;
       if (!enrollToken) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Not identified' }); break; }
@@ -5505,6 +5533,8 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       saveDevices();
       send({ type: MSG.DEVICE_ENROLL_OK, devicePublicKey: result.devicePublicKey, devicePrivateKey: result.devicePrivateKey, signature: result.signature });
       addLog(`Device enrolled: ${enrollToken.slice(0,8)} / ${enrollDeviceId.slice(0,8)}${isDeviceLink ? ' (R21.4 device-link)' : ''}`);
+      // R42.5: the secret code + the key just enrolled prove this device — complete a parked IDENTIFY for this account.
+      if (!isDeviceLink && enrollClient?.pendingToken === enrollToken) { completeDeviceKeyLogin(enrollClient, clientId, ws); break; }
       if (isDeviceLink) {
         // Adopt the existing identity on this device: redirect token + bind this client.
         tokenToClient.set(enrollToken, clientId);
@@ -5519,7 +5549,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     case MSG.DEVICE_AUTH: {
       const authClient = [...wsClients].find(c => c.id === clientId);
       if (!authClient?.challenge) { send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'No challenge' }); break; }
-      const authToken = authClient.playerToken;
+      const authToken = authClient.playerToken || authClient.pendingToken || ''; // R42.5: a parked IDENTIFY proves its key here
       if (!authToken) { send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'Not identified' }); break; }
       const { devicePublicKey, signedChallenge } = msg;
       if (!devicePublicKey || !signedChallenge) { send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'Missing credentials' }); break; }
@@ -5530,6 +5560,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         authClient.challenge = '';
         send({ type: MSG.DEVICE_AUTH_OK });
         addLog(`Device-key auth: ${authToken.slice(0,8)}`);
+        if (authClient.pendingToken === authToken) completeDeviceKeyLogin(authClient, clientId, ws);
       } else {
         send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'Invalid signature' });
       }

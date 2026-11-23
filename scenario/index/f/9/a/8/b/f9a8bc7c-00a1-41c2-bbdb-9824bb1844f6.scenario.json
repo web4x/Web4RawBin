@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
+  "model": {
+    "uuid": "f9a8bc7c-00a1-41c2-bbdb-9824bb1844f6",
+    "name": "UserKeys",
+    "description": "Reads authorized_keys as one entry per PEM block or one-line key, so an enrolled device key verifies (device-key login had never matched).",
+    "sourceFile": "ior:file:src/ts/server/UserKeys.ts",
+    "methods": [
+      "ior:instance:26581474-bebb-4009-80f9-473efd0a0a97"
+    ],
+    "useCases": [
+      "ior:instance:b8d2fb96-dcd1-428d-9c39-15b2ab28e2aa"
+    ],
+    "unitLinks": []
+  }
+}

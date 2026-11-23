@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:f9a8bc7c-00a1-41c2-bbdb-9824bb1844f6",
+  "model": {
+    "uuid": "26581474-bebb-4009-80f9-473efd0a0a97",
+    "name": "UserKeys.authorizedKeyEntries",
+    "className": "UserKeys",
+    "methodName": "authorizedKeyEntries",
+    "sourceFile": "ior:file:src/ts/server/UserKeys.ts",
+    "useCase": "ior:instance:b8d2fb96-dcd1-428d-9c39-15b2ab28e2aa",
+    "implementations": [
+      "ior:instance:9afcb4d5-37f6-485b-bc6a-e79ec7c6f5c4"
+    ],
+    "parent": "ior:instance:f9a8bc7c-00a1-41c2-bbdb-9824bb1844f6",
+    "unitLinks": []
+  }
+}

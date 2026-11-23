@@ -14,6 +14,19 @@ const container = document.getElementById('app')!;
 const profileEditor = new ProfileEditor(client);
 const deviceEnroll = new DeviceEnrollDialog(client);
 
+// R42.5 no-token-only-login: an account with keys is entered with the device key only. The server parks IDENTIFY
+// (AUTH_REQUIRED) until RawBinClient's DEVICE_AUTH proves the key. A device without a key, or with a key the server
+// no longer accepts, authorizes itself with the account's secret code; the server then completes the login and
+// sends PROFILE, which init() is waiting for.
+function askForSecretCode(): void {
+  if (!document.getElementById('de-code')) deviceEnroll.open(() => {});
+}
+client.on(MSG.AUTH_REQUIRED, () => { if (!hasDeviceKeys()) askForSecretCode(); });
+client.on(MSG.DEVICE_AUTH_FAILED, () => {
+  for (const k of ['rawbin-device-privateKey', 'rawbin-device-publicKey', 'rawbin-device-signature']) localStorage.removeItem(k);
+  askForSecretCode();
+});
+
 const browser = new RoomBrowser(client, container, (roomId) => {
   browser.hide();
   roomView.show(roomId);

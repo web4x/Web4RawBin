@@ -8,7 +8,7 @@
     "slug": "phase-4-close-auth-gaps",
     "description": "CREATE_ROOM/JOIN_ROOM use the connection identity; device-key login required; tokens out of the repo and rotated; CI bumps version, stamps sw.js, tags and deploys on merge to main. DONE: CREATE_ROOM/JOIN_ROOM act as the connection's IDENTIFY identity (src/ts/server/connection-identity.ts), a foreign msg.playerToken is refused and no longer re-binds tokenToClient. OPEN: device-key login instead of bare-token IDENTIFY; tokens out of the repo + rotation (needs Tron: touches live users); CI-made release tags (with T42.2).",
     "intention": "Part of the Sprint 42 radical consolidation (see the sprint goal).",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing (connection identity PR #6; CI-made release tags)\n  - [ ] implementing (device-key login instead of bare token; tokens out of the repo + rotation)\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing (connection identity PR #6; CI-made release tags)\n  - [x] implementing (device-key login instead of bare token: IDENTIFY parked until DEVICE_AUTH or secret-code enrollment)\n  - [ ] implementing (tokens out of the repo + rotation)\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
     "status": "In Progress",
     "waitingOn": "T42.2–T42.4 done; Tron's decision whether CI deploys.",
     "priority": "P0 — Tron-directed consolidation (2026-11-22)",
@@ -19,13 +19,14 @@
     ],
     "useCases": [
       "ior:instance:22888819-dbdc-4b82-b5bf-75b9bb82bf75",
-      "ior:instance:13be1a82-54f9-449f-b148-6c9ace942800"
+      "ior:instance:13be1a82-54f9-449f-b148-6c9ace942800",
+      "ior:instance:b8d2fb96-dcd1-428d-9c39-15b2ab28e2aa"
     ],
     "parent": "ior:instance:17d84f07-a014-4fb2-ad83-2a2d9ceec5cf",
     "sprintName": "Sprint 42",
-    "remainingIssues": "Done 2026-11-22: CREATE_ROOM/JOIN_ROOM use the connection's identity (PR #6); release tags are made by CI (.github/workflows/release.yml + scripts/tag-on-merge.mjs: tag v<version> only when a push to main bumps the version). Open: device-key login instead of a bare token; test/owner tokens out of the repo and rotated (needs TRON's go).",
+    "remainingIssues": "Done 2026-11-22: CREATE_ROOM/JOIN_ROOM use the connection's identity (PR #6); release tags are made by CI (.github/workflows/release.yml + scripts/tag-on-merge.mjs: tag v<version> only when a push to main bumps the version). Open: device-key login instead of a bare token; test/owner tokens out of the repo and rotated (needs TRON's go). | 2026-11-23 (Tron: \"no users automatically log in with a token only\" — \"with a key only\"): an account with keys is entered only with an enrolled device key or by enrolling the device with the secret code (src/ts/server/login-gate.ts). Found while doing it: device-key login had never worked — authorized_keys holds multi-line PEM keys but was matched line by line (fixed in UserKeys.authorizedKeyEntries). Still open: tokens out of the repo + rotation (needs Tron's go), HTTP endpoints that accept ?token=.",
     "createdBy": "claude-code-consolidation-agent",
     "createdAt": "2026-11-22",
-    "lastAdvancedAt": "2026-11-22T12:55:00Z"
+    "lastAdvancedAt": "2026-11-23T08:00:00Z"
   }
 }
