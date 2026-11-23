@@ -114,5 +114,11 @@ export async function loginAs(page: Page, who: Who = 1): Promise<void> {
   }, { kv: entries, tag: String(who) });
   await page.goto('/app');
   await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+  // A fresh context's first load installs the service worker; when it claims the page, rb-update-banner reloads
+  // once (controllerchange). Device-key login adds a round trip, so the lobby can now show BEFORE that reload: wait
+  // until the worker controls the page and the reload (if any) has settled, so the test never acts on a dying page.
+  await page.waitForFunction(() => !!navigator.serviceWorker?.controller, null, { timeout: 10000 }).catch(() => {});
+  await page.waitForTimeout(500);
+  await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
   await page.waitForSelector('.lobby', { timeout: 15000 });
 }
